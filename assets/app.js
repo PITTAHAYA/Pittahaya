@@ -462,7 +462,7 @@
   });
 
   // WhatsApp floating button (update WHATSAPP_NUMBER with your real number)
-  const WHATSAPP_NUMBER = "593999999999";
+  const WHATSAPP_NUMBER = "17783187994";
   const WA_MSG = encodeURIComponent("Hola Pittahaya, me interesa solicitar un diagnóstico gratis para mi web.");
   const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_MSG}`;
 
