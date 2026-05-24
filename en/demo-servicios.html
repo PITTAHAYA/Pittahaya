@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,12 +7,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Demo · The Service Studio | Pittahaya</title>
-  <link rel="icon" href="assets/pitahaya-logo.png" />
-  <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
-  <meta name="description" content="Demo inmersiva de sitio de servicios. Scope claro, paquetes, proceso y cotización elegante." />
+  <link rel="icon" href="../assets/pitahaya-logo.png" />
+  <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
+  <meta name="description" content="Immersive services site demo. Clear scope, packages, process and elegant pricing." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Demo · The Service Studio | Pittahaya" />
-  <meta property="og:url" content="https://www.pittahaya.com/demo-servicios.html" />
+  <meta property="og:url" content="https://www.pittahaya.com/en/demo-servicios.html" />
   <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
+  <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
   <style>
 :root{--ink:#0a1213;--ink2:#0e1a1c;--cream:#f4f1e8;--muted:rgba(244,241,232,.66);--line:rgba(244,241,232,.10);--moss:#8acb63;--moss2:#bcec88;--leaf:#10b981;--shadow:0 30px 100px rgba(0,0,0,.55)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -71,16 +71,15 @@ h1.heroH{font-family:"Fraunces",ui-serif,Georgia,serif;font-weight:600;font-size
 .sectionHead h2 em{font-style:italic;color:var(--moss)}
 .sectionHead p{margin:0;color:var(--muted);line-height:1.75;font-size:16px}
 .svcStack{display:grid;gap:14px}
-.svc{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:24px 28px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));transition:transform .35s ease,border-color .35s ease,background .35s ease;cursor:pointer}
+.svc{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;padding:24px 28px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));transition:all .35s ease;cursor:pointer}
 .svc:hover{transform:translateX(8px);border-color:rgba(138,203,99,.42);background:rgba(138,203,99,.06)}
 .svcNum{font-family:"JetBrains Mono",monospace;color:var(--moss);font-size:11px;letter-spacing:1.6px;width:40px}
 .svcMain h3{font-family:"Fraunces",serif;font-size:26px;line-height:1.05;margin:0 0 6px;font-weight:600}
 .svcMain p{margin:0;color:rgba(244,241,232,.62);font-size:14px;line-height:1.55}
 .svcPrice{font-family:"Fraunces",serif;font-size:22px;color:var(--moss);text-align:right;white-space:nowrap}
 .svcPrice small{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--muted);letter-spacing:1.2px;text-transform:uppercase;margin-top:4px}
-.svc:hover .svcPrice{color:var(--moss2)}
 .processGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.processStep{padding:28px 22px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);position:relative;transition:transform .35s ease,border-color .35s ease}
+.processStep{padding:28px 22px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);position:relative;transition:all .35s ease}
 .processStep:hover{transform:translateY(-4px);border-color:rgba(138,203,99,.42)}
 .processNum{font-family:"Fraunces",serif;font-size:48px;line-height:1;color:var(--moss);font-weight:600;font-style:italic}
 .processStep h4{font-family:"Fraunces",serif;font-size:20px;font-weight:600;margin:14px 0 8px;line-height:1.15}
@@ -115,14 +114,14 @@ small{color:rgba(244,241,232,.58)}
 
 <header class="nav">
   <div class="wrap">
-    <a class="mark" href="portafolio.html" aria-label="Pittahaya">
+    <a class="mark" href="portfolio.html" aria-label="Pittahaya">
       <div class="markIcon">S</div>
-      <div><b>Service Studio</b><span>Demo · Sitio de servicios</span></div>
+      <div><b>Service Studio</b><span>Demo · Services site</span></div>
     </a>
     <div class="navLinks">
-      <a class="pill" href="en/demo-servicios.html" hreflang="en" lang="en" aria-label="View in English">EN</a>
-      <a class="pill" href="portafolio.html">← Volver</a>
-      <a class="pill" href="contacto.html">Contacto</a>
+      <a class="pill" href="../demo-servicios.html" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+      <a class="pill" href="portfolio.html">← Back</a>
+      <a class="pill" href="contact.html">Contact</a>
     </div>
   </div>
 </header>
@@ -132,19 +131,18 @@ small{color:rgba(244,241,232,.58)}
     <canvas data-fx-particles aria-hidden="true"></canvas>
     <div class="wrap heroInner">
       <span class="eyebrow">Service studio · scope visible</span>
-      <h1 class="heroH" data-fx-letters>Cada servicio explicado <em>antes</em> de que pregunten el precio.</h1>
-      <p class="heroLead">Para consultoras, agencias, estudios profesionales y emprendedores que venden tiempo, conocimiento o resultados. La web ordena el catálogo y desarma la objeción de precio antes del primer email.</p>
+      <h1 class="heroH" data-fx-letters>Every service explained <em>before</em> they ask the price.</h1>
+      <p class="heroLead">For consultancies, agencies, professional studios and founders who sell time, knowledge or outcomes. The site organizes your catalog and dismantles the price objection before the first email.</p>
       <div class="heroActions">
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="20">Organizar mis servicios →</a>
-        <a class="btn" href="planes.html">Ver planes</a>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="20">Organize my services →</a>
+        <a class="btn" href="plans.html">See plans</a>
       </div>
-
-      <div class="scope" data-fx-scope data-fx-scope-stops="Esencial,Negocio,Premium,Ecosistema">
-        <div class="scopeLabel"><span>Calculadora de scope</span><span data-fx-scope-label>Negocio</span></div>
-        <h4>Ajusta el alcance y mira la inversión estimada.</h4>
-        <div class="scopeValue"><span data-fx-scope-value>50</span><span style="font-size:13px;color:var(--muted);font-family:Inter;margin-left:8px">k USD aprox</span></div>
+      <div class="scope" data-fx-scope data-fx-scope-stops="Essential,Business,Premium,Ecosystem">
+        <div class="scopeLabel"><span>Scope calculator</span><span data-fx-scope-label>Business</span></div>
+        <h4>Adjust the scope and see the estimated investment.</h4>
+        <div class="scopeValue"><span data-fx-scope-value>50</span><span style="font-size:13px;color:var(--muted);font-family:Inter;margin-left:8px">k USD approx</span></div>
         <input type="range" min="10" max="100" value="50" step="5" aria-label="Scope">
-        <div class="scopeStops"><span>Esencial</span><span>Negocio</span><span>Premium</span><span>Ecosistema</span></div>
+        <div class="scopeStops"><span>Essential</span><span>Business</span><span>Premium</span><span>Ecosystem</span></div>
       </div>
     </div>
   </section>
@@ -152,14 +150,14 @@ small{color:rgba(244,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Catálogo</div><h2>Servicios visibles, no <em>escondidos</em> tras un formulario.</h2></div>
-        <p>La mayoría de webs de servicios cometen el mismo error: "contáctanos para más información". Aquí cada servicio cuenta su propia historia con precio orientativo. Eso descalifica clientes equivocados y atrae a los correctos.</p>
+        <div><div class="kicker">Catalog</div><h2>Services visible — not <em>hidden</em> behind a form.</h2></div>
+        <p>Most services sites make the same mistake: "contact us for more info". Here each service tells its own story with an indicative price. That disqualifies the wrong clients and attracts the right ones.</p>
       </div>
       <div class="svcStack" data-reveal>
-        <div class="svc"><div class="svcNum">01</div><div class="svcMain"><h3>Diagnóstico estratégico</h3><p>Auditoría profunda + roadmap de 90 días. Ideal antes de invertir en producto o marca.</p></div><div class="svcPrice">$1.8K<small>Desde</small></div></div>
-        <div class="svc"><div class="svcNum">02</div><div class="svcMain"><h3>Identidad visual completa</h3><p>Logo, paleta, tipografía, manual de marca y templates editoriales listos para usar.</p></div><div class="svcPrice">$4.5K<small>Desde</small></div></div>
-        <div class="svc"><div class="svcNum">03</div><div class="svcMain"><h3>Web premium completa</h3><p>Página corporativa, blog, sistema de captación de leads y SEO base. Listo en 4–6 semanas.</p></div><div class="svcPrice">$6.8K<small>Desde</small></div></div>
-        <div class="svc"><div class="svcNum">04</div><div class="svcMain"><h3>Retainer mensual</h3><p>Soporte continuo, mejoras, nuevas secciones, optimización de conversión y consultoría on-demand.</p></div><div class="svcPrice">$1.2K<small>/ mes</small></div></div>
+        <div class="svc"><div class="svcNum">01</div><div class="svcMain"><h3>Strategic diagnostic</h3><p>Deep audit + 90-day roadmap. Ideal before investing in product or brand.</p></div><div class="svcPrice">$1.8K<small>From</small></div></div>
+        <div class="svc"><div class="svcNum">02</div><div class="svcMain"><h3>Full visual identity</h3><p>Logo, palette, typography, brand book and editorial templates ready to use.</p></div><div class="svcPrice">$4.5K<small>From</small></div></div>
+        <div class="svc"><div class="svcNum">03</div><div class="svcMain"><h3>Complete premium site</h3><p>Corporate page, blog, lead-capture system and base SEO. Ready in 4–6 weeks.</p></div><div class="svcPrice">$6.8K<small>From</small></div></div>
+        <div class="svc"><div class="svcNum">04</div><div class="svcMain"><h3>Monthly retainer</h3><p>Ongoing support, improvements, new sections, conversion optimization and on-demand consulting.</p></div><div class="svcPrice">$1.2K<small>/ month</small></div></div>
       </div>
     </div>
   </section>
@@ -167,14 +165,14 @@ small{color:rgba(244,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Cómo trabajamos</div><h2>Un proceso que se siente <em>predecible</em>.</h2></div>
-        <p>Los clientes no compran servicios — compran tranquilidad. Si el proceso es claro desde el día uno, la decisión se acelera y el alcance se respeta.</p>
+        <div><div class="kicker">How we work</div><h2>A process that feels <em>predictable</em>.</h2></div>
+        <p>Clients don't buy services — they buy peace of mind. If the process is clear from day one, the decision accelerates and the scope is respected.</p>
       </div>
       <div class="processGrid" data-reveal>
-        <div class="processStep"><div class="processNum">1</div><h4>Diagnóstico</h4><p>Llamada estratégica + brief técnico. Definimos meta, audiencia, restricciones y fechas.</p></div>
-        <div class="processStep"><div class="processNum">2</div><h4>Propuesta</h4><p>Roadmap detallado con hitos, entregables y presupuesto cerrado. Sin sorpresas.</p></div>
-        <div class="processStep"><div class="processNum">3</div><h4>Ejecución</h4><p>Sprints de 1–2 semanas con revisión continua. Tú apruebas, yo entrego.</p></div>
-        <div class="processStep"><div class="processNum">4</div><h4>Entrega</h4><p>Implementación, documentación, capacitación y soporte post-lanzamiento incluido.</p></div>
+        <div class="processStep"><div class="processNum">1</div><h4>Diagnostic</h4><p>Strategic call + technical brief. We define goal, audience, constraints and dates.</p></div>
+        <div class="processStep"><div class="processNum">2</div><h4>Proposal</h4><p>Detailed roadmap with milestones, deliverables and a closed budget. No surprises.</p></div>
+        <div class="processStep"><div class="processNum">3</div><h4>Execution</h4><p>1–2 week sprints with continuous review. You approve, I deliver.</p></div>
+        <div class="processStep"><div class="processNum">4</div><h4>Delivery</h4><p>Implementation, documentation, training and post-launch support included.</p></div>
       </div>
     </div>
   </section>
@@ -182,22 +180,22 @@ small{color:rgba(244,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Qué incluye realmente</div><h2>Todo lo que cabe <em>dentro</em> del precio.</h2></div>
-        <p>Un servicio bien empaquetado no necesita un asterisco. Lo que está incluido está incluido. Lo que no, se aclara en la propuesta — no después de firmar.</p>
+        <div><div class="kicker">What's actually included</div><h2>Everything inside the <em>price</em>.</h2></div>
+        <p>A well-packaged service doesn't need an asterisk. What's in is in. What's not, gets clarified in the proposal — not after signing.</p>
       </div>
       <div class="incGrid" data-reveal>
         <ul class="incList">
-          <li>Estrategia inicial y definición de KPIs medibles</li>
-          <li>Hasta 3 rondas de revisión por entregable</li>
-          <li>Reuniones semanales de seguimiento (30 min)</li>
-          <li>Documentación técnica y manual operativo</li>
-          <li>30 días de soporte post-entrega sin costo</li>
-          <li>Acceso al CRM compartido con avance en tiempo real</li>
-          <li>Garantía de plazos por contrato</li>
+          <li>Initial strategy and measurable KPI definition</li>
+          <li>Up to 3 rounds of review per deliverable</li>
+          <li>Weekly follow-up meetings (30 min)</li>
+          <li>Technical documentation and operations manual</li>
+          <li>30 days of post-delivery support at no cost</li>
+          <li>Access to shared CRM with real-time progress</li>
+          <li>Deadlines guaranteed by contract</li>
         </ul>
         <div class="incVisual">
-          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Equipo organizando servicios">
-          <div class="incBadge"><small>Promesa de servicio</small><strong>Cero extras inesperados</strong></div>
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Team organizing services">
+          <div class="incBadge"><small>Service promise</small><strong>Zero unexpected extras</strong></div>
         </div>
       </div>
     </div>
@@ -206,10 +204,10 @@ small{color:rgba(244,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="finalCta" data-reveal>
-        <div class="kicker" style="display:inline-flex;justify-content:center">Tu turno</div>
-        <h2>Hagamos que tu catálogo de servicios <em>cierre solo</em>.</h2>
-        <p>Cuéntame qué vendes, a quién y cómo cobras. Te devuelvo una arquitectura clara que organiza, prioriza y desactiva la pregunta del precio antes de tiempo.</p>
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Organizar mi catálogo →</a>
+        <div class="kicker" style="display:inline-flex;justify-content:center">Your move</div>
+        <h2>Let's make your services catalog <em>close on its own</em>.</h2>
+        <p>Tell me what you sell, to whom, and how you charge. I'll return a clear architecture that organizes, prioritizes and defuses the price question ahead of time.</p>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Organize my catalog →</a>
       </div>
     </div>
   </section>
@@ -218,23 +216,23 @@ small{color:rgba(244,241,232,.58)}
 <footer class="footer demo-footer">
   <div class="wrap">
     <div class="demo-footer-brand">
-      <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
-      <span>Demo interna para clientes</span>
+      <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
+      <span>Internal client demo</span>
       <strong>Pittahaya</strong>
-      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Diseño, demos y contenido protegidos. Prohibida su copia o uso no autorizado.</small>
+      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Design, demos and content protected. Unauthorized copy or use prohibited.</small>
     </div>
     <div class="navLinks">
-      <a class="pill" href="portafolio.html">Ver más demos</a>
-      <a class="pill" href="contacto.html">Comencemos tu proyecto</a>
+      <a class="pill" href="portfolio.html">More demos</a>
+      <a class="pill" href="contact.html">Start your project</a>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true">
-  <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
+  <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=3" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=3" defer></script>
+<script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

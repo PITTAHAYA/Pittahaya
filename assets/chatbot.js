@@ -1,8 +1,27 @@
 (() => {
   if (document.querySelector("[data-pitahaya-chat]")) return;
 
+  // ── Language detection ───────────────────────────────────────
+  // Use document.lang first, then URL path as fallback ("/en/...")
+  const LANG = /^en/i.test(document.documentElement.lang || "")
+    || /^\/en\//.test(location.pathname) ? "en" : "es";
+  const inEn = LANG === "en";
+
   // ── Routes ───────────────────────────────────────────────────
-  const routes = {
+  // English pages live in /en/ with renamed files; same-folder relative URLs.
+  const routes = inEn ? {
+    contacto:      "contact.html",
+    planes:        "plans.html",
+    servicios:     "services.html",
+    portafolio:    "portfolio.html",
+    faq:           "faq.html",
+    landing:       "demo-landing.html",
+    corporativa:   "demo-corporativa.html",
+    marca:         "demo-marca.html",
+    serviciosDemo: "demo-servicios.html",
+    startup:       "demo-startup.html",
+    lujo:          "demo-highend.html"
+  } : {
     contacto:     "contacto.html",
     planes:       "planes.html",
     servicios:    "servicios.html",
@@ -14,6 +33,115 @@
     serviciosDemo:"demo-servicios.html",
     startup:      "demo-startup.html",
     lujo:         "demo-highend.html"
+  };
+
+  // ── UI strings (i18n) ────────────────────────────────────────
+  const T = inEn ? {
+    launcherAria:  "Open Pittahaya assistant",
+    launcherText:  "Chat with Pittahaya",
+    panelAria:     "Pittahaya virtual assistant",
+    rootAria:      "Pittahaya virtual assistant",
+    title:         "Pittahaya Assistant",
+    status:        "Online · replies instantly",
+    closeAria:     "Close chat",
+    placeholder:   "Type your question here…",
+    inputAria:     "Type your message",
+    sendLabel:     "Send",
+    privacyNote:   "Local assistant: your messages are not sent to external servers.",
+    initialPrompts:["How much does it cost?", "How long does it take?", "Show demos", "Why Pittahaya?"],
+    altPrompts:    ["How many revisions?", "Can I edit later?", "Is hosting included?", "Do you work outside Ecuador?"],
+    greeting:      "Hi! I'm Pittahaya's assistant. I can answer any question about web design, pricing, timelines, demos, process — anything you need to take the first step. How can I help?",
+    greetingActions: [
+      { label: "How much does it cost?", prompt: "How much does it cost?" },
+      { label: "View demos",             prompt: "Show demos" },
+      { label: "Free diagnostic",        prompt: "Free diagnostic" }
+    ],
+    emptyPrompt:   "Tell me what kind of project you have and I'll point you to the best option.",
+    emptyPromptNamed: (n) => `Tell me what project you have in mind, ${n}, and I'll guide you.`,
+    pureGreetingNamed: (n) => `Hi again, ${n}! How can I help now? I can give details on pricing, timelines, demos or the next step.`,
+    fallbackBase:  "Good question. For something more specific to your project, the free diagnostic is the most direct path. We also have FAQs for common questions.",
+    fallbackKnown: "If you want a precise detail, the most useful thing is the free diagnostic: you describe your case and get a tailored answer.",
+    fallbackNamed: (n, suggest) => `I get what you're asking, ${n}. ${suggest}`,
+    fallbackPrefix:(suggest)    => `Good question. ${suggest}`,
+    fallbackActions: [
+      { label: "Request diagnostic", href: routes.contacto },
+      { label: "View FAQ",           href: routes.faq },
+      { label: "View demos",         href: routes.portafolio }
+    ],
+    partialPrefix: (topic, body) => `If I understand correctly, you're asking about ${topic}. ${body}\n\nIf that wasn't it, rephrase or I can take you to the diagnostic for a more exact answer.`,
+    partialAction: { label: "Free diagnostic", href: routes.contacto },
+    topicLabels: {
+      pricing:"pricing", timeline:"delivery timelines", demos:"demos",
+      process:"the process", seo:"SEO", security:"security",
+      hosting:"domain & hosting", "first-step":"getting started",
+      revisions:"revisions", "objection-price":"budget"
+    },
+    nextRevisions: "\n\nWant me to show which demo fits your business best?",
+    nextDemos:     "\n\nOnce you pick a direction, I can share pricing references.",
+    nextIndustry:  "\n\nIf you want to move forward, the free diagnostic is the most direct path — describe your case and you'll get a specific recommendation.",
+    actLabels: {
+      comparePlans:"Compare plans", requestDiag:"Request diagnostic",
+      goContact:"Go to Contact", viewPlans:"View plans",
+      viewServices:"View services", quoteNow:"Quote now",
+      viewAllDemos:"View all demos", talkAssistant:"Talk to assistant",
+      viewDemos:"View demos", contact:"Contact",
+      viewFaq:"View FAQ", contactDirect:"Direct contact",
+      whatsapp:"Message on WhatsApp", contactForm:"Contact form",
+      seeReal:"See real demos"
+    }
+  } : {
+    launcherAria:  "Abrir asistente Pittahaya",
+    launcherText:  "Habla con Pittahaya",
+    panelAria:     "Asistente virtual Pittahaya",
+    rootAria:      "Asistente virtual Pittahaya",
+    title:         "Asistente Pittahaya",
+    status:        "En línea · responde al instante",
+    closeAria:     "Cerrar chat",
+    placeholder:   "Escribe tu pregunta aquí...",
+    inputAria:     "Escribe tu mensaje",
+    sendLabel:     "Enviar",
+    privacyNote:   "Asistente local: tus mensajes no se envían a servidores externos.",
+    initialPrompts:["¿Cuánto cuesta?", "¿Cuánto tiempo toma?", "Ver demos", "¿Por qué Pittahaya?"],
+    altPrompts:    ["¿Cuántas revisiones incluye?", "¿Puedo editar después?", "¿Incluye hosting?", "¿Trabajas fuera de Ecuador?"],
+    greeting:      "¡Hola! Soy el asistente de Pittahaya. Puedo responder cualquier pregunta sobre diseño web, precios, tiempos, demos, proceso o lo que necesites saber. ¿En qué te ayudo?",
+    greetingActions: [
+      { label: "¿Cuánto cuesta?",    prompt: "¿Cuánto cuesta?" },
+      { label: "Ver demos",          prompt: "Ver demos" },
+      { label: "Diagnóstico gratis", prompt: "Diagnóstico gratis" }
+    ],
+    emptyPrompt:   "Cuéntame qué tipo de proyecto tienes y te ayudo a ubicar la mejor opción.",
+    emptyPromptNamed: (n) => `Cuéntame qué proyecto tienes en mente, ${n}, y te oriento.`,
+    pureGreetingNamed: (n) => `¡Hola otra vez, ${n}! ¿En qué te ayudo ahora? Puedo darte detalles de precios, tiempos, demos o el siguiente paso.`,
+    fallbackBase:  "Para algo más específico de tu proyecto, el diagnóstico gratis es el camino más directo. También tenemos preguntas frecuentes para dudas comunes.",
+    fallbackKnown: "Si quieres un detalle preciso, lo más útil es el diagnóstico gratis: describes tu caso y recibes una respuesta ajustada.",
+    fallbackNamed: (n, suggest) => `Entiendo lo que preguntas, ${n}. ${suggest}`,
+    fallbackPrefix:(suggest)    => `Buena pregunta. ${suggest}`,
+    fallbackActions: [
+      { label: "Solicitar diagnóstico", href: routes.contacto },
+      { label: "Ver FAQ",               href: routes.faq },
+      { label: "Ver demos",             href: routes.portafolio }
+    ],
+    partialPrefix: (topic, body) => `Si entiendo bien, hablas sobre ${topic}. ${body}\n\nSi no era eso, escríbelo de otra forma o te llevo al diagnóstico para una respuesta más exacta.`,
+    partialAction: { label: "Diagnóstico gratis", href: routes.contacto },
+    topicLabels: {
+      pricing:"los precios", timeline:"los tiempos de entrega", demos:"los demos",
+      process:"el proceso", seo:"SEO", security:"la seguridad",
+      hosting:"dominio y hosting", "first-step":"cómo empezar",
+      revisions:"las revisiones", "objection-price":"el presupuesto"
+    },
+    nextRevisions: "\n\n¿Quieres que también te muestre cuál demo encaja mejor con tu negocio?",
+    nextDemos:     "\n\nCuando elijas dirección, te puedo dar referencia de precios.",
+    nextIndustry:  "\n\nSi quieres avanzar, el diagnóstico gratis es el camino más directo: describes tu caso y recibes una recomendación específica.",
+    actLabels: {
+      comparePlans:"Comparar planes", requestDiag:"Solicitar diagnóstico",
+      goContact:"Ir a Contacto", viewPlans:"Ver planes",
+      viewServices:"Ver servicios", quoteNow:"Cotizar ahora",
+      viewAllDemos:"Ver todos los demos", talkAssistant:"Hablar con asistente",
+      viewDemos:"Ver demos", contact:"Contacto",
+      viewFaq:"Ver preguntas frecuentes", contactDirect:"Contacto directo",
+      whatsapp:"Escribir por WhatsApp", contactForm:"Formulario de contacto",
+      seeReal:"Ver demos reales"
+    }
   };
 
   // ── Utilities ────────────────────────────────────────────────
@@ -127,32 +255,36 @@
   // ── DOM ──────────────────────────────────────────────────────
   const root = make("section", "pitahaya-chat");
   root.setAttribute("data-pitahaya-chat", "");
-  root.setAttribute("aria-label", "Asistente virtual Pittahaya");
+  root.setAttribute("aria-label", T.rootAria);
 
   const launcher = make("button", "pitahaya-chat__launcher");
   launcher.type = "button";
-  launcher.setAttribute("aria-label", "Abrir asistente Pittahaya");
+  launcher.setAttribute("aria-label", T.launcherAria);
   launcher.setAttribute("aria-expanded", "false");
   const launcherSpark = make("span", "pitahaya-chat__spark");
   launcherSpark.setAttribute("aria-hidden", "true");
-  const launcherText = make("span", "", "Habla con Pittahaya");
+  const launcherText = make("span", "", T.launcherText);
   launcher.append(launcherSpark, launcherText);
 
   const panel = make("div", "pitahaya-chat__panel");
   panel.setAttribute("role", "dialog");
-  panel.setAttribute("aria-label", "Asistente virtual Pittahaya");
+  panel.setAttribute("aria-label", T.panelAria);
 
   const header = make("div", "pitahaya-chat__header");
   const identity = make("div", "pitahaya-chat__identity");
   const avatar = make("img", "pitahaya-chat__avatar");
-  avatar.src = "assets/pitahaya-logo.png";
+  // Reuse whatever path the page itself uses for its favicon, so
+  // the logo loads correctly from both / (Spanish) and /en/ (English).
+  const faviconLink = document.querySelector('link[rel="icon"]')
+    || document.querySelector('link[rel="apple-touch-icon"]');
+  avatar.src = faviconLink ? faviconLink.href : "assets/pitahaya-logo.png";
   avatar.alt = "Pittahaya";
   const identityText = make("div", "");
-  const titleEl  = make("span", "pitahaya-chat__title", "Asistente Pittahaya");
-  const statusEl = make("span", "pitahaya-chat__status", "En línea · responde al instante");
+  const titleEl  = make("span", "pitahaya-chat__title", T.title);
+  const statusEl = make("span", "pitahaya-chat__status", T.status);
   const closeBtn = make("button", "pitahaya-chat__close", "×");
   closeBtn.type = "button";
-  closeBtn.setAttribute("aria-label", "Cerrar chat");
+  closeBtn.setAttribute("aria-label", T.closeAria);
   identityText.append(titleEl, statusEl);
   identity.append(avatar, identityText);
   header.append(identity, closeBtn);
@@ -166,15 +298,14 @@
   const form = make("form", "pitahaya-chat__composer");
   const input = make("input", "pitahaya-chat__input");
   input.type = "text";
-  input.placeholder = "Escribe tu pregunta aquí...";
-  input.setAttribute("aria-label", "Escribe tu mensaje");
+  input.placeholder = T.placeholder;
+  input.setAttribute("aria-label", T.inputAria);
   input.autocomplete = "off";
-  const send = make("button", "pitahaya-chat__send", "Enviar");
+  const send = make("button", "pitahaya-chat__send", T.sendLabel);
   send.type = "submit";
   form.append(input, send);
 
-  const privacy = make("div", "pitahaya-chat__privacy",
-    "Asistente local: tus mensajes no se envían a servidores externos.");
+  const privacy = make("div", "pitahaya-chat__privacy", T.privacyNote);
 
   panel.append(header, messages, quick, form, privacy);
   root.append(launcher, panel);
@@ -191,31 +322,26 @@
     });
   };
 
-  const initialPrompts = [
-    "¿Cuánto cuesta?",
-    "¿Cuánto tiempo toma?",
-    "Ver demos",
-    "¿Por qué Pittahaya?"
-  ];
-  renderQuickPrompts(initialPrompts);
+  renderQuickPrompts(T.initialPrompts);
 
-  // ── Actions helpers ──────────────────────────────────────────
+  // ── Actions helpers (localized button labels) ─────────────────
+  const L = T.actLabels;
   const act = {
-    quote:    [{ label: "Comparar planes", href: routes.planes }, { label: "Solicitar diagnóstico", href: routes.contacto }],
-    contact:  [{ label: "Ir a Contacto", href: routes.contacto }, { label: "Ver planes", href: routes.planes }],
-    services: [{ label: "Ver servicios", href: routes.servicios }, { label: "Cotizar ahora", href: routes.contacto }],
-    demos:    [{ label: "Ver todos los demos", href: routes.portafolio }, { label: "Hablar con asistente", prompt: "¿Qué demo necesito según mi negocio?" }],
-    start:    [{ label: "Ver demos", href: routes.portafolio }, { label: "Ver planes", href: routes.planes }, { label: "Contacto", href: routes.contacto }],
-    faq:      [{ label: "Ver preguntas frecuentes", href: routes.faq }, { label: "Contacto directo", href: routes.contacto }]
+    quote:    [{ label: L.comparePlans, href: routes.planes }, { label: L.requestDiag, href: routes.contacto }],
+    contact:  [{ label: L.goContact,    href: routes.contacto }, { label: L.viewPlans, href: routes.planes }],
+    services: [{ label: L.viewServices, href: routes.servicios }, { label: L.quoteNow, href: routes.contacto }],
+    demos:    [{ label: L.viewAllDemos, href: routes.portafolio }, { label: L.talkAssistant, prompt: inEn ? "Which demo fits my business?" : "¿Qué demo necesito según mi negocio?" }],
+    start:    [{ label: L.viewDemos, href: routes.portafolio }, { label: L.viewPlans, href: routes.planes }, { label: L.contact, href: routes.contacto }],
+    faq:      [{ label: L.viewFaq, href: routes.faq }, { label: L.contactDirect, href: routes.contacto }]
   };
 
   const demosActs = [
-    { label: "Landing",       href: routes.landing },
-    { label: "Corporativa",   href: routes.corporativa },
-    { label: "Marca",         href: routes.marca },
-    { label: "Servicios",     href: routes.serviciosDemo },
-    { label: "Startup",       href: routes.startup },
-    { label: "Lujo",          href: routes.lujo }
+    { label: inEn ? "Landing"   : "Landing",       href: routes.landing },
+    { label: inEn ? "Corporate" : "Corporativa",   href: routes.corporativa },
+    { label: inEn ? "Brand"     : "Marca",         href: routes.marca },
+    { label: inEn ? "Services"  : "Servicios",     href: routes.serviciosDemo },
+    { label: inEn ? "Startup"   : "Startup",       href: routes.startup },
+    { label: inEn ? "Luxury"    : "Lujo",          href: routes.lujo }
   ];
 
   // ── Answer bank ──────────────────────────────────────────────
@@ -227,27 +353,30 @@
     // ── Greeting ───────────────────────────
     {
       id: "greeting",
-      phrases: ["buen dia", "buena tarde", "buena noche", "como estan", "hay alguien"],
-      keywords: ["hola", "buenas", "hello", "hey", "hi", "saludos", "atencion", "asesor", "ayuda", "disponible", "alguien", "recepcion"],
+      phrases: ["buen dia", "buena tarde", "buena noche", "como estan", "hay alguien", "good morning", "good afternoon", "good evening", "anyone there", "is anyone"],
+      keywords: ["hola", "buenas", "hello", "hey", "hi", "saludos", "atencion", "asesor", "ayuda", "disponible", "alguien", "recepcion", "help", "anyone", "available", "support"],
       text: "¡Hola! Bienvenido a Pittahaya. Estoy aquí para ayudarte con cualquier pregunta sobre tu web: precios, demos, tiempos, proceso o lo que necesites saber para dar el primer paso. ¿Por dónde empezamos?",
+      en: { text: "Hi! Welcome to Pittahaya. I'm here to answer any question about your website: pricing, demos, timelines, process — anything you need to know to take the first step. Where shall we start?" },
       actions: act.start
     },
 
     // ── Why Pittahaya / differentiator ─────
     {
       id: "why",
-      phrases: ["por que pittahaya", "que diferencia", "que los hace diferentes", "por que elegirlos", "vale la pena", "en que se diferencian", "mejor opcion", "que ventaja", "que ofrecen de diferente"],
-      keywords: ["diferenci", "ventaja", "mejor", "especial", "unico", "elegiria", "convence", "confiar"],
+      phrases: ["por que pittahaya", "que diferencia", "que los hace diferentes", "por que elegirlos", "vale la pena", "en que se diferencian", "mejor opcion", "que ventaja", "que ofrecen de diferente", "why pittahaya", "why choose you", "what makes you different", "what is the advantage", "what is special"],
+      keywords: ["diferenci", "ventaja", "mejor", "especial", "unico", "elegiria", "convence", "confiar", "different", "difference", "unique", "special", "advantage", "better", "why", "choose", "trust"],
       text: "Pittahaya no rellena una plantilla con tu nombre: diseña desde cero pensando en tu oferta, tu cliente ideal y la percepción que quieres provocar. El resultado es una web que se siente hecha para ti, no genérica. Además, el proceso es claro, personal y orientado a resultados: la meta no es 'tener una web', sino tener una herramienta que trabaje las 24 horas.",
-      actions: [{ label: "Ver demos reales", href: routes.portafolio }, { label: "Solicitar diagnóstico", href: routes.contacto }]
+      en: { text: "Pittahaya doesn't fill a template with your name: every site is designed from scratch around your offer, your ideal client, and the perception you want to create. The result feels made for you — not generic. The process is clear, personal and results-oriented: the goal isn't 'to have a website', it's to have a tool that sells for you 24/7." },
+      actions: [{ label: inEn ? "See real demos" : "Ver demos reales", href: routes.portafolio }, { label: inEn ? "Request diagnostic" : "Solicitar diagnóstico", href: routes.contacto }]
     },
 
     // ── Pricing / plans ────────────────────
     {
       id: "pricing",
-      phrases: ["cuanto cuesta", "cual es el precio", "cuanto vale", "que precio tiene", "cuanto cobran", "tienen precios", "precio de una web", "precio de la web", "cuanto es", "cuanto me costaria", "precio aproximado"],
-      keywords: ["precio", "precios", "plan", "planes", "costo", "costos", "cuanto", "cotiz", "presupuesto", "valor", "cobran", "tarifa", "tarifas"],
+      phrases: ["cuanto cuesta", "cual es el precio", "cuanto vale", "que precio tiene", "cuanto cobran", "tienen precios", "precio de una web", "precio de la web", "cuanto es", "cuanto me costaria", "precio aproximado", "how much", "how much does it cost", "what does it cost", "what is the price", "what are your rates", "do you have pricing"],
+      keywords: ["precio", "precios", "plan", "planes", "costo", "costos", "cuanto", "cotiz", "presupuesto", "valor", "cobran", "tarifa", "tarifas", "price", "prices", "cost", "costs", "pricing", "rate", "rates", "fee", "fees", "package", "packages", "budget", "quote", "estimate"],
       text: "Los planes están pensados para distintas necesidades: Plan Básico para una presencia profesional inicial, Plan Negocio para vender con claridad (el más elegido), y Plan Premium para una experiencia de alta gama con mayor nivel de personalización. El precio exacto depende del alcance, número de páginas y nivel de detalle. La forma más directa de saberlo es en el diagnóstico gratis: sin compromiso, recibes una propuesta clara.",
+      en: { text: "Plans are designed for different needs: Basic for an initial professional presence, Business for selling with clarity (the most popular), and Premium for a high-end experience with deeper customization. The exact price depends on scope, number of pages and level of detail. The most direct way to know is the free diagnostic: no commitment, you receive a clear proposal." },
       actions: act.quote
     },
 
@@ -272,18 +401,20 @@
     // ── Timeline / delivery ────────────────
     {
       id: "timeline",
-      phrases: ["cuanto tiempo toma", "cuanto demora", "en cuanto tiempo", "dias tarda", "semanas tarda", "fecha de entrega", "cuando estaria lista", "es rapido el proceso"],
-      keywords: ["tiempo", "demora", "entrega", "dias", "semanas", "cuando", "rapido", "fecha", "deadline", "urgente", "pronto", "plazo"],
+      phrases: ["cuanto tiempo toma", "cuanto demora", "en cuanto tiempo", "dias tarda", "semanas tarda", "fecha de entrega", "cuando estaria lista", "es rapido el proceso", "how long", "how long does it take", "delivery time", "turnaround time", "when can you", "when will it be ready"],
+      keywords: ["tiempo", "demora", "entrega", "dias", "semanas", "cuando", "rapido", "fecha", "deadline", "urgente", "pronto", "plazo", "time", "long", "days", "weeks", "delivery", "turnaround", "fast", "quick", "ready", "when", "urgent"],
       text: "Depende del alcance y la velocidad de revisiones. Una landing de alto impacto puede estar lista en pocos días; una web completa con múltiples páginas puede tomar uno a dos semanas. Lo importante es definir los tiempos reales desde el inicio para que no haya sorpresas. En el diagnóstico se acuerda el plazo concreto.",
+      en: { text: "It depends on scope and how fast the revisions go. A high-impact landing can be ready in a few days; a complete site with multiple pages can take one to two weeks. What matters is locking real timelines from day one so there are no surprises. The exact delivery date is agreed during the diagnostic." },
       actions: act.contact
     },
 
     // ── Process / how it works ─────────────
     {
       id: "process",
-      phrases: ["como funciona el proceso", "como trabajan", "cuales son los pasos", "como es el flujo", "que incluye el proceso", "como empezamos"],
-      keywords: ["proceso", "pasos", "metodo", "revision", "revisiones", "cambios", "brief", "diagnostico", "flujo", "etapas"],
+      phrases: ["como funciona el proceso", "como trabajan", "cuales son los pasos", "como es el flujo", "que incluye el proceso", "como empezamos", "how does it work", "how do you work", "what are the steps", "what is the process", "how do we start"],
+      keywords: ["proceso", "pasos", "metodo", "revision", "revisiones", "cambios", "brief", "diagnostico", "flujo", "etapas", "process", "steps", "method", "workflow", "stages", "phases", "approach"],
       text: "El proceso tiene 4 etapas: 1) Diagnóstico: definimos objetivo, cliente ideal, oferta y tono visual. 2) Diseño: construyo la propuesta visual completa alineada con tu negocio. 3) Revisión: ajustamos textos, secciones y detalles hasta que todo se sienta correcto. 4) Publicación: la web queda lista para compartir y vender. Todo por escrito y sin improvisar.",
+      en: { text: "The process has 4 stages: 1) Diagnostic — we define goal, ideal client, offer, and visual tone. 2) Design — I build the full visual proposal aligned with your business. 3) Review — we adjust copy, sections, and details until everything feels right. 4) Launch — the site is ready to share and sell. Everything in writing, nothing improvised." },
       actions: act.services
     },
 
@@ -317,9 +448,10 @@
     // ── What the client needs to provide ───
     {
       id: "content",
-      phrases: ["que necesito tener listo", "que me piden para empezar", "necesito textos previos", "necesito fotos propias", "que debo preparar"],
-      keywords: ["textos", "copy", "contenido", "fotos", "imagenes", "videos", "redaccion", "mensaje", "copywriting", "proveer", "preparar"],
+      phrases: ["que necesito tener listo", "que me piden para empezar", "necesito textos previos", "necesito fotos propias", "que debo preparar", "do I need text", "do I need to provide", "what do I need", "do I need photos", "do I need content"],
+      keywords: ["textos", "copy", "contenido", "fotos", "imagenes", "videos", "redaccion", "mensaje", "copywriting", "proveer", "preparar", "text", "texts", "content", "copy", "photos", "images", "pictures", "video", "videos", "provide", "prepare"],
       text: "No es obligatorio tener todo listo. Si no tienes textos, se puede orientarte a construir el mensaje: propuesta de valor, beneficios y llamadas a la acción. Las imágenes pueden combinarse con librerías licenciadas de alta calidad. Lo más importante al inicio es tener claro qué vendes y para quién es.",
+      en: { text: "You don't need to have everything ready. If you don't have copy, I can guide you to build the message: value proposition, benefits and calls to action. Images can be combined with high-quality licensed libraries. What matters most at the start is having clarity about what you sell and who it's for." },
       actions: act.contact
     },
 
@@ -344,9 +476,10 @@
     // ── Domain / hosting / email ────────────
     {
       id: "hosting",
-      phrases: ["incluye dominio", "incluye hosting", "como funciona el hosting", "donde se publica", "email corporativo", "correo empresarial"],
-      keywords: ["dominio", "hosting", "host", "publicar", "subir", "deploy", "correo", "email", "servidor", "nube", "vercel"],
+      phrases: ["incluye dominio", "incluye hosting", "como funciona el hosting", "donde se publica", "email corporativo", "correo empresarial", "is hosting included", "is domain included", "do you host", "where is it hosted", "how do I publish"],
+      keywords: ["dominio", "hosting", "host", "publicar", "subir", "deploy", "correo", "email", "servidor", "nube", "vercel", "domain", "publish", "upload", "server", "cloud", "mail"],
       text: "Depende del plan. En la mayoría de casos puedo acompañarte en la configuración del dominio y hosting, o conectar la web a lo que ya tengas. El correo corporativo se puede configurar por separado. Todo queda acordado desde el diagnóstico para que no haya costos sorpresa.",
+      en: { text: "Depends on the plan. In most cases I can guide you through domain and hosting setup, or connect the site to what you already have. Corporate email can be configured separately. Everything is agreed during the diagnostic so there are no surprise costs." },
       actions: act.contact
     },
 
@@ -434,9 +567,10 @@
     // ── Demo selection / portfolio ──────────
     {
       id: "demos",
-      phrases: ["que demo necesito", "que demo me recomiendas", "cual demo es mejor para mi", "ver ejemplos", "ver portafolio", "ver trabajos", "tienen ejemplos"],
-      keywords: ["demo", "demos", "portafolio", "ejemplo", "ejemplos", "muestra", "trabajos", "recomienda", "ver"],
+      phrases: ["que demo necesito", "que demo me recomiendas", "cual demo es mejor para mi", "ver ejemplos", "ver portafolio", "ver trabajos", "tienen ejemplos", "which demo", "show me demos", "show demos", "view demos", "view portfolio", "do you have examples", "show examples"],
+      keywords: ["demo", "demos", "portafolio", "ejemplo", "ejemplos", "muestra", "trabajos", "recomienda", "ver", "examples", "samples", "portfolio", "showcase", "show"],
       text: "Tenemos 6 demos según el tipo de negocio: Landing para captar leads o vender rápido, Corporativa para confianza y autoridad B2B, Marca & Diseño para identidad memorable, Servicios para explicar tu oferta paso a paso, Startup para producto digital o SaaS, y Lujo para alta gama exclusiva. ¿Cuál describe mejor tu negocio?",
+      en: { text: "We have 6 demos depending on your business type: Landing to capture leads or sell quickly, Corporate for B2B trust and authority, Brand & Design for memorable identity, Services to explain your offer step by step, Startup for digital products or SaaS, and Luxury for exclusive high-end. Which one best describes your business?" },
       actions: demosActs
     },
 
@@ -560,10 +694,11 @@
     // ── First step / how to start ───────────
     {
       id: "first-step",
-      phrases: ["por donde empiezo", "como empezar", "cual es el primer paso", "quiero empezar", "quiero contratar", "quiero una cotizacion"],
-      keywords: ["empezar", "comenzar", "inicio", "primer paso", "contratar", "cotizar", "avanzar", "siguiente paso"],
+      phrases: ["por donde empiezo", "como empezar", "cual es el primer paso", "quiero empezar", "quiero contratar", "quiero una cotizacion", "where do I start", "how do I start", "first step", "I want to start", "I want to hire", "I want a quote", "ready to start"],
+      keywords: ["empezar", "comenzar", "inicio", "primer paso", "contratar", "cotizar", "avanzar", "siguiente paso", "start", "begin", "hire", "schedule", "book", "ready", "next"],
       text: "El primer paso es el diagnóstico gratis: un formulario corto donde describes tu negocio, tu cliente ideal y qué tipo de web necesitas. Con esa información preparo una recomendación clara y una propuesta ajustada a tu caso, sin compromiso.",
-      actions: [{ label: "Ir al diagnóstico gratis", href: routes.contacto }, { label: "Ver planes antes", href: routes.planes }]
+      en: { text: "The first step is the free diagnostic: a short form where you describe your business, your ideal client and what kind of site you need. With that I prepare a clear recommendation and a proposal tailored to your case, with no commitment." },
+      actions: [{ label: inEn ? "Go to free diagnostic" : "Ir al diagnóstico gratis", href: routes.contacto }, { label: inEn ? "See plans first" : "Ver planes antes", href: routes.planes }]
     },
 
     // ── Social proof / references ───────────
@@ -672,16 +807,12 @@
     // Find an entry that *almost* matched (score 1–2)
     const near = scored.find(s => s.score >= 1 && s.score < 3 && s.e.id !== state.lastIntent);
     if (near) {
-      const labelFor = {
-        pricing: "los precios", timeline: "los tiempos de entrega", demos: "los demos",
-        process: "el proceso", seo: "SEO", security: "la seguridad",
-        hosting: "dominio y hosting", "first-step": "cómo empezar",
-        revisions: "las revisiones", "objection-price": "el presupuesto"
-      };
-      const friendly = labelFor[near.e.id] || "ese tema";
+      const friendly = T.topicLabels[near.e.id] || (inEn ? "that topic" : "ese tema");
+      // Pick localized topic text if the entry has an `en` override
+      const body = inEn && near.e.en?.text ? near.e.en.text : near.e.text;
       return {
-        text: `Si entiendo bien, hablas sobre ${friendly}. ${near.e.text}\n\nSi no era eso, escríbelo de otra forma o te llevo al diagnóstico para una respuesta más exacta.`,
-        actions: [...(near.e.actions || []).slice(0, 2), { label: "Diagnóstico gratis", href: routes.contacto }]
+        text: T.partialPrefix(friendly, body),
+        actions: [...(near.e.actions || []).slice(0, 2), T.partialAction]
       };
     }
     return null;
@@ -692,9 +823,7 @@
 
     if (!text) {
       return {
-        text: state.name
-          ? `Cuéntame qué proyecto tienes en mente, ${state.name}, y te oriento.`
-          : "Cuéntame qué tipo de proyecto tienes y te ayudo a ubicar la mejor opción.",
+        text: state.name ? T.emptyPromptNamed(state.name) : T.emptyPrompt,
         actions: act.start
       };
     }
@@ -705,10 +834,7 @@
       && !/[?¿]/.test(rawText)
       && /^(hola|buenas|hi|hello|hey|saludos)\b/.test(text);
     if (isPureGreeting && state.name) {
-      return {
-        text: `¡Hola otra vez, ${state.name}! ¿En qué te ayudo ahora? Puedo darte detalles de precios, tiempos, demos o el siguiente paso.`,
-        actions: act.start
-      };
+      return { text: T.pureGreetingNamed(state.name), actions: act.start };
     }
 
     // Score every entry
@@ -721,19 +847,19 @@
 
     // Strong primary match
     if (best && best.score >= 3) {
-      // Multi-intent: if the second-best is also strong AND on a different topic family, combine
       const combineable = second
         && second.score >= 3
         && second.e.id !== best.e.id
-        && !best.e.id.startsWith("industry-") // industry replies already imply other topics
+        && !best.e.id.startsWith("industry-")
         && !second.e.id.startsWith("industry-");
 
-      let responseText = best.e.text;
+      // Pick localized topic text if available
+      const textOf = (e) => (inEn && e.en?.text) ? e.en.text : e.text;
+      let responseText = textOf(best.e);
       let actions = best.e.actions;
 
       if (combineable) {
-        responseText += "\n\n" + second.e.text;
-        // Merge & de-dupe actions
+        responseText += "\n\n" + textOf(second.e);
         const seen = new Set();
         actions = [...best.e.actions, ...second.e.actions].filter(a => {
           const key = a.href || a.prompt || a.label;
@@ -749,16 +875,10 @@
       state.askedAbout.add(best.e.id);
       state.lastIntent = best.e.id;
 
-      // Context-aware follow-up appended after pricing if we haven't shown demos yet
-      if (best.e.id === "pricing" && !state.askedAbout.has("demos")) {
-        responseText += "\n\n¿Quieres que también te muestre cuál demo encaja mejor con tu negocio?";
-      }
-      if (best.e.id === "demos" && !state.askedAbout.has("pricing")) {
-        responseText += "\n\nCuando elijas dirección, te puedo dar referencia de precios.";
-      }
-      if (best.e.id.startsWith("industry-") && !state.askedAbout.has("first-step")) {
-        responseText += "\n\nSi quieres avanzar, el diagnóstico gratis es el camino más directo: describes tu caso y recibes una recomendación específica.";
-      }
+      // Context-aware follow-ups (localized)
+      if (best.e.id === "pricing" && !state.askedAbout.has("demos"))   responseText += T.nextRevisions;
+      if (best.e.id === "demos"   && !state.askedAbout.has("pricing")) responseText += T.nextDemos;
+      if (best.e.id.startsWith("industry-") && !state.askedAbout.has("first-step")) responseText += T.nextIndustry;
 
       return { text: personalize(responseText), actions };
     }
@@ -773,19 +893,11 @@
     // True fallback: contextual suggestions
     state.lastIntent = "fallback";
     const haveAsked = [...state.askedAbout];
-    const suggest = haveAsked.length
-      ? "Si quieres un detalle preciso, lo más útil es el diagnóstico gratis: describes tu caso y recibes una respuesta ajustada."
-      : "Para algo más específico de tu proyecto, el diagnóstico gratis es el camino más directo. También tenemos preguntas frecuentes para dudas comunes.";
+    const suggest = haveAsked.length ? T.fallbackKnown : T.fallbackBase;
 
     return {
-      text: state.name
-        ? `Entiendo lo que preguntas, ${state.name}. ${suggest}`
-        : `Buena pregunta. ${suggest}`,
-      actions: [
-        { label: "Solicitar diagnóstico", href: routes.contacto },
-        { label: "Ver FAQ", href: routes.faq },
-        { label: "Ver demos", href: routes.portafolio }
-      ]
+      text: state.name ? T.fallbackNamed(state.name, suggest) : T.fallbackPrefix(suggest),
+      actions: T.fallbackActions
     };
   };
 
@@ -836,7 +948,7 @@
 
       // After a few messages, suggest alternative quick prompts
       if (msgCount === 3) {
-        renderQuickPrompts(["¿Cuántas revisiones incluye?", "¿Puedo editar después?", "¿Incluye hosting?", "¿Trabajas fuera de Ecuador?"]);
+        renderQuickPrompts(T.altPrompts);
       }
     }, delay);
   };
@@ -904,12 +1016,5 @@
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && root.classList.contains("is-open")) setOpen(false); });
 
   // ── Initial greeting ─────────────────────────────────────────
-  addMessage("bot",
-    "¡Hola! Soy el asistente de Pittahaya. Puedo responder cualquier pregunta sobre diseño web, precios, tiempos, demos, proceso o lo que necesites saber. ¿En qué te ayudo?",
-    [
-      { label: "¿Cuánto cuesta?",    prompt: "¿Cuánto cuesta?" },
-      { label: "Ver demos",          href: routes.portafolio },
-      { label: "Diagnóstico gratis", href: routes.contacto }
-    ]
-  );
+  addMessage("bot", T.greeting, T.greetingActions);
 })();

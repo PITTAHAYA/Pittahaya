@@ -2171,6 +2171,47 @@ html.js main > .section:first-child .reveal{
   #resultados{ display:none; }
 }
 
+/* ── Language switcher ────────────────────────────────────────
+   Small pill in the desktop nav and a divider link inside the
+   mobile drawer. Premium look — gold border, gold hover. */
+.lang-switch{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(230,191,116,.32);
+  background:rgba(230,191,116,.06);
+  color:rgba(255,248,236,.92);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:background .2s ease, border-color .2s ease, transform .15s ease;
+  margin-left:6px;
+}
+.lang-switch:hover,
+.lang-switch:focus-visible{
+  background:rgba(230,191,116,.16);
+  border-color:rgba(230,191,116,.55);
+  transform:translateY(-1px);
+}
+.drawer-lang{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-size:12px;
+  letter-spacing:.06em;
+  color:rgba(255,248,236,.62);
+  text-transform:uppercase;
+}
+.drawer-lang .lang-switch{ margin-left:0; }
+
 /* ── Testimonials: luxury motion ──────────────────────────────
    Mobile : ONE card visible at a time, smooth crossfade between
             three cards using three distinct animations. No gaps,

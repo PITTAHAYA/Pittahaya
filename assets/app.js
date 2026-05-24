@@ -1,6 +1,10 @@
 (() => {
   document.documentElement.classList.add("js");
 
+  // ── Language detection (matches chatbot.js) ──────────────────
+  const inEn = /^en/i.test(document.documentElement.lang || "")
+    || /^\/en\//.test(location.pathname);
+
   const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
   const $ = (sel, root=document) => root.querySelector(sel);
   const make = (tag, className, text) => {
@@ -171,8 +175,12 @@
 
   const copyForViewport = (data, key) => {
     if (!data) return "";
+    // Prefer the .en localized variant when on an English page, falling
+    // back gracefully if a particular field hasn't been translated yet.
+    const source = (inEn && data.en) ? data.en : data;
     const mobileKey = `mobile${key.charAt(0).toUpperCase()}${key.slice(1)}`;
-    return mobileContent.matches && data[mobileKey] ? data[mobileKey] : data[key];
+    const pick = (obj) => (mobileContent.matches && obj && obj[mobileKey]) ? obj[mobileKey] : (obj ? obj[key] : undefined);
+    return pick(source) ?? pick(data) ?? "";
   };
 
   const onMobileContentChange = (callback) => {
@@ -228,7 +236,16 @@
       body: "Ideal para una oferta concreta: el visitante entiende el resultado, ve prueba, resuelve dudas y llega al contacto con momentum.",
       mobileBody: "El cliente entiende la oferta y llega al contacto sin vueltas.",
       cta: "Ver demo de conversión",
-      href: "demo-landing.html"
+      href: "demo-landing.html",
+      en: {
+        eyebrow: "Buyer-ready client",
+        title: "Immediate sale without feeling desperate.",
+        mobileTitle: "Clear, fast sale.",
+        body: "Ideal for a concrete offer: the visitor understands the outcome, sees proof, kills doubts, and reaches contact with momentum.",
+        mobileBody: "Client understands the offer and reaches contact effortlessly.",
+        cta: "View conversion demo",
+        href: "demo-landing.html"
+      }
     },
     authority: {
       eyebrow: "Marca seria en segundos",
@@ -237,7 +254,16 @@
       body: "Perfecto para empresas, consultoras y servicios B2B que necesitan verse sólidos, ordenados y listos para contratos importantes.",
       mobileBody: "Para empresas que necesitan verse sólidas desde el primer vistazo.",
       cta: "Ver demo corporativa",
-      href: "demo-corporativa.html"
+      href: "demo-corporativa.html",
+      en: {
+        eyebrow: "Serious brand in seconds",
+        title: "Executive trust before price even enters the conversation.",
+        mobileTitle: "Trust before price.",
+        body: "Perfect for companies, consultancies and B2B services that need to look solid, organized, and ready for important contracts.",
+        mobileBody: "For companies that need to look solid at first glance.",
+        cta: "View corporate demo",
+        href: "demo-corporativa.html"
+      }
     },
     desire: {
       eyebrow: "Deseo visual premium",
@@ -246,7 +272,16 @@
       body: "Para marcas creativas o high-end que venden percepción: textura, ritmo, color, lujo, voz y una experiencia que se queda en la memoria.",
       mobileBody: "Para marcas que venden percepción, deseo y estética premium.",
       cta: "Ver demos memorables",
-      href: "portafolio.html"
+      href: "portafolio.html",
+      en: {
+        eyebrow: "Premium visual desire",
+        title: "A site remembered as a high-value brand.",
+        mobileTitle: "A brand people remember.",
+        body: "For creative or high-end brands that sell perception: texture, rhythm, color, luxury, voice — an experience that lingers in memory.",
+        mobileBody: "For brands that sell perception, desire and premium aesthetic.",
+        cta: "View memorable demos",
+        href: "portfolio.html"
+      }
     }
   };
 
@@ -262,7 +297,20 @@
       mobileScreen: "Tu marca se ve premium.",
       score: "92%",
       path: "4 pasos",
-      signal: "24/7"
+      signal: "24/7",
+      en: {
+        kicker: "First-impression system",
+        title: "Visual impact before the client even thinks.",
+        mobileTitle: "Impact before the scroll.",
+        body: "The page opens with an immediate premium signal: color, contrast, logo and message work together to stop the scroll.",
+        mobileBody: "Logo, color and message stop attention fast.",
+        label: "First impression",
+        screen: "Your brand looks impossible to ignore.",
+        mobileScreen: "Your brand looks premium.",
+        score: "92%",
+        path: "4 steps",
+        signal: "24/7"
+      }
     },
     desire: {
       kicker: "Sistema de deseo",
@@ -275,7 +323,20 @@
       mobileScreen: "Más deseo, menos explicación.",
       score: "+38%",
       path: "Más interés",
-      signal: "Look premium"
+      signal: "Look premium",
+      en: {
+        kicker: "Desire system",
+        title: "The offer feels more valuable without over-explaining.",
+        mobileTitle: "Your offer feels more valuable.",
+        body: "Visual rhythm turns common services into an aspirational experience: the client feels quality before asking the price.",
+        mobileBody: "Clients feel quality before asking price.",
+        label: "Built desire",
+        screen: "Your product reads premium.",
+        mobileScreen: "More desire, less explaining.",
+        score: "+38%",
+        path: "More interest",
+        signal: "Premium look"
+      }
     },
     trust: {
       kicker: "Sistema de confianza",
@@ -288,7 +349,20 @@
       mobileScreen: "Decidir se siente seguro.",
       score: "0 fricción",
       path: "Prueba clara",
-      signal: "CSP listo"
+      signal: "CSP listo",
+      en: {
+        kicker: "Trust system",
+        title: "Every block answers a doubt before it becomes an objection.",
+        mobileTitle: "Trust without over-explaining.",
+        body: "Proof, process, clarity and visual security make moving forward feel logical, not risky.",
+        mobileBody: "Clarity, process and proof cut doubts fast.",
+        label: "Active trust",
+        screen: "The decision feels safe.",
+        mobileScreen: "Deciding feels safe.",
+        score: "0 friction",
+        path: "Clear proof",
+        signal: "CSP ready"
+      }
     },
     action: {
       kicker: "Sistema de acción",
@@ -301,7 +375,20 @@
       mobileScreen: "Listo para pedir diagnóstico.",
       score: "CTA vivo",
       path: "Lead directo",
-      signal: "Chat local"
+      signal: "Chat local",
+      en: {
+        kicker: "Action system",
+        title: "Contact appears the moment the visitor has a real reason to reach out.",
+        mobileTitle: "Contact lands when interest is real.",
+        body: "CTA, demos, plans and the virtual assistant work as an ecosystem that turns curiosity into conversation.",
+        mobileBody: "Buttons, demos and chat push the conversation.",
+        label: "Conversion",
+        screen: "Ready to request the diagnostic.",
+        mobileScreen: "Ready to request diagnostic.",
+        score: "Live CTA",
+        path: "Direct lead",
+        signal: "Local chat"
+      }
     }
   };
 
@@ -400,21 +487,42 @@
       label: "Presencia elegante",
       body: "Te conviene empezar con una web clara, rápida y confiable: lo suficiente para que tu negocio deje de verse improvisado y pueda recibir contactos.",
       mobileBody: "Web clara para verte profesional y recibir contactos.",
-      href: "contacto.html"
+      href: "contacto.html",
+      en: {
+        name: "Basic Plan",
+        label: "Elegant presence",
+        body: "Best to start with a clear, fast, trustworthy site: enough so your business stops looking improvised and can start receiving leads.",
+        mobileBody: "Clean site so you look pro and start getting leads.",
+        href: "contact.html"
+      }
     },
     sales: {
       name: "Plan Negocio",
       label: "Ruta de venta completa",
       body: "Es la mejor opción si quieres explicar servicios, resolver dudas, mostrar proceso y convertir visitas en conversaciones con más intención.",
       mobileBody: "Para explicar servicios, resolver dudas y convertir visitas.",
-      href: "contacto.html"
+      href: "contacto.html",
+      en: {
+        name: "Business Plan",
+        label: "Full sales route",
+        body: "The best choice if you want to explain services, kill doubts, show process, and turn visits into intentional conversations.",
+        mobileBody: "Explain services, kill doubts, convert visits.",
+        href: "contact.html"
+      }
     },
     premium: {
       name: "Plan Premium",
       label: "Experiencia de alta percepción",
       body: "Ideal si tu marca compite por valor, lujo o diferenciación. La web necesita sentirse más editorial, más personalizada y más memorable.",
       mobileBody: "Para marcas que necesitan verse high-end y memorables.",
-      href: "contacto.html"
+      href: "contacto.html",
+      en: {
+        name: "Premium Plan",
+        label: "High-perception experience",
+        body: "Ideal if your brand competes on value, luxury, or differentiation. The site needs to feel more editorial, more custom, and more memorable.",
+        mobileBody: "For brands that need to look high-end and memorable.",
+        href: "contact.html"
+      }
     }
   };
 

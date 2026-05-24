@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,14 +7,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Demo · The Brand Lab | Pittahaya</title>
-  <link rel="icon" href="assets/pitahaya-logo.png" />
-  <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
-  <meta name="description" content="Demo inmersiva de marca & diseño. Identidad viva, paletas que cambian, tipografía editorial por Pittahaya." />
+  <link rel="icon" href="../assets/pitahaya-logo.png" />
+  <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
+  <meta name="description" content="Immersive brand & design demo. Living identity, color palettes that shift, editorial typography by Pittahaya." />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Pittahaya" />
   <meta property="og:title" content="Demo · The Brand Lab | Pittahaya" />
-  <meta property="og:description" content="Demo inmersiva de marca & diseño." />
-  <meta property="og:url" content="https://www.pittahaya.com/demo-marca.html" />
+  <meta property="og:url" content="https://www.pittahaya.com/en/demo-marca.html" />
   <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -26,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
+  <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
   <style>
 :root{--palette-a:#ff6a4d;--palette-b:#ffd166;--palette-c:#0c0c10;--ink:#0c0c10;--ink2:#15151c;--cream:#f7f1e8;--muted:rgba(247,241,232,.68);--line:rgba(247,241,232,.10)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -46,20 +44,20 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .hero::before{content:"";position:absolute;inset:-10%;z-index:-1;background:radial-gradient(900px 540px at 14% 16%,color-mix(in srgb,var(--palette-a) 24%,transparent),transparent 64%),radial-gradient(720px 420px at 88% 8%,color-mix(in srgb,var(--palette-b) 16%,transparent),transparent 60%);transition:background .8s ease;filter:blur(6px)}
 .hero canvas[data-fx-particles]{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.4}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:120px;z-index:1;background:linear-gradient(180deg,transparent,var(--ink));pointer-events:none}
-.heroInner{position:relative;z-index:2;text-align:left}
+.heroInner{position:relative;z-index:2}
 .eyebrow{display:inline-flex;gap:10px;align-items:center;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--palette-a);padding:8px 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--palette-a) 30%,transparent);background:color-mix(in srgb,var(--palette-a) 8%,transparent);transition:all .8s ease}
 .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--palette-a);animation:dotPulse 1.6s ease-in-out infinite}
 @keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
 h1.heroH{font-family:"Playfair Display",ui-serif,Georgia,serif;font-weight:900;font-size:clamp(56px,9vw,140px);line-height:.86;letter-spacing:-3px;margin:24px 0 22px;max-width:14ch}
 .heroH em{font-style:italic;font-weight:700;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.heroLead{margin:0;max-width:54ch;color:var(--muted);font-size:18px;line-height:1.72;font-weight:400}
+.heroLead{margin:0;max-width:54ch;color:var(--muted);font-size:18px;line-height:1.72}
 .heroActions{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:54px;padding:15px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--cream);font-family:"Manrope",sans-serif;font-size:15px;font-weight:700;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease;cursor:pointer;will-change:transform}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:54px;padding:15px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--cream);font-family:"Manrope",sans-serif;font-size:15px;font-weight:700;transition:all .22s ease;cursor:pointer;will-change:transform}
 .btn:hover{transform:translateY(-2px);border-color:var(--palette-a)}
 .btnPrimary{background:linear-gradient(135deg,var(--palette-a),var(--palette-b));color:var(--ink);border-color:transparent;box-shadow:0 22px 70px color-mix(in srgb,var(--palette-a) 30%,transparent);font-weight:800;transition:background .8s ease,transform .22s ease,box-shadow .22s ease}
 .paletteBar{margin-top:50px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
 .paletteLabel{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-right:8px}
-.swatch{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;transition:transform .25s ease,border-color .25s ease}
+.swatch{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;transition:all .25s ease}
 .swatch:hover{transform:translateY(-2px);border-color:rgba(247,241,232,.32)}
 .swatch.is-active{border-color:var(--cream);background:rgba(247,241,232,.08)}
 .swatch i{width:24px;height:24px;border-radius:50%;display:block;background:linear-gradient(135deg,var(--p1),var(--p2));box-shadow:0 4px 14px color-mix(in srgb,var(--p1) 35%,transparent)}
@@ -71,7 +69,7 @@ h1.heroH{font-family:"Playfair Display",ui-serif,Georgia,serif;font-weight:900;f
 .sectionHead h2 em{font-style:italic;color:var(--palette-a);transition:color .8s ease}
 .sectionHead p{margin:0;color:var(--muted);line-height:1.72;font-size:16px}
 .moodGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.mood{position:relative;aspect-ratio:1/1.2;border-radius:18px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .5s cubic-bezier(.2,.7,.3,1);background:linear-gradient(145deg,color-mix(in srgb,var(--palette-a) 25%,var(--ink)),color-mix(in srgb,var(--palette-b) 18%,var(--ink)))}
+.mood{position:relative;aspect-ratio:1/1.2;border-radius:18px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
 .mood:hover{transform:translateY(-6px) scale(1.01)}
 .mood::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7))}
 .mood img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.15) contrast(1.05)}
@@ -106,17 +104,16 @@ small{color:rgba(247,241,232,.58)}
   </style>
 </head>
 <body>
-
 <header class="nav">
   <div class="wrap">
-    <a class="mark" href="portafolio.html" aria-label="Pittahaya">
+    <a class="mark" href="portfolio.html" aria-label="Pittahaya">
       <div class="markIcon">M</div>
-      <div><b><em>Brand Lab</em></b><span>Demo · Marca &amp; diseño</span></div>
+      <div><b><em>Brand Lab</em></b><span>Demo · Brand &amp; design</span></div>
     </a>
     <div class="navLinks">
-      <a class="pill" href="en/demo-marca.html" hreflang="en" lang="en" aria-label="View in English">EN</a>
-      <a class="pill" href="portafolio.html">← Volver</a>
-      <a class="pill" href="contacto.html">Contacto</a>
+      <a class="pill" href="../demo-marca.html" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+      <a class="pill" href="portfolio.html">← Back</a>
+      <a class="pill" href="contact.html">Contact</a>
     </div>
   </div>
 </header>
@@ -125,20 +122,20 @@ small{color:rgba(247,241,232,.58)}
   <section class="hero">
     <canvas data-fx-particles aria-hidden="true"></canvas>
     <div class="wrap heroInner">
-      <span class="eyebrow">Brand lab · paleta viva</span>
-      <h1 class="heroH" data-fx-letters>Una marca que se siente imposible de copiar.</h1>
-      <p class="heroLead">Esta demo cambia color, tipografía y temperatura visual mientras la exploras. Las marcas memorables no eligen una paleta: eligen una personalidad. Pulsa los swatches y siente cómo cambia la habitación.</p>
+      <span class="eyebrow">Brand lab · living palette</span>
+      <h1 class="heroH" data-fx-letters>A brand that feels impossible to copy.</h1>
+      <p class="heroLead">This demo changes color, typography and visual temperature as you explore it. Memorable brands don't pick a palette — they pick a personality. Click the swatches and feel the room change.</p>
       <div class="heroActions">
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Diseñar mi marca →</a>
-        <a class="btn" href="planes.html">Ver planes</a>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Design my brand →</a>
+        <a class="btn" href="plans.html">See plans</a>
       </div>
       <div class="paletteBar" data-fx-palette>
-        <span class="paletteLabel">Cambia el mood:</span>
-        <button class="swatch is-active" data-palette="#ff6a4d,#ffd166,#0c0c10" type="button"><i style="--p1:#ff6a4d;--p2:#ffd166"></i><span>Coral solar</span></button>
+        <span class="paletteLabel">Switch the mood:</span>
+        <button class="swatch is-active" data-palette="#ff6a4d,#ffd166,#0c0c10" type="button"><i style="--p1:#ff6a4d;--p2:#ffd166"></i><span>Solar coral</span></button>
         <button class="swatch" data-palette="#e83487,#8acb63,#0c0c10" type="button"><i style="--p1:#e83487;--p2:#8acb63"></i><span>Pitahaya</span></button>
         <button class="swatch" data-palette="#7ad7f0,#c084fc,#0c0c10" type="button"><i style="--p1:#7ad7f0;--p2:#c084fc"></i><span>Plasma</span></button>
-        <button class="swatch" data-palette="#d4af6a,#f3d99b,#0c0c10" type="button"><i style="--p1:#d4af6a;--p2:#f3d99b"></i><span>Oro líquido</span></button>
-        <button class="swatch" data-palette="#22d3ee,#10b981,#0c0c10" type="button"><i style="--p1:#22d3ee;--p2:#10b981"></i><span>Botánico</span></button>
+        <button class="swatch" data-palette="#d4af6a,#f3d99b,#0c0c10" type="button"><i style="--p1:#d4af6a;--p2:#f3d99b"></i><span>Liquid gold</span></button>
+        <button class="swatch" data-palette="#22d3ee,#10b981,#0c0c10" type="button"><i style="--p1:#22d3ee;--p2:#10b981"></i><span>Botanical</span></button>
       </div>
     </div>
   </section>
@@ -146,16 +143,16 @@ small{color:rgba(247,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Mood board</div><h2>Cada marca empieza por un <em>sentimiento</em>.</h2></div>
-        <p>Antes del logo, del color, del slogan — hay una temperatura emocional. Si la marca no sabe cuál es, todo lo demás será una decoración costosa.</p>
+        <div><div class="kicker">Mood board</div><h2>Every brand starts with a <em>feeling</em>.</h2></div>
+        <p>Before the logo, the color, the slogan — there's an emotional temperature. If the brand doesn't know what it is, everything else becomes expensive decoration.</p>
       </div>
       <div class="moodGrid" data-reveal>
-        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>01 · Minimal tech</small><h3>Quietud precisa.</h3></div></div>
-        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>02 · Editorial cálida</small><h3>Sabor de revista.</h3></div></div>
-        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>03 · Pop digital</small><h3>Atrevido y rápido.</h3></div></div>
-        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>04 · Orgánico</small><h3>Tacto natural.</h3></div></div>
-        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>05 · Futurista</small><h3>Eléctrico.</h3></div></div>
-        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>06 · Artesanal</small><h3>Hecho a mano.</h3></div></div>
+        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>01 · Minimal tech</small><h3>Precise calm.</h3></div></div>
+        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>02 · Warm editorial</small><h3>Magazine flavor.</h3></div></div>
+        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>03 · Digital pop</small><h3>Bold and fast.</h3></div></div>
+        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>04 · Organic</small><h3>Natural touch.</h3></div></div>
+        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>05 · Futurist</small><h3>Electric.</h3></div></div>
+        <div class="mood" data-fx-tilt><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>06 · Artisanal</small><h3>Handmade.</h3></div></div>
       </div>
     </div>
   </section>
@@ -163,11 +160,11 @@ small{color:rgba(247,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Manifiesto en bucle</div><h2>Las palabras que <em>llevan</em> tu marca.</h2></div>
-        <p>La identidad no es solo lo que se ve. Es lo que se repite. Cinco palabras que el cliente recuerda — esa es la marca.</p>
+        <div><div class="kicker">Manifesto in loop</div><h2>The words that <em>carry</em> your brand.</h2></div>
+        <p>Identity isn't only what's seen. It's what's repeated. Five words the client remembers — that's the brand.</p>
       </div>
       <div class="brandMarquee" aria-hidden="true" data-fx-marquee>
-        <div class="bmTrack"><span>Audacia</span><span>Calma</span><span>Memorable</span><span>Distinta</span><span>Cálida</span><span>Atrevida</span><span>Honesta</span><span>Editorial</span></div>
+        <div class="bmTrack"><span>Bold</span><span>Calm</span><span>Memorable</span><span>Distinct</span><span>Warm</span><span>Daring</span><span>Honest</span><span>Editorial</span></div>
       </div>
     </div>
   </section>
@@ -175,12 +172,12 @@ small{color:rgba(247,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Tipografía como ADN</div><h2>El primer detalle que el ojo <em>reconoce</em>.</h2></div>
-        <p>Una marca premium no se reconoce primero por el logo. Se reconoce por la forma de la "A", el ritmo del párrafo, el espacio entre letras. La tipografía es el rostro silencioso.</p>
+        <div><div class="kicker">Typography as DNA</div><h2>The first detail the eye <em>recognizes</em>.</h2></div>
+        <p>A premium brand isn't recognized first by its logo. It's recognized by the shape of the "A", the rhythm of the paragraph, the space between letters. Typography is the silent face.</p>
       </div>
       <div class="typeGrid" data-reveal>
-        <div class="specimen"><small>Display · Playfair Italic 900</small><div class="specimenChar">Aa</div><p class="specimenName">Para titulares con peso editorial.</p><p class="specimenSub">Serif · alto contraste · italic ornamental</p></div>
-        <div class="specimen"><small>Body · Manrope 400/800</small><div class="specimenChar" style="font-family:'Manrope',sans-serif;font-style:normal;font-weight:800">Aa</div><p class="specimenName">Para texto que respira y conduce.</p><p class="specimenSub">Sans · geométrica · neutralidad cálida</p></div>
+        <div class="specimen"><small>Display · Playfair Italic 900</small><div class="specimenChar">Aa</div><p class="specimenName">For headlines with editorial weight.</p><p class="specimenSub">Serif · high contrast · ornamental italic</p></div>
+        <div class="specimen"><small>Body · Manrope 400/800</small><div class="specimenChar" style="font-family:'Manrope',sans-serif;font-style:normal;font-weight:800">Aa</div><p class="specimenName">For text that breathes and leads.</p><p class="specimenSub">Sans · geometric · warm neutrality</p></div>
       </div>
     </div>
   </section>
@@ -188,10 +185,10 @@ small{color:rgba(247,241,232,.58)}
   <section class="section">
     <div class="wrap">
       <div class="finalCta" data-reveal>
-        <div class="kicker" style="display:inline-block">Tu turno</div>
-        <h2>Construyamos la marca que tu cliente <em>no logra olvidar</em>.</h2>
-        <p>Dime qué vendes, qué temperatura quieres provocar y qué referentes te emocionan. Te devuelvo una dirección visual viva — palabras, colores, tipografía, gestos.</p>
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Crear mi identidad →</a>
+        <div class="kicker" style="display:inline-block">Your move</div>
+        <h2>Let's build the brand your client <em>can't forget</em>.</h2>
+        <p>Tell me what you sell, what temperature you want to evoke, and what references move you. I'll return a living visual direction — words, colors, typography, gestures.</p>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Create my identity →</a>
       </div>
     </div>
   </section>
@@ -200,23 +197,23 @@ small{color:rgba(247,241,232,.58)}
 <footer class="footer demo-footer">
   <div class="wrap">
     <div class="demo-footer-brand">
-      <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
-      <span>Demo interna para clientes</span>
+      <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
+      <span>Internal client demo</span>
       <strong>Pittahaya</strong>
-      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Diseño, demos y contenido protegidos. Prohibida su copia o uso no autorizado.</small>
+      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Design, demos and content protected. Unauthorized copy or use prohibited.</small>
     </div>
     <div class="navLinks">
-      <a class="pill" href="portafolio.html">Ver más demos</a>
-      <a class="pill" href="contacto.html">Comencemos tu proyecto</a>
+      <a class="pill" href="portfolio.html">More demos</a>
+      <a class="pill" href="contact.html">Start your project</a>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true">
-  <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
+  <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=3" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=3" defer></script>
+<script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

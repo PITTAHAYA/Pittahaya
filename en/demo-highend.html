@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,12 +7,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Demo · The Atelier | Pittahaya</title>
-  <link rel="icon" href="assets/pitahaya-logo.png" />
-  <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
-  <meta name="description" content="Demo inmersiva de diseño high-end. Lujo editorial, tipografía italic, fotografía slow." />
+  <link rel="icon" href="../assets/pitahaya-logo.png" />
+  <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
+  <meta name="description" content="Immersive high-end design demo. Editorial luxury, italic typography, slow photography." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Demo · The Atelier | Pittahaya" />
-  <meta property="og:url" content="https://www.pittahaya.com/demo-highend.html" />
+  <meta property="og:url" content="https://www.pittahaya.com/en/demo-highend.html" />
   <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,700&amp;family=Inter:wght@300;400;500;600&amp;family=Italiana&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
+  <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
   <style>
 :root{--ink:#0a0608;--ink2:#120a10;--cream:#f0e6d6;--muted:rgba(240,230,214,.62);--line:rgba(240,230,214,.10);--wine:#7b1733;--rose:#d4a574;--champagne:#e8d5b7;--shadow:0 30px 100px rgba(0,0,0,.55)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -34,7 +34,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .nav{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(10,6,8,.78);backdrop-filter:blur(20px)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0}
 .mark{display:flex;align-items:center;gap:14px}
-.markIcon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:var(--ink);font-weight:500;background:linear-gradient(145deg,var(--champagne),var(--rose));font-family:"Italiana",serif;font-size:24px;font-style:normal;box-shadow:0 14px 40px rgba(212,165,116,.22)}
+.markIcon{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:var(--ink);font-weight:500;background:linear-gradient(145deg,var(--champagne),var(--rose));font-family:"Italiana",serif;font-size:24px;box-shadow:0 14px 40px rgba(212,165,116,.22)}
 .mark b{display:block;font-family:"Italiana",serif;font-size:20px;letter-spacing:3px;text-transform:uppercase;font-weight:400}
 .mark span{display:block;color:rgba(240,230,214,.5);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:"Inter",sans-serif;margin-top:2px}
 .navLinks{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
@@ -64,7 +64,6 @@ h1.heroH{font-family:"Cormorant Garamond",ui-serif,Georgia,serif;font-weight:500
 .sectionHead h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:clamp(40px,5vw,84px);line-height:1.02;letter-spacing:-.5px;margin:0;font-style:italic}
 .sectionHead h2 em{font-style:normal;color:var(--rose)}
 .sectionHead p{margin:0;color:var(--muted);line-height:1.85;font-size:17px;font-weight:300}
-/* Editorial spread (gallery) */
 .spread{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;align-items:start}
 .spreadCard{position:relative;border-radius:0;overflow:hidden;cursor:pointer;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
 .spreadCard:hover{transform:translateY(-6px)}
@@ -77,14 +76,12 @@ h1.heroH{font-family:"Cormorant Garamond",ui-serif,Georgia,serif;font-weight:500
 .s2{grid-column:span 5;aspect-ratio:4/5}
 .s3{grid-column:span 5;aspect-ratio:4/5}
 .s4{grid-column:span 7;aspect-ratio:4/3}
-/* Pull quote */
 .pullQuote{padding:80px 0;text-align:center;position:relative}
 .pullQuote::before,.pullQuote::after{content:"";position:absolute;left:50%;width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--rose),transparent);margin-left:-40px}
 .pullQuote::before{top:0}.pullQuote::after{bottom:0}
 .pullQuote blockquote{margin:0 auto;max-width:24ch;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(40px,5vw,72px);line-height:1.08;font-weight:500;color:var(--cream)}
 .pullQuote blockquote em{font-style:normal;color:var(--rose)}
 .pullQuote cite{display:block;margin-top:30px;font-family:"Inter",sans-serif;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:var(--muted);font-style:normal;font-weight:400}
-/* Editorial detail strip */
 .detail{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .detailVisual{position:relative;border-radius:0;overflow:hidden;aspect-ratio:4/5}
 .detailVisual img{width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.06)}
@@ -94,7 +91,6 @@ h1.heroH{font-family:"Cormorant Garamond",ui-serif,Georgia,serif;font-weight:500
 .detailList{margin:24px 0 0;padding:0;list-style:none;display:grid;gap:14px;border-top:1px solid var(--line);padding-top:24px}
 .detailList li{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;font-size:14px;line-height:1.6;color:var(--muted);font-weight:300}
 .detailList li b{font-family:"Italiana",serif;color:var(--rose);font-size:18px;font-weight:400;white-space:nowrap}
-/* Vertical brand marquee */
 .qMarquee{margin-top:50px;overflow:hidden;padding:30px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .qmTrack{display:flex;gap:80px;animation:qmRoll 36s linear infinite;width:max-content;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:36px;color:rgba(240,230,214,.32);font-weight:500}
 .qmTrack span{display:inline-flex;align-items:center;gap:80px;white-space:nowrap}
@@ -122,14 +118,14 @@ small{color:rgba(240,230,214,.5)}
 
 <header class="nav">
   <div class="wrap">
-    <a class="mark" href="portafolio.html" aria-label="Pittahaya">
+    <a class="mark" href="portfolio.html" aria-label="Pittahaya">
       <div class="markIcon">A</div>
       <div><b>Atelier</b><span>Demo · High-end</span></div>
     </a>
     <div class="navLinks">
-      <a class="pill" href="en/demo-highend.html" hreflang="en" lang="en" aria-label="View in English">EN</a>
-      <a class="pill" href="portafolio.html">← Volver</a>
-      <a class="pill" href="contacto.html">Contacto</a>
+      <a class="pill" href="../demo-highend.html" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+      <a class="pill" href="portfolio.html">← Back</a>
+      <a class="pill" href="contact.html">Contact</a>
     </div>
   </div>
 </header>
@@ -139,94 +135,73 @@ small{color:rgba(240,230,214,.5)}
   <section class="hero">
     <div class="heroBg" aria-hidden="true"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&amp;fit=crop&amp;w=2400&amp;q=80" alt=""></div>
     <div class="wrap heroInner">
-      <span class="eyebrow">Atelier · edición limitada</span>
-      <h1 class="heroH" data-fx-letters>Diseño que se siente <em>caro</em>, sin tener que decirlo.</h1>
-      <p class="heroLead">Para marcas de alta gama, joyería, hospitalidad boutique, moda y servicios de autor. El visitante no necesita leer el precio: lo siente en el ritmo, el espacio y el silencio del primer scroll.</p>
+      <span class="eyebrow">Atelier · limited edition</span>
+      <h1 class="heroH" data-fx-letters>Design that feels <em>expensive</em>, without having to say it.</h1>
+      <p class="heroLead">For high-end brands, jewelry, boutique hospitality, fashion and signature services. The visitor doesn't need to read the price — they feel it in the rhythm, the space, and the silence of the first scroll.</p>
       <div class="heroActions">
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Reservar una sesión</a>
-        <a class="btn" href="planes.html">Ver planes</a>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Book a session</a>
+        <a class="btn" href="plans.html">See plans</a>
       </div>
     </div>
   </section>
 
-  <!-- Editorial spread -->
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Editorial</div><h2>Una página que se hojea como <em>revista</em>, no se navega como tienda.</h2></div>
-        <p>Los lujos digitales no compiten por atención — la merecen. El diseño high-end deja respirar la imagen, controla el tiempo de lectura y elimina cualquier llamada que se sienta urgente.</p>
+        <div><div class="kicker">Editorial</div><h2>A page leafed like a <em>magazine</em>, not browsed like a store.</h2></div>
+        <p>Digital luxury doesn't compete for attention — it earns it. High-end design lets the image breathe, controls the reading rhythm, and removes any cue that feels urgent.</p>
       </div>
-
       <div class="spread" data-reveal>
-        <div class="spreadCard s1" data-fx-tilt>
-          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="Editorial luxury">
-          <div class="spreadMeta"><small>Capítulo I · Atmosphere</small><h3>La primera respiración.</h3></div>
-        </div>
-        <div class="spreadCard s2" data-fx-tilt>
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Detail">
-          <div class="spreadMeta"><small>Capítulo II · Detalle</small><h3>El gesto que recuerda.</h3></div>
-        </div>
-        <div class="spreadCard s3" data-fx-tilt>
-          <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Material">
-          <div class="spreadMeta"><small>Capítulo III · Material</small><h3>Textura como firma.</h3></div>
-        </div>
-        <div class="spreadCard s4" data-fx-tilt>
-          <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="Spread">
-          <div class="spreadMeta"><small>Capítulo IV · Editorial</small><h3>El silencio editorial.</h3></div>
-        </div>
+        <div class="spreadCard s1" data-fx-tilt><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="Editorial luxury"><div class="spreadMeta"><small>Chapter I · Atmosphere</small><h3>The first breath.</h3></div></div>
+        <div class="spreadCard s2" data-fx-tilt><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Detail"><div class="spreadMeta"><small>Chapter II · Detail</small><h3>The gesture that lingers.</h3></div></div>
+        <div class="spreadCard s3" data-fx-tilt><img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Material"><div class="spreadMeta"><small>Chapter III · Material</small><h3>Texture as signature.</h3></div></div>
+        <div class="spreadCard s4" data-fx-tilt><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="Spread"><div class="spreadMeta"><small>Chapter IV · Editorial</small><h3>The editorial silence.</h3></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Pull quote -->
   <section class="section" style="padding:0">
     <div class="wrap">
       <div class="pullQuote" data-reveal>
-        <blockquote>"El lujo no grita — <em>insinúa</em>. Y siempre llega antes."</blockquote>
-        <cite>Manifiesto Atelier · Pittahaya</cite>
+        <blockquote>"Luxury doesn't shout — it <em>hints</em>. And it always arrives first."</blockquote>
+        <cite>Atelier Manifesto · Pittahaya</cite>
       </div>
     </div>
   </section>
 
-  <!-- Detail / material -->
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Construcción</div><h2>El detalle <em>nunca</em> es decoración.</h2></div>
-        <p>Cada decisión visual responde a un objetivo silencioso: que la marca se sienta hecha a mano, pensada en el tiempo correcto y entregada con la calma del oficio.</p>
+        <div><div class="kicker">Construction</div><h2>The detail is <em>never</em> decoration.</h2></div>
+        <p>Every visual decision answers a silent goal: that the brand feels handmade, paced at the right tempo, and delivered with the calm of craft.</p>
       </div>
-
       <div class="detail" data-reveal>
         <div class="detailVisual"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&amp;fit=crop&amp;w=1600&amp;q=80" alt="Atelier detail"></div>
         <div class="detailCopy">
-          <h3>Tipografía, ritmo y silencio — la tríada <em>no negociable</em>.</h3>
-          <p>El diseño editorial high-end no se basa en cuántos elementos pones, sino en cuántos eliminas. El espacio es el material más caro de cualquier marca premium.</p>
+          <h3>Typography, rhythm and silence — the <em>non-negotiable</em> triad.</h3>
+          <p>High-end editorial design isn't about how many elements you add — it's about how many you remove. Space is the most expensive material any premium brand owns.</p>
           <ul class="detailList">
-            <li><b>I.</b><span>Tipografía italic en titulares: marca tono editorial sin esfuerzo.</span></li>
-            <li><b>II.</b><span>Ritmo lento de scroll: secciones largas que dan tiempo a admirar.</span></li>
-            <li><b>III.</b><span>Fotografía con grano editorial: textura, no perfección.</span></li>
-            <li><b>IV.</b><span>Paleta de tres tonos máximo: el lujo es restricción.</span></li>
-            <li><b>V.</b><span>Microcopy curado: cada palabra elegida como un material.</span></li>
+            <li><b>I.</b><span>Italic serif in headlines: sets an editorial tone effortlessly.</span></li>
+            <li><b>II.</b><span>Slow scroll rhythm: long sections that give time to admire.</span></li>
+            <li><b>III.</b><span>Photography with editorial grain: texture, not perfection.</span></li>
+            <li><b>IV.</b><span>Palette of three tones maximum: luxury is restriction.</span></li>
+            <li><b>V.</b><span>Curated microcopy: each word chosen like a material.</span></li>
           </ul>
         </div>
       </div>
-
       <div class="qMarquee" aria-hidden="true" data-fx-marquee>
-        <div class="qmTrack">
-          <span>Hospitalidad boutique</span><span>Joyería de autor</span><span>Moda atelier</span><span>Restaurantes signature</span><span>Hoteles privados</span><span>Galerías de arte</span><span>Perfumes nicho</span><span>Estudios de diseño</span>
-        </div>
+        <div class="qmTrack"><span>Boutique hospitality</span><span>Signature jewelry</span><span>Atelier fashion</span><span>Signature restaurants</span><span>Private hotels</span><span>Art galleries</span><span>Niche perfume</span><span>Design studios</span></div>
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
   <section class="section" style="padding:0">
     <div class="finalCta" data-reveal>
       <div class="wrap">
-        <div class="kicker" style="display:inline-flex;justify-content:center">Una pieza por temporada</div>
-        <h2>Construyamos una web que se sienta como <em>una pieza</em>, no como un sitio.</h2>
-        <p>Cuéntame qué experiencia quieres provocar en quien llega — el lujo se diseña antes del logo. Trabajos limitados por temporada para mantener la calidad del oficio.</p>
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Reservar conversación</a>
+        <div class="kicker" style="display:inline-flex;justify-content:center">One piece per season</div>
+        <h2>Let's build a site that feels like <em>a piece</em>, not a website.</h2>
+        <p>Tell me what experience you want to evoke in whoever arrives — luxury is designed before the logo. Limited engagements per season to preserve the quality of the craft.</p>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Book a conversation</a>
       </div>
     </div>
   </section>
@@ -236,23 +211,23 @@ small{color:rgba(240,230,214,.5)}
 <footer class="footer demo-footer">
   <div class="wrap">
     <div class="demo-footer-brand">
-      <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
-      <span>Demo interna para clientes</span>
+      <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
+      <span>Internal client demo</span>
       <strong>Pittahaya</strong>
-      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Diseño, demos y contenido protegidos. Prohibida su copia o uso no autorizado.</small>
+      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Design, demos and content protected. Unauthorized copy or use prohibited.</small>
     </div>
     <div class="navLinks">
-      <a class="pill" href="portafolio.html">Ver más demos</a>
-      <a class="pill" href="contacto.html">Comencemos tu proyecto</a>
+      <a class="pill" href="portfolio.html">More demos</a>
+      <a class="pill" href="contact.html">Start your project</a>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true">
-  <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
+  <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=3" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=3" defer></script>
+<script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

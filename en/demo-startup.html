@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,12 +7,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Demo · The Launch Console | Pittahaya</title>
-  <link rel="icon" href="assets/pitahaya-logo.png" />
-  <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
-  <meta name="description" content="Demo inmersiva de web para startup tech. Terminal viva, dashboard, métricas y CTA de demo." />
+  <link rel="icon" href="../assets/pitahaya-logo.png" />
+  <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
+  <meta name="description" content="Immersive tech startup demo. Live terminal, dashboard, metrics and demo CTA." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Demo · The Launch Console | Pittahaya" />
-  <meta property="og:url" content="https://www.pittahaya.com/demo-startup.html" />
+  <meta property="og:url" content="https://www.pittahaya.com/en/demo-startup.html" />
   <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
+  <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
   <style>
 :root{--ink:#050714;--ink2:#0a0e26;--cream:#e6ecff;--muted:rgba(230,236,255,.62);--line:rgba(230,236,255,.10);--cyan:#22d3ee;--electric:#818cf8;--lime:#a3e635;--magenta:#f472b6;--shadow:0 30px 100px rgba(0,0,0,.55)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -56,7 +56,6 @@ h1.heroH{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:14px 22px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--cream);font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;letter-spacing:.6px;transition:all .22s ease;cursor:pointer}
 .btn:hover{transform:translateY(-2px);border-color:var(--cyan)}
 .btnPrimary{background:linear-gradient(135deg,var(--cyan),var(--electric));color:#06080f;border-color:transparent;box-shadow:0 22px 70px rgba(34,211,238,.28);font-weight:700}
-/* Terminal */
 .terminal{position:relative;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));padding:18px;font-family:"JetBrains Mono",monospace;font-size:13.5px;line-height:1.7;min-height:380px;box-shadow:var(--shadow);overflow:hidden}
 .terminalDots{display:flex;gap:6px;margin-bottom:14px}
 .terminalDots span{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.16)}
@@ -65,14 +64,6 @@ h1.heroH{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(
 .terminalBody::selection{background:var(--cyan);color:var(--ink)}
 .fx-typing .fx-caret{display:inline-block;width:9px;height:18px;background:var(--cyan);vertical-align:text-bottom;animation:cb 1.1s steps(2,end) infinite;margin-left:2px;border-radius:2px}
 @keyframes cb{50%{opacity:0}}
-.terminalLines{display:grid;gap:4px}
-.terminalLines .ln{display:flex;gap:10px;align-items:flex-start}
-.terminalLines .ln::before{content:"$";color:var(--lime);font-weight:700}
-.terminalLines .ln.out::before{content:">";color:var(--cyan)}
-.terminalLines .ln.warn::before{content:"!";color:var(--magenta)}
-.terminalLines .ln span.k{color:var(--lime)}
-.terminalLines .ln span.v{color:var(--cyan)}
-.terminalLines .ln span.s{color:rgba(230,236,255,.5)}
 .section{padding:90px 0;position:relative}
 .sectionHead{display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;align-items:end;margin-bottom:50px}
 .kicker{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--cyan)}
@@ -80,7 +71,6 @@ h1.heroH{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(
 .sectionHead h2{font-family:"Space Grotesk",serif;font-weight:700;font-size:clamp(38px,4.4vw,64px);line-height:1;letter-spacing:-1.5px;margin:0}
 .sectionHead h2 em{font-style:normal;background:linear-gradient(135deg,var(--cyan),var(--electric));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .sectionHead p{margin:0;color:var(--muted);line-height:1.75;font-size:16px}
-/* Metric cards */
 .metricsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .metric{padding:24px 22px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));position:relative;overflow:hidden;transition:all .35s ease}
 .metric:hover{transform:translateY(-4px);border-color:var(--cyan)}
@@ -88,15 +78,12 @@ h1.heroH{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(
 .metricLabel{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
 .metricValue{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:42px;line-height:1;margin:14px 0 4px;color:var(--cream)}
 .metricDelta{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--lime);letter-spacing:.4px}
-.metricDelta.down{color:var(--magenta)}
-/* Stack flow */
 .stackGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .stackCard{padding:24px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);transition:all .35s ease}
 .stackCard:hover{border-color:var(--electric);background:rgba(129,140,248,.06)}
 .stackTag{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--electric);padding:4px 8px;border-radius:4px;background:rgba(129,140,248,.10);display:inline-block}
 .stackCard h3{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:22px;margin:14px 0 8px;line-height:1.15}
 .stackCard p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.6}
-/* Dashboard preview */
 .dashGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
 .dashMock{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0a0e26;padding:18px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:10px;box-shadow:var(--shadow);aspect-ratio:5/4}
 .dashHeader{grid-column:span 2;display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.04);font-family:"JetBrains Mono",monospace;font-size:11px;color:rgba(230,236,255,.6)}
@@ -133,14 +120,14 @@ small{color:rgba(230,236,255,.5)}
 
 <header class="nav">
   <div class="wrap">
-    <a class="mark" href="portafolio.html" aria-label="Pittahaya">
+    <a class="mark" href="portfolio.html" aria-label="Pittahaya">
       <div class="markIcon">⟨/⟩</div>
-      <div><b>Launch Console</b><span>demo · startup tech</span></div>
+      <div><b>Launch Console</b><span>demo · tech startup</span></div>
     </a>
     <div class="navLinks">
-      <a class="pill" href="en/demo-startup.html" hreflang="en" lang="en" aria-label="View in English">EN</a>
-      <a class="pill" href="portafolio.html">← Volver</a>
-      <a class="pill" href="contacto.html">Contacto</a>
+      <a class="pill" href="../demo-startup.html" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+      <a class="pill" href="portfolio.html">← Back</a>
+      <a class="pill" href="contact.html">Contact</a>
     </div>
   </div>
 </header>
@@ -150,12 +137,12 @@ small{color:rgba(230,236,255,.5)}
     <canvas data-fx-particles aria-hidden="true"></canvas>
     <div class="wrap heroInner">
       <div>
-        <span class="eyebrow">// Sistema corriendo</span>
-        <h1 class="heroH" data-fx-letters>Una web que se siente como tu <em>producto</em>, no como una brochure.</h1>
-        <p class="heroLead">Para SaaS, apps y startups que necesitan parecer rápidas, técnicas y serias desde el primer pixel. La página debe sentirse como un producto en producción, no como una landing copiada de un template.</p>
+        <span class="eyebrow">// System online</span>
+        <h1 class="heroH" data-fx-letters>A site that feels like your <em>product</em>, not a brochure.</h1>
+        <p class="heroLead">For SaaS, apps and startups that need to look fast, technical and serious from the first pixel. The page should feel like a product in production — not a landing copied from a template.</p>
         <div class="heroActions">
-          <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="20">$ start_project →</a>
-          <a class="btn" href="planes.html">./plans</a>
+          <a class="btn btnPrimary" href="contact.html" data-fx-magnet="20">$ start_project →</a>
+          <a class="btn" href="plans.html">./plans</a>
         </div>
       </div>
 
@@ -169,15 +156,14 @@ small{color:rgba(230,236,255,.5)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Métricas en vivo</div><h2>Los números que tu inversor <em>busca</em> primero.</h2></div>
-        <p>Antes de leer la propuesta, alguien técnico mira la web y mide tres cosas: velocidad, claridad de producto y profesionalismo del equipo. Esos tres deciden si vale la siguiente reunión.</p>
+        <div><div class="kicker">Live metrics</div><h2>The numbers your investor <em>looks for</em> first.</h2></div>
+        <p>Before reading the deck, someone technical looks at your site and measures three things: speed, product clarity, and team professionalism. Those three decide whether the next meeting happens.</p>
       </div>
-
       <div class="metricsGrid" data-reveal>
-        <div class="metric"><span class="metricLabel">First paint</span><div class="metricValue" data-fx-count="0.42" data-fx-suffix="s">0</div><span class="metricDelta">↑ 38% vs promedio sector</span></div>
-        <div class="metric"><span class="metricLabel">Conversion to demo</span><div class="metricValue" data-fx-count="14.8" data-fx-suffix="%">0</div><span class="metricDelta">↑ 4.2× vs landing genérica</span></div>
+        <div class="metric"><span class="metricLabel">First paint</span><div class="metricValue" data-fx-count="0.42" data-fx-suffix="s">0</div><span class="metricDelta">↑ 38% vs sector avg</span></div>
+        <div class="metric"><span class="metricLabel">Conversion to demo</span><div class="metricValue" data-fx-count="14.8" data-fx-suffix="%">0</div><span class="metricDelta">↑ 4.2× vs generic landing</span></div>
         <div class="metric"><span class="metricLabel">Lighthouse score</span><div class="metricValue" data-fx-count="98" data-fx-suffix="">0</div><span class="metricDelta">↑ Performance + SEO</span></div>
-        <div class="metric"><span class="metricLabel">Time on page</span><div class="metricValue" data-fx-count="2.4" data-fx-suffix="m">0</div><span class="metricDelta">↑ Engagement alto</span></div>
+        <div class="metric"><span class="metricLabel">Time on page</span><div class="metricValue" data-fx-count="2.4" data-fx-suffix="m">0</div><span class="metricDelta">↑ High engagement</span></div>
       </div>
     </div>
   </section>
@@ -185,13 +171,13 @@ small{color:rgba(230,236,255,.5)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Stack visible</div><h2>Decisiones técnicas que el visitante <em>nota</em>.</h2></div>
-        <p>Una web de startup que carga lento, no se ve bien en mobile o usa una fuente de sistema dice más que cualquier copy. Detalles silenciosos que separan a las startups que parecen serias de las que parecen tareas universitarias.</p>
+        <div><div class="kicker">Visible stack</div><h2>Technical decisions the visitor <em>notices</em>.</h2></div>
+        <p>A startup site that loads slowly, doesn't look right on mobile or uses a system font says more than any copy. Silent details that separate startups that look serious from those that look like college projects.</p>
       </div>
       <div class="stackGrid" data-reveal>
-        <div class="stackCard"><span class="stackTag">PERF</span><h3>Sub-segundo en LCP</h3><p>Imágenes optimizadas, fonts pre-cargadas, scripts diferidos. Cada milisegundo que ahorras vale un cliente que se queda.</p></div>
-        <div class="stackCard"><span class="stackTag">UX</span><h3>Demo en 1 clic</h3><p>Botón visible, formulario corto, calendly inline o video de 60s. La fricción mata la curiosidad técnica.</p></div>
-        <div class="stackCard"><span class="stackTag">TRUST</span><h3>Logos + métricas reales</h3><p>Stack tech, certificaciones, SOC 2, uptime histórico. Lo que un buyer técnico necesita ver antes de agendar.</p></div>
+        <div class="stackCard"><span class="stackTag">PERF</span><h3>Sub-second LCP</h3><p>Optimized images, preloaded fonts, deferred scripts. Every millisecond you save is one customer who stays.</p></div>
+        <div class="stackCard"><span class="stackTag">UX</span><h3>1-click demo</h3><p>Visible button, short form, inline Calendly or 60s video. Friction kills technical curiosity.</p></div>
+        <div class="stackCard"><span class="stackTag">TRUST</span><h3>Real logos + metrics</h3><p>Tech stack, certifications, SOC 2, historical uptime. What a technical buyer needs to see before booking.</p></div>
       </div>
     </div>
   </section>
@@ -199,8 +185,8 @@ small{color:rgba(230,236,255,.5)}
   <section class="section">
     <div class="wrap">
       <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Dashboard preview</div><h2>Mostrar el producto, <em>no describirlo</em>.</h2></div>
-        <p>La sección más importante de una web de SaaS no es el hero. Es la captura del producto. Un mockup vivo dice más que 500 palabras de "features".</p>
+        <div><div class="kicker">Dashboard preview</div><h2>Show the product, <em>don't describe it</em>.</h2></div>
+        <p>The most important section of a SaaS site isn't the hero. It's the product capture. A living mockup says more than 500 words of "features".</p>
       </div>
       <div class="dashGrid" data-reveal>
         <div class="dashMock">
@@ -215,13 +201,13 @@ small{color:rgba(230,236,255,.5)}
           <div class="dashCard"><small>Deploys / day</small><strong data-fx-count="12" data-fx-suffix="">0</strong></div>
         </div>
         <div class="dashCopy">
-          <h3>El visitante técnico necesita ver el producto en 6 segundos.</h3>
-          <p>No leer un párrafo sobre "features" — ver el dashboard, el flujo, una captura limpia del estado real. Eso aterriza la promesa del hero.</p>
+          <h3>The technical visitor needs to see the product in 6 seconds.</h3>
+          <p>Not read a paragraph about "features" — see the dashboard, the flow, a clean capture of the real state. That grounds the hero's promise.</p>
           <ul>
-            <li>Mockup interactivo (no PNG estático)</li>
-            <li>Métricas animadas que contextualizan</li>
-            <li>Estados de loading reales para sentirse vivo</li>
-            <li>CTA al lado: "Probar en 30 segundos"</li>
+            <li>Interactive mockup (not static PNG)</li>
+            <li>Animated metrics that give context</li>
+            <li>Real loading states so it feels alive</li>
+            <li>CTA beside it: "Try in 30 seconds"</li>
           </ul>
         </div>
       </div>
@@ -232,9 +218,9 @@ small{color:rgba(230,236,255,.5)}
     <div class="wrap">
       <div class="finalCta" data-reveal>
         <div class="kicker" style="display:inline-flex;justify-content:center">$ next.step</div>
-        <h2>Hagamos que tu producto se <em>vea</em> como las top startups del sector.</h2>
-        <p>Cuéntame qué construyes, en qué stage estás y qué quieres que sienta un investor en su primera visita. Te devuelvo una arquitectura web que comunica seriedad sin sacrificar velocidad.</p>
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">$ deploy_my_site →</a>
+        <h2>Let's make your product <em>look</em> like the top startups in your sector.</h2>
+        <p>Tell me what you're building, what stage you're at, and what you want an investor to feel on their first visit. I'll return a web architecture that communicates seriousness without sacrificing speed.</p>
+        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">$ deploy_my_site →</a>
       </div>
     </div>
   </section>
@@ -243,23 +229,23 @@ small{color:rgba(230,236,255,.5)}
 <footer class="footer demo-footer">
   <div class="wrap">
     <div class="demo-footer-brand">
-      <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
-      <span>Demo interna para clientes</span>
+      <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
+      <span>Internal client demo</span>
       <strong>Pittahaya</strong>
-      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Diseño, demos y contenido protegidos. Prohibida su copia o uso no autorizado.</small>
+      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Design, demos and content protected. Unauthorized copy or use prohibited.</small>
     </div>
     <div class="navLinks">
-      <a class="pill" href="portafolio.html">Ver más demos</a>
-      <a class="pill" href="contacto.html">Comencemos tu proyecto</a>
+      <a class="pill" href="portfolio.html">More demos</a>
+      <a class="pill" href="contact.html">Start your project</a>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true">
-  <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
+  <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=3" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=3" defer></script>
+<script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>
