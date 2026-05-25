@@ -151,6 +151,8 @@ small{color:rgba(255,248,236,.62)}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.fx-char{opacity:1;transform:none}[data-reveal]{opacity:1;transform:none}}
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
 [data-fx-letters]:not(.fx-ready){visibility:hidden}
+.tickerItems span:first-child{opacity:1;transform:translateY(0)}
+
   </style>
 <noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
@@ -354,7 +356,7 @@ small{color:rgba(255,248,236,.62)}
   <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="../assets/demo-landing-fx.js?v=4" defer></script>
+<script src="../assets/demo-landing-fx.js?v=5" defer></script>
 <script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

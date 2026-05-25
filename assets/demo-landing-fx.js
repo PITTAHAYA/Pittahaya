@@ -98,8 +98,10 @@
   const initLetterReveal = () => {
     $$("[data-fx-letters]").forEach(el => {
       const text = el.textContent.trim();
-      el.textContent = "";
       el.setAttribute("aria-label", text);
+      // Build the whole tree OFF-DOM so the browser never sees an
+      // intermediate empty headline. One atomic swap → no flicker.
+      const frag = document.createDocumentFragment();
       const words = text.split(" ");
       words.forEach((word, wi) => {
         const wrap = document.createElement("span");
@@ -114,12 +116,13 @@
           }
           wrap.appendChild(span);
         });
-        el.appendChild(wrap);
-        if (wi < words.length - 1) el.appendChild(document.createTextNode(" "));
+        frag.appendChild(wrap);
+        if (wi < words.length - 1) frag.appendChild(document.createTextNode(" "));
       });
-      // Mark ready so the CSS visibility:hidden guard lifts and the
-      // characters can fade in cleanly. Prevents the first-paint flash
-      // where the original text would briefly appear and then blank.
+      // Atomic swap: clear + append happen back-to-back so the browser
+      // never paints an empty headline mid-transaction.
+      el.textContent = "";
+      el.appendChild(frag);
       el.classList.add("fx-ready");
     });
   };
@@ -166,6 +169,17 @@
   const initReveal = () => {
     const els = $$("[data-reveal]");
     if (!els.length) return;
+    // Synchronously reveal anything already in (or near) the viewport,
+    // so above-the-fold content is never briefly invisible while we
+    // wait for IntersectionObserver to fire its first async callback.
+    const vh = window.innerHeight;
+    const remaining = [];
+    els.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      if (top < vh + 60) el.classList.add("in");
+      else remaining.push(el);
+    });
+    if (!remaining.length) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach(en => {
         if (en.isIntersecting) {
@@ -174,7 +188,7 @@
         }
       });
     }, { threshold: .08, rootMargin: "0px 0px -60px 0px" });
-    els.forEach(el => io.observe(el));
+    remaining.forEach(el => io.observe(el));
   };
 
   /* === 5. Mouse parallax for hero light ======================= */
