@@ -149,7 +149,10 @@ small{color:rgba(255,248,236,.62)}
 @media (max-width:980px){.sectionHead,.anatomy{grid-template-columns:1fr}.funnelGrid{grid-template-columns:1fr 1fr;padding:18px}.funnelSvg{display:none}.heroStats{grid-template-columns:1fr 1fr 1fr;padding:18px}.compare{aspect-ratio:4/5}}
 @media (max-width:620px){.hero{padding:60px 0 50px}.mark span{display:none}.heroLight{display:none}.funnelGrid{grid-template-columns:1fr}.heroStats{grid-template-columns:1fr;gap:12px;padding:14px}.heroStat b{font-size:38px}.finalCta{padding:54px 22px}.anatomyDevice{aspect-ratio:1/1}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.ticker{width:100%}.tickerItems{min-width:0}.tickerItems span{white-space:normal}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.fx-char{opacity:1;transform:none}[data-reveal]{opacity:1;transform:none}}
+  /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
+[data-fx-letters]:not(.fx-ready){visibility:hidden}
   </style>
+<noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
 
@@ -351,7 +354,7 @@ small{color:rgba(255,248,236,.62)}
   <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="../assets/demo-landing-fx.js?v=3" defer></script>
+<script src="../assets/demo-landing-fx.js?v=4" defer></script>
 <script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

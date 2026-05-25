@@ -117,6 +117,10 @@
         el.appendChild(wrap);
         if (wi < words.length - 1) el.appendChild(document.createTextNode(" "));
       });
+      // Mark ready so the CSS visibility:hidden guard lifts and the
+      // characters can fade in cleanly. Prevents the first-paint flash
+      // where the original text would briefly appear and then blank.
+      el.classList.add("fx-ready");
     });
   };
 

@@ -127,7 +127,10 @@ small{color:rgba(244,237,224,.58)}
 @media (max-width:980px){.heroInner,.sectionHead,.heatGrid{grid-template-columns:1fr}.pillars{grid-template-columns:1fr 1fr}.heroVisual{aspect-ratio:16/10}}
 @media (max-width:620px){.hero{padding:60px 0 60px}.mark span{display:none}.pillars{grid-template-columns:1fr}.timeline{padding-left:54px}.timelineSvg{left:18px}.tlItem::before{left:-50px}.finalCta{padding:54px 22px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.marqueeTrack{font-size:20px;gap:40px}.marqueeTrack span{gap:40px}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.marqueeTrack{animation:none}[data-reveal]{opacity:1;transform:none}}
+  /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
+[data-fx-letters]:not(.fx-ready){visibility:hidden}
   </style>
+<noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
 
@@ -304,7 +307,7 @@ small{color:rgba(244,237,224,.58)}
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=3" defer></script>
+<script src="assets/demo-landing-fx.js?v=4" defer></script>
 <script src="assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>
