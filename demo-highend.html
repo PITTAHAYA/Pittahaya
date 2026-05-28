@@ -117,7 +117,10 @@ small{color:rgba(240,230,214,.5)}
 @media (max-width:620px){.hero{padding:80px 0 60px;min-height:auto}.mark span{display:none}.finalCta{padding:80px 24px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.qmTrack{font-size:24px;gap:46px}.qmTrack span{gap:46px}.detailList li{grid-template-columns:1fr}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.qmTrack{animation:none}[data-reveal]{opacity:1;transform:none}}
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-[data-fx-letters]:not(.fx-ready){visibility:hidden}
+@keyframes fxHeadlineIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-fx-letters]{opacity:0}
+[data-fx-letters].fx-ready{animation:fxHeadlineIn 1s cubic-bezier(.2,.7,.3,1) forwards}
+@media (prefers-reduced-motion: reduce){[data-fx-letters],[data-fx-letters].fx-ready{opacity:1;animation:none;transform:none}}
   </style>
 <noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
@@ -255,7 +258,7 @@ small{color:rgba(240,230,214,.5)}
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=5" defer></script>
+<script src="assets/demo-landing-fx.js?v=7" defer></script>
 <script src="assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

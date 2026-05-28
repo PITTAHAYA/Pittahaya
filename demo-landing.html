@@ -574,7 +574,10 @@ small{ color:rgba(255,248,236,.62) }
   [data-reveal]{ opacity:1; transform:none }
 }
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-[data-fx-letters]:not(.fx-ready){visibility:hidden}
+@keyframes fxHeadlineIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-fx-letters]{opacity:0}
+[data-fx-letters].fx-ready{animation:fxHeadlineIn 1s cubic-bezier(.2,.7,.3,1) forwards}
+@media (prefers-reduced-motion: reduce){[data-fx-letters],[data-fx-letters].fx-ready{opacity:1;animation:none;transform:none}}
 .tickerItems span:first-child{opacity:1;transform:translateY(0)}
 
   </style>
@@ -786,7 +789,7 @@ small{ color:rgba(255,248,236,.62) }
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=5" defer></script>
+<script src="assets/demo-landing-fx.js?v=7" defer></script>
 <script src="assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>
