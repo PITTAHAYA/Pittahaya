@@ -576,7 +576,6 @@ small{ color:rgba(255,248,236,.62) }
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
 /* Headline shows instantly from first paint — no JS-driven reveals to glitch on cold load. */
 [data-fx-letters]{opacity:1}
-.tickerItems span:first-child{opacity:1;transform:translateY(0)}
 
   
 /* force-instant-reveal: avoid any first-paint flicker on cold load. */
@@ -626,7 +625,7 @@ small{ color:rgba(255,248,236,.62) }
 
       <div class="ticker" data-fx-ticker aria-live="polite">
         <div class="tickerItems">
-          <span data-fx-ticker-item>37 personas revisaron esta demo hoy</span>
+          <span class="is-active" data-fx-ticker-item>37 personas revisaron esta demo hoy</span>
           <span data-fx-ticker-item>Próxima cohorte: 3 cupos disponibles</span>
           <span data-fx-ticker-item>Tiempo promedio en página: 2m 14s</span>
           <span data-fx-ticker-item>Tasa de conversión esperada: 4–9%</span>
