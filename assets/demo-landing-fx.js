@@ -94,75 +94,27 @@
     tick();
   };
 
-  /* === 2. Letter-by-letter headline reveal ===================== */
+  /* === 2. Headline reveal — CSS-driven, preserves inline tags ====
+     We just flip a class. The actual animation is pure CSS (see the
+     fx-letters-guard block in each demo's inline <style>). Important:
+     we DO NOT split into individual chars anymore — that destroyed
+     <em> gradient styling on words like "producto", "caro", "antes". */
   const initLetterReveal = () => {
-    $$("[data-fx-letters]").forEach(el => {
-      const text = el.textContent.trim();
-      el.setAttribute("aria-label", text);
-      // Build the whole tree OFF-DOM so the browser never sees an
-      // intermediate empty headline. One atomic swap → no flicker.
-      const frag = document.createDocumentFragment();
-      const words = text.split(" ");
-      words.forEach((word, wi) => {
-        const wrap = document.createElement("span");
-        wrap.className = "fx-word";
-        wrap.setAttribute("aria-hidden", "true");
-        [...word].forEach((ch, ci) => {
-          const span = document.createElement("span");
-          span.className = "fx-char";
-          span.textContent = ch;
-          if (!reduce) {
-            span.style.animationDelay = `${(wi * 80 + ci * 28)}ms`;
-          }
-          wrap.appendChild(span);
-        });
-        frag.appendChild(wrap);
-        if (wi < words.length - 1) frag.appendChild(document.createTextNode(" "));
-      });
-      // Atomic swap: clear + append happen back-to-back so the browser
-      // never paints an empty headline mid-transaction.
-      el.textContent = "";
-      el.appendChild(frag);
-      el.classList.add("fx-ready");
-    });
+    $$("[data-fx-letters]").forEach(el => el.classList.add("fx-ready"));
   };
 
-  /* === 3. Counters that count up on scroll into view =========== */
+  /* === 3. Counters — pre-populated in HTML now, just sync the
+     text in case any aren't already set. NO animation on cold load. */
   const initCounters = () => {
-    const els = $$("[data-fx-count]");
-    if (!els.length) return;
-    const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
-
-    const animate = (el) => {
-      const end = parseFloat(el.getAttribute("data-fx-count")) || 0;
-      const dur = parseInt(el.getAttribute("data-fx-duration") || "1400", 10);
-      const decimals = (el.getAttribute("data-fx-count").split(".")[1] || "").length;
+    $$("[data-fx-count]").forEach(el => {
+      const val = el.getAttribute("data-fx-count");
+      if (!val) return;
+      const end = parseFloat(val) || 0;
+      const decimals = (val.split(".")[1] || "").length;
       const suffix = el.getAttribute("data-fx-suffix") || "";
       const prefix = el.getAttribute("data-fx-prefix") || "";
-      if (reduce) {
-        el.textContent = `${prefix}${end.toFixed(decimals)}${suffix}`;
-        return;
-      }
-      const start = performance.now();
-      const step = (now) => {
-        const t  = Math.min(1, (now - start) / dur);
-        const e  = easeOutQuart(t);
-        const v  = end * e;
-        el.textContent = `${prefix}${v.toFixed(decimals)}${suffix}`;
-        if (t < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          animate(en.target);
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: .35 });
-    els.forEach(el => io.observe(el));
+      el.textContent = `${prefix}${end.toFixed(decimals)}${suffix}`;
+    });
   };
 
   /* === 4. Reveal-on-scroll for [data-reveal] =================== */
@@ -213,41 +165,21 @@
     tick();
   };
 
-  /* === 6. SVG funnel path draws as user scrolls =============== */
+  /* === 6. SVG funnel path — fully visible from first paint ==== */
   const initFunnel = () => {
     const path = $("[data-fx-funnel-path]");
     if (!path) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len;
-    path.style.strokeDashoffset = len;
-    if (reduce) { path.style.strokeDashoffset = 0; return; }
-
-    const container = path.closest("[data-fx-funnel]");
-    if (!container) return;
-    const onScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const start = window.innerHeight * .8;
-      const end   = -rect.height * .2;
-      const prog  = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      path.style.strokeDashoffset = String(len * (1 - prog));
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    // No scroll-driven draw. Path is fully drawn from the start so
+    // it's never "missing" on cold load.
+    path.style.strokeDasharray = "none";
+    path.style.strokeDashoffset = "0";
   };
 
-  /* === 7. Funnel stations glow sequentially =================== */
+  /* === 7. Funnel stations — all lit from first paint ========== */
   const initStations = () => {
-    const stations = $$("[data-fx-station]");
-    if (!stations.length) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add("is-lit");
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: .55 });
-    stations.forEach(el => io.observe(el));
+    // No scroll-into-view dependence. All stations show at full
+    // brightness immediately so they don't look "dim/broken" on cold load.
+    $$("[data-fx-station]").forEach(el => el.classList.add("is-lit"));
   };
 
   /* === 8. Magnetic hover for primary CTAs ===================== */
@@ -265,18 +197,35 @@
     });
   };
 
-  /* === 9. Live ticker — rotates messages ====================== */
+  /* === 9. Live ticker — single element, content swap ==========
+     Bulletproof: there is ONE visible element. We replace its text
+     every 3.2s. Physically impossible for two messages to overlap.
+     The old multi-span approach could leak when CSS hadn't applied
+     yet, leaving all spans visible at once (the garbled glitch). */
   const initTicker = () => {
     const ticker = $("[data-fx-ticker]");
     if (!ticker) return;
-    const items = $$("[data-fx-ticker-item]", ticker);
-    if (items.length < 2) return;
+    if (ticker.dataset.fxTickerInit === "1") return; // guard against double-init
+    ticker.dataset.fxTickerInit = "1";
+    const text = $("[data-fx-ticker-text]", ticker);
+    if (!text) return;
+    const msgs = (ticker.getAttribute("data-fx-msgs") || "").split("|").filter(Boolean);
+    if (msgs.length < 2) return;
     let i = 0;
-    items[0].classList.add("is-active");
     setInterval(() => {
-      items[i].classList.remove("is-active");
-      i = (i + 1) % items.length;
-      items[i].classList.add("is-active");
+      // Fade out, swap, fade in — single element, no overlap possible.
+      text.style.opacity = "0";
+      text.style.transform = "translateY(-4px)";
+      setTimeout(() => {
+        i = (i + 1) % msgs.length;
+        text.textContent = msgs[i];
+        text.style.transform = "translateY(6px)";
+        // Next frame: fade back in
+        requestAnimationFrame(() => {
+          text.style.opacity = "1";
+          text.style.transform = "translateY(0)";
+        });
+      }, 300);
     }, 3200);
   };
 
@@ -350,30 +299,12 @@
     });
   };
 
-  /* === 12. Animated chart bars (draw on scroll-into-view) ===== */
+  /* === 12. Chart bars — set to final width immediately ======== */
   const initChart = () => {
-    const charts = $$("[data-fx-chart]");
-    if (!charts.length) return;
-    const animate = (chart) => {
-      $$("[data-bar]", chart).forEach(bar => {
-        const target = parseFloat(bar.getAttribute("data-bar")) || 0;
-        if (reduce) { bar.style.setProperty("--bar", target + "%"); return; }
-        let v = 0;
-        const start = performance.now();
-        const dur = 1200;
-        const step = (now) => {
-          const t = Math.min(1, (now - start) / dur);
-          v = target * (1 - Math.pow(1 - t, 3));
-          bar.style.setProperty("--bar", v.toFixed(1) + "%");
-          if (t < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      });
-    };
-    const io = new IntersectionObserver(es => {
-      es.forEach(e => { if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); } });
-    }, { threshold: .3 });
-    charts.forEach(c => io.observe(c));
+    $$("[data-fx-chart] [data-bar]").forEach(bar => {
+      const target = parseFloat(bar.getAttribute("data-bar")) || 0;
+      bar.style.setProperty("--bar", target + "%");
+    });
   };
 
   /* === 13. Marquee — infinite horizontal scroll =============== */
@@ -407,25 +338,12 @@
     });
   };
 
-  /* === 15. Timeline path draws as user scrolls ================ */
+  /* === 15. Timeline path — fully drawn from first paint ======= */
   const initTimeline = () => {
     const path = $("[data-fx-timeline-path]");
     if (!path) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len;
-    path.style.strokeDashoffset = len;
-    if (reduce) { path.style.strokeDashoffset = 0; return; }
-    const container = path.closest("[data-fx-timeline]");
-    if (!container) return;
-    const onScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const start = window.innerHeight;
-      const end   = -rect.height;
-      const prog  = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      path.style.strokeDashoffset = String(len * (1 - prog));
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    path.style.strokeDasharray = "none";
+    path.style.strokeDashoffset = "0";
   };
 
   /* === 16. Tilted image gallery (hover reveals caption) ======= */

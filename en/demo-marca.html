@@ -102,8 +102,12 @@ small{color:rgba(247,241,232,.58)}
 @media (max-width:620px){.hero{padding:60px 0 50px}.mark span{display:none}.moodGrid{grid-template-columns:1fr}.bmTrack{font-size:44px;gap:32px}.bmTrack span{gap:32px}.bmTrack span::after{font-size:22px}.finalCta{padding:54px 22px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.paletteBar{padding:14px}.specimen{padding:24px}.specimenChar{font-size:110px}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.bmTrack{animation:none}[data-reveal]{opacity:1;transform:none}}
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-[data-fx-letters]:not(.fx-ready){visibility:hidden}
-  </style>
+/* Headline shows instantly from first paint — no JS-driven reveals to glitch on cold load. */
+[data-fx-letters]{opacity:1}
+  
+/* force-instant-reveal: avoid any first-paint flicker on cold load. */
+[data-reveal]{opacity:1 !important;transform:none !important;transition:none !important}
+</style>
 <noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
@@ -216,7 +220,7 @@ small{color:rgba(247,241,232,.58)}
   <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="../assets/demo-landing-fx.js?v=5" defer></script>
+<script src="../assets/demo-landing-fx.js?v=10" defer></script>
 <script src="../assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>

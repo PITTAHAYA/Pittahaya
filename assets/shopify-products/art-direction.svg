@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#08070b"/>
+      <stop offset="100%" stop-color="#060508"/>
+    </linearGradient>
+    <radialGradient id="glowPink" cx="42%" cy="38%" r="40%">
+      <stop offset="0%" stop-color="#e83487" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#e83487" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowGold" cx="58%" cy="38%" r="40%">
+      <stop offset="0%" stop-color="#e6bf74" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#e6bf74" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowGreen" cx="50%" cy="58%" r="38%">
+      <stop offset="0%" stop-color="#8acb63" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#8acb63" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="92" height="92" patternUnits="userSpaceOnUse">
+      <path d="M92,0 L0,0 0,92" fill="none" stroke="rgba(255,255,255,.026)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  <ellipse cx="490" cy="280" rx="380" ry="300" fill="url(#glowPink)"/>
+  <ellipse cx="710" cy="280" rx="380" ry="300" fill="url(#glowGold)"/>
+  <ellipse cx="600" cy="390" rx="360" ry="280" fill="url(#glowGreen)"/>
+
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+  <line x1="60" y1="632" x2="1140" y2="632" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+
+  <text x="60" y="66" font-family="Georgia,'Times New Roman',serif" font-size="17" letter-spacing="6" fill="#e6bf74" opacity="0.85">PITTAHAYA</text>
+  <text x="1140" y="66" font-family="Helvetica,Arial,sans-serif" font-size="11" letter-spacing="3.5" fill="#b7b5ad" opacity="0.6" text-anchor="end">WEB DESIGN SERVICE</text>
+
+  <!-- === GEOMETRIC: Three interlocking brand color circles === -->
+
+  <!-- Pink circle (left) -->
+  <circle cx="510" cy="262" r="115" fill="rgba(232,52,135,.12)" stroke="rgba(232,52,135,.45)" stroke-width="1.8"/>
+  <!-- Gold circle (right) -->
+  <circle cx="690" cy="262" r="115" fill="rgba(230,191,116,.12)" stroke="rgba(230,191,116,.45)" stroke-width="1.8"/>
+  <!-- Green circle (bottom center) -->
+  <circle cx="600" cy="370" r="115" fill="rgba(138,203,99,.12)" stroke="rgba(138,203,99,.45)" stroke-width="1.8"/>
+
+  <!-- Center overlap glow -->
+  <circle cx="600" cy="298" r="42" fill="rgba(255,255,255,.06)"/>
+  <circle cx="600" cy="298" r="18" fill="rgba(255,255,255,.05)"/>
+
+  <!-- Color swatch dots on each circle -->
+  <!-- Pink swatch -->
+  <circle cx="460" cy="218" r="11" fill="#e83487" opacity="0.90"/>
+  <circle cx="460" cy="218" r="20" fill="#e83487" opacity="0.12"/>
+  <!-- Gold swatch -->
+  <circle cx="740" cy="218" r="11" fill="#e6bf74" opacity="0.90"/>
+  <circle cx="740" cy="218" r="20" fill="#e6bf74" opacity="0.12"/>
+  <!-- Green swatch -->
+  <circle cx="600" cy="448" r="11" fill="#8acb63" opacity="0.90"/>
+  <circle cx="600" cy="448" r="20" fill="#8acb63" opacity="0.12"/>
+
+  <!-- Small grid lines (design system hint) -->
+  <line x1="380" y1="148" x2="380" y2="462" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,8"/>
+  <line x1="820" y1="148" x2="820" y2="462" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,8"/>
+  <line x1="380" y1="148" x2="820" y2="148" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,8"/>
+  <line x1="380" y1="462" x2="820" y2="462" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,8"/>
+
+  <text x="600" y="508" font-family="Georgia,'Times New Roman',serif" font-size="56" font-weight="700" fill="#f2f0ea" text-anchor="middle" letter-spacing="-0.5">Art Direction &amp; Design System</text>
+  <text x="600" y="548" font-family="Helvetica,Arial,sans-serif" font-size="17" fill="#b7b5ad" text-anchor="middle" letter-spacing="2.5" opacity="0.85">VISUAL COHESION · EVERY PIXEL INTENTIONAL</text>
+
+  <text x="60" y="696" font-family="Georgia,'Times New Roman',serif" font-size="44" fill="#e6bf74">$2,800</text>
+  <text x="60" y="724" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#b7b5ad" letter-spacing="2.5" opacity="0.65">CAD · STARTING PRICE</text>
+
+  <text x="1140" y="696" font-family="Helvetica,Arial,sans-serif" font-size="17" fill="#b7b5ad" text-anchor="end" opacity="0.9">3–4 weeks</text>
+  <text x="1140" y="720" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#b7b5ad" text-anchor="end" opacity="0.5" letter-spacing="2">CONCEPT TO IMPLEMENTATION</text>
+</svg>

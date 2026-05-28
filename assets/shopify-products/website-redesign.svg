@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#07090d"/>
+      <stop offset="100%" stop-color="#050609"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#e6bf74" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#e6bf74" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="92" height="92" patternUnits="userSpaceOnUse">
+      <path d="M92,0 L0,0 0,92" fill="none" stroke="rgba(255,255,255,.026)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  <ellipse cx="600" cy="295" rx="540" ry="360" fill="url(#glow)"/>
+
+  <line x1="60" y1="100" x2="1140" y2="100" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+  <line x1="60" y1="632" x2="1140" y2="632" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+
+  <text x="60" y="66" font-family="Georgia,'Times New Roman',serif" font-size="17" letter-spacing="6" fill="#e6bf74" opacity="0.85">PITTAHAYA</text>
+  <text x="1140" y="66" font-family="Helvetica,Arial,sans-serif" font-size="11" letter-spacing="3.5" fill="#b7b5ad" opacity="0.6" text-anchor="end">WEB DESIGN SERVICE</text>
+
+  <!-- === GEOMETRIC: Before → After pages === -->
+
+  <!-- "BEFORE" page (left, faded/dated) -->
+  <rect x="330" y="155" width="195" height="250" rx="6" fill="rgba(255,255,255,.025)" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+  <!-- Before: title bar -->
+  <rect x="330" y="155" width="195" height="28" rx="6" fill="rgba(255,255,255,.04)"/>
+  <line x1="330" y1="183" x2="525" y2="183" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <!-- Before: dated content (misaligned, cluttered) -->
+  <rect x="346" y="194" width="140" height="10" rx="2" fill="rgba(255,255,255,.10)"/>
+  <rect x="346" y="212" width="160" height="7" rx="2" fill="rgba(255,255,255,.07)"/>
+  <rect x="346" y="225" width="100" height="7" rx="2" fill="rgba(255,255,255,.05)"/>
+  <rect x="346" y="238" width="145" height="7" rx="2" fill="rgba(255,255,255,.05)"/>
+  <!-- Dated image placeholder (out of proportion) -->
+  <rect x="346" y="256" width="80" height="90" rx="2" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+  <line x1="346" y1="256" x2="426" y2="346" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+  <line x1="426" y1="256" x2="346" y2="346" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+  <!-- Random small blocks (clutter) -->
+  <rect x="436" y="260" width="72" height="8" rx="2" fill="rgba(255,255,255,.06)"/>
+  <rect x="436" y="274" width="60" height="8" rx="2" fill="rgba(255,255,255,.05)"/>
+  <rect x="436" y="288" width="68" height="8" rx="2" fill="rgba(255,255,255,.04)"/>
+  <rect x="436" y="302" width="50" height="8" rx="2" fill="rgba(255,255,255,.04)"/>
+  <!-- No-good badge -->
+  <circle cx="511" cy="171" r="9" fill="rgba(255,80,80,.15)" stroke="rgba(255,80,80,.25)" stroke-width="1"/>
+  <line x1="506" y1="166" x2="516" y2="176" stroke="rgba(255,80,80,.40)" stroke-width="1.5"/>
+  <line x1="516" y1="166" x2="506" y2="176" stroke="rgba(255,80,80,.40)" stroke-width="1.5"/>
+
+  <!-- BEFORE label -->
+  <text x="427" y="424" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="rgba(255,255,255,.3)" text-anchor="middle" letter-spacing="3">BEFORE</text>
+
+  <!-- Arrow transition -->
+  <line x1="540" y1="280" x2="650" y2="280" stroke="rgba(230,191,116,.55)" stroke-width="2"/>
+  <polygon points="648,272 665,280 648,288" fill="#e6bf74" opacity="0.80"/>
+  <!-- Small circular refresh hint above arrow -->
+  <path d="M 595,258 A 14,14 0 1 1 595,262" fill="none" stroke="rgba(230,191,116,.40)" stroke-width="1.5"/>
+  <polygon points="588,260 595,254 595,266" fill="rgba(230,191,116,.40)"/>
+
+  <!-- "AFTER" page (right, crisp and modern) -->
+  <rect x="675" y="155" width="195" height="250" rx="6" fill="rgba(230,191,116,.05)" stroke="rgba(230,191,116,.45)" stroke-width="2"/>
+  <!-- After: clean header -->
+  <rect x="675" y="155" width="195" height="28" rx="6" fill="rgba(230,191,116,.08)"/>
+  <line x1="675" y1="183" x2="870" y2="183" stroke="rgba(230,191,116,.20)" stroke-width="1"/>
+  <!-- Accent top line -->
+  <line x1="675" y1="155" x2="870" y2="155" stroke="rgba(230,191,116,.60)" stroke-width="2"/>
+  <!-- After: clean hero text -->
+  <rect x="691" y="196" width="155" height="14" rx="3" fill="rgba(230,191,116,.28)"/>
+  <rect x="691" y="217" width="125" height="7" rx="2" fill="rgba(255,255,255,.09)"/>
+  <rect x="691" y="230" width="140" height="7" rx="2" fill="rgba(255,255,255,.07)"/>
+  <!-- Clean image block (well-proportioned) -->
+  <rect x="691" y="249" width="163" height="80" rx="4" fill="rgba(230,191,116,.06)" stroke="rgba(230,191,116,.18)" stroke-width="1"/>
+  <!-- CTA button -->
+  <rect x="691" y="343" width="100" height="28" rx="14" fill="rgba(230,191,116,.22)" stroke="rgba(230,191,116,.45)" stroke-width="1.2"/>
+  <!-- Check badge -->
+  <circle cx="851" cy="171" r="9" fill="rgba(138,203,99,.18)" stroke="rgba(138,203,99,.35)" stroke-width="1"/>
+  <polyline points="846,171 850,175 856,167" fill="none" stroke="rgba(138,203,99,.80)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- AFTER label -->
+  <text x="772" y="424" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="rgba(230,191,116,.45)" text-anchor="middle" letter-spacing="3">AFTER</text>
+
+  <text x="600" y="508" font-family="Georgia,'Times New Roman',serif" font-size="68" font-weight="700" fill="#f2f0ea" text-anchor="middle" letter-spacing="-0.5">Website Redesign</text>
+  <text x="600" y="548" font-family="Helvetica,Arial,sans-serif" font-size="17" fill="#b7b5ad" text-anchor="middle" letter-spacing="2.5" opacity="0.85">REBUILT FROM THE GROUND UP · MODERN &amp; CONVERTS</text>
+
+  <text x="60" y="696" font-family="Georgia,'Times New Roman',serif" font-size="44" fill="#e6bf74">$4,500</text>
+  <text x="60" y="724" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#b7b5ad" letter-spacing="2.5" opacity="0.65">CAD · STARTING PRICE</text>
+
+  <text x="1140" y="696" font-family="Helvetica,Arial,sans-serif" font-size="17" fill="#b7b5ad" text-anchor="end" opacity="0.9">5–7 weeks</text>
+  <text x="1140" y="720" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#b7b5ad" text-anchor="end" opacity="0.5" letter-spacing="2">AUDIT TO LAUNCH</text>
+</svg>
