@@ -217,14 +217,6 @@ h1.heroH{
   flex:0 0 auto;
   animation:dotPulse 1.6s ease-in-out infinite;
 }
-.tickerItems{position:relative; min-width:240px; min-height:18px}
-.tickerItems span{
-  position:absolute; left:0; top:0;
-  opacity:0; transform:translateY(6px);
-  transition:opacity .55s ease, transform .55s ease;
-  white-space:nowrap;
-}
-.tickerItems span.is-active{ opacity:1; transform:translateY(0); }
 
 /* ── Hero stats strip ────────────────────── */
 .heroStats{
@@ -565,9 +557,7 @@ small{ color:rgba(255,248,236,.62) }
   .demo-corner-logo{ width:60px; height:60px }
   .heroActions .btn{ flex:1; min-width:100% }
   .ticker{ width:100% }
-  .tickerItems{ min-width:0 }
-  .tickerItems span{ white-space:normal }
-}
+    }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important }
   .fx-char{ opacity:1; transform:none }
@@ -580,6 +570,9 @@ small{ color:rgba(255,248,236,.62) }
   
 /* force-instant-reveal: avoid any first-paint flicker on cold load. */
 [data-reveal]{opacity:1 !important;transform:none !important;transition:none !important}
+/* clean single-element ticker */
+.tickerText{display:inline-block;opacity:1;transform:translateY(0);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;min-width:240px}
+@media (max-width:620px){.tickerText{white-space:normal;min-width:0}}
 </style>
 <noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
@@ -623,13 +616,8 @@ small{ color:rgba(255,248,236,.62) }
         <a class="btn" href="planes.html">Ver planes y precios</a>
       </div>
 
-      <div class="ticker" data-fx-ticker aria-live="polite">
-        <div class="tickerItems">
-          <span class="is-active" data-fx-ticker-item>37 personas revisaron esta demo hoy</span>
-          <span data-fx-ticker-item>Próxima cohorte: 3 cupos disponibles</span>
-          <span data-fx-ticker-item>Tiempo promedio en página: 2m 14s</span>
-          <span data-fx-ticker-item>Tasa de conversión esperada: 4–9%</span>
-        </div>
+      <div class="ticker" data-fx-ticker data-fx-msgs="37 personas revisaron esta demo hoy|Próxima cohorte: 3 cupos disponibles|Tiempo promedio en página: 2m 14s|Tasa de conversión esperada: 4–9%" aria-live="polite">
+        <span class="tickerText" data-fx-ticker-text>37 personas revisaron esta demo hoy</span>
       </div>
 
       <div class="heroStats" data-reveal>
@@ -789,7 +777,7 @@ small{ color:rgba(255,248,236,.62) }
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=9" defer></script>
+<script src="assets/demo-landing-fx.js?v=10" defer></script>
 <script src="assets/chatbot.js?v=v7" defer></script>
 </body>
 </html>
