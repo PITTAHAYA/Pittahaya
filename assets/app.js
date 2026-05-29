@@ -154,6 +154,10 @@
   };
 
   const applyMobileCopy = () => {
+    // The mobileCopyByPage table is Spanish-only (shorter copy for ES
+    // pages on mobile). On English pages we must NEVER apply it, otherwise
+    // English mobile visitors see Spanish text leaking into headings/leads.
+    if (inEn) return;
     const current = (location.pathname.split("/").pop() || "index.html").toLowerCase();
     const copies = mobileCopyByPage[current] || [];
 
