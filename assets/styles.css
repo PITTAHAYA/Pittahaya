@@ -1432,11 +1432,9 @@ html.js main > .section:first-child .reveal{
 
 /* Responsive */
 @media (max-width: 980px){
-  #servicios,
-  #planes,
-  #portafolio{
-    display:none;
-  }
+  /* Portfolio preview, services preview and plans preview now ALL
+     stay visible on tablet/mobile so the Spanish homepage matches
+     the English homepage on small screens. */
   .hero-grid{ grid-template-columns: 1fr; }
   .grid-3{ grid-template-columns: 1fr; }
   .grid-2{ grid-template-columns: 1fr; }
@@ -2167,8 +2165,9 @@ html.js main > .section:first-child .reveal{
   /* Hide First Impression Lab (too interactive for mobile) */
   #first-impression-lab{ display:none; }
 
-  /* Hide redundant stats band */
-  #resultados{ display:none; }
+  /* Stats band (#resultados in Spanish, #results in English) is now
+     KEPT visible on mobile so both languages show the same Custom /
+     SEO / Mobile / 24/7 strip the user asked for. */
 }
 
 /* ── Language switcher ────────────────────────────────────────
