@@ -1030,6 +1030,335 @@ select:focus-visible{
   transform: rotate(12deg); pointer-events:none;
 }
 
+/* ── Plan "What's included" — spec strip + detailed feature list ── */
+.plan-meta{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px 0;
+  margin:2px 0 8px;
+  padding:13px 15px;
+  border-radius:14px;
+  border:1px solid rgba(243,213,154,.20);
+  background:linear-gradient(180deg, rgba(243,213,154,.07), rgba(243,213,154,.02));
+}
+.plan-meta span{
+  display:flex; flex-direction:column;
+  font-size:11px; letter-spacing:.02em;
+  color:rgba(183,181,173,.82);
+  line-height:1.3;
+}
+.plan-meta span:nth-child(odd){
+  border-right:1px solid rgba(255,255,255,.10);
+  padding-right:14px;
+}
+.plan-meta span:nth-child(even){ padding-left:15px; }
+.plan-meta span b{
+  display:block;
+  color:rgba(243,213,154,.96);
+  font-family:"Cormorant Garamond", ui-serif, Georgia, serif;
+  font-size:21px; font-weight:700;
+  line-height:1; margin-bottom:4px;
+}
+.price ul.plan-features{
+  list-style:none; padding:0; margin:6px 0 0;
+  display:grid; gap:9px;
+}
+.price ul.plan-features li{
+  display:grid; grid-template-columns:18px 1fr; gap:8px;
+  align-items:start;
+  font-size:13.5px; line-height:1.5;
+  color:rgba(200,198,190,.95);
+}
+.price ul.plan-features li::before{
+  content:"✓"; color:rgba(243,213,154,.95);
+  font-weight:800; font-size:12.5px; line-height:1.55;
+}
+.price ul.plan-features li.carry{
+  color:rgba(243,213,154,.92); font-weight:650;
+  padding-bottom:8px; margin-bottom:2px;
+  border-bottom:1px dashed rgba(243,213,154,.20);
+}
+.price ul.plan-features li.carry::before{ content:"★"; font-size:11px; }
+@media (max-width:560px){
+  /* keep EVERY plan feature visible on mobile — this is the sell.
+     (The base rule hides .price ul li:nth-child(n+3) but that's for
+     the old plain lists; our plan-features must stay fully shown.) */
+  .price ul.plan-features li:nth-child(n+3){ display:grid; }
+}
+
+/* ── AI Automation band (Web + IA) ─────────────────────────────
+   Distinct treatment using the leaf/mint accent to signal a
+   second pillar of the offering beyond web design. ──────────────*/
+.ai-band{
+  position:relative;
+  border:1px solid rgba(138,203,99,.24);
+  border-radius:26px;
+  background:
+    radial-gradient(700px 320px at 10% -10%, rgba(138,203,99,.12), transparent 60%),
+    radial-gradient(640px 300px at 92% 8%, rgba(232,52,135,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  padding:clamp(26px, 4vw, 50px);
+  overflow:hidden;
+}
+.ai-band::after{
+  content:""; position:absolute; inset:auto -60px -80px auto;
+  width:260px; height:260px; pointer-events:none;
+  background:radial-gradient(circle at 30% 30%, rgba(138,203,99,.16), transparent 64%);
+}
+.ai-tag{
+  display:inline-flex; align-items:center; gap:9px;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+  padding:8px 14px; border-radius:999px;
+  border:1px solid rgba(138,203,99,.34);
+  background:rgba(138,203,99,.08);
+  color:rgba(196,239,150,.96);
+  font-weight:700;
+}
+.ai-tag .live-dot{
+  width:8px; height:8px; border-radius:50%;
+  background:#8acb63;
+  box-shadow:0 0 0 0 rgba(138,203,99,.6);
+  animation:aiPulse 1.9s ease-out infinite;
+}
+@keyframes aiPulse{
+  0%{ box-shadow:0 0 0 0 rgba(138,203,99,.55); }
+  70%{ box-shadow:0 0 0 11px rgba(138,203,99,0); }
+  100%{ box-shadow:0 0 0 0 rgba(138,203,99,0); }
+}
+.ai-band h2{
+  font-family:"Cormorant Garamond", ui-serif, Georgia, serif;
+  font-size:clamp(30px, 4vw, 52px);
+  line-height:1.02; letter-spacing:-.5px;
+  margin:18px 0 12px; max-width:20ch;
+}
+.ai-band h2 em{ font-style:italic; color:rgba(188,236,136,.96); }
+.ai-band .ai-lead{
+  margin:0; max-width:64ch;
+  color:var(--muted, rgba(183,181,173,.92));
+  font-size:16px; line-height:1.7;
+}
+.ai-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  margin-top:26px; position:relative; z-index:2;
+}
+.ai-card{
+  padding:22px 22px 20px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  background:rgba(255,255,255,.03);
+  transition:transform .35s ease, border-color .35s ease, background .35s ease;
+}
+.ai-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(138,203,99,.42);
+  background:rgba(138,203,99,.06);
+}
+.ai-card .ai-ico{
+  width:48px; height:48px; border-radius:14px;
+  display:grid; place-items:center; font-size:23px;
+  background:rgba(138,203,99,.10);
+  border:1px solid rgba(138,203,99,.28);
+  margin-bottom:14px;
+}
+.ai-card h3{ margin:0 0 8px; font-size:18px; }
+.ai-card p{ margin:0; color:rgba(190,188,180,.92); font-size:14px; line-height:1.6; }
+.ai-stats{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; position:relative; z-index:2; }
+.ai-stats span{
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:12.5px; font-weight:600;
+  color:rgba(242,240,234,.90);
+  padding:9px 14px; border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+}
+.ai-stats span::before{ content:"✓"; color:#bcec88; font-weight:800; }
+.ai-band .ai-cta{ margin-top:26px; display:flex; gap:12px; flex-wrap:wrap; position:relative; z-index:2; }
+@media (max-width:680px){
+  .ai-grid{ grid-template-columns:1fr; }
+  .ai-band .ai-cta .btn{ flex:1; min-width:100%; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   DEDICATED AI AUTOMATION PAGE
+   Living, premium showcase. Leaf-green AI accent on dark base.
+   ════════════════════════════════════════════════════════════ */
+:root{ --ai:#8acb63; --ai2:#bcec88; --ai-cyan:#55f0c7; }
+[data-air]{ opacity:0; transform:translateY(20px); transition:opacity .8s ease, transform .8s ease; }
+[data-air].in{ opacity:1; transform:none; }
+
+/* ── AI hero ─────────────────────────────────────── */
+.aiHero{ position:relative; padding:64px 0 40px; overflow:hidden; }
+.aiHero::before{
+  content:""; position:absolute; inset:-20% -10% auto -10%; height:80%; z-index:-1;
+  background:
+    radial-gradient(760px 380px at 14% 10%, rgba(138,203,99,.18), transparent 60%),
+    radial-gradient(680px 340px at 90% 0%, rgba(232,52,135,.12), transparent 60%);
+  filter:blur(6px); pointer-events:none;
+}
+.aiHero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center; }
+.aiHero h1{
+  font-family:"Cormorant Garamond", ui-serif, Georgia, serif;
+  font-weight:600; font-size:clamp(40px, 6vw, 76px); line-height:1; letter-spacing:-1px;
+  margin:18px 0 18px; max-width:16ch;
+}
+.aiHero h1 em{ font-style:italic; background:linear-gradient(135deg, var(--ai2), var(--ai-cyan)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.aiHero p.lead{ margin:0; max-width:54ch; color:var(--muted); font-size:17px; line-height:1.7; }
+.aiHero .hero-actions{ margin-top:28px; }
+
+/* eyebrow with live dot */
+.ai-eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:"Manrope", sans-serif; font-size:11px; letter-spacing:1.6px; text-transform:uppercase; font-weight:700;
+  color:rgba(196,239,150,.96);
+  padding:8px 14px; border-radius:999px;
+  border:1px solid rgba(138,203,99,.34); background:rgba(138,203,99,.08);
+}
+.ai-eyebrow .live-dot{ width:8px; height:8px; border-radius:50%; background:var(--ai); box-shadow:0 0 0 0 rgba(138,203,99,.6); animation:aiPulse 1.9s ease-out infinite; }
+
+/* ── Live activity feed (console) ────────────────── */
+.aiFeed{
+  border-radius:22px; border:1px solid rgba(138,203,99,.22);
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+  box-shadow:0 30px 90px rgba(0,0,0,.5); overflow:hidden;
+}
+.aiFeed__head{
+  display:flex; align-items:center; gap:9px; padding:14px 16px;
+  border-bottom:1px solid rgba(255,255,255,.08); font-family:"Manrope",sans-serif; font-size:12px;
+  color:rgba(242,240,234,.7); letter-spacing:.3px;
+}
+.aiFeed__head .dots{ display:flex; gap:6px; }
+.aiFeed__head .dots i{ width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.16); }
+.aiFeed__head .dots i:nth-child(1){ background:#ff5f56 } .aiFeed__head .dots i:nth-child(2){ background:#ffbd2e } .aiFeed__head .dots i:nth-child(3){ background:#27c93f }
+.aiFeed__head b{ margin-left:6px; color:var(--ai2); font-weight:700; }
+.aiFeed__head .pulse{ margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:11px; color:rgba(196,239,150,.9); }
+.aiFeed__head .pulse::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--ai); animation:aiPulse 1.6s ease-out infinite; }
+.aiFeed__list{ padding:8px; display:flex; flex-direction:column; gap:6px; min-height:320px; }
+.aiFeedRow{
+  display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center;
+  padding:13px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.07);
+  background:rgba(255,255,255,.03); opacity:0; transform:translateY(-8px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.aiFeedRow.show{ opacity:1; transform:none; }
+.aiFeedIco{ width:34px; height:34px; border-radius:10px; display:grid; place-items:center; font-size:17px; background:rgba(138,203,99,.12); border:1px solid rgba(138,203,99,.24); }
+.aiFeedTxt{ font-size:13.5px; line-height:1.4; color:rgba(242,240,234,.92); }
+.aiFeedTime{ font-family:"Manrope",sans-serif; font-size:10.5px; color:rgba(183,181,173,.6); letter-spacing:.4px; white-space:nowrap; }
+
+/* ── AI section primitives ───────────────────────── */
+.ai-sec{ padding:72px 0; }
+.ai-sec .kicker{ color:var(--ai2); }
+.ai-head{ max-width:64ch; margin-bottom:40px; }
+.ai-head h2{ font-family:"Cormorant Garamond", ui-serif, Georgia, serif; font-weight:600; font-size:clamp(30px,4vw,52px); line-height:1.04; letter-spacing:-.5px; margin:8px 0 12px; }
+.ai-head h2 em{ font-style:italic; color:var(--ai2); }
+.ai-head p{ margin:0; color:var(--muted); font-size:17px; line-height:1.7; }
+
+/* services grid (6 cards) */
+.ai-serv{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.ai-serv .ai-card{
+  padding:24px 22px; border-radius:18px; border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
+  transition:transform .35s ease, border-color .35s ease, background .35s ease;
+}
+.ai-serv .ai-card:hover{ transform:translateY(-5px); border-color:rgba(138,203,99,.42); background:rgba(138,203,99,.05); }
+.ai-serv .ai-card .ai-ico{ width:50px; height:50px; border-radius:14px; display:grid; place-items:center; font-size:24px; background:rgba(138,203,99,.10); border:1px solid rgba(138,203,99,.28); margin-bottom:15px; }
+.ai-serv .ai-card h3{ margin:0 0 8px; font-size:19px; }
+.ai-serv .ai-card p{ margin:0; color:rgba(190,188,180,.92); font-size:14px; line-height:1.6; }
+
+/* ── Phone chatbot demo ──────────────────────────── */
+.aiChatWrap{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+.aiChat{
+  width:min(360px, 100%); margin:0 auto; border-radius:30px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:linear-gradient(180deg, #0e1512, #0a0f0d);
+  box-shadow:0 40px 110px rgba(0,0,0,.6), 0 0 50px rgba(138,203,99,.08);
+}
+.aiChat__top{ display:flex; align-items:center; gap:11px; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,.08); background:rgba(138,203,99,.06); }
+.aiChat__av{ width:40px; height:40px; border-radius:50%; display:grid; place-items:center; font-size:18px; background:linear-gradient(135deg, var(--ai), var(--ai-cyan)); color:#06120f; }
+.aiChat__top b{ display:block; font-size:14px; }
+.aiChat__top small{ display:flex; align-items:center; gap:6px; font-size:11px; color:rgba(196,239,150,.9); margin-top:2px; }
+.aiChat__top small::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--ai); box-shadow:0 0 8px var(--ai); }
+.aiChat__body{ padding:18px; height:340px; overflow:hidden; display:flex; flex-direction:column; gap:10px; }
+.aiChat__msg{ max-width:82%; padding:11px 13px; border-radius:16px; font-size:13.5px; line-height:1.5; }
+.aiChat__msg--user{ align-self:flex-end; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.10); border-bottom-right-radius:5px; color:#f2f0ea; }
+.aiChat__msg--bot{ align-self:flex-start; background:linear-gradient(135deg, rgba(138,203,99,.18), rgba(85,240,199,.10)); border:1px solid rgba(138,203,99,.24); border-bottom-left-radius:5px; color:#eafff0; }
+.aiChat__typing{ display:inline-flex; gap:4px; }
+.aiChat__typing span{ width:7px; height:7px; border-radius:50%; background:rgba(196,239,150,.7); animation:aiType 1.2s ease-in-out infinite; }
+.aiChat__typing span:nth-child(2){ animation-delay:.18s } .aiChat__typing span:nth-child(3){ animation-delay:.36s }
+@keyframes aiType{ 0%,60%,100%{ transform:translateY(0); opacity:.5 } 30%{ transform:translateY(-5px); opacity:1 } }
+
+/* ── Use cases by business type ──────────────────── */
+.ai-uses{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.ai-use{ padding:20px 18px; border-radius:16px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.03); transition:border-color .3s ease, background .3s ease; }
+.ai-use:hover{ border-color:rgba(138,203,99,.40); background:rgba(138,203,99,.05); }
+.ai-use .ico{ font-size:26px; }
+.ai-use h4{ margin:12px 0 6px; font-size:15px; }
+.ai-use p{ margin:0; color:rgba(183,181,173,.85); font-size:12.5px; line-height:1.5; }
+
+/* ── Before / After ──────────────────────────────── */
+.ai-ba{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.ai-ba .col{ padding:28px 26px; border-radius:20px; border:1px solid var(--line); }
+.ai-ba .before{ background:rgba(255,122,122,.04); border-color:rgba(255,122,122,.18); }
+.ai-ba .after{ background:rgba(138,203,99,.05); border-color:rgba(138,203,99,.30); }
+.ai-ba .col .tag{ display:inline-block; font-family:"Manrope",sans-serif; font-size:11px; letter-spacing:1.4px; text-transform:uppercase; font-weight:700; padding:6px 12px; border-radius:999px; margin-bottom:16px; }
+.ai-ba .before .tag{ color:#ff9a9a; background:rgba(255,122,122,.10); }
+.ai-ba .after .tag{ color:var(--ai2); background:rgba(138,203,99,.12); }
+.ai-ba ul{ list-style:none; margin:0; padding:0; display:grid; gap:11px; }
+.ai-ba li{ display:grid; grid-template-columns:20px 1fr; gap:10px; align-items:start; font-size:14.5px; line-height:1.5; color:rgba(220,218,210,.92); }
+.ai-ba .before li::before{ content:"✕"; color:#ff8a8a; font-weight:800; }
+.ai-ba .after li::before{ content:"✓"; color:var(--ai2); font-weight:800; }
+
+/* ── Stats row ───────────────────────────────────── */
+.ai-nums{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.ai-num{ text-align:center; padding:30px 18px; border-radius:18px; border:1px solid rgba(138,203,99,.20); background:linear-gradient(180deg, rgba(138,203,99,.06), rgba(255,255,255,.012)); }
+.ai-num b{ display:block; font-family:"Cormorant Garamond", serif; font-weight:700; font-size:clamp(38px,5vw,58px); line-height:1; background:linear-gradient(135deg, var(--ai2), var(--ai-cyan)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.ai-num span{ display:block; margin-top:10px; color:rgba(183,181,173,.85); font-size:13px; line-height:1.4; }
+
+/* ── Final CTA ───────────────────────────────────── */
+.ai-final{ position:relative; padding:64px 48px; border-radius:30px; overflow:hidden; text-align:center;
+  border:1px solid rgba(138,203,99,.30);
+  background:radial-gradient(700px 360px at 50% 0%, rgba(138,203,99,.14), transparent 62%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); }
+.ai-final h2{ font-family:"Cormorant Garamond", serif; font-weight:600; font-size:clamp(32px,4.4vw,60px); line-height:1.04; margin:0 auto 16px; max-width:20ch; }
+.ai-final h2 em{ font-style:italic; color:var(--ai2); }
+.ai-final p{ margin:0 auto 28px; max-width:54ch; color:var(--muted); font-size:17px; line-height:1.6; }
+
+@media (max-width:960px){
+  .aiHero-grid, .aiChatWrap{ grid-template-columns:1fr; }
+  .ai-serv{ grid-template-columns:1fr 1fr; }
+  .ai-uses{ grid-template-columns:1fr 1fr; }
+  .ai-nums{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width:620px){
+  .ai-serv, .ai-uses, .ai-ba, .ai-nums{ grid-template-columns:1fr; }
+  .ai-final{ padding:44px 22px; }
+  .aiFeed__list{ min-height:260px; }
+}
+
+/* ── AI plan cards (leaf-green accent variant) ─────────────── */
+.price.price-ai .plan-meta{ border-color:rgba(138,203,99,.26); background:linear-gradient(180deg, rgba(138,203,99,.08), rgba(138,203,99,.02)); }
+.price.price-ai .plan-meta span b{ color:var(--ai2, #bcec88); }
+.price.price-ai ul.plan-features li::before{ color:var(--ai2, #bcec88); }
+.price.price-ai ul.plan-features li.carry::before{ color:var(--ai2, #bcec88); }
+.price.price-ai .tag strong{ color:var(--ai2, #bcec88); }
+.price.price-ai.featured{ border-color:rgba(138,203,99,.34); background:rgba(13,20,15,.72); }
+.price.price-ai.featured::after{ background:radial-gradient(circle at 30% 30%, rgba(138,203,99,.25), transparent 65%); }
+.price.price-ai .btn-gold{ background:linear-gradient(135deg, var(--ai, #8acb63), var(--ai2, #bcec88)); color:#0a160c; border-color:transparent; }
+
+/* a labelled section divider for the plans page */
+.plans-divider{ display:flex; align-items:center; gap:16px; margin:8px 0 26px; }
+.plans-divider .line{ flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent); }
+.plans-divider .lbl{ font-family:"Manrope",sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:700; color:rgba(183,181,173,.8); white-space:nowrap; }
+
+/* ── Homepage "what we do" pillars ─────────────────────────── */
+.pillar-list{ list-style:none; padding:0; margin:14px 0 20px; display:grid; gap:9px; }
+.pillar-list li{
+  display:grid; grid-template-columns:18px 1fr; gap:9px;
+  font-size:14px; line-height:1.5; color:rgba(190,188,180,.95);
+}
+.pillar-list li::before{ content:"✓"; color:var(--gold, #e6bf74); font-weight:800; font-size:12.5px; }
+.card.pillar-ai{ border-color:rgba(138,203,99,.26); }
+.card.pillar-ai:hover{ border-color:rgba(138,203,99,.42); }
+.card.pillar-ai .pillar-list li::before{ color:#bcec88; }
+
 .plan-finder{
   display:grid;
   grid-template-columns: 1fr 1.05fr;

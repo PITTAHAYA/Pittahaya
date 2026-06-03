@@ -20,29 +20,48 @@
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let w, h, particles = [], mx = -9999, my = -9999;
-    const COUNT = 64;
-    const LINK = 140;
+    let w = 0, h = 0, particles = [], mx = -9999, my = -9999, seeded = false;
+    const LINK = 150;
+    // Particle count scales with the hero area so the network always looks
+    // evenly dense — never a sparse field on big screens nor a clustered
+    // blob on small ones. Clamped so it stays performant.
+    const densityFor = (ww, hh) => Math.max(48, Math.min(120, Math.round((ww * hh) / 13000)));
+
+    const seed = () => {
+      const count = densityFor(w, h);
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,            // spread across the FULL width
+          y: Math.random() * h,            // and the FULL height
+          vx: (Math.random() - .5) * .35,
+          vy: (Math.random() - .5) * .35,
+          r: Math.random() * 1.6 + .4
+        });
+      }
+      seeded = true;
+    };
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = canvas.getBoundingClientRect();
+      // Layout isn't ready yet (hero still collapsed / web fonts still
+      // loading). Keep retrying on the next frame so we NEVER lock in a
+      // zero/short box and seed the whole field into a tiny corner.
+      if (rect.width < 2 || rect.height < 2) {
+        requestAnimationFrame(resize);
+        return;
+      }
+      const changed = Math.abs(rect.width - w) > 1 || Math.abs(rect.height - h) > 1;
       w = rect.width; h = rect.height;
       canvas.width = w * dpr; canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // (Re)seed across the real dimensions whenever the box size changes.
+      // This is what fixes the corner-cluster: the first measurement may be
+      // a short pre-font box, but once the hero reflows to full size we lay
+      // the constellation out edge-to-edge again at the right density.
+      if (!seeded || changed) seed();
     };
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < COUNT; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - .5) * .35,
-        vy: (Math.random() - .5) * .35,
-        r: Math.random() * 1.6 + .4
-      });
-    }
 
     canvas.addEventListener("mousemove", e => {
       const r = canvas.getBoundingClientRect();
@@ -51,46 +70,64 @@
     canvas.addEventListener("mouseleave", () => { mx = -9999; my = -9999; });
 
     const tick = () => {
-      ctx.clearRect(0, 0, w, h);
+      if (seeded && w > 0 && h > 0) {
+        ctx.clearRect(0, 0, w, h);
 
-      for (const p of particles) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
+        for (const p of particles) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
 
-        // mouse attraction
-        const dx = mx - p.x, dy = my - p.y;
-        const d  = Math.hypot(dx, dy);
-        if (d < 180 && d > 0) {
-          p.x += (dx / d) * .35;
-          p.y += (dy / d) * .35;
+          // mouse attraction
+          const dx = mx - p.x, dy = my - p.y;
+          const d  = Math.hypot(dx, dy);
+          if (d < 180 && d > 0) {
+            p.x += (dx / d) * .35;
+            p.y += (dy / d) * .35;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255, 209, 102, .85)";
+          ctx.fill();
         }
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 209, 102, .85)";
-        ctx.fill();
-      }
-
-      // links
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i], b = particles[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d = Math.hypot(dx, dy);
-          if (d < LINK) {
-            const op = (1 - d / LINK) * .22;
-            ctx.strokeStyle = `rgba(255, 209, 102, ${op})`;
-            ctx.lineWidth = .6;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
+        // links
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d = Math.hypot(dx, dy);
+            if (d < LINK) {
+              const op = (1 - d / LINK) * .22;
+              ctx.strokeStyle = `rgba(255, 209, 102, ${op})`;
+              ctx.lineWidth = .6;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
           }
         }
       }
       requestAnimationFrame(tick);
     };
+
+    // Measure now, then re-sync on every event that can change the box:
+    // window resize, web-font swap (reflows the hero), and full load.
+    resize();
+    window.addEventListener("resize", resize);
+    window.addEventListener("load", resize);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(resize).catch(() => {});
+    }
+    // ResizeObserver is the bulletproof catch-all: any time the canvas
+    // box actually changes size (font reflow, late content, zoom) we
+    // re-sync the bitmap so the constellation always fills the hero.
+    if ("ResizeObserver" in window) {
+      const ro = new ResizeObserver(() => resize());
+      ro.observe(canvas);
+    }
     tick();
   };
 
