@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m9" />
+  <link rel="stylesheet" href="assets/styles.css?v=m15" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -51,6 +51,7 @@
     <nav class="nav" aria-label="Navegación principal">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">IA</a>
       <a data-nav href="planes.html">Planes</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -78,6 +79,7 @@
     <div class="drawer-links">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">Automatización con IA</a>
       <a data-nav href="planes.html">Planes / Precios</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -104,7 +106,7 @@
         <div class="hero-proof" aria-label="Puntos de confianza">
           <span class="proof-chip">Identidad antes que plantilla</span>
           <span class="proof-chip">Diseño adaptable</span>
-          <span class="proof-chip">SEO base incluido</span>
+          <span class="proof-chip">+ Automatización con IA</span>
         </div>
         <div class="metrics">
           <div class="metric"><b>7 segundos</b><span>Para causar una primera impresión fuerte</span></div>
@@ -172,49 +174,42 @@
     </div>
   </section>
 
-  <section class="section compact" aria-label="Señales de confianza">
+  <!-- ════════════ LO QUE HACEMOS (2 pilares) ════════════ -->
+  <section class="section compact" id="que-hacemos">
     <div class="container">
-      <div class="trust-band reveal">
-        <div class="trust-item"><b>Premium</b><span>Dirección visual cuidada para que tu negocio se sienta serio, moderno y valioso.</span></div>
-        <div class="trust-item"><b>Claro</b><span>Arquitectura pensada para que el cliente entienda qué vendes sin confundirse.</span></div>
-        <div class="trust-item"><b>Rápido</b><span>Experiencia ligera, adaptable y lista para verse bien en celular.</span></div>
-        <div class="trust-item"><b>Acción</b><span>CTA, formularios y secciones diseñadas para convertir interés en conversación.</span></div>
-      </div>
-    </div>
-  </section>
+      <div class="kicker reveal">Lo que hacemos por ti</div>
+      <h2 class="section-title reveal">Dos cosas que hacen crecer tu negocio.</h2>
+      <p class="section-lead reveal">Una web que vende, y la inteligencia artificial que trabaja por ti las 24 horas. Juntas funcionan como un sistema completo: atrae, convierte y opera — sin que tengas que estar pendiente de todo.</p>
 
-  <section class="section compact" id="first-impression-lab">
-    <div class="container">
-      <div class="experience-lab reveal" data-experience-lab>
-        <div class="lab-copy">
-          <div class="kicker">First impression lab</div>
-          <h2 class="section-title">Elige qué debe sentir tu cliente en los primeros segundos</h2>
-          <p class="section-lead">Una web adictiva no grita: responde a la intención del visitante. Toca una dirección y mira cómo cambia la estrategia.</p>
-          <a class="btn btn-gold" data-lab-link href="demo-landing.html">Ver demo de conversión</a>
+      <div class="grid-2">
+        <div class="card hover-lift reveal">
+          <div class="card-inner">
+            <div class="kicker">Diseño web premium</div>
+            <h3 style="font-family:'Cormorant Garamond',ui-serif,Georgia,serif;font-size:clamp(24px,2.6vw,34px);line-height:1.1;margin:6px 0 10px;">Una web que se ve cara — y vende sola.</h3>
+            <p class="note">Diseño a medida, sin plantillas. Rápida, adaptable a todo dispositivo y con SEO base para aparecer en Google. Tu mejor vendedor, disponible las 24 horas.</p>
+            <ul class="pillar-list">
+              <li>Diseño custom, sin plantillas genéricas</li>
+              <li>100% adaptable a celular, tablet y computadora</li>
+              <li>SEO base incluido para aparecer en Google</li>
+              <li>Pensada para convertir visitas en contactos</li>
+            </ul>
+            <a class="btn btn-gold" href="servicios.html">Ver servicios de web →</a>
+          </div>
         </div>
 
-        <div class="lab-controls" aria-label="Direcciones de primera impresión">
-          <button type="button" class="lab-option active" data-lab-option="conversion" aria-pressed="true">
-            <span>01</span>
-            <b>Quiero vender más rápido</b>
-            <small>Oferta clara, CTA fuerte y dudas resueltas.</small>
-          </button>
-          <button type="button" class="lab-option" data-lab-option="authority" aria-pressed="false">
-            <span>02</span>
-            <b>Quiero verme más serio</b>
-            <small>Confianza ejecutiva para decisiones grandes.</small>
-          </button>
-          <button type="button" class="lab-option" data-lab-option="desire" aria-pressed="false">
-            <span>03</span>
-            <b>Quiero que me recuerden</b>
-            <small>Deseo visual, identidad y percepción premium.</small>
-          </button>
-        </div>
-
-        <div class="lab-preview" aria-live="polite">
-          <span data-lab-eyebrow>Cliente listo para comprar</span>
-          <strong data-lab-title>Venta inmediata sin sentirse desesperado.</strong>
-          <p data-lab-body>Ideal para una oferta concreta: el visitante entiende el resultado, ve prueba, resuelve dudas y llega al contacto con momentum.</p>
+        <div class="card hover-lift reveal pillar-ai" style="transition-delay:.08s">
+          <div class="card-inner">
+            <div class="kicker" style="color:rgba(196,239,150,.95)">Automatización con IA</div>
+            <h3 style="font-family:'Cormorant Garamond',ui-serif,Georgia,serif;font-size:clamp(24px,2.6vw,34px);line-height:1.1;margin:6px 0 10px;">Trabaja por ti — incluso mientras duermes.</h3>
+            <p class="note">Chatbots, agentes y automatizaciones que responden, agendan y hacen seguimiento las 24 horas. Ahorras tiempo, reduces costos y nunca pierdes un cliente por falta de respuesta.</p>
+            <ul class="pillar-list">
+              <li>Chatbots y agentes con IA, 24/7</li>
+              <li>Respuesta y seguimiento automático</li>
+              <li>Automatización de tareas repetitivas</li>
+              <li>Atiende a más clientes sin contratar más</li>
+            </ul>
+            <a class="btn btn-gold" href="automatizacion.html">Ver automatización con IA →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -249,20 +244,6 @@
     </div>
   </section>
 
-  <section class="section" id="como-funciona">
-    <div class="container">
-      <h2 class="section-title reveal">Un proceso simple, con intención en cada paso</h2>
-      <p class="section-lead reveal">El objetivo es que no compres “una página”, sino un sistema de presentación digital que te ayude a vender mejor.</p>
-
-      <div class="steps">
-        <div class="step reveal"><div class="num">Paso 1</div><h4>Diagnóstico</h4><p>Definimos objetivo, cliente ideal, oferta y tono visual.</p></div>
-        <div class="step reveal" style="transition-delay:.06s"><div class="num">Paso 2</div><h4>Diseño</h4><p>Creo una experiencia premium alineada con tu negocio.</p></div>
-        <div class="step reveal" style="transition-delay:.12s"><div class="num">Paso 3</div><h4>Refinamiento</h4><p>Ajustamos textos, secciones y detalles hasta que se sienta convincente.</p></div>
-        <div class="step reveal" style="transition-delay:.18s"><div class="num">Paso 4</div><h4>Publicación</h4><p>Tu web queda lista para compartir, presentar y captar oportunidades.</p></div>
-      </div>
-    </div>
-  </section>
-
   <section class="section compact" id="portafolio">
     <div class="container">
       <h2 class="section-title reveal">Demos que ayudan al cliente a imaginar su marca</h2>
@@ -285,18 +266,6 @@
 
       <div style="margin-top:18px" class="reveal">
         <a class="btn" href="portafolio.html">Ver portafolio completo</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS BAND -->
-  <section class="section compact" id="resultados" aria-label="Estadísticas y garantías">
-    <div class="container">
-      <div class="stats-band">
-        <div class="stat-item hover-lift reveal"><b>Custom</b><span>Diseño a medida, sin plantillas genéricas</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.06s"><b>SEO</b><span>Base de posicionamiento incluida en cada web</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.12s"><b>Móvil</b><span>Experiencia 100% adaptable a cualquier pantalla</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.18s"><b>24/7</b><span>Tu web trabaja para ti a toda hora</span></div>
       </div>
     </div>
   </section>
