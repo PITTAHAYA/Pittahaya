@@ -140,18 +140,57 @@
     $$("[data-fx-letters]").forEach(el => el.classList.add("fx-ready"));
   };
 
-  /* === 3. Counters — pre-populated in HTML now, just sync the
-     text in case any aren't already set. NO animation on cold load. */
+  /* === 3. Counters — animated count-up when they scroll into view.
+     Below-the-fold metrics roll from 0 → target with an easeOut curve,
+     so the page feels alive. Reduce-motion users just see the final value. */
   const initCounters = () => {
-    $$("[data-fx-count]").forEach(el => {
-      const val = el.getAttribute("data-fx-count");
-      if (!val) return;
-      const end = parseFloat(val) || 0;
-      const decimals = (val.split(".")[1] || "").length;
-      const suffix = el.getAttribute("data-fx-suffix") || "";
-      const prefix = el.getAttribute("data-fx-prefix") || "";
-      el.textContent = `${prefix}${end.toFixed(decimals)}${suffix}`;
-    });
+    const els = $$("[data-fx-count]");
+    if (!els.length) return;
+
+    const meta = (el) => {
+      const val = el.getAttribute("data-fx-count") || "0";
+      return {
+        end: parseFloat(val) || 0,
+        decimals: (val.split(".")[1] || "").length,
+        suffix: el.getAttribute("data-fx-suffix") || "",
+        prefix: el.getAttribute("data-fx-prefix") || ""
+      };
+    };
+    const render = (el, value, m) => {
+      el.textContent = `${m.prefix}${value.toFixed(m.decimals)}${m.suffix}`;
+    };
+
+    // Reduce motion (or no IntersectionObserver): show final values, no roll.
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach(el => { const m = meta(el); render(el, m.end, m); });
+      return;
+    }
+
+    const animate = (el) => {
+      if (el.dataset.fxCounted === "1") return;
+      el.dataset.fxCounted = "1";
+      const m = meta(el);
+      const dur = 1400;
+      const t0 = performance.now();
+      const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+      const step = (now) => {
+        const t = Math.min(1, (now - t0) / dur);
+        render(el, m.end * ease(t), m);
+        if (t < 1) requestAnimationFrame(step);
+        else render(el, m.end, m); // pin exact final value
+      };
+      requestAnimationFrame(step);
+    };
+
+    // Start each counter at 0 so the count-up is visible.
+    els.forEach(el => render(el, 0, meta(el)));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { animate(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: .35 });
+    els.forEach(el => io.observe(el));
   };
 
   /* === 4. Reveal-on-scroll for [data-reveal] =================== */
@@ -336,12 +375,35 @@
     });
   };
 
-  /* === 12. Chart bars — set to final width immediately ======== */
+  /* === 12. Chart bars — grow to their target when scrolled into view.
+     The CSS already animates `--bar` via a width transition, so we start
+     them at 0% and set the real value on intersection. */
   const initChart = () => {
-    $$("[data-fx-chart] [data-bar]").forEach(bar => {
-      const target = parseFloat(bar.getAttribute("data-bar")) || 0;
-      bar.style.setProperty("--bar", target + "%");
-    });
+    const bars = $$("[data-fx-chart] [data-bar], [data-bar]");
+    if (!bars.length) return;
+
+    const setFinal = (bar) =>
+      bar.style.setProperty("--bar", (parseFloat(bar.getAttribute("data-bar")) || 0) + "%");
+
+    if (reduce || !("IntersectionObserver" in window)) {
+      bars.forEach(setFinal);
+      return;
+    }
+
+    // Collapse first so the grow is visible.
+    bars.forEach(bar => bar.style.setProperty("--bar", "0%"));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const bar = en.target;
+          // next frame so the 0% is committed before we transition to target
+          requestAnimationFrame(() => setFinal(bar));
+          io.unobserve(bar);
+        }
+      });
+    }, { threshold: .3 });
+    bars.forEach(bar => io.observe(bar));
   };
 
   /* === 13. Marquee — infinite horizontal scroll =============== */

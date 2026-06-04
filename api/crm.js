@@ -65,6 +65,19 @@ function sanitize(str, maxLen = 500) {
   return String(str).trim().slice(0, maxLen);
 }
 
+// Neutralize PostgREST filter metacharacters before interpolating a
+// user-supplied value into an `.or(...)` filter string. Commas, parens,
+// asterisks and backslashes can break out of the value context and inject
+// extra conditions, so we strip them and cap the length. (This endpoint is
+// already admin-only — this is defense in depth.)
+function sanitizeFilterValue(str, maxLen = 120) {
+  return String(str || "")
+    .replace(/[,()*\\%]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLen);
+}
+
 // ── Route handlers ────────────────────────────────────────────
 
 const ALLOWED_SORT_COLS = new Set(['created_at', 'updated_at', 'name', 'email', 'status', 'priority', 'company', 'service', 'source_page']);
@@ -82,7 +95,8 @@ async function getLeads(req, res) {
   if (service)     query = query.ilike('service', `%${service}%`);
   if (source_page) query = query.ilike('source_page', `%${source_page}%`);
   if (search) {
-    query = query.or(`name.ilike.%${search}%,email.ilike.%${search}%,company.ilike.%${search}%`);
+    const s = sanitizeFilterValue(search);
+    if (s) query = query.or(`name.ilike.%${s}%,email.ilike.%${s}%,company.ilike.%${s}%`);
   }
 
   query = query
