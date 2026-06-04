@@ -358,8 +358,8 @@
     // ── Greeting ───────────────────────────
     {
       id: "greeting",
-      phrases: ["buen dia", "buena tarde", "buena noche", "como estan", "hay alguien", "good morning", "good afternoon", "good evening", "anyone there", "is anyone"],
-      keywords: ["hola", "buenas", "hello", "hey", "hi", "saludos", "atencion", "asesor", "ayuda", "disponible", "alguien", "recepcion", "help", "anyone", "available", "support"],
+      phrases: ["buen dia", "buenos dias", "buena tarde", "buenas tardes", "buena noche", "buenas noches", "como estan", "como estas", "como esta", "como va", "como andas", "que tal", "que mas", "que onda", "que hubo", "hay alguien", "mucho gusto", "good morning", "good afternoon", "good evening", "good day", "how are you", "how is it going", "how's it going", "hey there", "hi there", "what's up", "whats up", "nice to meet you", "anyone there", "is anyone"],
+      keywords: ["hola", "holaa", "holi", "buenas", "buenos", "hello", "hey", "hi", "heey", "saludos", "epale", "wassup", "howdy", "greetings", "atencion", "asesor", "ayuda", "disponible", "alguien", "recepcion", "help", "anyone", "available", "support"],
       text: "¡Hola! Bienvenido a Pittahaya. Estoy aquí para ayudarte con cualquier pregunta sobre tu web o tu automatización con IA: precios, planes, demos, tiempos, proceso o lo que necesites para dar el primer paso. ¿Por dónde empezamos?",
       en: { text: "Hi! Welcome to Pittahaya. I'm here to answer any question about your website or AI automation: pricing, plans, demos, timelines, process — anything you need to take the first step. Where shall we start?" },
       actions: act.start
@@ -368,8 +368,8 @@
     // ── Why Pittahaya / differentiator ─────
     {
       id: "why",
-      phrases: ["por que pittahaya", "que diferencia", "que los hace diferentes", "por que elegirlos", "vale la pena", "en que se diferencian", "mejor opcion", "que ventaja", "que ofrecen de diferente", "why pittahaya", "why choose you", "what makes you different", "what is the advantage", "what is special"],
-      keywords: ["diferenci", "ventaja", "mejor", "especial", "unico", "elegiria", "convence", "confiar", "different", "difference", "unique", "special", "advantage", "better", "why", "choose", "trust"],
+      phrases: ["por que pittahaya", "por que ustedes", "porque ustedes", "por que tu", "por que contigo", "por que con ustedes", "por que trabajar con ustedes", "por que te elegiria", "por que deberia elegirte", "por que te contrataria", "por que me conviene", "por que son mejores", "por que me ayudarian", "porque me ayudarian", "que diferencia", "que los hace diferentes", "que te hace diferente", "por que elegirlos", "vale la pena", "en que se diferencian", "mejor opcion", "que ventaja", "que me ofrecen de diferente", "why pittahaya", "why you", "why choose you", "why should i choose you", "why work with you", "why would i pick you", "why hire you", "why are you better", "what makes you different", "what sets you apart", "what is the advantage", "what is special", "how can you help me grow"],
+      keywords: ["diferenci", "ventaja", "mejor", "especial", "unico", "elegir", "elegiria", "escoger", "preferir", "convence", "confiar", "ustedes", "different", "difference", "unique", "special", "advantage", "better", "why", "choose", "trust", "apart"],
       text: "Pittahaya no rellena una plantilla con tu nombre: diseña desde cero pensando en tu oferta, tu cliente ideal y la percepción que quieres provocar. Y vamos más allá del diseño: sumamos automatización con IA (chatbots y agentes) para que tu negocio atienda y venda 24/7. El resultado es un sistema que trabaja por ti, no solo 'una web'. El proceso es claro, personal y orientado a resultados.",
       en: { text: "Pittahaya doesn't fill a template with your name: every site is designed from scratch around your offer, your ideal client, and the perception you want to create. And we go beyond design — we add AI automation (chatbots and agents) so your business serves and sells 24/7. The result is a system that works for you, not just 'a website'. The process is clear, personal and results-oriented." },
       actions: [{ label: inEn ? "See real demos" : "Ver demos reales", href: routes.portafolio }, { label: inEn ? "Request diagnostic" : "Solicitar diagnóstico", href: routes.contacto }]
@@ -618,7 +618,7 @@
     // ── Geography ──────────────────────────
     {
       id: "geography",
-      phrases: ["trabajan fuera de ecuador", "solo en quito", "estan en guayaquil", "pueden atender a mexico", "latinoamerica", "do you work outside ecuador", "are you only in quito", "can you work with other countries", "do you work internationally"],
+      phrases: ["trabajan fuera de ecuador", "solo en quito", "estan en guayaquil", "donde estan ubicados", "donde estan", "donde quedan", "cual es su ubicacion", "de donde son", "pueden atender a mexico", "latinoamerica", "do you work outside ecuador", "are you only in quito", "where are you located", "where are you based", "what is your location", "can you work with other countries", "do you work internationally"],
       keywords: ["ecuador", "quito", "guayaquil", "cuenca", "internacional", "latinoamerica", "mexico", "colombia", "peru", "chile", "españa", "international", "country", "abroad", "usa", "spain"],
       text: "Pittahaya tiene raíz ecuatoriana pero trabaja con clientes en toda Latinoamérica y más allá. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega se hacen por medios digitales sin importar tu ubicación.",
       en: { text: "Pittahaya has Ecuadorian roots but works with clients across Latin America and beyond. The process is 100% remote: diagnostic, design, revisions and delivery all happen digitally, no matter where you are." },
@@ -818,8 +818,8 @@
     // ── What we do / services overview ─────
     {
       id: "what-we-do",
-      phrases: ["que hacen", "que ofrecen", "a que se dedican", "que servicios tienen", "que es pittahaya", "en que me pueden ayudar", "what do you do", "what do you offer", "what services do you have", "what is pittahaya", "how can you help me"],
-      keywords: ["hacen", "ofrecen", "dedican", "servicios", "ofrecer", "do", "offer", "services", "help"],
+      phrases: ["que hacen", "que hacen ustedes", "que hacen exactamente", "que es lo que hacen", "que haces", "a que se dedican", "a que se dedican ustedes", "a que te dedicas", "de que se trata", "de que va esto", "en que consisten", "que ofrecen", "que servicios tienen", "que servicios ofrecen", "que tipo de servicios", "que es pittahaya", "que pueden hacer por mi", "en que me pueden ayudar", "cuentame que hacen", "what do you do", "what do you guys do", "what exactly do you do", "what is it that you do", "what do you offer", "what services do you have", "what services do you offer", "what kind of services", "what is pittahaya", "what can you do for me", "tell me what you do", "how can you help me"],
+      keywords: ["hacen", "ofrecen", "dedican", "servicios", "ofrecer", "consisten", "trata", "do", "offer", "services", "provide", "help"],
       text: "Pittahaya hace dos cosas que se potencian entre sí: 1) Diseño web premium — sitios a medida (landing, corporativa, marca, servicios, startup, tiendas) que generan confianza y venden. 2) Automatización con IA — chatbots y agentes que atienden, califican y dan seguimiento 24/7. Puedes contratar una sola línea o combinarlas en un sistema completo: la web atrae y la IA opera.",
       en: { text: "Pittahaya does two things that amplify each other: 1) Premium web design — custom sites (landing, corporate, brand, services, startup, stores) that build trust and sell. 2) AI automation — chatbots and agents that serve, qualify and follow up 24/7. You can hire one line or combine them into a complete system: the site attracts and the AI operates." },
       actions: act.start
@@ -1055,6 +1055,26 @@
       actions: act.contact
     },
 
+    // ── Are you a bot / real person ────────
+    {
+      id: "is-bot",
+      phrases: ["eres un bot", "esto es un bot", "hablo con una maquina", "eres real", "eres una persona", "eres una persona real", "hablo con una persona", "esto es automatico", "eres humano", "are you a bot", "is this a bot", "am i talking to a robot", "are you real", "are you a real person", "is this a real person", "are you human", "is this automated", "am i talking to a person"],
+      keywords: ["robot", "maquina", "automatico", "humano"],
+      text: "Soy el asistente virtual de Pittahaya (sí, con IA 🙂). Puedo resolver al instante la mayoría de tus dudas sobre webs, automatización, precios y proceso. Y cuando quieras hablar con una persona del equipo, te conecto al WhatsApp o al formulario — del otro lado hay gente real que diseña tu proyecto.",
+      en: { text: "I'm Pittahaya's virtual assistant (yes, AI-powered 🙂). I can instantly resolve most of your questions about websites, automation, pricing and process. And whenever you want to talk to a real person on the team, I'll connect you to WhatsApp or the form — there are real people on the other side who design your project." },
+      actions: act.contact
+    },
+
+    // ── Small talk: what can you do (bot) ──
+    {
+      id: "bot-capabilities",
+      phrases: ["en que me puedes ayudar", "que puedes hacer", "que me puedes decir", "para que sirves", "que sabes", "what can you help with", "what can you do for me", "what can you tell me", "how can you help"],
+      keywords: ["puedes ayudar", "puedes hacer", "para que sirves"],
+      text: "Puedo ayudarte con casi todo lo de Pittahaya: explicarte qué hacemos (webs premium + automatización con IA), recomendarte un plan o un demo según tu negocio, darte referencias de precios y tiempos, contarte el proceso, resolver dudas sobre dominio, hosting, SEO, seguridad y más — y guiarte al primer paso. ¿Qué te gustaría saber?",
+      en: { text: "I can help with almost anything about Pittahaya: explain what we do (premium websites + AI automation), recommend a plan or a demo based on your business, give you pricing and timeline references, walk you through the process, answer questions about domain, hosting, SEO, security and more — and guide you to the first step. What would you like to know?" },
+      actions: act.start
+    },
+
     // ── Farewell / thanks ──────────────────
     {
       id: "farewell",
@@ -1148,13 +1168,21 @@
       };
     }
 
-    // Pure greeting (≤4 words, no question marks) and we know the name → personal greet
+    // Pure greeting / small talk → answer warmly and directly (never the
+    // partial-fallback preamble). A bare "hey", "hola", "que tal", "good
+    // morning", "how are you" etc. should feel welcomed. We only treat it as
+    // a pure greeting when the message is short AND doesn't also carry a real
+    // topic (so "hola cuanto cuesta?" still goes to pricing).
     const wordCount = text.split(/\s+/).filter(Boolean).length;
-    const isPureGreeting = wordCount <= 4
-      && !/[?¿]/.test(rawText)
-      && /^(hola|buenas|hi|hello|hey|saludos)\b/.test(text);
-    if (isPureGreeting && state.name) {
-      return { text: T.pureGreetingNamed(state.name), actions: act.start };
+    const startsWithGreeting = /^(hola+|holi|ola|buenas|buenos|buen dia|buenos dias|buenas tardes|buenas noches|hey+|hi+|hello|holla|saludos|epale|que tal|que onda|que mas|que hubo|good morning|good afternoon|good evening|good day|hi there|hey there|howdy|wassup|whats up|how are you|hows it going|como estas|como estan|como andas|como va|mucho gusto|nice to meet)\b/.test(text);
+    const hasTopicSignal = /\b(precio|precios|costo|cuesta|cuanto|plan|planes|web|pagina|sitio|demo|ia|chatbot|agente|servicio|servicios|hacen|haces|ofrecen|dedican|tiempo|dominio|hosting|seo|tienda|logo|price|cost|how much|website|page|service|services|do you|what do|domain|store|automat)\b/.test(text);
+    const isPureGreeting = wordCount <= 5 && startsWithGreeting && !hasTopicSignal;
+    if (isPureGreeting) {
+      state.lastIntent = "greeting";
+      return {
+        text: state.name ? T.pureGreetingNamed(state.name) : T.greeting,
+        actions: T.greetingActions
+      };
     }
 
     // Score every entry
