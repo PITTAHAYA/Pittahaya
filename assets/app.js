@@ -728,4 +728,72 @@
       }
     });
   }
+
+  // ── Free Website Audit (lead magnet) ───────────────────────────
+  // Self-contained; reuses the same secure /api/submit-lead endpoint so
+  // there's no new backend. The visible URL field is "site_url" (NOT the
+  // honeypot "website"), and company is auto-filled if left blank so the
+  // API's required-field check always passes with a low-friction form.
+  const auditForm = $("[data-audit-form]");
+  if (auditForm) {
+    const auditStatus = $("[data-audit-status]", auditForm);
+    const auditBtn = $("button[type='submit']", auditForm);
+    const auditBtnDefault = auditBtn ? auditBtn.textContent.trim() : "";
+    const AM = inEn ? {
+      sending: "Sending…",
+      ok: "Got it! We'll send your free audit to your email within 24h. 🎉",
+      err: "Something went wrong. Please try again or use the contact form.",
+      invalid: "Please add your site, your name and a valid email."
+    } : {
+      sending: "Enviando…",
+      ok: "¡Listo! Te enviaremos tu auditoría gratis a tu correo en menos de 24h. 🎉",
+      err: "Algo falló. Intenta de nuevo o usa el formulario de contacto.",
+      invalid: "Agrega tu sitio, tu nombre y un correo válido."
+    };
+    const setAuditStatus = (msg, state) => {
+      if (!auditStatus) return;
+      auditStatus.textContent = msg;
+      auditStatus.dataset.state = state;
+      auditStatus.hidden = false;
+    };
+    auditForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(auditForm).entries());
+      const siteUrl = String(data.site_url || "").trim();
+      const name = String(data.name || "").trim();
+      const email = String(data.email || "").trim();
+      if (!siteUrl || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        setAuditStatus(AM.invalid, "error");
+        return;
+      }
+      const payload = {
+        website: data.website || "",            // honeypot — must stay empty
+        name,
+        email,
+        company: String(data.company || "").trim() || siteUrl,
+        service: inEn ? "Free website audit" : "Auditoría web gratuita",
+        message: (inEn ? "Free audit requested for: " : "Solicita auditoría gratis de: ") + siteUrl,
+        source_page: window.location.href,
+        source_demo: "lead-magnet:audit"
+      };
+      if (auditBtn) { auditBtn.disabled = true; auditBtn.textContent = AM.sending; }
+      auditForm.classList.add("is-sending");
+      try {
+        const res = await fetch("/api/submit-lead", {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const result = await res.json().catch(() => ({}));
+        if (!res.ok || !(result.ok === true || result.success === true)) throw new Error("failed");
+        setAuditStatus(AM.ok, "success");
+        auditForm.reset();
+      } catch {
+        setAuditStatus(AM.err, "error");
+      } finally {
+        auditForm.classList.remove("is-sending");
+        if (auditBtn) { auditBtn.disabled = false; auditBtn.textContent = auditBtnDefault; }
+      }
+    });
+  }
 })();

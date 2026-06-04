@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/styles.css?v=m15" />
+  <link rel="stylesheet" href="../assets/styles.css?v=m24" />
   <link rel="icon" href="../assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
@@ -249,38 +249,38 @@
         </div>
       </div>
 
-      <div class="plan-finder reveal" id="plan-finder" data-plan-finder>
-        <div>
-          <div class="kicker">Smart selector</div>
-          <h2 class="section-title" style="font-size: clamp(22px, 2.6vw, 34px); margin-bottom:10px;">Tell me what you want to provoke and I'll tell you where to start</h2>
-          <p class="section-lead" style="margin-bottom:0;">Not every client needs the same thing. This selector guides you by commercial intent, not just page count.</p>
-        </div>
+      <div class="hr reveal"></div>
 
-        <div class="finder-options" aria-label="Project goal">
-          <button type="button" class="active" data-plan-choice="presence" aria-pressed="true">I want to look professional</button>
-          <button type="button" data-plan-choice="sales" aria-pressed="false">I want to sell with clarity</button>
-          <button type="button" data-plan-choice="premium" aria-pressed="false">I want to look high-end</button>
-        </div>
-
-        <div class="finder-result" aria-live="polite">
-          <span data-plan-label>Elegant presence</span>
-          <strong data-plan-name>Basic Plan</strong>
-          <p data-plan-body>Best to start with a clear, fast, trustworthy site: enough so your business stops looking improvised and can start receiving leads.</p>
-          <a class="btn btn-gold" data-plan-link href="https://011ca3-jj.myshopify.com/products/starter-website" target="_blank" rel="noopener noreferrer">View and get this plan</a>
+      <!-- FOUNDING CLIENT OFFER (relocated from homepage) -->
+      <div class="founding-card reveal" id="founding">
+        <div class="founding-glow" aria-hidden="true"></div>
+        <span class="founding-badge"><span class="founding-dot"></span> Limited spots</span>
+        <h2 class="founding-title">We're looking for our first <em>founding clients</em></h2>
+        <p class="founding-lead">We're opening a small number of projects at a special launch rate. In exchange, you help us with an honest testimonial and let us feature your project as a case study. You get premium work with full attention; we get our first real cases.</p>
+        <ul class="founding-perks">
+          <li><b>Founder pricing</b> — special rate for being among the first</li>
+          <li><b>Priority attention</b> — few projects, full focus on yours</li>
+          <li><b>Work directly</b> with the designer, start to finish</li>
+          <li><b>No risk</b> — revisions until you're genuinely happy</li>
+        </ul>
+        <div class="founding-cta">
+          <a class="btn btn-gold" href="contact.html">I want to be a founding client →</a>
+          <span class="founding-note">No commitment · tell us about your project first</span>
         </div>
       </div>
 
       <div class="hr reveal"></div>
 
-      <h2 class="section-title reveal" style="font-size: clamp(22px, 2.6vw, 34px);">How we move forward</h2>
-      <p class="section-lead reveal">A direct process to go from idea to a website ready to compete.</p>
-
-      <div class="steps">
-        <div class="step reveal"><div class="num">Step 1</div><h4>Diagnosis</h4><p>We define the goal, audience, offer, and desired perception.</p></div>
-        <div class="step reveal" style="transition-delay:.06s"><div class="num">Step 2</div><h4>Design</h4><p>I build a modern proposal aligned with your brand.</p></div>
-        <div class="step reveal" style="transition-delay:.12s"><div class="num">Step 3</div><h4>Review</h4><p>We refine copy, sections, and visual details.</p></div>
-        <div class="step reveal" style="transition-delay:.18s"><div class="num">Step 4</div><h4>Launch</h4><p>Your site is ready to share, present, and sell.</p></div>
+      <div class="process-head reveal">
+        <h2 class="section-title" style="font-size: clamp(20px, 2.2vw, 27px); margin:0;">How we move forward</h2>
+        <span class="process-sub">From idea to a website ready to sell — in 4 steps.</span>
       </div>
+      <ol class="process-strip reveal" aria-label="Our process">
+        <li><span class="ps-num">1</span><b>Diagnosis</b><small>Goal, audience and offer.</small></li>
+        <li><span class="ps-num">2</span><b>Design</b><small>A proposal tailored to your brand.</small></li>
+        <li><span class="ps-num">3</span><b>Review</b><small>We refine until it convinces.</small></li>
+        <li><span class="ps-num">4</span><b>Launch</b><small>Ready to share and sell.</small></li>
+      </ol>
 
       <div style="margin-top:18px" class="reveal">
         <a class="btn btn-gold" href="contact.html">Book a free strategy call</a>
@@ -311,7 +311,7 @@
     </div>
   </div>
 </footer>
-<script src="../assets/app.js?v=m11" defer></script>
+<script src="../assets/app.js?v=m12" defer></script>
 <script src="../assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

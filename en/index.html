@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/styles.css?v=m15" />
+  <link rel="stylesheet" href="../assets/styles.css?v=m24" />
   <link rel="icon" href="../assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
@@ -272,51 +272,81 @@
     </div>
   </section>
 
-  <section class="section compact" id="testimonials">
+  <!-- WHY TRUST US — founder promise + guarantee (honest, no invented testimonials) -->
+  <section class="section compact" id="trust">
     <div class="container">
-      <div class="kicker reveal">Happy clients</div>
-      <h2 class="section-title reveal">What people say once their site is live</h2>
-      <p class="section-lead reveal">Real results from brands that decided to look premium from the first second.</p>
-      <div class="testimonials">
-        <div class="testimonial hover-lift reveal">
-          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-          <p>"Before, I had an improvised site nobody took seriously. Now clients arrive telling me how much trust it gave them. Pittahaya delivered exactly what was promised."</p>
-          <div class="testimonial-author">
-            <strong>Gabriela R.</strong>
-            <span>Image consultant, Quito</span>
+      <div class="kicker reveal">Why trust us</div>
+      <h2 class="section-title reveal">We're a young studio — and that works in your favor</h2>
+      <p class="section-lead reveal">We don't have hundreds of clients to serve in bulk. We have focus, time, and a real drive to make your project one we show off with pride. Your website isn't a number to us — it's our introduction.</p>
+      <div class="trust-grid">
+        <div class="founder-card reveal">
+          <div class="founder-top">
+            <!-- 👉 Replace this circle with your real photo:
+                 <img class="founder-photo" src="../assets/founder.jpg" alt="Pittahaya founder"> -->
+            <div class="founder-photo" role="img" aria-label="Pittahaya founder"></div>
+            <div class="founder-id">
+              <strong>A personal promise</strong>
+              <span>Founder · Pittahaya</span>
+            </div>
           </div>
+          <p>“Behind Pittahaya there's a real person who will design your project — not a call center. I'll treat your website like it's my own: with care, clear communication, and without disappearing halfway through. That's my word.”</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.08s">
-          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-          <p>"The website turned out better than I expected. My company now looks serious and premium. I received more quote requests in the first month than in the previous six."</p>
-          <div class="testimonial-author">
-            <strong>Mateo V.</strong>
-            <span>B2B consulting, Guayaquil</span>
-          </div>
+        <div class="guarantee-card reveal" style="transition-delay:.08s">
+          <div class="guarantee-badge" aria-hidden="true">✓</div>
+          <h3>Satisfaction guarantee</h3>
+          <p>We work with a diagnostic, revisions and adjustments before final delivery. If something doesn't convince you, we keep refining it until it represents your brand. We never deliver something half-done or leave you on your own.</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.16s">
-          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-          <p>"Clear process and the result speaks for itself. Since updating my site, clients arrive almost decided. It was completely worth the investment."</p>
-          <div class="testimonial-author">
-            <strong>Camila F.</strong>
-            <span>Holistic therapist, Cuenca</span>
-          </div>
-        </div>
+      </div>
+      <div class="trust-signals reveal">
+        <span class="trust-chip">Work directly with the designer</span>
+        <span class="trust-chip">Everything in writing, no surprises</span>
+        <span class="trust-chip">Reply in under 24h</span>
+        <span class="trust-chip">100% remote across Latin America</span>
+        <span class="trust-chip">HTTPS and security from the ground up</span>
       </div>
     </div>
   </section>
 
-  <section class="section compact">
+  <!-- FREE WEBSITE AUDIT — lead magnet -->
+  <section class="section compact" id="audit">
     <div class="container">
-      <div class="conversion-panel reveal">
-        <div>
-          <h2 class="section-title">Let's make your website feel like a brand that's worth more.</h2>
-          <p>Tell me what you sell and I'll give you a clear direction to turn that first impression into desire, trust, and action.</p>
+      <div class="audit-card reveal">
+        <div class="audit-copy">
+          <span class="audit-eyebrow"><span class="audit-dot"></span> Free audit</span>
+          <h2 class="audit-title">Is your current website losing you customers? Find out for free.</h2>
+          <p class="audit-lead">Drop us your site and we'll send an honest audit: what it conveys, what's costing you clients, and 3 concrete improvements you can apply right away. No commitment.</p>
+          <ul class="audit-perks">
+            <li>Review of design, clarity and trust</li>
+            <li>What's holding back your conversions</li>
+            <li>3 actionable improvements for your case</li>
+          </ul>
+          <p class="audit-trust">Reply in under 24h · 100% no commitment</p>
         </div>
-        <a class="btn btn-gold" href="contact.html">Get my strategy call</a>
+        <form class="audit-form" data-audit-form novalidate>
+          <input type="text" name="website" class="audit-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="audit-field">
+            <span>Your current website</span>
+            <input type="text" name="site_url" inputmode="url" placeholder="www.yourbusiness.com — or &quot;I don't have one yet&quot;" required>
+          </label>
+          <label class="audit-field">
+            <span>Your name</span>
+            <input type="text" name="name" placeholder="What's your name?" required>
+          </label>
+          <label class="audit-field">
+            <span>Your email</span>
+            <input type="email" name="email" placeholder="where we send the audit" required>
+          </label>
+          <label class="audit-field">
+            <span>Your business <em>(optional)</em></span>
+            <input type="text" name="company" placeholder="industry or business name">
+          </label>
+          <button type="submit" class="btn btn-gold audit-submit">Get my free audit →</button>
+          <p class="audit-status" data-audit-status hidden></p>
+        </form>
       </div>
     </div>
   </section>
+
   <div class="mobile-cta-bar" aria-label="Quick contact">
     <a class="wa-btn" href="https://wa.me/17783187994?text=Hi%20Pittahaya%2C%20I%27d%20like%20a%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" aria-label="Contact via WhatsApp">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/><path d="M11.98 0C5.37 0 .002 5.37.002 11.98c0 2.09.544 4.048 1.497 5.754L.002 24l6.374-1.671A11.94 11.94 0 0 0 11.98 23.96C18.59 23.96 23.96 18.59 23.96 11.98S18.59 0 11.98 0zm0 21.88c-1.893 0-3.663-.512-5.172-1.405l-.371-.22-3.84 1.007.994-3.679-.228-.38A9.84 9.84 0 0 1 2.1 11.98C2.1 6.53 6.53 2.1 11.98 2.1s9.88 4.43 9.88 9.88-4.43 9.9-9.88 9.9z" fill="white"/></svg>
@@ -348,7 +378,7 @@
     </div>
   </div>
 </footer>
-<script src="../assets/app.js?v=m11" defer></script>
+<script src="../assets/app.js?v=m12" defer></script>
 <script src="../assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>
