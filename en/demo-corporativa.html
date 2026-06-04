@@ -129,9 +129,9 @@ small{color:rgba(244,237,224,.58)}
 [data-fx-letters]{opacity:1}
   
 /* force-instant-reveal: avoid any first-paint flicker on cold load. */
-[data-reveal]{opacity:1 !important;transform:none !important;transition:none !important}
+/* reveals are JS-driven (initReveal reveals above-the-fold synchronously, animates the rest on scroll) */
 </style>
-<noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
+<noscript><style>[data-fx-letters]{visibility:visible !important}[data-reveal]{opacity:1 !important;transform:none !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
 
@@ -274,7 +274,7 @@ small{color:rgba(244,237,224,.58)}
   <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="../assets/demo-landing-fx.js?v=12" defer></script>
-<script src="../assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=13" defer></script>
+<script src="../assets/chatbot.js?v=v9" defer></script>
 </body>
 </html>

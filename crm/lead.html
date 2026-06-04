@@ -381,7 +381,7 @@ function renderPage(lead, notes, tasks) {
             <a href="mailto:${esc(lead.email)}?subject=Propuesta Pittahaya para ${esc(lead.company || lead.name)}" class="btn" style="justify-content:center; width:100%;">
               Enviar propuesta por email
             </a>
-            <a href="https://wa.me/${lead.phone?.replace(/\D/g,'')}?text=Hola ${encodeURIComponent(lead.name.split(' ')[0])}, te contacto de Pittahaya..." class="btn" target="_blank" style="justify-content:center; width:100%; ${!lead.phone?'opacity:0.4;pointer-events:none':''}">
+            <a href="https://wa.me/${lead.phone?.replace(/\D/g,'')}?text=Hola ${encodeURIComponent(lead.name.split(' ')[0])}, te contacto de Pittahaya..." class="btn" target="_blank" rel="noopener noreferrer" style="justify-content:center; width:100%; ${!lead.phone?'opacity:0.4;pointer-events:none':''}">
               WhatsApp
             </a>
           </div>
