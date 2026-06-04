@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m15" />
+  <link rel="stylesheet" href="assets/styles.css?v=m24" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -251,38 +251,38 @@
         </div>
       </div>
 
-      <div class="plan-finder reveal" id="selector-plan" data-plan-finder>
-        <div>
-          <div class="kicker">Selector inteligente</div>
-          <h2 class="section-title" style="font-size: clamp(22px, 2.6vw, 34px); margin-bottom:10px;">Dime qué quieres provocar y te digo por dónde empezar</h2>
-          <p class="section-lead" style="margin-bottom:0;">No todo cliente necesita lo mismo. Este selector te orienta por intención comercial, no solo por cantidad de páginas.</p>
-        </div>
+      <div class="hr reveal"></div>
 
-        <div class="finder-options" aria-label="Elegir objetivo del proyecto">
-          <button type="button" class="active" data-plan-choice="presence" aria-pressed="true">Quiero verme profesional</button>
-          <button type="button" data-plan-choice="sales" aria-pressed="false">Quiero vender con claridad</button>
-          <button type="button" data-plan-choice="premium" aria-pressed="false">Quiero verme high-end</button>
-        </div>
-
-        <div class="finder-result" aria-live="polite">
-          <span data-plan-label>Presencia elegante</span>
-          <strong data-plan-name>Plan Básico</strong>
-          <p data-plan-body>Te conviene empezar con una web clara, rápida y confiable: lo suficiente para que tu negocio deje de verse improvisado y pueda recibir contactos.</p>
-          <a class="btn btn-gold" data-plan-link href="https://011ca3-jj.myshopify.com/products/starter-website" target="_blank" rel="noopener noreferrer">Ver y contratar plan</a>
+      <!-- FOUNDING CLIENT OFFER (relocated from homepage) -->
+      <div class="founding-card reveal" id="fundadores">
+        <div class="founding-glow" aria-hidden="true"></div>
+        <span class="founding-badge"><span class="founding-dot"></span> Cupos limitados</span>
+        <h2 class="founding-title">Buscamos a nuestros primeros <em>clientes fundadores</em></h2>
+        <p class="founding-lead">Estamos abriendo un número reducido de proyectos a un precio especial de lanzamiento. A cambio, nos ayudas con un testimonio honesto y nos dejas mostrar tu proyecto como caso de estudio. Tú ganas una web premium con atención total; nosotros, nuestros primeros casos reales.</p>
+        <ul class="founding-perks">
+          <li><b>Precio fundador</b> — tarifa especial por ser de los primeros</li>
+          <li><b>Atención prioritaria</b> — pocos proyectos, foco total en el tuyo</li>
+          <li><b>Trato directo</b> con quien diseña, de principio a fin</li>
+          <li><b>Sin riesgo</b> — revisiones hasta que te convenza</li>
+        </ul>
+        <div class="founding-cta">
+          <a class="btn btn-gold" href="contacto.html">Quiero ser cliente fundador →</a>
+          <span class="founding-note">Sin compromiso · cuéntanos tu proyecto primero</span>
         </div>
       </div>
 
       <div class="hr reveal"></div>
 
-      <h2 class="section-title reveal" style="font-size: clamp(22px, 2.6vw, 34px);">Cómo avanzamos</h2>
-      <p class="section-lead reveal">Un proceso directo para pasar de idea a una web que se vea lista para competir.</p>
-
-      <div class="steps">
-        <div class="step reveal"><div class="num">Paso 1</div><h4>Diagnóstico</h4><p>Definimos objetivo, público, oferta y percepción deseada.</p></div>
-        <div class="step reveal" style="transition-delay:.06s"><div class="num">Paso 2</div><h4>Diseño</h4><p>Construyo una propuesta moderna alineada con tu marca.</p></div>
-        <div class="step reveal" style="transition-delay:.12s"><div class="num">Paso 3</div><h4>Revisión</h4><p>Refinamos textos, secciones y detalles visuales.</p></div>
-        <div class="step reveal" style="transition-delay:.18s"><div class="num">Paso 4</div><h4>Publicación</h4><p>Dejo la web lista para compartir, presentar y vender.</p></div>
+      <div class="process-head reveal">
+        <h2 class="section-title" style="font-size: clamp(20px, 2.2vw, 27px); margin:0;">Cómo avanzamos</h2>
+        <span class="process-sub">De la idea a una web lista para vender — en 4 pasos.</span>
       </div>
+      <ol class="process-strip reveal" aria-label="Proceso de trabajo">
+        <li><span class="ps-num">1</span><b>Diagnóstico</b><small>Objetivo, público y oferta.</small></li>
+        <li><span class="ps-num">2</span><b>Diseño</b><small>Propuesta a la medida de tu marca.</small></li>
+        <li><span class="ps-num">3</span><b>Revisión</b><small>Ajustamos hasta que convenza.</small></li>
+        <li><span class="ps-num">4</span><b>Publicación</b><small>Lista para compartir y vender.</small></li>
+      </ol>
 
       <div style="margin-top:18px" class="reveal">
         <a class="btn btn-gold" href="contacto.html">Solicitar diagnóstico gratis</a>
@@ -313,7 +313,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=m11" defer></script>
+<script src="assets/app.js?v=m12" defer></script>
 <script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

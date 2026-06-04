@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m15" />
+  <link rel="stylesheet" href="assets/styles.css?v=m24" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -271,51 +271,81 @@
   </section>
 
   <!-- TESTIMONIOS -->
-  <section class="section compact" id="testimonios">
+  <!-- WHY TRUST US — founder promise + guarantee (honest, no invented testimonials) -->
+  <section class="section compact" id="confianza">
     <div class="container">
-      <div class="kicker reveal">Clientes satisfechos</div>
-      <h2 class="section-title reveal">Lo que dicen quienes ya tienen su web lista</h2>
-      <p class="section-lead reveal">Resultados reales de marcas que decidieron verse premium desde el primer segundo.</p>
-      <div class="testimonials">
-        <div class="testimonial hover-lift reveal">
-          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-          <p>"Antes tenía una web improvisada que nadie tomaba en serio. Ahora mis clientes llegan diciéndome que les dio mucha confianza. Pittahaya hizo exactamente lo que prometió."</p>
-          <div class="testimonial-author">
-            <strong>Gabriela R.</strong>
-            <span>Consultora de imagen, Quito</span>
+      <div class="kicker reveal">Por qué confiar en nosotros</div>
+      <h2 class="section-title reveal">Somos un estudio joven — y eso juega a tu favor</h2>
+      <p class="section-lead reveal">No tenemos cientos de clientes que atender en masa. Tenemos foco, tiempo y muchas ganas de que tu proyecto sea de los que mostramos con orgullo. Tu web no es un número para nosotros: es nuestra carta de presentación.</p>
+      <div class="trust-grid">
+        <div class="founder-card reveal">
+          <div class="founder-top">
+            <!-- 👉 Reemplaza este círculo por tu foto real:
+                 <img class="founder-photo" src="assets/founder.jpg" alt="Fundador de Pittahaya"> -->
+            <div class="founder-photo" role="img" aria-label="Fundador de Pittahaya"></div>
+            <div class="founder-id">
+              <strong>Una promesa personal</strong>
+              <span>Fundador · Pittahaya</span>
+            </div>
           </div>
+          <p>“Detrás de Pittahaya hay una persona real que va a diseñar tu proyecto, no un call center. Voy a tratar tu web como si fuera la mía: con cuidado, comunicación clara y sin desaparecer a mitad del camino. Esa es mi palabra.”</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.08s">
-          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-          <p>"La web quedó mejor de lo que esperaba. Mi empresa ahora se ve seria y premium. Recibí más cotizaciones en el primer mes que en los seis meses anteriores."</p>
-          <div class="testimonial-author">
-            <strong>Mateo V.</strong>
-            <span>Consultoría B2B, Guayaquil</span>
-          </div>
+        <div class="guarantee-card reveal" style="transition-delay:.08s">
+          <div class="guarantee-badge" aria-hidden="true">✓</div>
+          <h3>Garantía de satisfacción</h3>
+          <p>Trabajamos con diagnóstico, revisiones y ajustes antes de la entrega final. Si algo no te convence, lo seguimos puliendo hasta que represente tu marca. No entregamos algo a medias ni te dejamos solo.</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.16s">
-          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-          <p>"Proceso claro y el resultado habla solo. Desde que actualicé mi web los clientes llegan con la decisión casi tomada. Vale completamente la inversión."</p>
-          <div class="testimonial-author">
-            <strong>Camila F.</strong>
-            <span>Terapeuta holística, Cuenca</span>
-          </div>
-        </div>
+      </div>
+      <div class="trust-signals reveal">
+        <span class="trust-chip">Trato directo con quien diseña</span>
+        <span class="trust-chip">Todo por escrito, sin sorpresas</span>
+        <span class="trust-chip">Respuesta en menos de 24h</span>
+        <span class="trust-chip">100% remoto en Latinoamérica</span>
+        <span class="trust-chip">HTTPS y seguridad desde la base</span>
       </div>
     </div>
   </section>
 
-  <section class="section compact">
+  <!-- FREE WEBSITE AUDIT — lead magnet -->
+  <section class="section compact" id="auditoria">
     <div class="container">
-      <div class="conversion-panel reveal">
-        <div>
-          <h2 class="section-title">Hagamos que tu web se sienta como una marca que vale más.</h2>
-          <p>Cuéntame qué vendes y te devuelvo una dirección clara para convertir esa primera impresión en deseo, confianza y acción.</p>
+      <div class="audit-card reveal">
+        <div class="audit-copy">
+          <span class="audit-eyebrow"><span class="audit-dot"></span> Auditoría gratis</span>
+          <h2 class="audit-title">¿Tu web actual está perdiendo clientes? Descúbrelo gratis.</h2>
+          <p class="audit-lead">Déjanos tu sitio y te enviamos una auditoría honesta: qué transmite, qué te está costando clientes y 3 mejoras concretas que puedes aplicar de inmediato. Sin compromiso.</p>
+          <ul class="audit-perks">
+            <li>Revisión de diseño, claridad y confianza</li>
+            <li>Qué está frenando tus conversiones</li>
+            <li>3 mejoras accionables para tu caso</li>
+          </ul>
+          <p class="audit-trust">Respuesta en menos de 24h · 100% sin compromiso</p>
         </div>
-        <a class="btn btn-gold" href="contacto.html">Quiero mi diagnóstico</a>
+        <form class="audit-form" data-audit-form novalidate>
+          <input type="text" name="website" class="audit-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="audit-field">
+            <span>Tu sitio web actual</span>
+            <input type="text" name="site_url" inputmode="url" placeholder="www.tunegocio.com — o «aún no tengo»" required>
+          </label>
+          <label class="audit-field">
+            <span>Tu nombre</span>
+            <input type="text" name="name" placeholder="¿Cómo te llamas?" required>
+          </label>
+          <label class="audit-field">
+            <span>Tu correo</span>
+            <input type="email" name="email" placeholder="dónde te enviamos la auditoría" required>
+          </label>
+          <label class="audit-field">
+            <span>Tu negocio <em>(opcional)</em></span>
+            <input type="text" name="company" placeholder="rubro o nombre del negocio">
+          </label>
+          <button type="submit" class="btn btn-gold audit-submit">Quiero mi auditoría gratis →</button>
+          <p class="audit-status" data-audit-status hidden></p>
+        </form>
       </div>
     </div>
   </section>
+
   <!-- MOBILE STICKY CTA BAR (solo visible en móvil ≤680px) -->
   <div class="mobile-cta-bar" aria-label="Contacto rápido">
     <a class="wa-btn" href="https://wa.me/17783187994?text=Hola%20Pittahaya%2C%20me%20interesa%20un%20diagn%C3%B3stico%20gratis." target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
@@ -348,7 +378,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=m11" defer></script>
+<script src="assets/app.js?v=m12" defer></script>
 <script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>
