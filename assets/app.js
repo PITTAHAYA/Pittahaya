@@ -578,16 +578,19 @@
 
   // WhatsApp floating button (update WHATSAPP_NUMBER with your real number)
   const WHATSAPP_NUMBER = "17783187994";
-  const WA_MSG = encodeURIComponent("Hola Pittahaya, me interesa solicitar un diagnóstico gratis para mi web.");
+  const WA_MSG = encodeURIComponent(inEn
+    ? "Hi Pittahaya, I'd like to request a free diagnostic for my website."
+    : "Hola Pittahaya, me interesa solicitar un diagnóstico gratis para mi web.");
   const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_MSG}`;
+  const waLabel = inEn ? "Message on WhatsApp" : "Escribir por WhatsApp";
 
   const waBtn = document.createElement("a");
   waBtn.className = "whatsapp-float";
   waBtn.href = waHref;
   waBtn.target = "_blank";
   waBtn.rel = "noopener noreferrer";
-  waBtn.setAttribute("aria-label", "Contactar por WhatsApp");
-  waBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/><path d="M11.98 0C5.37 0 .002 5.37.002 11.98c0 2.09.544 4.048 1.497 5.754L.002 24l6.374-1.671A11.94 11.94 0 0 0 11.98 23.96C18.59 23.96 23.96 18.59 23.96 11.98S18.59 0 11.98 0zm0 21.88c-1.893 0-3.663-.512-5.172-1.405l-.371-.22-3.84 1.007.994-3.679-.228-.38A9.84 9.84 0 0 1 2.1 11.98C2.1 6.53 6.53 2.1 11.98 2.1s9.88 4.43 9.88 9.88-4.43 9.9-9.88 9.9z" fill="white"/></svg><span class="whatsapp-float__label">Escribir por WhatsApp</span>`;
+  waBtn.setAttribute("aria-label", inEn ? "Contact via WhatsApp" : "Contactar por WhatsApp");
+  waBtn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/><path d="M11.98 0C5.37 0 .002 5.37.002 11.98c0 2.09.544 4.048 1.497 5.754L.002 24l6.374-1.671A11.94 11.94 0 0 0 11.98 23.96C18.59 23.96 23.96 18.59 23.96 11.98S18.59 0 11.98 0zm0 21.88c-1.893 0-3.663-.512-5.172-1.405l-.371-.22-3.84 1.007.994-3.679-.228-.38A9.84 9.84 0 0 1 2.1 11.98C2.1 6.53 6.53 2.1 11.98 2.1s9.88 4.43 9.88 9.88-4.43 9.9-9.88 9.9z" fill="white"/></svg><span class="whatsapp-float__label">${waLabel}</span>`;
   document.body.append(waBtn);
 
   // Portfolio cards: open their demo pages
@@ -615,8 +618,33 @@
     const status = $("[data-form-status]", leadForm);
     const fields = $$("[required]", leadForm);
     const submitButton = $("button[type='submit']", leadForm);
+    // Remember the button's own label (already in the page's language) so we
+    // can restore it after sending instead of hardcoding a translation.
+    const submitDefault = submitButton ? submitButton.textContent.trim() : "";
+
+    // Localized UI strings for the lead form (EN on /en/ pages, ES otherwise).
+    const M = inEn ? {
+      meterReady: "Diagnostic ready to send",
+      meterPct:   (p) => `Diagnostic ${p}% ready`,
+      sending:    "Sending…",
+      sendingStatus: "Sending your request securely…",
+      errorGeneric:  "The request could not be sent.",
+      errorRetry:    "The request could not be sent. Please try again.",
+      success:    "Request saved. We'll reply to you by email soon.",
+      submit:     "Send request"
+    } : {
+      meterReady: "Diagnóstico listo para enviar",
+      meterPct:   (p) => `Diagnóstico ${p}% listo`,
+      sending:    "Enviando…",
+      sendingStatus: "Enviando tu solicitud de forma segura…",
+      errorGeneric:  "No se pudo enviar la solicitud.",
+      errorRetry:    "No se pudo enviar la solicitud. Intenta otra vez.",
+      success:    "Solicitud guardada. Te responderemos pronto en tu correo.",
+      submit:     "Enviar solicitud"
+    };
+
     const meter = make("div", "form-meter");
-    const meterText = make("span", "form-meter__text", "Diagnóstico 0% listo");
+    const meterText = make("span", "form-meter__text", M.meterPct(0));
     const meterTrack = make("span", "form-meter__track");
     const meterFill = make("span", "form-meter__fill");
     meterTrack.append(meterFill);
@@ -627,7 +655,7 @@
       const completed = fields.filter(field => String(field.value || "").trim()).length;
       const percent = fields.length ? Math.round((completed / fields.length) * 100) : 0;
       meter.style.setProperty("--form-progress", `${percent}%`);
-      meterText.textContent = percent === 100 ? "Diagnóstico listo para enviar" : `Diagnóstico ${percent}% listo`;
+      meterText.textContent = percent === 100 ? M.meterReady : M.meterPct(percent);
     };
     fields.forEach(field => {
       field.addEventListener("input", updateFormMeter);
@@ -664,9 +692,9 @@
       leadForm.classList.add("is-sending");
       if (submitButton) {
         submitButton.disabled = true;
-        submitButton.textContent = "Enviando...";
+        submitButton.textContent = M.sending;
       }
-      setStatus("Enviando tu solicitud de forma segura...", "info");
+      setStatus(M.sendingStatus, "info");
 
       try {
         const response = await fetch(leadForm.action || "/api/submit-lead", {
@@ -681,19 +709,21 @@
 
         const sent = result.ok === true || result.success === true;
         if (!response.ok || !sent) {
-          throw new Error(result.message || result.error || "No se pudo enviar la solicitud.");
+          throw new Error(result.message || result.error || M.errorGeneric);
         }
 
-        setStatus(result.message || "Solicitud guardada. Te responderemos pronto en tu correo.", "success");
+        // On English pages, prefer the local English message over the
+        // server's Spanish one; on Spanish pages, use the server message.
+        setStatus(inEn ? M.success : (result.message || M.success), "success");
         leadForm.reset();
         updateFormMeter();
       } catch (error) {
-        setStatus(error.message || "No se pudo enviar la solicitud. Intenta otra vez.", "error");
+        setStatus(inEn ? M.errorRetry : (error.message || M.errorRetry), "error");
       } finally {
         leadForm.classList.remove("is-sending");
         if (submitButton) {
           submitButton.disabled = false;
-          submitButton.textContent = "Enviar solicitud";
+          submitButton.textContent = submitDefault || M.submit;
         }
       }
     });
