@@ -352,6 +352,28 @@ const sendLeadConfirmation = async (lead) => {
   }
 };
 
+// Cloudflare Turnstile verification. Returns true if the token is valid — or
+// if Turnstile isn't configured yet (no secret), so the site never breaks
+// before keys are added. Fails OPEN on a network error to Cloudflare so an
+// outage can't cost you a real lead (honeypot + timing trap still apply).
+const verifyTurnstile = async (token, ip) => {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true;   // not configured yet → skip
+  if (!token) return false;   // configured but no token → block
+  try {
+    const resp = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: String(token), remoteip: ip || "" })
+    });
+    const data = await resp.json().catch(() => ({}));
+    return !!(data && data.success === true);
+  } catch (err) {
+    console.error("Turnstile verify error (failing open)", String((err && err.message) || err).slice(0, 200));
+    return true; // fail open on network error — don't lose real leads
+  }
+};
+
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") {
     Object.entries(responseHeaders).forEach(([key, value]) => res.setHeader(key, value));
@@ -383,9 +405,27 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 200, { success: true, ok: true, message: "Solicitud recibida." });
   }
 
+  // Submit-timing trap: no human fills and submits a form in under ~2.5s.
+  // Treat like the honeypot — pretend success so bots don't learn, but discard.
+  const fillMs = parseInt(body.fill_ms, 10);
+  if (Number.isFinite(fillMs) && fillMs >= 0 && fillMs < 2500) {
+    return sendJson(res, 200, { success: true, ok: true, message: "Solicitud recibida." });
+  }
+
   const lead = mapLead(body, req);
   if (!lead.name || !isEmail(lead.email) || !lead.company || !lead.service || !lead.message) {
     return sendJson(res, 422, { success: false, ok: false, error: "Completa todos los campos antes de enviar." });
+  }
+
+  // Cloudflare Turnstile — real human verification (a bot cannot forge a valid
+  // token). Only enforced once TURNSTILE_SECRET_KEY is set in Vercel; before
+  // that it's skipped so the forms keep working with the honeypot + timing trap.
+  const turnstileOk = await verifyTurnstile(body.turnstile_token, getClientIp(req));
+  if (!turnstileOk) {
+    return sendJson(res, 403, {
+      success: false, ok: false,
+      error: "No pudimos verificar que eres una persona. Recarga la página e intenta de nuevo. / We couldn't verify you're human. Please reload and try again."
+    });
   }
 
   try {

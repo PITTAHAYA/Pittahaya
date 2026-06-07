@@ -615,6 +615,7 @@
   // Lead form: sends directly through the secure Vercel CRM function.
   const leadForm = $("[data-lead-form]");
   if (leadForm) {
+    const leadFormShownAt = Date.now(); // submit-timing trap (bots submit instantly)
     const status = $("[data-form-status]", leadForm);
     const fields = $$("[required]", leadForm);
     const submitButton = $("button[type='submit']", leadForm);
@@ -684,6 +685,8 @@
         message: rawPayload.message || rawPayload.mensaje || "",
         source_page: window.location.href,
         source_demo: rawPayload.source_demo || "",
+        turnstile_token: rawPayload["cf-turnstile-response"] || "",
+        fill_ms: Date.now() - leadFormShownAt,
         utm_source: new URLSearchParams(window.location.search).get("utm_source") || "",
         utm_medium: new URLSearchParams(window.location.search).get("utm_medium") || "",
         utm_campaign: new URLSearchParams(window.location.search).get("utm_campaign") || ""
@@ -736,6 +739,7 @@
   // API's required-field check always passes with a low-friction form.
   const auditForm = $("[data-audit-form]");
   if (auditForm) {
+    const auditShownAt = Date.now(); // submit-timing trap
     const auditStatus = $("[data-audit-status]", auditForm);
     const auditBtn = $("button[type='submit']", auditForm);
     const auditBtnDefault = auditBtn ? auditBtn.textContent.trim() : "";
@@ -774,7 +778,9 @@
         service: inEn ? "Free website audit" : "Auditoría web gratuita",
         message: (inEn ? "Free audit requested for: " : "Solicita auditoría gratis de: ") + siteUrl,
         source_page: window.location.href,
-        source_demo: "lead-magnet:audit"
+        source_demo: "lead-magnet:audit",
+        turnstile_token: data["cf-turnstile-response"] || "",
+        fill_ms: Date.now() - auditShownAt
       };
       if (auditBtn) { auditBtn.disabled = true; auditBtn.textContent = AM.sending; }
       auditForm.classList.add("is-sending");

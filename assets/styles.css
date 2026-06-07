@@ -2896,3 +2896,16 @@ html.js main > .section:first-child .reveal{
 .process-strip li:not(:last-child)::after{ content:"›"; position:absolute; top:22px; right:-11px; color:rgba(230,191,116,.55); font-size:20px; font-weight:700; z-index:2; }
 @media (max-width:760px){ .process-strip{ grid-template-columns:1fr 1fr; } .process-strip li:not(:last-child)::after{ display:none; } }
 @media (max-width:430px){ .process-strip{ grid-template-columns:1fr; } }
+
+/* ── "I'm a person" check (lightweight bot protection) ────────── */
+.form-human{
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  font-family:"Manrope",sans-serif; font-size:13px; line-height:1.4;
+  color:rgba(200,205,216,.85); margin:2px 0 4px;
+}
+.form-human input[type="checkbox"]{
+  width:18px; height:18px; flex-shrink:0; cursor:pointer; accent-color:#e6bf74;
+}
+
+/* Cloudflare Turnstile widget spacing */
+.cf-turnstile{ margin:6px 0 2px; }
