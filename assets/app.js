@@ -673,6 +673,17 @@
 
     leadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      // Human check: if Turnstile is on the page AND loaded but not yet passed,
+      // ask the user to complete it (don't even attempt to send). If Turnstile
+      // failed to load entirely, we let it through and the server decides.
+      const tsWidget = leadForm.querySelector(".cf-turnstile");
+      const tsField  = leadForm.querySelector('[name="cf-turnstile-response"]');
+      if (tsWidget && window.turnstile && (!tsField || !tsField.value)) {
+        setStatus(inEn ? "Please complete the verification below." : "Por favor completa la verificación de seguridad.", "error");
+        return;
+      }
+
       const formData = new FormData(leadForm);
       const rawPayload = Object.fromEntries(formData.entries());
       const payload = {
@@ -768,6 +779,12 @@
       const email = String(data.email || "").trim();
       if (!siteUrl || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
         setAuditStatus(AM.invalid, "error");
+        return;
+      }
+      // Human check (Turnstile) — only block if the widget loaded but isn't passed.
+      const tsField = auditForm.querySelector('[name="cf-turnstile-response"]');
+      if (auditForm.querySelector(".cf-turnstile") && window.turnstile && (!tsField || !tsField.value)) {
+        setAuditStatus(inEn ? "Please complete the verification below." : "Por favor completa la verificación de seguridad.", "error");
         return;
       }
       const payload = {
