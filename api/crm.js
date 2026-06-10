@@ -255,6 +255,15 @@ async function deleteTask(req, res, taskId) {
   return res.status(200).json({ success: true });
 }
 
+// Delete a lead and its related notes/tasks (in case the FK isn't ON DELETE CASCADE).
+async function deleteLead(req, res, id) {
+  await supabase.from('lead_notes').delete().eq('lead_id', id);
+  await supabase.from('lead_tasks').delete().eq('lead_id', id);
+  const { error } = await supabase.from('leads').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+}
+
 // ── Expenses ──────────────────────────────────────────────────
 const EXPENSE_CATEGORIES = ['software','marketing','contratistas','oficina','impuestos','otros'];
 const COST_TYPES = ['direct','operating'];
@@ -477,7 +486,8 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET'    && action === 'expenses') return getExpenses(req, res);
     if (req.method === 'POST'   && action === 'expense')  return createExpense(req, res);
     if (req.method === 'DELETE' && action === 'expense' && id) return deleteExpense(req, res, id);
-    if (req.method === 'PATCH' && action === 'lead' && id) return updateLead(req, res, id);
+    if (req.method === 'PATCH'  && action === 'lead' && id) return updateLead(req, res, id);
+    if (req.method === 'DELETE' && action === 'lead' && id) return deleteLead(req, res, id);
     // POST /api/crm?action=note&id=leadUuid
     if (req.method === 'POST' && action === 'note' && id) return addNote(req, res, id);
     // DELETE /api/crm?action=note&id=noteUuid

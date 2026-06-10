@@ -61,6 +61,8 @@
 
   .btn { padding: 9px 18px; border: 1px solid var(--border-gold); background: transparent; color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; border-radius: 1px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
   .btn:hover { background: var(--gold-dim); }
+  .btn-danger { border-color: rgba(239,68,68,0.4); color: #f87171; }
+  .btn-danger:hover { background: rgba(239,68,68,0.12); }
 
   /* Layout */
   .lead-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
@@ -294,6 +296,7 @@ function renderPage(lead, notes, tasks) {
       <div class="header-actions">
         <a href="/crm/invoice.html?id=${lead.id}" class="btn">Factura / Recibo</a>
         <a href="mailto:${esc(lead.email)}" class="btn">Enviar email</a>
+        <button class="btn btn-danger" onclick="deleteLead()">Eliminar</button>
       </div>
     </div>
 
@@ -484,6 +487,14 @@ function renderTasks(tasks) {
 }
 
 // ── Actions ───────────────────────────────────────────────────
+async function deleteLead() {
+  if (!confirm('¿Eliminar este lead de forma permanente? También se borrarán sus notas y tareas. Esta acción no se puede deshacer.')) return;
+  try {
+    await api({ action: 'lead', id: leadId }, 'DELETE');
+    window.location.href = '/crm/index.html';
+  } catch (e) { toast('Error al eliminar: ' + (e.message || e), true); }
+}
+
 async function saveStatus() {
   const btn = document.getElementById('saveStatusBtn');
   btn.disabled = true; btn.textContent = 'Guardando...';

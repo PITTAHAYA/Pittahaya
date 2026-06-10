@@ -1012,6 +1012,12 @@ async function deleteExpense(id) {
   catch (e) { alert('Error: ' + (e.message || e)); }
 }
 
+async function deleteLeadRow(id) {
+  if (!confirm('¿Eliminar este lead de forma permanente? También se borran sus notas y tareas.')) return;
+  try { await api({ action: 'lead', id }, 'DELETE'); await refreshAll(); }
+  catch (e) { alert('Error al eliminar: ' + (e.message || e)); }
+}
+
 // ── Pipeline (Kanban) ─────────────────────────────────────────
 const PIPE_STAGES = [
   { key: 'new', label: 'Nuevo' }, { key: 'contacted', label: 'Contactado' },
@@ -1178,7 +1184,7 @@ async function loadLeads() {
         </td>
         <td class="date-cell" style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.source_page) || ''}">${shortUrl(l.source_page)}</td>
         <td class="date-cell">${formatDate(l.created_at)}</td>
-        <td><a href="/crm/lead.html?id=${l.id}" class="action-link">Ver →</a></td>
+        <td style="white-space:nowrap"><a href="/crm/lead.html?id=${l.id}" class="action-link">Ver →</a> <button class="exp-del" title="Eliminar lead" onclick="deleteLeadRow('${l.id}')">✕</button></td>
       </tr>
     `).join('');
 
