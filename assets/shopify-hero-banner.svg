@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 900" width="2400" height="900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#060608"/>
+      <stop offset="100%" stop-color="#08070d"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="28%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="#e83487" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#e83487" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="72%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#e6bf74" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#e6bf74" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="50%" cy="80%" r="40%">
+      <stop offset="0%" stop-color="#8acb63" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#8acb63" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="90" height="90" patternUnits="userSpaceOnUse">
+      <path d="M90,0 L0,0 0,90" fill="none" stroke="rgba(255,255,255,.022)" stroke-width="1"/>
+    </pattern>
+    <filter id="blur-sm">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+  </defs>
+
+  <!-- Base background -->
+  <rect width="2400" height="900" fill="url(#bg)"/>
+  <!-- Grid -->
+  <rect width="2400" height="900" fill="url(#grid)"/>
+  <!-- Glows -->
+  <ellipse cx="672" cy="495" rx="900" ry="620" fill="url(#glow1)"/>
+  <ellipse cx="1728" cy="360" rx="1000" ry="700" fill="url(#glow2)"/>
+  <ellipse cx="1200" cy="720" rx="700" ry="420" fill="url(#glow3)"/>
+
+  <!-- Subtle horizontal rules -->
+  <line x1="0" y1="120" x2="2400" y2="120" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+  <line x1="0" y1="780" x2="2400" y2="780" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+
+  <!-- Left decorative column accent -->
+  <rect x="0" y="0" width="6" height="900" fill="rgba(232,52,135,.35)"/>
+
+  <!-- === LEFT PANEL: Brand wordmark + tagline === -->
+
+  <!-- Wordmark area -->
+  <text x="88" y="96" font-family="Georgia,'Times New Roman',serif" font-size="22" letter-spacing="8" fill="#e6bf74" opacity="0.90">PITTAHAYA</text>
+  <line x1="88" y1="108" x2="340" y2="108" stroke="rgba(230,191,116,.25)" stroke-width="1"/>
+
+  <!-- Large headline -->
+  <text x="88" y="228" font-family="Georgia,'Times New Roman',serif" font-size="88" font-weight="700" fill="#f2f0ea" letter-spacing="-2">Diseño web</text>
+  <text x="88" y="332" font-family="Georgia,'Times New Roman',serif" font-size="88" font-weight="700" fill="#f2f0ea" letter-spacing="-2">premium.</text>
+
+  <!-- Accent underline on last word -->
+  <rect x="88" y="348" width="380" height="4" rx="2" fill="rgba(232,52,135,.70)"/>
+
+  <!-- Subheading -->
+  <text x="88" y="418" font-family="Helvetica,Arial,sans-serif" font-size="22" fill="#b7b5ad" opacity="0.80" letter-spacing="0.5">Para marcas que quieren convertir</text>
+  <text x="88" y="448" font-family="Helvetica,Arial,sans-serif" font-size="22" fill="#b7b5ad" opacity="0.80" letter-spacing="0.5">visitas en clientes reales.</text>
+
+  <!-- Service chips -->
+  <rect x="88" y="496" width="180" height="36" rx="18" fill="rgba(232,52,135,.12)" stroke="rgba(232,52,135,.35)" stroke-width="1"/>
+  <text x="178" y="519" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#e83487" text-anchor="middle" letter-spacing="0.5">Sitios web</text>
+
+  <rect x="280" y="496" width="188" height="36" rx="18" fill="rgba(230,191,116,.10)" stroke="rgba(230,191,116,.30)" stroke-width="1"/>
+  <text x="374" y="519" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#e6bf74" text-anchor="middle" letter-spacing="0.5">Art Direction</text>
+
+  <rect x="480" y="496" width="148" height="36" rx="18" fill="rgba(138,203,99,.10)" stroke="rgba(138,203,99,.28)" stroke-width="1"/>
+  <text x="554" y="519" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#8acb63" text-anchor="middle" letter-spacing="0.5">SEO</text>
+
+  <!-- Metrics row -->
+  <line x1="88" y1="572" x2="680" y2="572" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+
+  <text x="88" y="618" font-family="Georgia,'Times New Roman',serif" font-size="44" fill="#e6bf74" font-weight="700">7s</text>
+  <text x="88" y="644" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#b7b5ad" letter-spacing="2" opacity="0.65">PARA IMPACTAR</text>
+
+  <line x1="188" y1="596" x2="188" y2="650" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+
+  <text x="208" y="618" font-family="Georgia,'Times New Roman',serif" font-size="44" fill="#e6bf74" font-weight="700">1</text>
+  <text x="208" y="644" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#b7b5ad" letter-spacing="2" opacity="0.65">MENSAJE CLARO</text>
+
+  <line x1="320" y1="596" x2="320" y2="650" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+
+  <text x="340" y="618" font-family="Georgia,'Times New Roman',serif" font-size="44" fill="#e6bf74" font-weight="700">24/7</text>
+  <text x="340" y="644" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#b7b5ad" letter-spacing="2" opacity="0.65">TU MEJOR VENDEDOR</text>
+
+  <!-- Country badge -->
+  <text x="88" y="730" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#b7b5ad" opacity="0.50" letter-spacing="3">DISEÑO CON RAÍZ ECUATORIANA</text>
+
+  <!-- === RIGHT PANEL: Abstract service cards composition === -->
+
+  <!-- Card 1: Website Plan (main, prominent) -->
+  <rect x="1040" y="110" width="540" height="320" rx="20" fill="rgba(255,255,255,.03)" stroke="rgba(230,191,116,.20)" stroke-width="1"/>
+  <!-- Card 1 top accent -->
+  <rect x="1040" y="110" width="540" height="3" rx="1" fill="rgba(230,191,116,.50)"/>
+  <!-- Card 1 inner glow -->
+  <ellipse cx="1310" cy="240" rx="200" ry="130" fill="rgba(232,52,135,.14)"/>
+  <!-- Card 1 content -->
+  <text x="1072" y="165" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#e6bf74" letter-spacing="3" opacity="0.80">PLAN PREMIUM</text>
+  <text x="1072" y="215" font-family="Georgia,'Times New Roman',serif" font-size="42" fill="#f2f0ea" font-weight="700">Business</text>
+  <text x="1072" y="250" font-family="Georgia,'Times New Roman',serif" font-size="42" fill="#f2f0ea" font-weight="700">Website</text>
+  <!-- Price -->
+  <text x="1072" y="320" font-family="Georgia,'Times New Roman',serif" font-size="52" fill="#e6bf74" font-weight="700">$3,800</text>
+  <text x="1072" y="350" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#b7b5ad" letter-spacing="2" opacity="0.60">CAD · PRECIO BASE</text>
+  <!-- Decorative chart bars inside card -->
+  <rect x="1500" y="270" width="22" height="80" rx="4" fill="rgba(138,203,99,.30)"/>
+  <rect x="1528" y="240" width="22" height="110" rx="4" fill="rgba(138,203,99,.45)"/>
+  <rect x="1556" y="255" width="22" height="95" rx="4" fill="rgba(138,203,99,.35)"/>
+
+  <!-- Card 2: Art Direction (secondary, offset) -->
+  <rect x="1620" y="180" width="340" height="210" rx="16" fill="rgba(232,52,135,.06)" stroke="rgba(232,52,135,.25)" stroke-width="1"/>
+  <rect x="1620" y="180" width="340" height="3" rx="1" fill="rgba(232,52,135,.55)"/>
+  <ellipse cx="1790" cy="280" rx="130" ry="90" fill="rgba(232,52,135,.10)"/>
+  <text x="1648" y="224" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#e83487" letter-spacing="2.5" opacity="0.85">ART DIRECTION</text>
+  <text x="1648" y="268" font-family="Georgia,'Times New Roman',serif" font-size="32" fill="#f2f0ea" font-weight="700">$2,800</text>
+  <text x="1648" y="296" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#b7b5ad" opacity="0.60">3–4 semanas</text>
+  <!-- Three color dots -->
+  <circle cx="1648" cy="348" r="9" fill="#e83487" opacity=".85"/>
+  <circle cx="1670" cy="348" r="9" fill="#e6bf74" opacity=".85"/>
+  <circle cx="1692" cy="348" r="9" fill="#8acb63" opacity=".85"/>
+
+  <!-- Card 3: SEO (small, bottom left) -->
+  <rect x="1040" y="470" width="260" height="190" rx="14" fill="rgba(138,203,99,.05)" stroke="rgba(138,203,99,.22)" stroke-width="1"/>
+  <ellipse cx="1170" cy="555" rx="100" ry="75" fill="rgba(138,203,99,.10)"/>
+  <text x="1064" y="513" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#8acb63" letter-spacing="2.5" opacity="0.80">SEO</text>
+  <!-- Search rings -->
+  <circle cx="1140" cy="560" r="46" fill="none" stroke="rgba(138,203,99,.20)" stroke-width="1"/>
+  <circle cx="1140" cy="560" r="28" fill="none" stroke="rgba(138,203,99,.30)" stroke-width="1.5"/>
+  <circle cx="1140" cy="560" r="12" fill="rgba(138,203,99,.18)" stroke="rgba(138,203,99,.50)" stroke-width="2"/>
+  <!-- Handle -->
+  <line x1="1162" y1="582" x2="1194" y2="614" stroke="#8acb63" stroke-width="6" stroke-linecap="round" opacity=".55"/>
+  <text x="1064" y="646" font-family="Georgia,'Times New Roman',serif" font-size="26" fill="#8acb63" font-weight="700">$1,500</text>
+
+  <!-- Card 4: Launch Support (small, bottom center) -->
+  <rect x="1320" y="470" width="260" height="190" rx="14" fill="rgba(230,191,116,.05)" stroke="rgba(230,191,116,.18)" stroke-width="1"/>
+  <ellipse cx="1450" cy="555" rx="100" ry="75" fill="rgba(230,191,116,.08)"/>
+  <text x="1344" y="513" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#e6bf74" letter-spacing="2.5" opacity="0.80">LAUNCH</text>
+  <!-- Rocket trajectory dots -->
+  <circle cx="1380" cy="610" r="4" fill="rgba(230,191,116,.35)"/>
+  <circle cx="1415" cy="575" r="4" fill="rgba(230,191,116,.50)"/>
+  <circle cx="1450" cy="545" r="4" fill="rgba(230,191,116,.65)"/>
+  <circle cx="1490" cy="520" r="7" fill="#e6bf74" opacity="0.85"/>
+  <circle cx="1490" cy="520" r="16" fill="#e6bf74" opacity="0.12"/>
+  <path d="M 1380,610 Q 1430,560 1490,520" fill="none" stroke="rgba(230,191,116,.28)" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <text x="1344" y="646" font-family="Georgia,'Times New Roman',serif" font-size="26" fill="#e6bf74" font-weight="700">$800</text>
+
+  <!-- Card 5: Floating "Starter" badge -->
+  <rect x="1600" y="440" width="360" height="90" rx="14" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+  <text x="1628" y="480" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#b7b5ad" letter-spacing="2" opacity="0.65">STARTER WEBSITE</text>
+  <text x="1628" y="516" font-family="Georgia,'Times New Roman',serif" font-size="30" fill="#f2f0ea" font-weight="700">$1,800 <tspan font-size="14" fill="#b7b5ad" opacity="0.60">CAD</tspan></text>
+
+  <!-- Card 6: "Disponible" status pill -->
+  <rect x="1600" y="556" width="220" height="44" rx="22" fill="rgba(138,203,99,.12)" stroke="rgba(138,203,99,.35)" stroke-width="1"/>
+  <circle cx="1626" cy="578" r="6" fill="#8acb63" opacity=".85"/>
+  <circle cx="1626" cy="578" r="12" fill="#8acb63" opacity=".12"/>
+  <text x="1646" y="583" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#8acb63" font-weight="600" letter-spacing="0.5">Proyectos abiertos</text>
+
+  <!-- Connecting decorative lines between cards -->
+  <line x1="1580" y1="270" x2="1620" y2="280" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="1310" y1="430" x2="1310" y2="470" stroke="rgba(255,255,255,.06)" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Bottom right: brand mark watermark -->
+  <text x="2340" y="864" font-family="Georgia,'Times New Roman',serif" font-size="14" letter-spacing="4" fill="#e6bf74" opacity="0.25" text-anchor="end">PITTAHAYA</text>
+</svg>

@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m8" />
+  <link rel="stylesheet" href="assets/styles.css?v=m26" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -51,6 +51,7 @@
     <nav class="nav" aria-label="Navegación principal">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">IA</a>
       <a data-nav href="planes.html">Planes</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -78,6 +79,7 @@
     <div class="drawer-links">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">Automatización con IA</a>
       <a data-nav href="planes.html">Planes / Precios</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -91,8 +93,13 @@
   <section class="section">
     <div class="container">
       <span class="badge reveal"><span class="dot"></span> Planes premium</span>
-      <h1 class="section-title reveal">Elige el nivel de presencia que quieres proyectar</h1>
-      <p class="section-lead reveal">Cada plan está pensado para elevar percepción, ordenar tu oferta y convertir visitas en conversaciones reales.</p>
+      <h1 class="section-title reveal">Planes claros para una web que vende — y una IA que trabaja por ti</h1>
+      <p class="section-lead reveal">Elige un plan de diseño web para tu presencia digital, suma automatización con IA para que tu negocio atienda y venda solo, o combínalos en un sistema completo. Sin letra pequeña: ves exactamente qué incluye cada plan antes de decidir.</p>
+
+      <div class="plans-divider reveal" style="margin-top:30px">
+        <span class="lbl">① Diseño web premium</span>
+        <span class="line"></span>
+      </div>
 
       <div class="pricing">
         <div class="card price hover-lift reveal">
@@ -100,7 +107,20 @@
             <div class="tag"><strong>Plan Básico</strong> • Presencia elegante</div>
             <h3>Para empezar con autoridad</h3>
             <p class="plan-note">Una base profesional para que tu negocio deje de depender solo de redes sociales.</p>
-            <ul><li>Diseño adaptable</li><li>Formulario de contacto</li><li>Secciones esenciales</li></ul>
+            <div class="plan-meta" aria-label="Resumen del plan">
+              <span><b>1</b>página a medida</span>
+              <span><b>1</b>ronda de cambios</span>
+              <span><b>~1</b>semana</span>
+              <span><b>15</b>días de soporte</span>
+            </div>
+            <ul class="plan-features">
+              <li>Landing de una página diseñada a medida — sin plantillas</li>
+              <li>100% adaptable a celular, tablet y computadora</li>
+              <li>Formulario de contacto + botón de WhatsApp directo</li>
+              <li>SEO base para empezar a aparecer en Google</li>
+              <li>Certificado SSL y seguridad incluidos</li>
+              <li>Conexión de tu dominio y publicación final</li>
+            </ul>
             <div class="cta"><a class="btn btn-gold" href="https://011ca3-jj.myshopify.com/products/starter-website" target="_blank" rel="noopener noreferrer">Contratar Básico</a></div>
           </div>
         </div>
@@ -110,7 +130,21 @@
             <div class="tag"><strong>Plan Negocio</strong> • Recomendado</div>
             <h3>Para convertir más clientes</h3>
             <p class="plan-note">La opción ideal si quieres mostrar servicios, prueba, proceso y una ruta clara a cotización.</p>
-            <ul><li>Varias páginas</li><li>Copy orientado a conversión</li><li>SEO base y publicación incluida</li></ul>
+            <div class="plan-meta" aria-label="Resumen del plan">
+              <span><b>5</b>páginas</span>
+              <span><b>2</b>rondas de cambios</span>
+              <span><b>~2</b>semanas</span>
+              <span><b>30</b>días de soporte</span>
+            </div>
+            <ul class="plan-features">
+              <li class="carry">Todo lo del Plan Básico, y además:</li>
+              <li>Hasta 5 páginas: Inicio, Servicios, Sobre ti, Portafolio y Contacto</li>
+              <li>Textos orientados a conversión — te ayudo a escribirlos</li>
+              <li>SEO ampliado + Google Analytics configurado</li>
+              <li>Integración con tus redes sociales</li>
+              <li>Galería o portafolio para mostrar tu trabajo</li>
+              <li>Optimización de velocidad de carga</li>
+            </ul>
             <div class="cta"><a class="btn btn-gold" href="https://011ca3-jj.myshopify.com/products/business-website" target="_blank" rel="noopener noreferrer">Contratar Negocio</a></div>
           </div>
         </div>
@@ -120,44 +154,135 @@
             <div class="tag"><strong>Plan Premium</strong> • Experiencia total</div>
             <h3>Para una marca de alta gama</h3>
             <p class="plan-note">Más dirección visual, más detalle y una experiencia pensada para sentirse memorable.</p>
-            <ul><li>Personalización avanzada</li><li>Secciones premium</li><li>Soporte prioritario</li></ul>
+            <div class="plan-meta" aria-label="Resumen del plan">
+              <span><b>∞</b>páginas</span>
+              <span><b>3</b>rondas de cambios</span>
+              <span><b>~3–4</b>semanas</span>
+              <span><b>60</b>días de soporte</span>
+            </div>
+            <ul class="plan-features">
+              <li class="carry">Todo lo del Plan Negocio, y además:</li>
+              <li>Páginas y secciones ilimitadas</li>
+              <li>Dirección de arte y animaciones a medida</li>
+              <li>Identidad visual: paleta, tipografía y estilo propio</li>
+              <li>Experiencia interactiva premium (como esta misma web)</li>
+              <li style="color:rgba(196,239,150,.95)"><b>🤖 Chatbot con IA incluido</b> — atiende a tus clientes 24/7</li>
+              <li>Soporte prioritario por 60 días</li>
+            </ul>
             <div class="cta"><a class="btn btn-gold" href="https://011ca3-jj.myshopify.com/products/premium-website" target="_blank" rel="noopener noreferrer">Contratar Premium</a></div>
           </div>
         </div>
       </div>
 
-      <div class="plan-finder reveal" id="selector-plan" data-plan-finder>
-        <div>
-          <div class="kicker">Selector inteligente</div>
-          <h2 class="section-title" style="font-size: clamp(22px, 2.6vw, 34px); margin-bottom:10px;">Dime qué quieres provocar y te digo por dónde empezar</h2>
-          <p class="section-lead" style="margin-bottom:0;">No todo cliente necesita lo mismo. Este selector te orienta por intención comercial, no solo por cantidad de páginas.</p>
+      <!-- ════════════ PLANES DE AUTOMATIZACIÓN CON IA ════════════ -->
+      <div class="plans-divider reveal" style="margin-top:54px">
+        <span class="lbl" style="color:rgba(196,239,150,.95)">② Automatización con IA</span>
+        <span class="line"></span>
+      </div>
+      <p class="section-lead reveal" style="margin:0 0 24px; max-width:64ch;">Suma inteligencia artificial a tu negocio: chatbots y agentes que responden, agendan y venden por ti las 24 horas. Estos planes se pueden contratar solos o combinar con cualquier plan de web. <a href="automatizacion.html" style="color:rgba(196,239,150,.95); text-decoration:underline;">Ver cómo funciona la IA →</a></p>
+
+      <div class="pricing">
+        <div class="card price price-ai hover-lift reveal">
+          <div class="card-inner">
+            <div class="tag"><strong>Chatbot Inteligente</strong> • Atención 24/7</div>
+            <h3>Tu primera línea de atención, automática</h3>
+            <p class="plan-note">Un chatbot con IA que nunca duerme: responde, informa y captura clientes mientras tú haces otra cosa.</p>
+            <div class="plan-meta" aria-label="Resumen del plan">
+              <span><b>1</b>chatbot con IA</span>
+              <span><b>24/7</b>atención</span>
+              <span><b>~1</b>semana</span>
+              <span><b>30</b>días de soporte</span>
+            </div>
+            <ul class="plan-features">
+              <li>Chatbot con IA entrenado con la información de tu negocio</li>
+              <li>Responde preguntas frecuentes al instante, 24/7</li>
+              <li>Captura datos de clientes interesados</li>
+              <li>Integrado en tu web o en WhatsApp</li>
+              <li>Deriva a un humano cuando hace falta</li>
+            </ul>
+            <div class="cta"><a class="btn btn-gold" href="contacto.html">Solicitar cotización</a></div>
+          </div>
         </div>
 
-        <div class="finder-options" aria-label="Elegir objetivo del proyecto">
-          <button type="button" class="active" data-plan-choice="presence" aria-pressed="true">Quiero verme profesional</button>
-          <button type="button" data-plan-choice="sales" aria-pressed="false">Quiero vender con claridad</button>
-          <button type="button" data-plan-choice="premium" aria-pressed="false">Quiero verme high-end</button>
+        <div class="card price price-ai featured hover-lift reveal" style="transition-delay:.06s">
+          <div class="card-inner">
+            <div class="tag"><strong>Asistente de Ventas</strong> • Recomendado</div>
+            <h3>Un asistente que vende y agenda por ti</h3>
+            <p class="plan-note">No solo responde: califica interesados, agenda citas y hace seguimiento hasta cerrar la venta.</p>
+            <div class="plan-meta" aria-label="Resumen del plan">
+              <span><b>+</b>Chatbot + Agente</span>
+              <span><b>Auto</b>agenda y seguimiento</span>
+              <span><b>~2</b>semanas</span>
+              <span><b>45</b>días de soporte</span>
+            </div>
+            <ul class="plan-features">
+              <li class="carry">Todo lo del Chatbot Inteligente, y además:</li>
+              <li>Agenda citas y reservas automáticamente</li>
+              <li>Califica leads y los prioriza por interés</li>
+              <li>Seguimiento automático por correo o WhatsApp</li>
+              <li>Recupera clientes que no respondieron</li>
+              <li>Reportes de conversaciones y conversiones</li>
+            </ul>
+            <div class="cta"><a class="btn btn-gold" href="contacto.html">Solicitar cotización</a></div>
+          </div>
         </div>
 
-        <div class="finder-result" aria-live="polite">
-          <span data-plan-label>Presencia elegante</span>
-          <strong data-plan-name>Plan Básico</strong>
-          <p data-plan-body>Te conviene empezar con una web clara, rápida y confiable: lo suficiente para que tu negocio deje de verse improvisado y pueda recibir contactos.</p>
-          <a class="btn btn-gold" data-plan-link href="https://011ca3-jj.myshopify.com/products/starter-website" target="_blank" rel="noopener noreferrer">Ver y contratar plan</a>
+        <div class="card price price-ai hover-lift reveal" style="transition-delay:.12s">
+          <div class="card-inner">
+            <div class="tag"><strong>Sistema Completo</strong> • Automatización total</div>
+            <h3>Tu operación, funcionando sola</h3>
+            <p class="plan-note">Para negocios que quieren automatizar de verdad: varios agentes, procesos internos e integraciones a medida.</p>
+            <div class="plan-meta" aria-label="Resumen del plan">
+              <span><b>∞</b>agentes IA</span>
+              <span><b>+</b>procesos e integraciones</span>
+              <span><b>A medida</b>según tu caso</span>
+              <span><b>60</b>días de soporte</span>
+            </div>
+            <ul class="plan-features">
+              <li class="carry">Todo lo del Asistente de Ventas, y además:</li>
+              <li>Múltiples agentes para distintas áreas de tu negocio</li>
+              <li>Automatización de procesos internos: facturas, reportes</li>
+              <li>Integración con tus herramientas: CRM, pagos, agenda</li>
+              <li>Generación automática de reportes y contenido</li>
+              <li>Soporte prioritario y optimización continua</li>
+            </ul>
+            <div class="cta"><a class="btn btn-gold" href="contacto.html">Solicitar cotización</a></div>
+          </div>
         </div>
       </div>
 
       <div class="hr reveal"></div>
 
-      <h2 class="section-title reveal" style="font-size: clamp(22px, 2.6vw, 34px);">Cómo avanzamos</h2>
-      <p class="section-lead reveal">Un proceso directo para pasar de idea a una web que se vea lista para competir.</p>
-
-      <div class="steps">
-        <div class="step reveal"><div class="num">Paso 1</div><h4>Diagnóstico</h4><p>Definimos objetivo, público, oferta y percepción deseada.</p></div>
-        <div class="step reveal" style="transition-delay:.06s"><div class="num">Paso 2</div><h4>Diseño</h4><p>Construyo una propuesta moderna alineada con tu marca.</p></div>
-        <div class="step reveal" style="transition-delay:.12s"><div class="num">Paso 3</div><h4>Revisión</h4><p>Refinamos textos, secciones y detalles visuales.</p></div>
-        <div class="step reveal" style="transition-delay:.18s"><div class="num">Paso 4</div><h4>Publicación</h4><p>Dejo la web lista para compartir, presentar y vender.</p></div>
+      <!-- FOUNDING CLIENT OFFER (relocated from homepage) -->
+      <div class="founding-card reveal" id="fundadores">
+        <div class="founding-glow" aria-hidden="true"></div>
+        <span class="founding-badge"><span class="founding-dot"></span> Cupos limitados</span>
+        <h2 class="founding-title">Buscamos a nuestros primeros <em>clientes fundadores</em></h2>
+        <p class="founding-lead">Estamos abriendo un número reducido de proyectos a un precio especial de lanzamiento. A cambio, nos ayudas con un testimonio honesto y nos dejas mostrar tu proyecto como caso de estudio. Tú ganas una web premium con atención total; nosotros, nuestros primeros casos reales.</p>
+        <ul class="founding-perks">
+          <li><b>Precio fundador</b> — tarifa especial por ser de los primeros</li>
+          <li><b>Atención prioritaria</b> — pocos proyectos, foco total en el tuyo</li>
+          <li><b>Trato directo</b> con quien diseña, de principio a fin</li>
+          <li><b>Sin riesgo</b> — revisiones hasta que te convenza</li>
+        </ul>
+        <div class="founding-cta">
+          <a class="btn btn-gold" href="contacto.html">Quiero ser cliente fundador →</a>
+          <span class="founding-note">Sin compromiso · cuéntanos tu proyecto primero</span>
+        </div>
       </div>
+
+      <div class="hr reveal"></div>
+
+      <div class="process-head reveal">
+        <h2 class="section-title" style="font-size: clamp(20px, 2.2vw, 27px); margin:0;">Cómo avanzamos</h2>
+        <span class="process-sub">De la idea a una web lista para vender — en 4 pasos.</span>
+      </div>
+      <ol class="process-strip reveal" aria-label="Proceso de trabajo">
+        <li><span class="ps-num">1</span><b>Diagnóstico</b><small>Objetivo, público y oferta.</small></li>
+        <li><span class="ps-num">2</span><b>Diseño</b><small>Propuesta a la medida de tu marca.</small></li>
+        <li><span class="ps-num">3</span><b>Revisión</b><small>Ajustamos hasta que convenza.</small></li>
+        <li><span class="ps-num">4</span><b>Publicación</b><small>Lista para compartir y vender.</small></li>
+      </ol>
 
       <div style="margin-top:18px" class="reveal">
         <a class="btn btn-gold" href="contacto.html">Solicitar diagnóstico gratis</a>
@@ -188,7 +313,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=m9" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="assets/app.js?v=m15" defer></script>
+<script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m8" />
+  <link rel="stylesheet" href="assets/styles.css?v=m26" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -51,6 +51,7 @@
     <nav class="nav" aria-label="Navegación principal">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">IA</a>
       <a data-nav href="planes.html">Planes</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -78,6 +79,7 @@
     <div class="drawer-links">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">Automatización con IA</a>
       <a data-nav href="planes.html">Planes / Precios</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -91,42 +93,54 @@
   <section class="section">
     <div class="container">
       <span class="badge reveal"><span class="dot"></span> Sobre Pittahaya</span>
-      <h1 class="section-title reveal">Diseño web con mentalidad de cliente, no solo de pantalla bonita</h1>
-      <p class="section-lead reveal">Pittahaya nace de una idea simple: una marca ecuatoriana puede sentirse premium, exótica, confiable y fácil de recordar desde el primer segundo.</p>
+      <h1 class="section-title reveal" style="max-width:20ch;">Tu negocio ya es bueno. Tu web debería demostrarlo.</h1>
+      <p class="section-lead reveal" style="max-width:64ch;">La mayoría de los negocios no tienen un problema de producto — tienen un problema de percepción. Pittahaya existe para cerrar esa distancia: convertir lo que ya haces bien en una presencia digital que lo demuestre desde el primer segundo.</p>
 
-      <div class="grid-2">
-        <div class="card reveal">
-          <div class="card-inner">
-            <div class="kicker">Visión</div>
-            <h2 class="section-title" style="font-size: clamp(22px, 2.7vw, 34px); margin-bottom:10px;">Que tu web haga sentir que tu marca vale más</h2>
-            <p class="section-lead" style="margin-bottom:0;">Trabajo con emprendedores y empresas en Ecuador para crear páginas modernas, elegantes y de alto impacto. La meta es simple: que tu marca tenga sabor propio, transmita valor desde el primer segundo y convierta con claridad.</p>
-            <div class="hr"></div>
-            <p class="note">Cada detalle importa: jerarquía, textos, velocidad, espacios, interacción y estructura. El resultado debe sentirse premium sin perder enfoque comercial.</p>
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn btn-gold" href="contacto.html">Solicitar diagnóstico gratis</a>
-              <a class="btn" href="servicios.html">Ver servicios</a>
-            </div>
-          </div>
+      <div class="hr reveal"></div>
+
+      <!-- FOUNDER STORY — the human + the why -->
+      <div class="about-story reveal">
+        <div class="about-story-photo">
+          <img src="assets/founder.jpg?v=2" alt="Fundador de Pittahaya" loading="lazy">
+          <span class="about-story-tag">Fundador · Pittahaya</span>
         </div>
-
-        <div class="card hover-lift reveal" style="overflow:hidden;">
-          <div class="hero-visual" style="aspect-ratio: 4/4;">
-            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Trabajo profesional con enfoque de negocios" loading="lazy">
-          </div>
-          <div class="card-inner">
-            <div class="kicker">En Ecuador</div>
-            <p class="note">Atención personalizada y enfoque en resultados: una web que se vea seria, sofisticada y lista para competir en Ecuador y fuera del país.</p>
-          </div>
+        <div class="about-story-text">
+          <div class="kicker">La historia</div>
+          <h2 class="about-h2">De Ecuador a Canadá — y de vuelta con una misión.</h2>
+          <p class="section-lead">Vivir y estudiar en Canadá me mostró de cerca cómo funciona un mercado totalmente digitalizado: ahí, un negocio sin una buena web casi no existe. Al comparar esa realidad con la de Ecuador, vi algo que no podía ignorar — negocios excelentes, con productos increíbles, perdiendo clientes solo porque su presencia digital no comunicaba todo lo que valían.</p>
+          <p class="section-lead" style="margin-top:14px;">Así nació Pittahaya: para cerrar esa brecha. Para demostrar que cualquier negocio, sin importar su tamaño ni su ciudad, merece verse moderno, confiable y listo para competir — en Ecuador y más allá.</p>
         </div>
       </div>
 
       <div class="hr reveal"></div>
 
-      <h2 class="section-title reveal" style="font-size: clamp(22px, 2.6vw, 34px);">Por qué funciona</h2>
-      <div class="grid-3">
-        <div class="card hover-lift reveal"><div class="card-inner"><div class="icon" aria-hidden="true">01</div><h3>Enfoque en objetivos</h3><p>Diseño alineado a tu negocio: confianza, claridad y acción.</p></div></div>
-        <div class="card hover-lift reveal" style="transition-delay:.06s"><div class="card-inner"><div class="icon" aria-hidden="true">02</div><h3>Detalles premium</h3><p>Espacio, tipografía, contraste e interacción pensados para una percepción más alta.</p></div></div>
-        <div class="card hover-lift reveal" style="transition-delay:.12s"><div class="card-inner"><div class="icon" aria-hidden="true">03</div><h3>Servicio personalizado</h3><p>Comunicación clara y revisiones para llegar a una web que realmente represente tu marca.</p></div></div>
+      <!-- BELIEF -->
+      <div class="about-belief reveal">
+        <div class="kicker about-belief-kicker">En lo que creemos</div>
+        <p class="about-belief-quote">Una web no es “algo bonito”. Es tu mejor vendedor: trabaja las 24 horas, genera confianza desde el primer segundo y convierte a un visitante en cliente — incluso cuando tú estás descansando.</p>
+      </div>
+
+      <div class="hr reveal"></div>
+
+      <!-- VALUES — what they can expect -->
+      <h2 class="section-title reveal" style="font-size: clamp(22px, 2.6vw, 34px);">Lo que puedes esperar de nosotros</h2>
+      <div class="about-values">
+        <div class="card hover-lift reveal"><div class="card-inner"><div class="about-val-ico" aria-hidden="true">🤝</div><h3>Una persona real, no un call center</h3><p>Hablas directo con quien diseña tu proyecto, de principio a fin. Comunicación cercana y clara, sin intermediarios.</p></div></div>
+        <div class="card hover-lift reveal" style="transition-delay:.06s"><div class="card-inner"><div class="about-val-ico" aria-hidden="true">✦</div><h3>Estrategia, no plantillas</h3><p>Cada web se diseña a la medida de tu marca, tu cliente ideal y tu mercado. Nada genérico: todo pensado para vender.</p></div></div>
+        <div class="card hover-lift reveal" style="transition-delay:.12s"><div class="card-inner"><div class="about-val-ico" aria-hidden="true">◎</div><h3>Honestidad y claridad</h3><p>Te decimos lo que necesitas, no lo que quieres oír. Todo por escrito, sin letra pequeña ni promesas vacías.</p></div></div>
+        <div class="card hover-lift reveal" style="transition-delay:.18s"><div class="card-inner"><div class="about-val-ico" aria-hidden="true">∞</div><h3>Pensado para crecer</h3><p>Diseño premium + automatización con IA: un sistema que atrae, atiende y vende por ti — y escala cuando tu negocio crece.</p></div></div>
+      </div>
+
+      <div class="hr reveal"></div>
+
+      <!-- CTA -->
+      <div class="about-cta reveal">
+        <h2 class="about-cta-title">Hagámoslo juntos.</h2>
+        <p>Cuéntanos qué haces y te devolvemos una dirección clara para que tu web por fin esté a la altura de tu negocio. Sin compromiso.</p>
+        <div class="about-cta-actions">
+          <a class="btn btn-gold" href="contacto.html">Comencemos tu proyecto</a>
+          <a class="btn" href="portafolio.html">Ver demos</a>
+        </div>
       </div>
     </div>
   </section>
@@ -154,7 +168,7 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=m9" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="assets/app.js?v=m15" defer></script>
+<script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

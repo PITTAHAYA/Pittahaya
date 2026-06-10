@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="copyright" content="© Pittahaya. All rights reserved." />
+  <meta name="rights" content="Design, copy, demos, brand, images and digital experience protected by copyright. Unauthorized reproduction or use is prohibited." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0c0c10" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
@@ -102,9 +104,13 @@ small{color:rgba(247,241,232,.58)}
 @media (max-width:620px){.hero{padding:60px 0 50px}.mark span{display:none}.moodGrid{grid-template-columns:1fr}.bmTrack{font-size:44px;gap:32px}.bmTrack span{gap:32px}.bmTrack span::after{font-size:22px}.finalCta{padding:54px 22px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.paletteBar{padding:14px}.specimen{padding:24px}.specimenChar{font-size:110px}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.bmTrack{animation:none}[data-reveal]{opacity:1;transform:none}}
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-[data-fx-letters]:not(.fx-ready){visibility:hidden}
-  </style>
-<noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
+/* Headline shows instantly from first paint — no JS-driven reveals to glitch on cold load. */
+[data-fx-letters]{opacity:1}
+  
+/* force-instant-reveal: avoid any first-paint flicker on cold load. */
+/* reveals are JS-driven (initReveal reveals above-the-fold synchronously, animates the rest on scroll) */
+</style>
+<noscript><style>[data-fx-letters]{visibility:visible !important}[data-reveal]{opacity:1 !important;transform:none !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
 <header class="nav">
@@ -216,7 +222,7 @@ small{color:rgba(247,241,232,.58)}
   <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="../assets/demo-landing-fx.js?v=5" defer></script>
-<script src="../assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=13" defer></script>
+<script src="../assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

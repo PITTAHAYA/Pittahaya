@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
+  <meta name="rights" content="Diseño, textos, demos, marca, imágenes y experiencia digital protegidos por derechos de autor. Prohibida su reproducción o uso no autorizado." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0c0c10" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
@@ -108,9 +110,9 @@ small{color:rgba(247,241,232,.58)}
 [data-fx-letters]{opacity:1}
   
 /* force-instant-reveal: avoid any first-paint flicker on cold load. */
-[data-reveal]{opacity:1 !important;transform:none !important;transition:none !important}
+/* reveals are JS-driven (initReveal reveals above-the-fold synchronously, animates the rest on scroll) */
 </style>
-<noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
+<noscript><style>[data-fx-letters]{visibility:visible !important}[data-reveal]{opacity:1 !important;transform:none !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
 
@@ -223,7 +225,7 @@ small{color:rgba(247,241,232,.58)}
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/demo-landing-fx.js?v=10" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="assets/demo-landing-fx.js?v=13" defer></script>
+<script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

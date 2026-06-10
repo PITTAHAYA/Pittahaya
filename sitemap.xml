@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ── Spanish (root) ─────────────────────────────── -->
+  <url>
+    <loc>https://www.pittahaya.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url><loc>https://www.pittahaya.com/servicios.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.pittahaya.com/automatizacion.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.pittahaya.com/planes.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.pittahaya.com/portafolio.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.pittahaya.com/sobre-mi.html</loc><priority>0.7</priority></url>
+  <url><loc>https://www.pittahaya.com/faq.html</loc><priority>0.6</priority></url>
+  <url><loc>https://www.pittahaya.com/contacto.html</loc><priority>0.8</priority></url>
+
+  <!-- ── English (/en/) ─────────────────────────────── -->
+  <url>
+    <loc>https://www.pittahaya.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/"/>
+    <priority>1.0</priority>
+  </url>
+  <url><loc>https://www.pittahaya.com/en/services.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.pittahaya.com/en/automation.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.pittahaya.com/en/plans.html</loc><priority>0.9</priority></url>
+  <url><loc>https://www.pittahaya.com/en/portfolio.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.pittahaya.com/en/about.html</loc><priority>0.7</priority></url>
+  <url><loc>https://www.pittahaya.com/en/faq.html</loc><priority>0.6</priority></url>
+  <url><loc>https://www.pittahaya.com/en/contact.html</loc><priority>0.8</priority></url>
+
+  <!-- ── Demos (Spanish) ────────────────────────────── -->
+  <url><loc>https://www.pittahaya.com/demo-landing.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/demo-corporativa.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/demo-marca.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/demo-servicios.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/demo-startup.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/demo-highend.html</loc><priority>0.5</priority></url>
+
+  <!-- ── Demos (English) ────────────────────────────── -->
+  <url><loc>https://www.pittahaya.com/en/demo-landing.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/demo-corporativa.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/demo-marca.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/demo-servicios.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/demo-startup.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/demo-highend.html</loc><priority>0.5</priority></url>
+
+</urlset>

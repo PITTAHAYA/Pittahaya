@@ -28,12 +28,12 @@
   <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#07080b" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/styles.css?v=m8" />
+  <link rel="stylesheet" href="../assets/styles.css?v=m26" />
   <link rel="icon" href="../assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="../assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
@@ -53,6 +53,7 @@
     <nav class="nav" aria-label="Main navigation">
       <a data-nav href="index.html">Home</a>
       <a data-nav href="services.html">Services</a>
+      <a data-nav href="automation.html">AI</a>
       <a data-nav href="plans.html">Plans</a>
       <a data-nav href="portfolio.html">Portfolio</a>
       <a data-nav href="about.html">About</a>
@@ -80,6 +81,7 @@
     <div class="drawer-links">
       <a data-nav href="index.html">Home</a>
       <a data-nav href="services.html">Services</a>
+      <a data-nav href="automation.html">AI Automation</a>
       <a data-nav href="plans.html">Plans / Pricing</a>
       <a data-nav href="portfolio.html">Portfolio</a>
       <a data-nav href="about.html">About us</a>
@@ -106,7 +108,7 @@
         <div class="hero-proof" aria-label="Trust points">
           <span class="proof-chip">Identity before template</span>
           <span class="proof-chip">Responsive design</span>
-          <span class="proof-chip">SEO foundation included</span>
+          <span class="proof-chip">+ AI automation</span>
         </div>
         <div class="metrics">
           <div class="metric"><b>7 seconds</b><span>To make a strong first impression</span></div>
@@ -174,49 +176,42 @@
     </div>
   </section>
 
-  <section class="section compact" aria-label="Trust signals">
+  <!-- ════════════ WHAT WE DO (2 pillars) ════════════ -->
+  <section class="section compact" id="what-we-do">
     <div class="container">
-      <div class="trust-band reveal">
-        <div class="trust-item"><b>Premium</b><span>Careful art direction so your business feels serious, modern, and valuable.</span></div>
-        <div class="trust-item"><b>Clear</b><span>Architecture built so visitors understand what you sell without getting lost.</span></div>
-        <div class="trust-item"><b>Fast</b><span>Lightweight, responsive experience that looks great on any phone.</span></div>
-        <div class="trust-item"><b>Action</b><span>CTAs, forms and sections engineered to turn interest into conversation.</span></div>
-      </div>
-    </div>
-  </section>
+      <div class="kicker reveal">What we do for you</div>
+      <h2 class="section-title reveal">Two things that grow your business.</h2>
+      <p class="section-lead reveal">A website that sells, and artificial intelligence that works for you around the clock. Together they run as one complete system: attract, convert, and operate — without you having to watch over everything.</p>
 
-  <section class="section compact" id="first-impression-lab">
-    <div class="container">
-      <div class="experience-lab reveal" data-experience-lab>
-        <div class="lab-copy">
-          <div class="kicker">First impression lab</div>
-          <h2 class="section-title">Choose what your client should feel in the first seconds</h2>
-          <p class="section-lead">An addictive website doesn't shout — it answers the visitor's intent. Pick a direction and watch the strategy adapt.</p>
-          <a class="btn btn-gold" data-lab-link href="../demo-landing.html">View conversion demo</a>
+      <div class="grid-2">
+        <div class="card hover-lift reveal">
+          <div class="card-inner">
+            <div class="kicker">Premium web design</div>
+            <h3 style="font-family:'Cormorant Garamond',ui-serif,Georgia,serif;font-size:clamp(24px,2.6vw,34px);line-height:1.1;margin:6px 0 10px;">A site that looks expensive — and sells on its own.</h3>
+            <p class="note">Custom-designed, no templates. Fast, responsive on every device, and with a SEO foundation so you show up on Google. Your best salesperson, available 24/7.</p>
+            <ul class="pillar-list">
+              <li>Custom design, no generic templates</li>
+              <li>100% responsive on phone, tablet, and desktop</li>
+              <li>SEO foundation included to show up on Google</li>
+              <li>Built to turn visits into contacts</li>
+            </ul>
+            <a class="btn btn-gold" href="services.html">See web services →</a>
+          </div>
         </div>
 
-        <div class="lab-controls" aria-label="First-impression directions">
-          <button type="button" class="lab-option active" data-lab-option="conversion" aria-pressed="true">
-            <span>01</span>
-            <b>I want to sell faster</b>
-            <small>Clear offer, strong CTA, no friction.</small>
-          </button>
-          <button type="button" class="lab-option" data-lab-option="authority" aria-pressed="false">
-            <span>02</span>
-            <b>I want to look more serious</b>
-            <small>Executive trust for high-stakes decisions.</small>
-          </button>
-          <button type="button" class="lab-option" data-lab-option="desire" aria-pressed="false">
-            <span>03</span>
-            <b>I want to be remembered</b>
-            <small>Visual desire, identity and premium perception.</small>
-          </button>
-        </div>
-
-        <div class="lab-preview" aria-live="polite">
-          <span data-lab-eyebrow>Client ready to buy</span>
-          <strong data-lab-title>Immediate sale without sounding desperate.</strong>
-          <p data-lab-body>Perfect for a concrete offer: the visitor understands the outcome, sees proof, resolves doubts and reaches the form with momentum.</p>
+        <div class="card hover-lift reveal pillar-ai" style="transition-delay:.08s">
+          <div class="card-inner">
+            <div class="kicker" style="color:rgba(196,239,150,.95)">AI automation</div>
+            <h3 style="font-family:'Cormorant Garamond',ui-serif,Georgia,serif;font-size:clamp(24px,2.6vw,34px);line-height:1.1;margin:6px 0 10px;">Works for you — even while you sleep.</h3>
+            <p class="note">Chatbots, agents, and automations that answer, book, and follow up 24/7. You save time, cut costs, and never lose a customer for lack of a reply.</p>
+            <ul class="pillar-list">
+              <li>AI chatbots and agents, 24/7</li>
+              <li>Automatic replies and follow-up</li>
+              <li>Automation of repetitive tasks</li>
+              <li>Serve more clients without hiring more</li>
+            </ul>
+            <a class="btn btn-gold" href="automation.html">See AI automation →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -251,20 +246,6 @@
     </div>
   </section>
 
-  <section class="section" id="how-it-works">
-    <div class="container">
-      <h2 class="section-title reveal">A simple process, with intention in every step</h2>
-      <p class="section-lead reveal">The goal isn't for you to buy "a website" — it's a digital presentation system that helps you sell better.</p>
-
-      <div class="steps">
-        <div class="step reveal"><div class="num">Step 1</div><h4>Diagnosis</h4><p>We define your goal, ideal client, offer, and visual tone.</p></div>
-        <div class="step reveal" style="transition-delay:.06s"><div class="num">Step 2</div><h4>Design</h4><p>I create a premium experience aligned with your business.</p></div>
-        <div class="step reveal" style="transition-delay:.12s"><div class="num">Step 3</div><h4>Refinement</h4><p>We adjust copy, sections, and details until it feels convincing.</p></div>
-        <div class="step reveal" style="transition-delay:.18s"><div class="num">Step 4</div><h4>Launch</h4><p>Your site is ready to share, present, and capture opportunities.</p></div>
-      </div>
-    </div>
-  </section>
-
   <section class="section compact" id="portfolio">
     <div class="container">
       <h2 class="section-title reveal">Demos that help clients imagine their brand</h2>
@@ -291,62 +272,82 @@
     </div>
   </section>
 
-  <section class="section compact" id="results" aria-label="Stats and guarantees">
+  <!-- WHY TRUST US — founder promise + guarantee (honest, no invented testimonials) -->
+  <section class="section compact" id="trust">
     <div class="container">
-      <div class="stats-band">
-        <div class="stat-item hover-lift reveal"><b>Custom</b><span>Designed from scratch — no generic templates</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.06s"><b>SEO</b><span>Search foundation included with every build</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.12s"><b>Mobile</b><span>100% responsive on every screen size</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.18s"><b>24/7</b><span>Your site works for you around the clock</span></div>
+      <div class="kicker reveal">Why trust us</div>
+      <h2 class="section-title reveal">We're a young studio — and that works in your favor</h2>
+      <p class="section-lead reveal">We don't have hundreds of clients to serve in bulk. We have focus, time, and a real drive to make your project one we show off with pride. Your website isn't a number to us — it's our introduction.</p>
+      <div class="trust-grid">
+        <div class="founder-card reveal">
+          <div class="founder-top">
+            <!-- 👉 Replace this circle with your real photo:
+                 <img class="founder-photo" src="../assets/founder.jpg" alt="Pittahaya founder"> -->
+            <div class="founder-photo" role="img" aria-label="Pittahaya founder"></div>
+            <div class="founder-id">
+              <strong>A personal promise</strong>
+              <span>Founder · Pittahaya</span>
+            </div>
+          </div>
+          <p>“Behind Pittahaya there's a real person who will design your project — not a call center. I'll treat your website like it's my own: with care, clear communication, and without disappearing halfway through. That's my word.”</p>
+        </div>
+        <div class="guarantee-card reveal" style="transition-delay:.08s">
+          <div class="guarantee-badge" aria-hidden="true">✓</div>
+          <h3>Satisfaction guarantee</h3>
+          <p>We work with a diagnostic, revisions and adjustments before final delivery. If something doesn't convince you, we keep refining it until it represents your brand. We never deliver something half-done or leave you on your own.</p>
+        </div>
+      </div>
+      <div class="trust-signals reveal">
+        <span class="trust-chip">Work directly with the designer</span>
+        <span class="trust-chip">Everything in writing, no surprises</span>
+        <span class="trust-chip">Reply in under 24h</span>
+        <span class="trust-chip">100% remote across Latin America</span>
+        <span class="trust-chip">HTTPS and security from the ground up</span>
       </div>
     </div>
   </section>
 
-  <section class="section compact" id="testimonials">
+  <!-- FREE WEBSITE AUDIT — lead magnet -->
+  <section class="section compact" id="audit">
     <div class="container">
-      <div class="kicker reveal">Happy clients</div>
-      <h2 class="section-title reveal">What people say once their site is live</h2>
-      <p class="section-lead reveal">Real results from brands that decided to look premium from the first second.</p>
-      <div class="testimonials">
-        <div class="testimonial hover-lift reveal">
-          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-          <p>"Before, I had an improvised site nobody took seriously. Now clients arrive telling me how much trust it gave them. Pittahaya delivered exactly what was promised."</p>
-          <div class="testimonial-author">
-            <strong>Gabriela R.</strong>
-            <span>Image consultant, Quito</span>
-          </div>
+      <div class="audit-card reveal">
+        <div class="audit-copy">
+          <span class="audit-eyebrow"><span class="audit-dot"></span> Free audit</span>
+          <h2 class="audit-title">Is your current website losing you customers? Find out for free.</h2>
+          <p class="audit-lead">Drop us your site and we'll send an honest audit: what it conveys, what's costing you clients, and 3 concrete improvements you can apply right away. No commitment.</p>
+          <ul class="audit-perks">
+            <li>Review of design, clarity and trust</li>
+            <li>What's holding back your conversions</li>
+            <li>3 actionable improvements for your case</li>
+          </ul>
+          <p class="audit-trust">Reply in under 24h · 100% no commitment</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.08s">
-          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-          <p>"The website turned out better than I expected. My company now looks serious and premium. I received more quote requests in the first month than in the previous six."</p>
-          <div class="testimonial-author">
-            <strong>Mateo V.</strong>
-            <span>B2B consulting, Guayaquil</span>
-          </div>
-        </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.16s">
-          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-          <p>"Clear process and the result speaks for itself. Since updating my site, clients arrive almost decided. It was completely worth the investment."</p>
-          <div class="testimonial-author">
-            <strong>Camila F.</strong>
-            <span>Holistic therapist, Cuenca</span>
-          </div>
-        </div>
+        <form class="audit-form" data-audit-form novalidate>
+          <input type="text" name="website" class="audit-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="audit-field">
+            <span>Your current website</span>
+            <input type="text" name="site_url" inputmode="url" placeholder="www.yourbusiness.com — or &quot;I don't have one yet&quot;" required>
+          </label>
+          <label class="audit-field">
+            <span>Your name</span>
+            <input type="text" name="name" placeholder="What's your name?" required>
+          </label>
+          <label class="audit-field">
+            <span>Your email</span>
+            <input type="email" name="email" placeholder="where we send the audit" required>
+          </label>
+          <label class="audit-field">
+            <span>Your business <em>(optional)</em></span>
+            <input type="text" name="company" placeholder="industry or business name">
+          </label>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADgGWC4hAMxeoWfL" data-theme="dark"></div>
+          <button type="submit" class="btn btn-gold audit-submit">Get my free audit →</button>
+          <p class="audit-status" data-audit-status hidden></p>
+        </form>
       </div>
     </div>
   </section>
 
-  <section class="section compact">
-    <div class="container">
-      <div class="conversion-panel reveal">
-        <div>
-          <h2 class="section-title">Let's make your website feel like a brand that's worth more.</h2>
-          <p>Tell me what you sell and I'll give you a clear direction to turn that first impression into desire, trust, and action.</p>
-        </div>
-        <a class="btn btn-gold" href="contact.html">Get my strategy call</a>
-      </div>
-    </div>
-  </section>
   <div class="mobile-cta-bar" aria-label="Quick contact">
     <a class="wa-btn" href="https://wa.me/17783187994?text=Hi%20Pittahaya%2C%20I%27d%20like%20a%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" aria-label="Contact via WhatsApp">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="white"/><path d="M11.98 0C5.37 0 .002 5.37.002 11.98c0 2.09.544 4.048 1.497 5.754L.002 24l6.374-1.671A11.94 11.94 0 0 0 11.98 23.96C18.59 23.96 23.96 18.59 23.96 11.98S18.59 0 11.98 0zm0 21.88c-1.893 0-3.663-.512-5.172-1.405l-.371-.22-3.84 1.007.994-3.679-.228-.38A9.84 9.84 0 0 1 2.1 11.98C2.1 6.53 6.53 2.1 11.98 2.1s9.88 4.43 9.88 9.88-4.43 9.9-9.88 9.9z" fill="white"/></svg>
@@ -378,7 +379,8 @@
     </div>
   </div>
 </footer>
-<script src="../assets/app.js?v=m9" defer></script>
-<script src="../assets/chatbot.js?v=v7" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="../assets/app.js?v=m15" defer></script>
+<script src="../assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

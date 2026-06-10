@@ -23,7 +23,7 @@
   <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#07080b" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/" />
   <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/" />
@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m8" />
+  <link rel="stylesheet" href="assets/styles.css?v=m26" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -51,6 +51,7 @@
     <nav class="nav" aria-label="Navegación principal">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">IA</a>
       <a data-nav href="planes.html">Planes</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -78,6 +79,7 @@
     <div class="drawer-links">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">Automatización con IA</a>
       <a data-nav href="planes.html">Planes / Precios</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -104,7 +106,7 @@
         <div class="hero-proof" aria-label="Puntos de confianza">
           <span class="proof-chip">Identidad antes que plantilla</span>
           <span class="proof-chip">Diseño adaptable</span>
-          <span class="proof-chip">SEO base incluido</span>
+          <span class="proof-chip">+ Automatización con IA</span>
         </div>
         <div class="metrics">
           <div class="metric"><b>7 segundos</b><span>Para causar una primera impresión fuerte</span></div>
@@ -172,49 +174,42 @@
     </div>
   </section>
 
-  <section class="section compact" aria-label="Señales de confianza">
+  <!-- ════════════ LO QUE HACEMOS (2 pilares) ════════════ -->
+  <section class="section compact" id="que-hacemos">
     <div class="container">
-      <div class="trust-band reveal">
-        <div class="trust-item"><b>Premium</b><span>Dirección visual cuidada para que tu negocio se sienta serio, moderno y valioso.</span></div>
-        <div class="trust-item"><b>Claro</b><span>Arquitectura pensada para que el cliente entienda qué vendes sin confundirse.</span></div>
-        <div class="trust-item"><b>Rápido</b><span>Experiencia ligera, adaptable y lista para verse bien en celular.</span></div>
-        <div class="trust-item"><b>Acción</b><span>CTA, formularios y secciones diseñadas para convertir interés en conversación.</span></div>
-      </div>
-    </div>
-  </section>
+      <div class="kicker reveal">Lo que hacemos por ti</div>
+      <h2 class="section-title reveal">Dos cosas que hacen crecer tu negocio.</h2>
+      <p class="section-lead reveal">Una web que vende, y la inteligencia artificial que trabaja por ti las 24 horas. Juntas funcionan como un sistema completo: atrae, convierte y opera — sin que tengas que estar pendiente de todo.</p>
 
-  <section class="section compact" id="first-impression-lab">
-    <div class="container">
-      <div class="experience-lab reveal" data-experience-lab>
-        <div class="lab-copy">
-          <div class="kicker">First impression lab</div>
-          <h2 class="section-title">Elige qué debe sentir tu cliente en los primeros segundos</h2>
-          <p class="section-lead">Una web adictiva no grita: responde a la intención del visitante. Toca una dirección y mira cómo cambia la estrategia.</p>
-          <a class="btn btn-gold" data-lab-link href="demo-landing.html">Ver demo de conversión</a>
+      <div class="grid-2">
+        <div class="card hover-lift reveal">
+          <div class="card-inner">
+            <div class="kicker">Diseño web premium</div>
+            <h3 style="font-family:'Cormorant Garamond',ui-serif,Georgia,serif;font-size:clamp(24px,2.6vw,34px);line-height:1.1;margin:6px 0 10px;">Una web que se ve cara — y vende sola.</h3>
+            <p class="note">Diseño a medida, sin plantillas. Rápida, adaptable a todo dispositivo y con SEO base para aparecer en Google. Tu mejor vendedor, disponible las 24 horas.</p>
+            <ul class="pillar-list">
+              <li>Diseño custom, sin plantillas genéricas</li>
+              <li>100% adaptable a celular, tablet y computadora</li>
+              <li>SEO base incluido para aparecer en Google</li>
+              <li>Pensada para convertir visitas en contactos</li>
+            </ul>
+            <a class="btn btn-gold" href="servicios.html">Ver servicios de web →</a>
+          </div>
         </div>
 
-        <div class="lab-controls" aria-label="Direcciones de primera impresión">
-          <button type="button" class="lab-option active" data-lab-option="conversion" aria-pressed="true">
-            <span>01</span>
-            <b>Quiero vender más rápido</b>
-            <small>Oferta clara, CTA fuerte y dudas resueltas.</small>
-          </button>
-          <button type="button" class="lab-option" data-lab-option="authority" aria-pressed="false">
-            <span>02</span>
-            <b>Quiero verme más serio</b>
-            <small>Confianza ejecutiva para decisiones grandes.</small>
-          </button>
-          <button type="button" class="lab-option" data-lab-option="desire" aria-pressed="false">
-            <span>03</span>
-            <b>Quiero que me recuerden</b>
-            <small>Deseo visual, identidad y percepción premium.</small>
-          </button>
-        </div>
-
-        <div class="lab-preview" aria-live="polite">
-          <span data-lab-eyebrow>Cliente listo para comprar</span>
-          <strong data-lab-title>Venta inmediata sin sentirse desesperado.</strong>
-          <p data-lab-body>Ideal para una oferta concreta: el visitante entiende el resultado, ve prueba, resuelve dudas y llega al contacto con momentum.</p>
+        <div class="card hover-lift reveal pillar-ai" style="transition-delay:.08s">
+          <div class="card-inner">
+            <div class="kicker" style="color:rgba(196,239,150,.95)">Automatización con IA</div>
+            <h3 style="font-family:'Cormorant Garamond',ui-serif,Georgia,serif;font-size:clamp(24px,2.6vw,34px);line-height:1.1;margin:6px 0 10px;">Trabaja por ti — incluso mientras duermes.</h3>
+            <p class="note">Chatbots, agentes y automatizaciones que responden, agendan y hacen seguimiento las 24 horas. Ahorras tiempo, reduces costos y nunca pierdes un cliente por falta de respuesta.</p>
+            <ul class="pillar-list">
+              <li>Chatbots y agentes con IA, 24/7</li>
+              <li>Respuesta y seguimiento automático</li>
+              <li>Automatización de tareas repetitivas</li>
+              <li>Atiende a más clientes sin contratar más</li>
+            </ul>
+            <a class="btn btn-gold" href="automatizacion.html">Ver automatización con IA →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -249,20 +244,6 @@
     </div>
   </section>
 
-  <section class="section" id="como-funciona">
-    <div class="container">
-      <h2 class="section-title reveal">Un proceso simple, con intención en cada paso</h2>
-      <p class="section-lead reveal">El objetivo es que no compres “una página”, sino un sistema de presentación digital que te ayude a vender mejor.</p>
-
-      <div class="steps">
-        <div class="step reveal"><div class="num">Paso 1</div><h4>Diagnóstico</h4><p>Definimos objetivo, cliente ideal, oferta y tono visual.</p></div>
-        <div class="step reveal" style="transition-delay:.06s"><div class="num">Paso 2</div><h4>Diseño</h4><p>Creo una experiencia premium alineada con tu negocio.</p></div>
-        <div class="step reveal" style="transition-delay:.12s"><div class="num">Paso 3</div><h4>Refinamiento</h4><p>Ajustamos textos, secciones y detalles hasta que se sienta convincente.</p></div>
-        <div class="step reveal" style="transition-delay:.18s"><div class="num">Paso 4</div><h4>Publicación</h4><p>Tu web queda lista para compartir, presentar y captar oportunidades.</p></div>
-      </div>
-    </div>
-  </section>
-
   <section class="section compact" id="portafolio">
     <div class="container">
       <h2 class="section-title reveal">Demos que ayudan al cliente a imaginar su marca</h2>
@@ -289,64 +270,83 @@
     </div>
   </section>
 
-  <!-- STATS BAND -->
-  <section class="section compact" id="resultados" aria-label="Estadísticas y garantías">
-    <div class="container">
-      <div class="stats-band">
-        <div class="stat-item hover-lift reveal"><b>Custom</b><span>Diseño a medida, sin plantillas genéricas</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.06s"><b>SEO</b><span>Base de posicionamiento incluida en cada web</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.12s"><b>Móvil</b><span>Experiencia 100% adaptable a cualquier pantalla</span></div>
-        <div class="stat-item hover-lift reveal" style="transition-delay:.18s"><b>24/7</b><span>Tu web trabaja para ti a toda hora</span></div>
-      </div>
-    </div>
-  </section>
-
   <!-- TESTIMONIOS -->
-  <section class="section compact" id="testimonios">
+  <!-- WHY TRUST US — founder promise + guarantee (honest, no invented testimonials) -->
+  <section class="section compact" id="confianza">
     <div class="container">
-      <div class="kicker reveal">Clientes satisfechos</div>
-      <h2 class="section-title reveal">Lo que dicen quienes ya tienen su web lista</h2>
-      <p class="section-lead reveal">Resultados reales de marcas que decidieron verse premium desde el primer segundo.</p>
-      <div class="testimonials">
-        <div class="testimonial hover-lift reveal">
-          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-          <p>"Antes tenía una web improvisada que nadie tomaba en serio. Ahora mis clientes llegan diciéndome que les dio mucha confianza. Pittahaya hizo exactamente lo que prometió."</p>
-          <div class="testimonial-author">
-            <strong>Gabriela R.</strong>
-            <span>Consultora de imagen, Quito</span>
+      <div class="kicker reveal">Por qué confiar en nosotros</div>
+      <h2 class="section-title reveal">Somos un estudio joven — y eso juega a tu favor</h2>
+      <p class="section-lead reveal">No tenemos cientos de clientes que atender en masa. Tenemos foco, tiempo y muchas ganas de que tu proyecto sea de los que mostramos con orgullo. Tu web no es un número para nosotros: es nuestra carta de presentación.</p>
+      <div class="trust-grid">
+        <div class="founder-card reveal">
+          <div class="founder-top">
+            <!-- 👉 Reemplaza este círculo por tu foto real:
+                 <img class="founder-photo" src="assets/founder.jpg" alt="Fundador de Pittahaya"> -->
+            <div class="founder-photo" role="img" aria-label="Fundador de Pittahaya"></div>
+            <div class="founder-id">
+              <strong>Una promesa personal</strong>
+              <span>Fundador · Pittahaya</span>
+            </div>
           </div>
+          <p>“Detrás de Pittahaya hay una persona real que va a diseñar tu proyecto, no un call center. Voy a tratar tu web como si fuera la mía: con cuidado, comunicación clara y sin desaparecer a mitad del camino. Esa es mi palabra.”</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.08s">
-          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-          <p>"La web quedó mejor de lo que esperaba. Mi empresa ahora se ve seria y premium. Recibí más cotizaciones en el primer mes que en los seis meses anteriores."</p>
-          <div class="testimonial-author">
-            <strong>Mateo V.</strong>
-            <span>Consultoría B2B, Guayaquil</span>
-          </div>
+        <div class="guarantee-card reveal" style="transition-delay:.08s">
+          <div class="guarantee-badge" aria-hidden="true">✓</div>
+          <h3>Garantía de satisfacción</h3>
+          <p>Trabajamos con diagnóstico, revisiones y ajustes antes de la entrega final. Si algo no te convence, lo seguimos puliendo hasta que represente tu marca. No entregamos algo a medias ni te dejamos solo.</p>
         </div>
-        <div class="testimonial hover-lift reveal" style="transition-delay:.16s">
-          <div class="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-          <p>"Proceso claro y el resultado habla solo. Desde que actualicé mi web los clientes llegan con la decisión casi tomada. Vale completamente la inversión."</p>
-          <div class="testimonial-author">
-            <strong>Camila F.</strong>
-            <span>Terapeuta holística, Cuenca</span>
-          </div>
-        </div>
+      </div>
+      <div class="trust-signals reveal">
+        <span class="trust-chip">Trato directo con quien diseña</span>
+        <span class="trust-chip">Todo por escrito, sin sorpresas</span>
+        <span class="trust-chip">Respuesta en menos de 24h</span>
+        <span class="trust-chip">100% remoto en Latinoamérica</span>
+        <span class="trust-chip">HTTPS y seguridad desde la base</span>
       </div>
     </div>
   </section>
 
-  <section class="section compact">
+  <!-- FREE WEBSITE AUDIT — lead magnet -->
+  <section class="section compact" id="auditoria">
     <div class="container">
-      <div class="conversion-panel reveal">
-        <div>
-          <h2 class="section-title">Hagamos que tu web se sienta como una marca que vale más.</h2>
-          <p>Cuéntame qué vendes y te devuelvo una dirección clara para convertir esa primera impresión en deseo, confianza y acción.</p>
+      <div class="audit-card reveal">
+        <div class="audit-copy">
+          <span class="audit-eyebrow"><span class="audit-dot"></span> Auditoría gratis</span>
+          <h2 class="audit-title">¿Tu web actual está perdiendo clientes? Descúbrelo gratis.</h2>
+          <p class="audit-lead">Déjanos tu sitio y te enviamos una auditoría honesta: qué transmite, qué te está costando clientes y 3 mejoras concretas que puedes aplicar de inmediato. Sin compromiso.</p>
+          <ul class="audit-perks">
+            <li>Revisión de diseño, claridad y confianza</li>
+            <li>Qué está frenando tus conversiones</li>
+            <li>3 mejoras accionables para tu caso</li>
+          </ul>
+          <p class="audit-trust">Respuesta en menos de 24h · 100% sin compromiso</p>
         </div>
-        <a class="btn btn-gold" href="contacto.html">Quiero mi diagnóstico</a>
+        <form class="audit-form" data-audit-form novalidate>
+          <input type="text" name="website" class="audit-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="audit-field">
+            <span>Tu sitio web actual</span>
+            <input type="text" name="site_url" inputmode="url" placeholder="www.tunegocio.com — o «aún no tengo»" required>
+          </label>
+          <label class="audit-field">
+            <span>Tu nombre</span>
+            <input type="text" name="name" placeholder="¿Cómo te llamas?" required>
+          </label>
+          <label class="audit-field">
+            <span>Tu correo</span>
+            <input type="email" name="email" placeholder="dónde te enviamos la auditoría" required>
+          </label>
+          <label class="audit-field">
+            <span>Tu negocio <em>(opcional)</em></span>
+            <input type="text" name="company" placeholder="rubro o nombre del negocio">
+          </label>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADgGWC4hAMxeoWfL" data-theme="dark"></div>
+          <button type="submit" class="btn btn-gold audit-submit">Quiero mi auditoría gratis →</button>
+          <p class="audit-status" data-audit-status hidden></p>
+        </form>
       </div>
     </div>
   </section>
+
   <!-- MOBILE STICKY CTA BAR (solo visible en móvil ≤680px) -->
   <div class="mobile-cta-bar" aria-label="Contacto rápido">
     <a class="wa-btn" href="https://wa.me/17783187994?text=Hola%20Pittahaya%2C%20me%20interesa%20un%20diagn%C3%B3stico%20gratis." target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
@@ -379,7 +379,8 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=m9" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="assets/app.js?v=m15" defer></script>
+<script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

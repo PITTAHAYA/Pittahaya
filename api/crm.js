@@ -65,6 +65,45 @@ function sanitize(str, maxLen = 500) {
   return String(str).trim().slice(0, maxLen);
 }
 
+// ── Finance / progress helpers ───────────────────────────────
+const FINANCE_FIELDS    = ['deal_value', 'amount_paid', 'currency', 'payment_status', 'project_stage', 'next_followup'];
+const PAYMENT_STATUSES  = ['unpaid', 'deposit', 'partial', 'paid'];
+const PROJECT_STAGES    = ['', 'diagnosis', 'design', 'review', 'launch', 'delivered'];
+const toMoney = (v) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) && n >= 0 ? Math.round(n * 100) / 100 : 0;
+};
+// True when an error means the finance columns aren't in the DB yet (so the
+// CRM keeps working before the SQL migration is run).
+const isSchemaError = (err) => {
+  if (!err) return false;
+  const m = String(err.message || '').toLowerCase();
+  return err.code === '42703' || err.code === 'PGRST204' ||
+         m.includes('column') || m.includes('schema cache') || m.includes('does not exist');
+};
+// Build the finance fields from a request body, validated.
+const financeFromBody = (b) => ({
+  deal_value:     toMoney(b.deal_value),
+  amount_paid:    toMoney(b.amount_paid),
+  currency:       (sanitize(b.currency, 8) || 'USD').toUpperCase().slice(0, 8),
+  payment_status: PAYMENT_STATUSES.includes(b.payment_status) ? b.payment_status : 'unpaid',
+  project_stage:  PROJECT_STAGES.includes(b.project_stage) ? b.project_stage : '',
+  next_followup:  (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null
+});
+
+// Neutralize PostgREST filter metacharacters before interpolating a
+// user-supplied value into an `.or(...)` filter string. Commas, parens,
+// asterisks and backslashes can break out of the value context and inject
+// extra conditions, so we strip them and cap the length. (This endpoint is
+// already admin-only — this is defense in depth.)
+function sanitizeFilterValue(str, maxLen = 120) {
+  return String(str || "")
+    .replace(/[,()*\\%]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLen);
+}
+
 // ── Route handlers ────────────────────────────────────────────
 
 const ALLOWED_SORT_COLS = new Set(['created_at', 'updated_at', 'name', 'email', 'status', 'priority', 'company', 'service', 'source_page']);
@@ -82,7 +121,8 @@ async function getLeads(req, res) {
   if (service)     query = query.ilike('service', `%${service}%`);
   if (source_page) query = query.ilike('source_page', `%${source_page}%`);
   if (search) {
-    query = query.or(`name.ilike.%${search}%,email.ilike.%${search}%,company.ilike.%${search}%`);
+    const s = sanitizeFilterValue(search);
+    if (s) query = query.or(`name.ilike.%${s}%,email.ilike.%${s}%,company.ilike.%${s}%`);
   }
 
   query = query
@@ -106,14 +146,68 @@ async function getLead(req, res, id) {
   return res.status(200).json({ lead, notes: notes || [], tasks: tasks || [] });
 }
 
+// Create a lead manually from the CRM (e.g. a referral or a client you landed
+// yourself). Mirrors the columns the public form writes.
+async function createLead(req, res) {
+  const b = req.body || {};
+  const name  = sanitize(b.name, 100);
+  const email = sanitize(b.email, 200);
+  if (!name || !email) return res.status(400).json({ error: 'Nombre y correo son obligatorios' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return res.status(400).json({ error: 'Correo no válido' });
+
+  const statuses   = ['new','contacted','qualified','proposal_sent','won','lost'];
+  const priorities = ['cold','warm','hot'];
+  const lead = {
+    name,
+    email,
+    phone:   sanitize(b.phone, 40),
+    company: sanitize(b.company, 200) || '',
+    service: sanitize(b.service, 120) || '',
+    plan:    sanitize(b.plan, 120) || '',
+    message: sanitize(b.message, 2000) || '',
+    source_page: 'manual',
+    source_demo: 'crm-manual',
+    status:   statuses.includes(b.status) ? b.status : 'new',
+    priority: priorities.includes(b.priority) ? b.priority : 'warm',
+    ip_address: '0.0.0.0',
+    user_agent: 'CRM manual entry',
+    ...financeFromBody(b)
+  };
+
+  let { data, error } = await supabase.from('leads').insert(lead).select().single();
+  // If the finance columns aren't migrated yet, insert the core fields only.
+  if (error && isSchemaError(error)) {
+    const core = { ...lead };
+    FINANCE_FIELDS.forEach(f => delete core[f]);
+    ({ data, error } = await supabase.from('leads').insert(core).select().single());
+  }
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json({ lead: data });
+}
+
 async function updateLead(req, res, id) {
   const allowed = ['status','priority','assigned_to','company','phone','service','plan'];
   const updates = {};
   for (const key of allowed) {
     if (req.body[key] !== undefined) updates[key] = sanitize(req.body[key], 200);
   }
+  // Finance / progress fields (typed + validated)
+  const b = req.body || {};
+  if (b.deal_value  !== undefined) updates.deal_value  = toMoney(b.deal_value);
+  if (b.amount_paid !== undefined) updates.amount_paid = toMoney(b.amount_paid);
+  if (b.currency    !== undefined) updates.currency    = (sanitize(b.currency, 8) || 'USD').toUpperCase().slice(0, 8);
+  if (b.payment_status !== undefined && PAYMENT_STATUSES.includes(b.payment_status)) updates.payment_status = b.payment_status;
+  if (b.project_stage  !== undefined && PROJECT_STAGES.includes(b.project_stage))    updates.project_stage  = b.project_stage;
+  if (b.next_followup  !== undefined) updates.next_followup = (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null;
+
   if (!Object.keys(updates).length) return res.status(400).json({ error: 'Nada que actualizar' });
-  const { error } = await supabase.from('leads').update(updates).eq('id', id);
+
+  let { error } = await supabase.from('leads').update(updates).eq('id', id);
+  if (error && isSchemaError(error)) {
+    const core = { ...updates };
+    FINANCE_FIELDS.forEach(f => delete core[f]);
+    if (Object.keys(core).length) ({ error } = await supabase.from('leads').update(core).eq('id', id));
+  }
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
 }
@@ -157,6 +251,50 @@ async function updateTask(req, res, taskId) {
 
 async function deleteTask(req, res, taskId) {
   const { error } = await supabase.from('lead_tasks').delete().eq('id', taskId);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+}
+
+// ── Expenses ──────────────────────────────────────────────────
+const EXPENSE_CATEGORIES = ['software','marketing','contratistas','oficina','impuestos','otros'];
+const COST_TYPES = ['direct','operating'];
+
+async function getExpenses(req, res) {
+  let q = supabase.from('expenses').select('*').order('expense_date', { ascending: false }).limit(500);
+  const month = req.query.month;
+  if (month && /^\d{4}-\d{2}$/.test(month)) {
+    const start = `${month}-01`;
+    const d = new Date(start + 'T00:00:00Z');
+    const end = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1)).toISOString().slice(0, 10);
+    q = q.gte('expense_date', start).lt('expense_date', end);
+  }
+  const { data, error } = await q;
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ expenses: data || [] });
+}
+
+async function createExpense(req, res) {
+  const b = req.body || {};
+  const label  = sanitize(b.label, 200);
+  const amount = toMoney(b.amount);
+  if (!label) return res.status(400).json({ error: 'La descripción es obligatoria' });
+  if (!(amount > 0)) return res.status(400).json({ error: 'El monto debe ser mayor a 0' });
+  const expense = {
+    label,
+    amount,
+    category:  EXPENSE_CATEGORIES.includes(b.category) ? b.category : 'otros',
+    cost_type: COST_TYPES.includes(b.cost_type) ? b.cost_type : 'operating',
+    currency:  (sanitize(b.currency, 8) || 'USD').toUpperCase().slice(0, 8),
+    expense_date: (b.expense_date && /^\d{4}-\d{2}-\d{2}$/.test(b.expense_date)) ? b.expense_date : new Date().toISOString().slice(0, 10),
+    recurring: !!b.recurring
+  };
+  const { data, error } = await supabase.from('expenses').insert(expense).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json({ expense: data });
+}
+
+async function deleteExpense(req, res, id) {
+  const { error } = await supabase.from('expenses').delete().eq('id', id);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
 }
@@ -211,6 +349,63 @@ async function getMetrics(req, res) {
   const topService = Object.entries(serviceCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '—';
   const conversionRate = totalClosed > 0 ? Math.round((won / totalClosed) * 100) : 0;
 
+  // ── Financial aggregates (graceful: zeros if the columns aren't migrated) ──
+  const finance = {
+    revenueCollected: 0,  // total actually received (sum amount_paid)
+    pipelineValue: 0,     // sum deal_value of open leads (not won/lost)
+    outstanding: 0,       // owed by won clients (deal_value - amount_paid)
+    wonRevenue: 0,        // sum deal_value of won
+    revenueThisMonth: 0,  // amount_paid on leads updated this month
+    avgDeal: 0,
+    currency: 'USD'
+  };
+  try {
+    const { data: money, error: moneyErr } =
+      await supabase.from('leads').select('deal_value, amount_paid, status, currency, updated_at');
+    if (moneyErr) throw moneyErr;
+    let wonCount = 0;
+    (money || []).forEach(r => {
+      const dv = Number(r.deal_value) || 0;
+      const ap = Number(r.amount_paid) || 0;
+      finance.revenueCollected += ap;
+      if (r.status === 'won') { finance.wonRevenue += dv; finance.outstanding += Math.max(0, dv - ap); wonCount++; }
+      else if (r.status !== 'lost') { finance.pipelineValue += dv; }
+      if (r.updated_at && r.updated_at >= monthAgo) finance.revenueThisMonth += ap;
+      if (r.currency) finance.currency = r.currency;
+    });
+    finance.avgDeal = wonCount > 0 ? Math.round((finance.wonRevenue / wonCount) * 100) / 100 : 0;
+    ['revenueCollected','pipelineValue','outstanding','wonRevenue','revenueThisMonth']
+      .forEach(k => finance[k] = Math.round(finance[k] * 100) / 100);
+  } catch (e) {
+    // Finance columns not migrated yet — leave zeros. (Not an error for the dashboard.)
+  }
+
+  // ── P&L: revenue vs expenses → gross & net profit ──
+  const pnl = {
+    revenue: finance.revenueCollected,
+    directCosts: 0, operatingCosts: 0,
+    grossProfit: 0, netProfit: 0,
+    expensesTotal: 0, expensesThisMonth: 0,
+    byCategory: {}
+  };
+  try {
+    const { data: exp, error: expErr } = await supabase.from('expenses').select('amount, cost_type, category, expense_date');
+    if (expErr) throw expErr;
+    const mm = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}-01`;
+    (exp || []).forEach(e => {
+      const amt = Number(e.amount) || 0;
+      pnl.expensesTotal += amt;
+      if (e.cost_type === 'direct') pnl.directCosts += amt; else pnl.operatingCosts += amt;
+      const cat = e.category || 'otros';
+      pnl.byCategory[cat] = (pnl.byCategory[cat] || 0) + amt;
+      if (e.expense_date && String(e.expense_date) >= mm) pnl.expensesThisMonth += amt;
+    });
+    pnl.grossProfit = pnl.revenue - pnl.directCosts;
+    pnl.netProfit   = pnl.grossProfit - pnl.operatingCosts;
+    ['directCosts','operatingCosts','grossProfit','netProfit','expensesTotal','expensesThisMonth']
+      .forEach(k => pnl[k] = Math.round(pnl[k] * 100) / 100);
+  } catch (e) { /* expenses table not migrated yet */ }
+
   return res.status(200).json({
     total,
     newThisWeek,
@@ -222,6 +417,8 @@ async function getMetrics(req, res) {
     serviceCounts,
     sourceCounts,
     recentLeads: recentLeads || [],
+    finance,
+    pnl,
   });
 }
 
@@ -233,7 +430,7 @@ async function exportCSV(req, res) {
 
   if (error) return res.status(500).json({ error: error.message });
 
-  const headers = ['id','created_at','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','utm_source','utm_medium','utm_campaign'];
+  const headers = ['id','created_at','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','deal_value','amount_paid','currency','payment_status','project_stage','next_followup','utm_source','utm_medium','utm_campaign'];
   const escape = (v) => {
     if (v == null) return '';
     const s = String(v).replace(/"/g, '""');
@@ -274,6 +471,12 @@ module.exports = async function handler(req, res) {
     // GET /api/crm?action=lead&id=uuid
     if (req.method === 'GET' && action === 'lead' && id) return getLead(req, res, id);
     // PATCH /api/crm?action=lead&id=uuid
+    // POST /api/crm?action=create-lead  (manual lead entry)
+    if (req.method === 'POST' && action === 'create-lead') return createLead(req, res);
+    // Expenses
+    if (req.method === 'GET'    && action === 'expenses') return getExpenses(req, res);
+    if (req.method === 'POST'   && action === 'expense')  return createExpense(req, res);
+    if (req.method === 'DELETE' && action === 'expense' && id) return deleteExpense(req, res, id);
     if (req.method === 'PATCH' && action === 'lead' && id) return updateLead(req, res, id);
     // POST /api/crm?action=note&id=leadUuid
     if (req.method === 'POST' && action === 'note' && id) return addNote(req, res, id);

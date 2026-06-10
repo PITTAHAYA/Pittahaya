@@ -20,29 +20,48 @@
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let w, h, particles = [], mx = -9999, my = -9999;
-    const COUNT = 64;
-    const LINK = 140;
+    let w = 0, h = 0, particles = [], mx = -9999, my = -9999, seeded = false;
+    const LINK = 150;
+    // Particle count scales with the hero area so the network always looks
+    // evenly dense — never a sparse field on big screens nor a clustered
+    // blob on small ones. Clamped so it stays performant.
+    const densityFor = (ww, hh) => Math.max(48, Math.min(120, Math.round((ww * hh) / 13000)));
+
+    const seed = () => {
+      const count = densityFor(w, h);
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,            // spread across the FULL width
+          y: Math.random() * h,            // and the FULL height
+          vx: (Math.random() - .5) * .35,
+          vy: (Math.random() - .5) * .35,
+          r: Math.random() * 1.6 + .4
+        });
+      }
+      seeded = true;
+    };
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = canvas.getBoundingClientRect();
+      // Layout isn't ready yet (hero still collapsed / web fonts still
+      // loading). Keep retrying on the next frame so we NEVER lock in a
+      // zero/short box and seed the whole field into a tiny corner.
+      if (rect.width < 2 || rect.height < 2) {
+        requestAnimationFrame(resize);
+        return;
+      }
+      const changed = Math.abs(rect.width - w) > 1 || Math.abs(rect.height - h) > 1;
       w = rect.width; h = rect.height;
       canvas.width = w * dpr; canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // (Re)seed across the real dimensions whenever the box size changes.
+      // This is what fixes the corner-cluster: the first measurement may be
+      // a short pre-font box, but once the hero reflows to full size we lay
+      // the constellation out edge-to-edge again at the right density.
+      if (!seeded || changed) seed();
     };
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < COUNT; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - .5) * .35,
-        vy: (Math.random() - .5) * .35,
-        r: Math.random() * 1.6 + .4
-      });
-    }
 
     canvas.addEventListener("mousemove", e => {
       const r = canvas.getBoundingClientRect();
@@ -51,115 +70,124 @@
     canvas.addEventListener("mouseleave", () => { mx = -9999; my = -9999; });
 
     const tick = () => {
-      ctx.clearRect(0, 0, w, h);
+      if (seeded && w > 0 && h > 0) {
+        ctx.clearRect(0, 0, w, h);
 
-      for (const p of particles) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
+        for (const p of particles) {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
 
-        // mouse attraction
-        const dx = mx - p.x, dy = my - p.y;
-        const d  = Math.hypot(dx, dy);
-        if (d < 180 && d > 0) {
-          p.x += (dx / d) * .35;
-          p.y += (dy / d) * .35;
+          // mouse attraction
+          const dx = mx - p.x, dy = my - p.y;
+          const d  = Math.hypot(dx, dy);
+          if (d < 180 && d > 0) {
+            p.x += (dx / d) * .35;
+            p.y += (dy / d) * .35;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(255, 209, 102, .85)";
+          ctx.fill();
         }
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255, 209, 102, .85)";
-        ctx.fill();
-      }
-
-      // links
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i], b = particles[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d = Math.hypot(dx, dy);
-          if (d < LINK) {
-            const op = (1 - d / LINK) * .22;
-            ctx.strokeStyle = `rgba(255, 209, 102, ${op})`;
-            ctx.lineWidth = .6;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
+        // links
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const a = particles[i], b = particles[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d = Math.hypot(dx, dy);
+            if (d < LINK) {
+              const op = (1 - d / LINK) * .22;
+              ctx.strokeStyle = `rgba(255, 209, 102, ${op})`;
+              ctx.lineWidth = .6;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
           }
         }
       }
       requestAnimationFrame(tick);
     };
+
+    // Measure now, then re-sync on every event that can change the box:
+    // window resize, web-font swap (reflows the hero), and full load.
+    resize();
+    window.addEventListener("resize", resize);
+    window.addEventListener("load", resize);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(resize).catch(() => {});
+    }
+    // ResizeObserver is the bulletproof catch-all: any time the canvas
+    // box actually changes size (font reflow, late content, zoom) we
+    // re-sync the bitmap so the constellation always fills the hero.
+    if ("ResizeObserver" in window) {
+      const ro = new ResizeObserver(() => resize());
+      ro.observe(canvas);
+    }
     tick();
   };
 
-  /* === 2. Letter-by-letter headline reveal ===================== */
+  /* === 2. Headline reveal — CSS-driven, preserves inline tags ====
+     We just flip a class. The actual animation is pure CSS (see the
+     fx-letters-guard block in each demo's inline <style>). Important:
+     we DO NOT split into individual chars anymore — that destroyed
+     <em> gradient styling on words like "producto", "caro", "antes". */
   const initLetterReveal = () => {
-    $$("[data-fx-letters]").forEach(el => {
-      const text = el.textContent.trim();
-      el.setAttribute("aria-label", text);
-      // Build the whole tree OFF-DOM so the browser never sees an
-      // intermediate empty headline. One atomic swap → no flicker.
-      const frag = document.createDocumentFragment();
-      const words = text.split(" ");
-      words.forEach((word, wi) => {
-        const wrap = document.createElement("span");
-        wrap.className = "fx-word";
-        wrap.setAttribute("aria-hidden", "true");
-        [...word].forEach((ch, ci) => {
-          const span = document.createElement("span");
-          span.className = "fx-char";
-          span.textContent = ch;
-          if (!reduce) {
-            span.style.animationDelay = `${(wi * 80 + ci * 28)}ms`;
-          }
-          wrap.appendChild(span);
-        });
-        frag.appendChild(wrap);
-        if (wi < words.length - 1) frag.appendChild(document.createTextNode(" "));
-      });
-      // Atomic swap: clear + append happen back-to-back so the browser
-      // never paints an empty headline mid-transaction.
-      el.textContent = "";
-      el.appendChild(frag);
-      el.classList.add("fx-ready");
-    });
+    $$("[data-fx-letters]").forEach(el => el.classList.add("fx-ready"));
   };
 
-  /* === 3. Counters that count up on scroll into view =========== */
+  /* === 3. Counters — animated count-up when they scroll into view.
+     Below-the-fold metrics roll from 0 → target with an easeOut curve,
+     so the page feels alive. Reduce-motion users just see the final value. */
   const initCounters = () => {
     const els = $$("[data-fx-count]");
     if (!els.length) return;
-    const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
+
+    const meta = (el) => {
+      const val = el.getAttribute("data-fx-count") || "0";
+      return {
+        end: parseFloat(val) || 0,
+        decimals: (val.split(".")[1] || "").length,
+        suffix: el.getAttribute("data-fx-suffix") || "",
+        prefix: el.getAttribute("data-fx-prefix") || ""
+      };
+    };
+    const render = (el, value, m) => {
+      el.textContent = `${m.prefix}${value.toFixed(m.decimals)}${m.suffix}`;
+    };
+
+    // Reduce motion (or no IntersectionObserver): show final values, no roll.
+    if (reduce || !("IntersectionObserver" in window)) {
+      els.forEach(el => { const m = meta(el); render(el, m.end, m); });
+      return;
+    }
 
     const animate = (el) => {
-      const end = parseFloat(el.getAttribute("data-fx-count")) || 0;
-      const dur = parseInt(el.getAttribute("data-fx-duration") || "1400", 10);
-      const decimals = (el.getAttribute("data-fx-count").split(".")[1] || "").length;
-      const suffix = el.getAttribute("data-fx-suffix") || "";
-      const prefix = el.getAttribute("data-fx-prefix") || "";
-      if (reduce) {
-        el.textContent = `${prefix}${end.toFixed(decimals)}${suffix}`;
-        return;
-      }
-      const start = performance.now();
+      if (el.dataset.fxCounted === "1") return;
+      el.dataset.fxCounted = "1";
+      const m = meta(el);
+      const dur = 1400;
+      const t0 = performance.now();
+      const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
       const step = (now) => {
-        const t  = Math.min(1, (now - start) / dur);
-        const e  = easeOutQuart(t);
-        const v  = end * e;
-        el.textContent = `${prefix}${v.toFixed(decimals)}${suffix}`;
+        const t = Math.min(1, (now - t0) / dur);
+        render(el, m.end * ease(t), m);
         if (t < 1) requestAnimationFrame(step);
+        else render(el, m.end, m); // pin exact final value
       };
       requestAnimationFrame(step);
     };
 
+    // Start each counter at 0 so the count-up is visible.
+    els.forEach(el => render(el, 0, meta(el)));
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach(en => {
-        if (en.isIntersecting) {
-          animate(en.target);
-          io.unobserve(en.target);
-        }
+        if (en.isIntersecting) { animate(en.target); io.unobserve(en.target); }
       });
     }, { threshold: .35 });
     els.forEach(el => io.observe(el));
@@ -213,41 +241,21 @@
     tick();
   };
 
-  /* === 6. SVG funnel path draws as user scrolls =============== */
+  /* === 6. SVG funnel path — fully visible from first paint ==== */
   const initFunnel = () => {
     const path = $("[data-fx-funnel-path]");
     if (!path) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len;
-    path.style.strokeDashoffset = len;
-    if (reduce) { path.style.strokeDashoffset = 0; return; }
-
-    const container = path.closest("[data-fx-funnel]");
-    if (!container) return;
-    const onScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const start = window.innerHeight * .8;
-      const end   = -rect.height * .2;
-      const prog  = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      path.style.strokeDashoffset = String(len * (1 - prog));
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    // No scroll-driven draw. Path is fully drawn from the start so
+    // it's never "missing" on cold load.
+    path.style.strokeDasharray = "none";
+    path.style.strokeDashoffset = "0";
   };
 
-  /* === 7. Funnel stations glow sequentially =================== */
+  /* === 7. Funnel stations — all lit from first paint ========== */
   const initStations = () => {
-    const stations = $$("[data-fx-station]");
-    if (!stations.length) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          en.target.classList.add("is-lit");
-          io.unobserve(en.target);
-        }
-      });
-    }, { threshold: .55 });
-    stations.forEach(el => io.observe(el));
+    // No scroll-into-view dependence. All stations show at full
+    // brightness immediately so they don't look "dim/broken" on cold load.
+    $$("[data-fx-station]").forEach(el => el.classList.add("is-lit"));
   };
 
   /* === 8. Magnetic hover for primary CTAs ===================== */
@@ -265,18 +273,35 @@
     });
   };
 
-  /* === 9. Live ticker — rotates messages ====================== */
+  /* === 9. Live ticker — single element, content swap ==========
+     Bulletproof: there is ONE visible element. We replace its text
+     every 3.2s. Physically impossible for two messages to overlap.
+     The old multi-span approach could leak when CSS hadn't applied
+     yet, leaving all spans visible at once (the garbled glitch). */
   const initTicker = () => {
     const ticker = $("[data-fx-ticker]");
     if (!ticker) return;
-    const items = $$("[data-fx-ticker-item]", ticker);
-    if (items.length < 2) return;
+    if (ticker.dataset.fxTickerInit === "1") return; // guard against double-init
+    ticker.dataset.fxTickerInit = "1";
+    const text = $("[data-fx-ticker-text]", ticker);
+    if (!text) return;
+    const msgs = (ticker.getAttribute("data-fx-msgs") || "").split("|").filter(Boolean);
+    if (msgs.length < 2) return;
     let i = 0;
-    items[0].classList.add("is-active");
     setInterval(() => {
-      items[i].classList.remove("is-active");
-      i = (i + 1) % items.length;
-      items[i].classList.add("is-active");
+      // Fade out, swap, fade in — single element, no overlap possible.
+      text.style.opacity = "0";
+      text.style.transform = "translateY(-4px)";
+      setTimeout(() => {
+        i = (i + 1) % msgs.length;
+        text.textContent = msgs[i];
+        text.style.transform = "translateY(6px)";
+        // Next frame: fade back in
+        requestAnimationFrame(() => {
+          text.style.opacity = "1";
+          text.style.transform = "translateY(0)";
+        });
+      }, 300);
     }, 3200);
   };
 
@@ -350,30 +375,35 @@
     });
   };
 
-  /* === 12. Animated chart bars (draw on scroll-into-view) ===== */
+  /* === 12. Chart bars — grow to their target when scrolled into view.
+     The CSS already animates `--bar` via a width transition, so we start
+     them at 0% and set the real value on intersection. */
   const initChart = () => {
-    const charts = $$("[data-fx-chart]");
-    if (!charts.length) return;
-    const animate = (chart) => {
-      $$("[data-bar]", chart).forEach(bar => {
-        const target = parseFloat(bar.getAttribute("data-bar")) || 0;
-        if (reduce) { bar.style.setProperty("--bar", target + "%"); return; }
-        let v = 0;
-        const start = performance.now();
-        const dur = 1200;
-        const step = (now) => {
-          const t = Math.min(1, (now - start) / dur);
-          v = target * (1 - Math.pow(1 - t, 3));
-          bar.style.setProperty("--bar", v.toFixed(1) + "%");
-          if (t < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
+    const bars = $$("[data-fx-chart] [data-bar], [data-bar]");
+    if (!bars.length) return;
+
+    const setFinal = (bar) =>
+      bar.style.setProperty("--bar", (parseFloat(bar.getAttribute("data-bar")) || 0) + "%");
+
+    if (reduce || !("IntersectionObserver" in window)) {
+      bars.forEach(setFinal);
+      return;
+    }
+
+    // Collapse first so the grow is visible.
+    bars.forEach(bar => bar.style.setProperty("--bar", "0%"));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const bar = en.target;
+          // next frame so the 0% is committed before we transition to target
+          requestAnimationFrame(() => setFinal(bar));
+          io.unobserve(bar);
+        }
       });
-    };
-    const io = new IntersectionObserver(es => {
-      es.forEach(e => { if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); } });
     }, { threshold: .3 });
-    charts.forEach(c => io.observe(c));
+    bars.forEach(bar => io.observe(bar));
   };
 
   /* === 13. Marquee — infinite horizontal scroll =============== */
@@ -407,25 +437,12 @@
     });
   };
 
-  /* === 15. Timeline path draws as user scrolls ================ */
+  /* === 15. Timeline path — fully drawn from first paint ======= */
   const initTimeline = () => {
     const path = $("[data-fx-timeline-path]");
     if (!path) return;
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len;
-    path.style.strokeDashoffset = len;
-    if (reduce) { path.style.strokeDashoffset = 0; return; }
-    const container = path.closest("[data-fx-timeline]");
-    if (!container) return;
-    const onScroll = () => {
-      const rect = container.getBoundingClientRect();
-      const start = window.innerHeight;
-      const end   = -rect.height;
-      const prog  = Math.min(1, Math.max(0, (start - rect.top) / (start - end)));
-      path.style.strokeDashoffset = String(len * (1 - prog));
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    path.style.strokeDasharray = "none";
+    path.style.strokeDashoffset = "0";
   };
 
   /* === 16. Tilted image gallery (hover reveals caption) ======= */

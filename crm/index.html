@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+  <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
+  <meta name="rights" content="Diseño, textos, demos, marca, imágenes y experiencia digital protegidos por derechos de autor. Prohibida su reproducción o uso no autorizado." />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>Pittahaya CRM · Dashboard</title>
@@ -354,6 +356,7 @@
   .badge-contacted  { background: rgba(139,92,246,0.15); color: #a78bfa; }
   .badge-qualified  { background: rgba(245,158,11,0.15); color: #fbbf24; }
   .badge-proposal   { background: rgba(249,115,22,0.15); color: #fb923c; }
+  .badge-proposal_sent { background: rgba(249,115,22,0.15); color: #fb923c; }
   .badge-won        { background: rgba(16,185,129,0.15); color: #34d399; }
   .badge-lost       { background: rgba(239,68,68,0.15);  color: #f87171; }
 
@@ -455,6 +458,72 @@
   .bar-track { flex: 1; background: var(--onyx-4); border-radius: 1px; height: 6px; overflow: hidden; }
   .bar-fill  { height: 100%; background: var(--gold); border-radius: 1px; transition: width 0.5s ease; }
   .bar-count { font-size: 11px; color: var(--ash); min-width: 24px; text-align: right; }
+
+  /* ── Add lead modal ── */
+  .lead-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .lead-modal[hidden] { display: none; }
+  .lead-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
+  .lead-modal__card { position: relative; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; background: var(--onyx-2); border: 1px solid var(--border-gold); border-radius: 6px; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+  .lead-modal__head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+  .lead-modal__head h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 22px; color: var(--gold-light); letter-spacing: 0.04em; }
+  .lead-modal__close { background: none; border: none; color: var(--ash); font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; }
+  .lead-modal__close:hover { color: var(--gold-light); }
+  .lead-modal__body { padding: 20px 22px; display: flex; flex-direction: column; gap: 13px; }
+  .nl-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+  .nl-field { display: flex; flex-direction: column; gap: 5px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ash); }
+  .nl-field input, .nl-field select, .nl-field textarea {
+    background: var(--onyx-4); border: 1px solid var(--border); color: #e5e5e5;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 9px 11px; border-radius: 2px;
+    outline: none; transition: border-color 0.2s; text-transform: none; letter-spacing: normal; width: 100%; box-sizing: border-box; resize: vertical;
+  }
+  .nl-field input:focus, .nl-field select:focus, .nl-field textarea:focus { border-color: var(--border-gold); }
+  .nl-error { color: #f87171; font-size: 12px; margin: 0; }
+  .lead-modal__foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 22px; border-top: 1px solid var(--border); }
+
+  /* ── Finance ── */
+  .metric-money .metric-value { color: var(--gold-light); }
+  .finance-section { margin-top: 34px; }
+  .finance-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .finance-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 26px; color: var(--gold-light); letter-spacing: 0.05em; }
+  .finance-totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 16px; }
+  .ft-card { background: var(--onyx-3); border: 1px solid var(--border); border-radius: 3px; padding: 16px 18px; display: flex; flex-direction: column; gap: 5px; }
+  .ft-card span { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ash); }
+  .ft-card b { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: #e5e5e5; }
+  @media (max-width: 700px) { .finance-totals { grid-template-columns: 1fr; } }
+
+  /* ── P&L ── */
+  .pnl-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+  .pnl-card { background: var(--onyx-3); border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .pnl-card span { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--ash); }
+  .pnl-card b { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: #e5e5e5; }
+  .pnl-card.pnl-strong { border-color: var(--border-gold); } .pnl-card.pnl-strong b { color: var(--gold-light); }
+  .pnl-card.pnl-net { border-color: rgba(52,211,153,.3); background: rgba(16,185,129,.06); } .pnl-card.pnl-net b { color: #34d399; }
+  @media (max-width: 900px) { .pnl-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ── Expenses ── */
+  .exp-month { display: flex; flex-direction: column; gap: 4px; }
+  .exp-month input { background: var(--onyx-4); border: 1px solid var(--border); color: #e5e5e5; padding: 7px 10px; border-radius: 2px; font-family: 'Montserrat',sans-serif; font-size: 12px; }
+  .exp-form { display: grid; grid-template-columns: 2fr 1fr 1.3fr 1.3fr 1.2fr auto; gap: 8px; margin-bottom: 6px; }
+  .exp-form input, .exp-form select { background: var(--onyx-4); border: 1px solid var(--border); color: #e5e5e5; padding: 9px 10px; border-radius: 2px; font-family: 'Montserrat',sans-serif; font-size: 12px; outline: none; }
+  .exp-form input:focus, .exp-form select:focus { border-color: var(--border-gold); }
+  .exp-totals { display: flex; gap: 18px; flex-wrap: wrap; margin: 12px 0; }
+  .exp-totals .et { font-size: 12px; color: var(--ash); } .exp-totals .et b { color: #e5e5e5; font-size: 15px; font-family: 'Cormorant Garamond',serif; }
+  .exp-del { background: none; border: none; color: #555; cursor: pointer; font-size: 13px; } .exp-del:hover { color: #ef4444; }
+  @media (max-width: 800px) { .exp-form { grid-template-columns: 1fr 1fr; } }
+
+  /* ── Kanban ── */
+  .kanban { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(210px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+  .kan-col { background: var(--onyx-2); border: 1px solid var(--border); border-radius: 4px; padding: 10px; min-height: 90px; }
+  .kan-col-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; padding: 2px; }
+  .kan-col-head b { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ash-light); }
+  .kan-col-head span { font-size: 11px; color: var(--gold-light); white-space: nowrap; }
+  .kan-card { background: var(--onyx-3); border: 1px solid var(--border); border-radius: 3px; padding: 10px; margin-bottom: 8px; }
+  .kan-card .kc-name { font-size: 12px; font-weight: 600; color: #e5e5e5; text-decoration: none; }
+  .kan-card .kc-name:hover { color: var(--gold-light); }
+  .kan-card .kc-sub { font-size: 11px; color: var(--ash); margin: 3px 0 8px; }
+  .kan-card .kc-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .kan-card .kc-val { font-size: 11px; color: var(--gold-light); }
+  .kan-card select { background: var(--onyx-4); border: 1px solid var(--border); color: var(--ash-light); font-size: 10px; padding: 3px 4px; border-radius: 2px; max-width: 110px; }
 </style>
 </head>
 <body>
@@ -497,11 +566,15 @@
       <p class="page-subtitle" id="lastUpdated">Cargando datos...</p>
     </div>
     <div class="header-actions">
+      <button class="btn btn-primary" onclick="openAddLead()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Nuevo lead
+      </button>
       <button class="btn" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         Exportar CSV
       </button>
-      <button class="btn btn-primary" onclick="loadLeads()">
+      <button class="btn btn-primary" onclick="refreshAll()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
         Actualizar
       </button>
@@ -514,6 +587,9 @@
     <div class="metric-card"><div class="metric-label">Nuevos esta semana</div><div class="metric-value" id="m-week">—</div></div>
     <div class="metric-card"><div class="metric-label">Leads calientes</div><div class="metric-value" id="m-hot">—</div><div class="metric-sub">Requieren acción</div></div>
     <div class="metric-card"><div class="metric-label">Tasa de conversión</div><div class="metric-value" id="m-conv">—</div><div class="metric-sub" id="m-service">—</div></div>
+    <div class="metric-card metric-money"><div class="metric-label">Ingresos cobrados</div><div class="metric-value" id="m-revenue">—</div><div class="metric-sub" id="m-revenue-month">—</div></div>
+    <div class="metric-card metric-money"><div class="metric-label">Pipeline (potencial)</div><div class="metric-value" id="m-pipeline">—</div><div class="metric-sub">Valor de leads abiertos</div></div>
+    <div class="metric-card metric-money"><div class="metric-label">Por cobrar</div><div class="metric-value" id="m-outstanding">—</div><div class="metric-sub">De clientes ganados</div></div>
   </div>
 
   <!-- Charts -->
@@ -586,7 +662,167 @@
       </div>
     </div>
   </div>
+
+  <!-- ── Finanzas (vista para contabilidad) ── -->
+  <div class="finance-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Finanzas</h2>
+        <p class="page-subtitle">Resumen de ingresos, cobros pendientes y avance de cada proyecto.</p>
+      </div>
+      <button class="btn" onclick="exportCSV()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Exportar finanzas (CSV)
+      </button>
+    </div>
+    <div class="finance-totals" id="financeTotals"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th><th>Servicio</th><th>Estado</th><th>Etapa</th>
+            <th style="text-align:right">Valor</th><th style="text-align:right">Pagado</th>
+            <th style="text-align:right">Pendiente</th><th>Pago</th>
+          </tr>
+        </thead>
+        <tbody id="financeBody">
+          <tr><td colspan="8"><div class="loading"><div class="loading-spinner"></div>Cargando finanzas...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Rentabilidad (P&L) ── -->
+  <div class="finance-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Rentabilidad</h2>
+        <p class="page-subtitle">Ingresos menos gastos = tu utilidad bruta y neta.</p>
+      </div>
+    </div>
+    <div class="pnl-grid" id="pnlGrid">
+      <div class="pnl-card"><span>Ingresos cobrados</span><b id="p-revenue">—</b></div>
+      <div class="pnl-card"><span>Costos directos</span><b id="p-direct">—</b></div>
+      <div class="pnl-card pnl-strong"><span>Utilidad bruta</span><b id="p-gross">—</b></div>
+      <div class="pnl-card"><span>Gastos operativos</span><b id="p-operating">—</b></div>
+      <div class="pnl-card pnl-net"><span>Utilidad neta</span><b id="p-net">—</b></div>
+    </div>
+  </div>
+
+  <!-- ── Gastos ── -->
+  <div class="finance-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Gastos</h2>
+        <p class="page-subtitle">Registra cada gasto del negocio. Los "costos directos" se restan del ingreso para la utilidad bruta.</p>
+      </div>
+      <div class="exp-month">
+        <label style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ash)">Mes</label>
+        <input type="month" id="expMonth" onchange="loadExpenses()">
+      </div>
+    </div>
+
+    <div class="exp-form">
+      <input type="text" id="exp-label" placeholder="Descripción (ej. Figma, hosting, publicidad)">
+      <input type="number" id="exp-amount" min="0" step="any" placeholder="Monto $">
+      <select id="exp-category" title="Categoría">
+        <option value="software">Software</option>
+        <option value="marketing">Marketing</option>
+        <option value="contratistas">Contratistas</option>
+        <option value="oficina">Oficina</option>
+        <option value="impuestos">Impuestos</option>
+        <option value="otros">Otros</option>
+      </select>
+      <select id="exp-type" title="Tipo">
+        <option value="operating">Gasto operativo</option>
+        <option value="direct">Costo directo</option>
+      </select>
+      <input type="date" id="exp-date" title="Fecha">
+      <button class="btn btn-primary" onclick="addExpense()">+ Agregar gasto</button>
+    </div>
+    <p class="nl-error" id="exp-error" hidden></p>
+
+    <div class="exp-totals" id="expTotals"></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Descripción</th><th>Categoría</th><th>Tipo</th><th style="text-align:right">Monto</th><th>Fecha</th><th></th></tr>
+        </thead>
+        <tbody id="expensesBody">
+          <tr><td colspan="6"><div class="loading"><div class="loading-spinner"></div>Cargando gastos...</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── Pipeline (Kanban) ── -->
+  <div class="finance-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Pipeline</h2>
+        <p class="page-subtitle">Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.</p>
+      </div>
+    </div>
+    <div class="kanban" id="kanban">
+      <div class="loading"><div class="loading-spinner"></div>Cargando pipeline...</div>
+    </div>
+  </div>
 </main>
+
+<!-- ── Add lead modal ── -->
+<div class="lead-modal" id="leadModal" hidden>
+  <div class="lead-modal__backdrop" onclick="closeAddLead()"></div>
+  <div class="lead-modal__card" role="dialog" aria-modal="true" aria-label="Nuevo lead">
+    <div class="lead-modal__head">
+      <h3>Nuevo lead</h3>
+      <button class="lead-modal__close" onclick="closeAddLead()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="lead-modal__body">
+      <label class="nl-field">Nombre *<input type="text" id="nl-name" autocomplete="off"></label>
+      <label class="nl-field">Correo *<input type="text" id="nl-email" autocomplete="off"></label>
+      <div class="nl-row">
+        <label class="nl-field">Teléfono<input type="text" id="nl-phone" autocomplete="off"></label>
+        <label class="nl-field">Negocio<input type="text" id="nl-company" autocomplete="off"></label>
+      </div>
+      <label class="nl-field">Servicio
+        <select id="nl-service">
+          <option value="">—</option>
+          <option>Diseño web premium</option>
+          <option>Automatización con IA (chatbots y agentes)</option>
+          <option>Web + IA (sistema completo)</option>
+          <option>Tienda online / e-commerce</option>
+          <option>Rediseño de mi web actual</option>
+        </select>
+      </label>
+      <div class="nl-row">
+        <label class="nl-field">Prioridad
+          <select id="nl-priority"><option value="warm">Warm</option><option value="hot">Hot</option><option value="cold">Cold</option></select>
+        </label>
+        <label class="nl-field">Estado
+          <select id="nl-status"><option value="new">Nuevo</option><option value="contacted">Contactado</option><option value="qualified">Calificado</option><option value="proposal_sent">Propuesta</option><option value="won">Ganado</option><option value="lost">Perdido</option></select>
+        </label>
+      </div>
+      <div class="nl-row">
+        <label class="nl-field">Valor del trato ($)<input type="number" id="nl-deal" min="0" step="any" placeholder="0"></label>
+        <label class="nl-field">Pagado ($)<input type="number" id="nl-paid" min="0" step="any" placeholder="0"></label>
+      </div>
+      <div class="nl-row">
+        <label class="nl-field">Estado de pago
+          <select id="nl-payment"><option value="unpaid">Sin pagar</option><option value="deposit">Anticipo</option><option value="partial">Parcial</option><option value="paid">Pagado</option></select>
+        </label>
+        <label class="nl-field">Etapa del proyecto
+          <select id="nl-stage"><option value="">—</option><option value="diagnosis">Diagnóstico</option><option value="design">Diseño</option><option value="review">Revisión</option><option value="launch">Publicación</option><option value="delivered">Entregado</option></select>
+        </label>
+      </div>
+      <label class="nl-field">Notas / mensaje<textarea id="nl-message" rows="3"></textarea></label>
+      <p class="nl-error" id="nl-error" hidden></p>
+    </div>
+    <div class="lead-modal__foot">
+      <button class="btn" onclick="closeAddLead()">Cancelar</button>
+      <button class="btn btn-primary" id="nl-save" onclick="saveNewLead()">Guardar lead</button>
+    </div>
+  </div>
+</div>
 
 <script>
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -628,7 +864,13 @@ async function init() {
   const { data: { session } } = await sb.auth.getSession();
   if (!session) { window.location.href = '/crm/login.html'; return; }
   authToken = session.access_token;
-  await Promise.all([loadMetrics(), loadLeads()]);
+  // Default the expenses month + date pickers to "now".
+  const today = new Date().toISOString().slice(0, 10);
+  const monthInput = document.getElementById('expMonth');
+  const dateInput  = document.getElementById('exp-date');
+  if (monthInput) monthInput.value = today.slice(0, 7);
+  if (dateInput)  dateInput.value  = today;
+  await refreshAll();
 }
 
 async function logout() {
@@ -649,6 +891,199 @@ async function api(params, method = 'GET', body = null) {
   return res.json();
 }
 
+// ── Add lead (manual entry) ───────────────────────────────────
+function openAddLead() {
+  document.getElementById('nl-error').hidden = true;
+  document.getElementById('leadModal').hidden = false;
+  setTimeout(() => document.getElementById('nl-name').focus(), 50);
+}
+function closeAddLead() { document.getElementById('leadModal').hidden = true; }
+async function saveNewLead() {
+  const err = document.getElementById('nl-error');
+  err.hidden = true;
+  const val = (id) => document.getElementById(id).value.trim();
+  const name = val('nl-name'), email = val('nl-email');
+  if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    err.textContent = 'Ingresa un nombre y un correo válido.'; err.hidden = false; return;
+  }
+  const btn = document.getElementById('nl-save');
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    await api({ action: 'create-lead' }, 'POST', {
+      name, email,
+      phone:          val('nl-phone'),
+      company:        val('nl-company'),
+      service:        document.getElementById('nl-service').value,
+      message:        val('nl-message'),
+      priority:       document.getElementById('nl-priority').value,
+      status:         document.getElementById('nl-status').value,
+      deal_value:     document.getElementById('nl-deal').value,
+      amount_paid:    document.getElementById('nl-paid').value,
+      payment_status: document.getElementById('nl-payment').value,
+      project_stage:  document.getElementById('nl-stage').value
+    });
+    ['nl-name','nl-email','nl-phone','nl-company','nl-message','nl-deal','nl-paid'].forEach(id => document.getElementById(id).value = '');
+    closeAddLead();
+    await refreshAll();
+  } catch (e) {
+    err.textContent = 'No se pudo guardar: ' + String(e.message || e).slice(0, 160);
+    err.hidden = false;
+  } finally {
+    btn.disabled = false; btn.textContent = 'Guardar lead';
+  }
+}
+
+// ── Helpers (finance) ─────────────────────────────────────────
+function money(n) {
+  n = Number(n) || 0;
+  return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+}
+function stageLabel(s) {
+  return ({ diagnosis:'Diagnóstico', design:'Diseño', review:'Revisión', launch:'Publicación', delivered:'Entregado' })[s] || '<span style="color:var(--ash)">—</span>';
+}
+function paymentLabel(p) {
+  const map = { unpaid:'Sin pagar', deposit:'Anticipo', partial:'Parcial', paid:'✓ Pagado' };
+  const color = { paid:'#34d399', partial:'#fbbf24', deposit:'#60a5fa', unpaid:'var(--ash)' }[p] || 'var(--ash)';
+  return `<span style="color:${color}">${map[p] || '—'}</span>`;
+}
+
+async function refreshAll() {
+  await Promise.all([loadMetrics(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline()]);
+}
+
+// ── Expenses & P&L ────────────────────────────────────────────
+const EXP_CAT = { software:'Software', marketing:'Marketing', contratistas:'Contratistas', oficina:'Oficina', impuestos:'Impuestos', otros:'Otros' };
+
+async function loadExpenses() {
+  const body = document.getElementById('expensesBody');
+  const totals = document.getElementById('expTotals');
+  try {
+    const params = { action: 'expenses' };
+    const month = document.getElementById('expMonth')?.value;
+    if (month) params.month = month;
+    const { expenses } = await api(params);
+    const rows = expenses || [];
+    let total = 0, direct = 0, oper = 0;
+    body.innerHTML = rows.map(e => {
+      const amt = Number(e.amount) || 0; total += amt;
+      if (e.cost_type === 'direct') direct += amt; else oper += amt;
+      return `<tr>
+        <td>${esc(e.label)}${e.recurring ? ' <span style="color:var(--ash);font-size:10px">(recurrente)</span>' : ''}</td>
+        <td>${EXP_CAT[e.category] || 'Otros'}</td>
+        <td>${e.cost_type === 'direct' ? 'Costo directo' : 'Operativo'}</td>
+        <td style="text-align:right">${money(amt)}</td>
+        <td class="date-cell">${(e.expense_date || '').slice(0, 10)}</td>
+        <td><button class="exp-del" title="Eliminar" onclick="deleteExpense('${e.id}')">✕</button></td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="6"><div class="empty">Sin gastos en este período.</div></td></tr>';
+    totals.innerHTML = `<span class="et">Total: <b>${money(total)}</b></span>
+      <span class="et">Costos directos: <b>${money(direct)}</b></span>
+      <span class="et">Operativos: <b>${money(oper)}</b></span>`;
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="6"><div class="empty">No se pudo cargar gastos: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
+  }
+}
+
+async function addExpense() {
+  const err = document.getElementById('exp-error'); err.hidden = true;
+  const label = document.getElementById('exp-label').value.trim();
+  const amount = document.getElementById('exp-amount').value;
+  if (!label || !(parseFloat(amount) > 0)) {
+    err.textContent = 'Ingresa una descripción y un monto válido.'; err.hidden = false; return;
+  }
+  try {
+    await api({ action: 'expense' }, 'POST', {
+      label, amount,
+      category:     document.getElementById('exp-category').value,
+      cost_type:    document.getElementById('exp-type').value,
+      expense_date: document.getElementById('exp-date').value
+    });
+    document.getElementById('exp-label').value = '';
+    document.getElementById('exp-amount').value = '';
+    await Promise.all([loadExpenses(), loadMetrics()]);
+  } catch (e) {
+    err.textContent = 'No se pudo guardar: ' + String(e.message || e).slice(0, 140); err.hidden = false;
+  }
+}
+
+async function deleteExpense(id) {
+  if (!confirm('¿Eliminar este gasto?')) return;
+  try { await api({ action: 'expense', id }, 'DELETE'); await Promise.all([loadExpenses(), loadMetrics()]); }
+  catch (e) { alert('Error: ' + (e.message || e)); }
+}
+
+// ── Pipeline (Kanban) ─────────────────────────────────────────
+const PIPE_STAGES = [
+  { key: 'new', label: 'Nuevo' }, { key: 'contacted', label: 'Contactado' },
+  { key: 'qualified', label: 'Calificado' }, { key: 'proposal_sent', label: 'Propuesta' },
+  { key: 'won', label: 'Ganado' }, { key: 'lost', label: 'Perdido' }
+];
+async function loadPipeline() {
+  const board = document.getElementById('kanban');
+  try {
+    const { leads } = await api({ action: 'leads', limit: 500, offset: 0, sort: 'created_at', order: 'desc' });
+    const rows = leads || [];
+    board.innerHTML = PIPE_STAGES.map(st => {
+      const items = rows.filter(l => (l.status || 'new') === st.key);
+      const sum = items.reduce((a, l) => a + (Number(l.deal_value) || 0), 0);
+      const cards = items.map(l => `
+        <div class="kan-card">
+          <a href="/crm/lead.html?id=${l.id}" class="kc-name">${esc(l.name)}</a>
+          <div class="kc-sub">${esc(l.company) || esc(l.service) || '—'}</div>
+          <div class="kc-foot">
+            <span class="kc-val">${l.deal_value ? money(l.deal_value) : ''}</span>
+            <select onchange="moveLead('${l.id}', this.value)" title="Mover de etapa">
+              ${PIPE_STAGES.map(s => `<option value="${s.key}" ${s.key === st.key ? 'selected' : ''}>${s.label}</option>`).join('')}
+            </select>
+          </div>
+        </div>`).join('') || '<div style="font-size:11px;color:var(--ash);padding:6px 2px">—</div>';
+      return `<div class="kan-col">
+        <div class="kan-col-head"><b>${st.label}</b><span>${items.length}${sum ? ' · ' + money(sum) : ''}</span></div>
+        ${cards}
+      </div>`;
+    }).join('');
+  } catch (e) {
+    board.innerHTML = `<div class="empty">No se pudo cargar el pipeline: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+  }
+}
+async function moveLead(id, status) {
+  try {
+    await api({ action: 'lead', id }, 'PATCH', { status });
+    await Promise.all([loadPipeline(), loadMetrics(), loadLeads(), loadFinance()]);
+  } catch (e) { alert('Error al mover: ' + (e.message || e)); }
+}
+
+// ── Finance table (accountant view) ───────────────────────────
+async function loadFinance() {
+  const body = document.getElementById('financeBody');
+  const totals = document.getElementById('financeTotals');
+  try {
+    const { leads } = await api({ action: 'leads', limit: 500, offset: 0, sort: 'created_at', order: 'desc' });
+    const rows = leads || [];
+    let tDeal = 0, tPaid = 0, tPend = 0;
+    body.innerHTML = rows.map(l => {
+      const dv = Number(l.deal_value) || 0, ap = Number(l.amount_paid) || 0, pend = Math.max(0, dv - ap);
+      tDeal += dv; tPaid += ap; tPend += pend;
+      return `<tr>
+        <td><a href="/crm/lead.html?id=${l.id}" class="action-link" style="font-weight:600">${esc(l.name)}</a><div class="lead-email">${esc(l.email)}</div></td>
+        <td>${esc(l.service) || '—'}</td>
+        <td><span class="badge badge-${l.status}">${statusLabel(l.status)}</span></td>
+        <td>${stageLabel(l.project_stage)}</td>
+        <td style="text-align:right">${dv ? money(dv) : '—'}</td>
+        <td style="text-align:right;color:#34d399">${ap ? money(ap) : '—'}</td>
+        <td style="text-align:right;${pend > 0 ? 'color:#fbbf24' : 'color:var(--ash)'}">${pend ? money(pend) : '—'}</td>
+        <td>${paymentLabel(l.payment_status)}</td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="8"><div class="empty">Aún no hay datos financieros.</div></td></tr>';
+    totals.innerHTML = `
+      <div class="ft-card"><span>Valor total</span><b>${money(tDeal)}</b></div>
+      <div class="ft-card"><span>Cobrado</span><b style="color:#34d399">${money(tPaid)}</b></div>
+      <div class="ft-card"><span>Por cobrar</span><b style="color:#fbbf24">${money(tPend)}</b></div>`;
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="8"><div class="empty">No se pudo cargar finanzas: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
+  }
+}
+
 // ── Metrics ───────────────────────────────────────────────────
 async function loadMetrics() {
   try {
@@ -658,6 +1093,19 @@ async function loadMetrics() {
     document.getElementById('m-hot').textContent   = d.hot || 0;
     document.getElementById('m-conv').textContent  = (d.conversionRate || 0) + '%';
     document.getElementById('m-service').textContent = d.topService ? `Más pedido: ${d.topService}` : '';
+
+    const f = d.finance || {};
+    document.getElementById('m-revenue').textContent       = money(f.revenueCollected);
+    document.getElementById('m-revenue-month').textContent = 'Este mes: ' + money(f.revenueThisMonth);
+    document.getElementById('m-pipeline').textContent      = money(f.pipelineValue);
+    document.getElementById('m-outstanding').textContent   = money(f.outstanding);
+
+    const p = d.pnl || {};
+    document.getElementById('p-revenue').textContent   = money(p.revenue);
+    document.getElementById('p-direct').textContent    = money(p.directCosts);
+    document.getElementById('p-gross').textContent     = money(p.grossProfit);
+    document.getElementById('p-operating').textContent = money(p.operatingCosts);
+    document.getElementById('p-net').textContent       = money(p.netProfit);
 
     renderBarChart('chartService', d.serviceCounts, '#c9943a');
     renderBarChart('chartStatus',  d.statusCounts,  '#6366f1');

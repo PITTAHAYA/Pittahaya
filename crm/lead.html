@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+  <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
+  <meta name="rights" content="Diseño, textos, demos, marca, imágenes y experiencia digital protegidos por derechos de autor. Prohibida su reproducción o uso no autorizado." />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>Pittahaya CRM · Lead</title>
@@ -106,6 +108,7 @@
   .badge-contacted { background:rgba(139,92,246,0.15); color:#a78bfa; }
   .badge-qualified { background:rgba(245,158,11,0.15); color:#fbbf24; }
   .badge-proposal  { background:rgba(249,115,22,0.15); color:#fb923c; }
+  .badge-proposal_sent { background:rgba(249,115,22,0.15); color:#fb923c; }
   .badge-won       { background:rgba(16,185,129,0.15); color:#34d399; }
   .badge-lost      { background:rgba(239,68,68,0.15); color:#f87171; }
   .dot { display:inline-block; width:8px; height:8px; border-radius:50%; flex-shrink:0; }
@@ -143,11 +146,14 @@
   .task-delete { background: none; border: none; color: #555; cursor: pointer; font-size: 11px; transition: color 0.2s; padding: 2px 4px; }
   .task-delete:hover { color: #ef4444; }
 
-  input[type="text"], input[type="date"] {
+  input[type="text"], input[type="date"], input[type="number"] {
     background: var(--onyx-4); border: 1px solid var(--border); color: #e5e5e5;
     font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 9px 12px;
-    border-radius: 1px; outline: none; transition: border-color 0.2s; width: 100%;
+    border-radius: 1px; outline: none; transition: border-color 0.2s; width: 100%; box-sizing: border-box;
   }
+  .stage-bar { display: flex; gap: 4px; margin: 4px 0 12px; }
+  .stage-bar span { flex: 1; height: 4px; border-radius: 2px; background: var(--onyx-4); }
+  .stage-bar span.on { background: var(--gold); }
   input:focus { border-color: var(--border-gold); }
 
   .add-row { display: flex; gap: 8px; margin-top: 12px; }
@@ -286,6 +292,7 @@ function renderPage(lead, notes, tasks) {
         </div>
       </div>
       <div class="header-actions">
+        <a href="/crm/invoice.html?id=${lead.id}" class="btn">Factura / Recibo</a>
         <a href="mailto:${esc(lead.email)}" class="btn">Enviar email</a>
       </div>
     </div>
@@ -361,6 +368,59 @@ function renderPage(lead, notes, tasks) {
           <button class="save-btn" id="saveStatusBtn" onclick="saveStatus()">Guardar cambios</button>
         </div>
 
+        <!-- Finanzas y avance -->
+        <div class="card">
+          <div class="card-title">Finanzas y avance</div>
+          <div class="stage-bar" title="Avance del proyecto">
+            ${['diagnosis','design','review','launch','delivered'].map(st => {
+              const order = ['diagnosis','design','review','launch','delivered'];
+              const on = lead.project_stage && order.indexOf(lead.project_stage) >= order.indexOf(st);
+              return `<span class="${on?'on':''}"></span>`;
+            }).join('')}
+          </div>
+          <div class="select-row">
+            <div class="select-group">
+              <label>Valor del trato</label>
+              <input type="number" id="fDeal" min="0" step="any" value="${lead.deal_value != null ? lead.deal_value : ''}" placeholder="0">
+            </div>
+            <div class="select-group">
+              <label>Pagado</label>
+              <input type="number" id="fPaid" min="0" step="any" value="${lead.amount_paid != null ? lead.amount_paid : ''}" placeholder="0">
+            </div>
+          </div>
+          <div class="select-row" style="margin-top:12px">
+            <div class="select-group">
+              <label>Estado de pago</label>
+              <select id="fPayment">
+                <option value="unpaid"  ${lead.payment_status==='unpaid'?'selected':''}>Sin pagar</option>
+                <option value="deposit" ${lead.payment_status==='deposit'?'selected':''}>Anticipo</option>
+                <option value="partial" ${lead.payment_status==='partial'?'selected':''}>Parcial</option>
+                <option value="paid"    ${lead.payment_status==='paid'?'selected':''}>Pagado ✓</option>
+              </select>
+            </div>
+            <div class="select-group">
+              <label>Moneda</label>
+              <input type="text" id="fCurrency" value="${esc(lead.currency || 'USD')}" maxlength="6">
+            </div>
+          </div>
+          <div class="select-group" style="margin-top:12px">
+            <label>Etapa del proyecto</label>
+            <select id="fStage">
+              <option value=""           ${!lead.project_stage?'selected':''}>— Sin iniciar</option>
+              <option value="diagnosis"  ${lead.project_stage==='diagnosis'?'selected':''}>Diagnóstico</option>
+              <option value="design"     ${lead.project_stage==='design'?'selected':''}>Diseño</option>
+              <option value="review"     ${lead.project_stage==='review'?'selected':''}>Revisión</option>
+              <option value="launch"     ${lead.project_stage==='launch'?'selected':''}>Publicación</option>
+              <option value="delivered"  ${lead.project_stage==='delivered'?'selected':''}>Entregado ✓</option>
+            </select>
+          </div>
+          <div class="select-group" style="margin-top:12px">
+            <label>Próximo seguimiento</label>
+            <input type="date" id="fFollowup" value="${(lead.next_followup || '').slice(0,10)}">
+          </div>
+          <button class="save-btn" id="saveFinanceBtn" onclick="saveFinance()">Guardar finanzas</button>
+        </div>
+
         <!-- Tasks -->
         <div class="card">
           <div class="card-title">Tareas y recordatorios</div>
@@ -381,7 +441,7 @@ function renderPage(lead, notes, tasks) {
             <a href="mailto:${esc(lead.email)}?subject=Propuesta Pittahaya para ${esc(lead.company || lead.name)}" class="btn" style="justify-content:center; width:100%;">
               Enviar propuesta por email
             </a>
-            <a href="https://wa.me/${lead.phone?.replace(/\D/g,'')}?text=Hola ${encodeURIComponent(lead.name.split(' ')[0])}, te contacto de Pittahaya..." class="btn" target="_blank" style="justify-content:center; width:100%; ${!lead.phone?'opacity:0.4;pointer-events:none':''}">
+            <a href="https://wa.me/${lead.phone?.replace(/\D/g,'')}?text=Hola ${encodeURIComponent(lead.name.split(' ')[0])}, te contacto de Pittahaya..." class="btn" target="_blank" rel="noopener noreferrer" style="justify-content:center; width:100%; ${!lead.phone?'opacity:0.4;pointer-events:none':''}">
               WhatsApp
             </a>
           </div>
@@ -435,6 +495,24 @@ async function saveStatus() {
     toast('Estado actualizado');
   } catch(e) { toast('Error: ' + e.message, true); }
   btn.disabled = false; btn.textContent = 'Guardar cambios';
+}
+
+async function saveFinance() {
+  const btn = document.getElementById('saveFinanceBtn');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  try {
+    await api({ action: 'lead', id: leadId }, 'PATCH', {
+      deal_value:     document.getElementById('fDeal').value || 0,
+      amount_paid:    document.getElementById('fPaid').value || 0,
+      currency:       document.getElementById('fCurrency').value || 'USD',
+      payment_status: document.getElementById('fPayment').value,
+      project_stage:  document.getElementById('fStage').value,
+      next_followup:  document.getElementById('fFollowup').value || ''
+    });
+    toast('Finanzas actualizadas');
+    setTimeout(() => loadLead(), 600); // refresh the progress bar
+  } catch(e) { toast('Error: ' + e.message, true); }
+  btn.disabled = false; btn.textContent = 'Guardar finanzas';
 }
 
 async function addNote() {

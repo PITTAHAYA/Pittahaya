@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+  <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
+  <meta name="rights" content="Diseño, textos, demos, marca, imágenes y experiencia digital protegidos por derechos de autor. Prohibida su reproducción o uso no autorizado." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Pittahaya CRM · Factura</title>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --gold:#c9943a; --ink:#1a1a1a; --muted:#6b7280; --line:#e5e7eb; --magenta:#e83487; }
+  body { font-family:'Manrope',sans-serif; background:#f3f4f6; color:var(--ink); padding:28px 16px 60px; }
+
+  /* Controls (not printed) */
+  .controls { max-width:780px; margin:0 auto 18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .controls .spacer { flex:1; }
+  .ctrl-btn { padding:9px 16px; border-radius:7px; border:1px solid #d1d5db; background:#fff; color:var(--ink); font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:7px; }
+  .ctrl-btn:hover { border-color:var(--gold); }
+  .ctrl-btn.primary { background:linear-gradient(135deg,var(--gold),#e8c97a); color:#1a0f00; border-color:transparent; }
+  .ctrl-btn select, .doc-type { font-family:'Manrope',sans-serif; font-size:13px; font-weight:600; border:1px solid #d1d5db; border-radius:7px; padding:9px 12px; background:#fff; color:var(--ink); cursor:pointer; }
+
+  /* Invoice document */
+  .invoice { max-width:780px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:8px; padding:46px 48px; box-shadow:0 10px 40px rgba(0,0,0,.06); }
+  .inv-top { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; border-bottom:2px solid var(--ink); padding-bottom:22px; margin-bottom:26px; }
+  .inv-brand { display:flex; align-items:center; gap:12px; }
+  .inv-brand img { width:54px; height:54px; object-fit:contain; }
+  .inv-brand .bn { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; line-height:1; }
+  .inv-brand .bs { font-size:11px; color:var(--muted); margin-top:3px; }
+  .inv-doc { text-align:right; }
+  .inv-doc h1 { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:700; letter-spacing:.04em; color:var(--gold); }
+  .inv-meta { font-size:12.5px; color:var(--muted); margin-top:6px; line-height:1.7; }
+  .inv-meta input { font:inherit; color:var(--ink); border:none; border-bottom:1px dashed #cbd5e1; text-align:right; width:130px; padding:1px 2px; background:transparent; }
+  .inv-meta input:focus { outline:none; border-bottom-color:var(--gold); }
+
+  .inv-parties { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:26px; }
+  .inv-party h4 { font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .inv-party .pl { font-size:14px; line-height:1.65; }
+  .inv-party .pl strong { font-size:15px; }
+  [contenteditable]:focus { outline:1px dashed var(--gold); outline-offset:2px; border-radius:2px; }
+
+  table.items { width:100%; border-collapse:collapse; margin-bottom:18px; }
+  table.items thead th { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-align:left; padding:10px 8px; border-bottom:1.5px solid var(--ink); }
+  table.items thead th.num { text-align:right; }
+  table.items td { padding:11px 8px; border-bottom:1px solid var(--line); font-size:13.5px; vertical-align:top; }
+  table.items td.num { text-align:right; white-space:nowrap; }
+  table.items input { font:inherit; border:none; background:transparent; width:100%; color:var(--ink); }
+  table.items input:focus { outline:none; }
+  table.items input.qty, table.items input.price { text-align:right; border-bottom:1px dashed #cbd5e1; }
+  table.items input:focus.qty, table.items input:focus.price { border-bottom-color:var(--gold); }
+  .row-del { background:none; border:none; color:#cbd5e1; cursor:pointer; font-size:14px; }
+  .row-del:hover { color:#ef4444; }
+  .add-line { font-size:12.5px; color:var(--gold); background:none; border:none; cursor:pointer; font-weight:600; padding:4px 0; }
+
+  .inv-bottom { display:flex; justify-content:space-between; gap:30px; margin-top:8px; }
+  .inv-notes { flex:1; font-size:12.5px; color:var(--muted); line-height:1.6; }
+  .inv-notes h4 { font-size:10px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:6px; color:var(--muted); }
+  .inv-totals { width:280px; }
+  .tt-row { display:flex; justify-content:space-between; padding:7px 0; font-size:13.5px; }
+  .tt-row.muted { color:var(--muted); }
+  .tt-row input { font:inherit; width:90px; text-align:right; border:none; border-bottom:1px dashed #cbd5e1; background:transparent; color:var(--ink); }
+  .tt-row input:focus { outline:none; border-bottom-color:var(--gold); }
+  .tt-total { border-top:2px solid var(--ink); margin-top:6px; padding-top:12px; font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; }
+  .tt-balance { font-weight:700; color:var(--magenta); }
+  .tt-balance.paid { color:#15803d; }
+  .inv-foot { margin-top:34px; padding-top:18px; border-top:1px solid var(--line); text-align:center; font-size:11.5px; color:var(--muted); }
+
+  @media print {
+    body { background:#fff; padding:0; }
+    .controls { display:none !important; }
+    .invoice { box-shadow:none; border:none; border-radius:0; margin:0; max-width:100%; padding:24px 14px; }
+    input, [contenteditable] { border:none !important; }
+    table.items input.qty, table.items input.price, .tt-row input, .inv-meta input { border-bottom:none !important; }
+    .row-del, .add-line { display:none !important; }
+  }
+  @media (max-width:680px){ .inv-parties{ grid-template-columns:1fr; } .inv-bottom{ flex-direction:column; } .inv-totals{ width:100%; } .invoice{ padding:30px 22px; } }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <a class="ctrl-btn" id="backLink" href="/crm/index.html">← Volver</a>
+  <select class="doc-type" id="docType" onchange="setDocType()">
+    <option value="FACTURA">Factura</option>
+    <option value="RECIBO">Recibo</option>
+  </select>
+  <div class="spacer"></div>
+  <button class="ctrl-btn primary" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+</div>
+
+<div class="invoice" id="invoice">
+  <div class="loading" style="text-align:center;color:var(--muted);padding:40px">Cargando…</div>
+</div>
+
+<script>
+const API_BASE = '/api/crm';
+let sb, authToken = null, leadId = null, lead = null;
+
+async function loadCrmConfig() {
+  const res = await fetch('/api/crm-config', { headers: { 'Accept': 'application/json' } });
+  const config = await res.json().catch(() => ({}));
+  if (!res.ok || !config.supabaseUrl || !config.supabaseAnonKey) throw new Error(config.error || 'CRM no configurado.');
+  return config;
+}
+async function api(params) {
+  const url = API_BASE + '?' + new URLSearchParams(params);
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' } });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function money(n){ n=Number(n)||0; return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+async function init() {
+  try {
+    const config = await loadCrmConfig();
+    sb = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) { window.location.href = '/crm/login.html'; return; }
+    authToken = session.access_token;
+    leadId = new URLSearchParams(location.search).get('id');
+    if (!leadId) { window.location.href = '/crm/index.html'; return; }
+    document.getElementById('backLink').href = '/crm/lead.html?id=' + leadId;
+    const data = await api({ action: 'lead', id: leadId });
+    lead = data.lead;
+    render();
+  } catch (e) {
+    document.getElementById('invoice').innerHTML =
+      '<div style="text-align:center;color:#b91c1c;padding:40px">Error: ' + esc(e.message||e) + ' &nbsp; <a href="/crm/index.html" style="color:var(--gold)">Volver</a></div>';
+  }
+}
+
+function render() {
+  const today = new Date().toISOString().slice(0,10);
+  const num = 'PIT-' + today.replace(/-/g,'') + '-' + String(lead.id || '').slice(0,4).toUpperCase();
+  const service = lead.service || 'Diseño web premium';
+  const deal = Number(lead.deal_value) || 0;
+  const paid = Number(lead.amount_paid) || 0;
+  const cur  = lead.currency || 'USD';
+
+  document.getElementById('invoice').innerHTML = `
+    <div class="inv-top">
+      <div class="inv-brand">
+        <img src="/assets/pitahaya-logo.png" alt="Pittahaya">
+        <div>
+          <div class="bn">Pittahaya</div>
+          <div class="bs">Diseño web premium &amp; automatización con IA</div>
+        </div>
+      </div>
+      <div class="inv-doc">
+        <h1 id="docTitle">FACTURA</h1>
+        <div class="inv-meta">
+          N.º <input id="invNum" value="${esc(num)}"><br>
+          Fecha <input id="invDate" type="date" value="${today}"><br>
+          Moneda <input id="invCur" value="${esc(cur)}" style="width:70px">
+        </div>
+      </div>
+    </div>
+
+    <div class="inv-parties">
+      <div class="inv-party">
+        <h4>De</h4>
+        <div class="pl" contenteditable="true"><strong>Pittahaya</strong><br>jfmcorp@jfmcorporation.com<br>www.pittahaya.com</div>
+      </div>
+      <div class="inv-party">
+        <h4>Facturar a</h4>
+        <div class="pl" contenteditable="true"><strong>${esc(lead.name)}</strong>${lead.company ? '<br>'+esc(lead.company) : ''}<br>${esc(lead.email)}${lead.phone ? '<br>'+esc(lead.phone) : ''}</div>
+      </div>
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr><th style="width:55%">Descripción</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">Total</th><th></th></tr>
+      </thead>
+      <tbody id="itemsBody"></tbody>
+    </table>
+    <button class="add-line" onclick="addItem()">+ Agregar línea</button>
+
+    <div class="inv-bottom">
+      <div class="inv-notes">
+        <h4>Notas / condiciones</h4>
+        <div contenteditable="true">Gracias por confiar en Pittahaya. Pago por transferencia o el medio acordado. Cualquier consulta, escríbenos a jfmcorp@jfmcorporation.com.</div>
+      </div>
+      <div class="inv-totals">
+        <div class="tt-row muted"><span>Subtotal</span><span id="ttSubtotal">$0.00</span></div>
+        <div class="tt-row muted"><span>IVA (<input id="ttTaxPct" type="number" min="0" step="any" value="0" style="width:46px" oninput="recompute()">%)</span><span id="ttTax">$0.00</span></div>
+        <div class="tt-row tt-total"><span>Total</span><span id="ttTotal">$0.00</span></div>
+        <div class="tt-row muted"><span>Pagado</span><span>$<input id="ttPaid" type="number" min="0" step="any" value="${paid}" oninput="recompute()"></span></div>
+        <div class="tt-row"><span id="balLabel">Saldo pendiente</span><span class="tt-balance" id="ttBalance">$0.00</span></div>
+      </div>
+    </div>
+
+    <div class="inv-foot">Pittahaya · pittahaya.com · Documento generado desde el CRM</div>
+  `;
+
+  // First line item prefilled from the deal.
+  itemsBodyRows = [{ desc: service, qty: 1, price: deal }];
+  renderItems();
+  recompute();
+}
+
+let itemsBodyRows = [];
+function renderItems() {
+  const tb = document.getElementById('itemsBody');
+  tb.innerHTML = itemsBodyRows.map((r, i) => `
+    <tr>
+      <td><input value="${esc(r.desc)}" oninput="itemsBodyRows[${i}].desc=this.value"></td>
+      <td class="num"><input class="qty" type="number" min="0" step="any" value="${r.qty}" oninput="itemsBodyRows[${i}].qty=this.value; recompute()"></td>
+      <td class="num"><input class="price" type="number" min="0" step="any" value="${r.price}" oninput="itemsBodyRows[${i}].price=this.value; recompute()"></td>
+      <td class="num" id="lineTotal${i}">$0.00</td>
+      <td>${itemsBodyRows.length > 1 ? `<button class="row-del" onclick="removeItem(${i})" title="Quitar">✕</button>` : ''}</td>
+    </tr>`).join('');
+  recompute();
+}
+function addItem(){ itemsBodyRows.push({ desc:'', qty:1, price:0 }); renderItems(); }
+function removeItem(i){ itemsBodyRows.splice(i,1); renderItems(); }
+
+function recompute() {
+  let subtotal = 0;
+  itemsBodyRows.forEach((r, i) => {
+    const lt = (Number(r.qty)||0) * (Number(r.price)||0);
+    subtotal += lt;
+    const cell = document.getElementById('lineTotal'+i);
+    if (cell) cell.textContent = money(lt);
+  });
+  const taxPct = Number(document.getElementById('ttTaxPct').value) || 0;
+  const tax = subtotal * taxPct / 100;
+  const total = subtotal + tax;
+  const paid = Number(document.getElementById('ttPaid').value) || 0;
+  const balance = total - paid;
+  document.getElementById('ttSubtotal').textContent = money(subtotal);
+  document.getElementById('ttTax').textContent      = money(tax);
+  document.getElementById('ttTotal').textContent    = money(total);
+  const bal = document.getElementById('ttBalance');
+  bal.textContent = money(Math.max(0, balance));
+  const label = document.getElementById('balLabel');
+  if (balance <= 0.001) { bal.classList.add('paid'); label.textContent = 'Pagado ✓'; }
+  else { bal.classList.remove('paid'); label.textContent = 'Saldo pendiente'; }
+}
+
+function setDocType() {
+  const v = document.getElementById('docType').value;
+  document.getElementById('docTitle').textContent = v;
+  document.title = 'Pittahaya CRM · ' + (v === 'RECIBO' ? 'Recibo' : 'Factura');
+}
+
+init();
+</script>
+</body>
+</html>

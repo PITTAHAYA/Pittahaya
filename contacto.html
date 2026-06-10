@@ -23,7 +23,7 @@
   <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#07080b" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' https://challenges.cloudflare.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/contacto.html" />
   <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/contact.html" />
@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css?v=m8" />
+  <link rel="stylesheet" href="assets/styles.css?v=m26" />
   <link rel="icon" href="assets/pitahaya-logo.png" />
   <link rel="apple-touch-icon" href="assets/pitahaya-logo.png" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
@@ -51,6 +51,7 @@
     <nav class="nav" aria-label="Navegación principal">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">IA</a>
       <a data-nav href="planes.html">Planes</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -78,6 +79,7 @@
     <div class="drawer-links">
       <a data-nav href="index.html">Inicio</a>
       <a data-nav href="servicios.html">Servicios</a>
+      <a data-nav href="automatizacion.html">Automatización con IA</a>
       <a data-nav href="planes.html">Planes / Precios</a>
       <a data-nav href="portafolio.html">Portafolio</a>
       <a data-nav href="sobre-mi.html">Sobre nosotros</a>
@@ -127,13 +129,16 @@
                 <label for="plan">Qué necesitas</label>
                 <select id="plan" name="plan" required>
                   <option value="">Selecciona una opción</option>
-                  <option>Web empresarial</option>
-                  <option>Landing page de ventas</option>
-                  <option>Rediseño premium</option>
+                  <option>Diseño web premium</option>
+                  <option>Automatización con IA (chatbots y agentes)</option>
+                  <option>Web + IA (sistema completo)</option>
+                  <option>Tienda online / e-commerce</option>
+                  <option>Rediseño de mi web actual</option>
                   <option>No estoy seguro, necesito guía</option>
                 </select>
               </div>
               <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntame sobre tu negocio y qué tipo de web necesitas" required></textarea></div>
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAADgGWC4hAMxeoWfL" data-theme="dark"></div>
               <button class="btn btn-gold" type="submit">Enviar solicitud</button>
               <p class="form-status" data-form-status hidden></p>
             </form>
@@ -183,7 +188,8 @@
     </div>
   </div>
 </footer>
-<script src="assets/app.js?v=m9" defer></script>
-<script src="assets/chatbot.js?v=v7" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="assets/app.js?v=m15" defer></script>
+<script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

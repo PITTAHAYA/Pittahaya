@@ -259,6 +259,121 @@ const sendAdminNotification = async (lead, leadId) => {
   }
 };
 
+// ── Auto-confirmation email sent to the LEAD (the customer) ──────
+// Branded, bilingual (ES/EN by source page), reply-to = company inbox so
+// any reply lands in Gmail. Never throws — a mail failure must not break
+// the lead save or the success response.
+const sendLeadConfirmation = async (lead) => {
+  if (!process.env.RESEND_API_KEY) return;
+  if (!isEmail(lead.email)) return;
+
+  const fromEmail = process.env.LEAD_FROM_EMAIL || "Pittahaya <noreply@jfmcorporation.com>";
+  const replyTo   = process.env.LEAD_TO_EMAIL || "jfmcorp@jfmcorporation.com";
+  const inEn      = /\/en\//.test(lead.source_page || "");
+  const firstName = (lead.name || "").trim().split(/\s+/)[0] || "";
+  const safeName  = escapeHtml(firstName);
+  const safeService = escapeHtml(lead.service || "");
+
+  const t = inEn ? {
+    subject: "We got your message — Pittahaya",
+    hi: safeName ? `Hi ${safeName} 👋` : "Hi there 👋",
+    p1: "Thanks for reaching out to Pittahaya. We've received your request and a real person on our team will reply within 24 hours.",
+    p2: safeService ? `What you told us you need: <strong>${safeService}</strong>.` : "",
+    p3: "In the meantime, feel free to reply to this email with anything you'd like to add — it comes straight to us.",
+    cta: "While you wait, take a look at our work:",
+    ctaLabel: "See our demos",
+    ctaUrl: "https://www.pittahaya.com/en/portfolio.html",
+    sign: "— The Pittahaya team",
+    foot: "Premium websites & AI automation · pittahaya.com"
+  } : {
+    subject: "Recibimos tu mensaje — Pittahaya",
+    hi: safeName ? `¡Hola ${safeName}! 👋` : "¡Hola! 👋",
+    p1: "Gracias por escribir a Pittahaya. Recibimos tu solicitud y una persona real de nuestro equipo te responderá en menos de 24 horas.",
+    p2: safeService ? `Lo que nos contaste que necesitas: <strong>${safeService}</strong>.` : "",
+    p3: "Mientras tanto, puedes responder a este correo con cualquier detalle que quieras agregar — nos llega directo.",
+    cta: "Mientras esperas, mira nuestro trabajo:",
+    ctaLabel: "Ver nuestros demos",
+    ctaUrl: "https://www.pittahaya.com/portafolio.html",
+    sign: "— El equipo de Pittahaya",
+    foot: "Webs premium y automatización con IA · pittahaya.com"
+  };
+
+  const html = `
+    <div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;background:#0c0d12;border:1px solid #1e2030;border-radius:14px;overflow:hidden">
+      <div style="height:4px;background:linear-gradient(90deg,#e6bf74,#e83487)"></div>
+      <div style="padding:28px 26px">
+        <h2 style="margin:0 0 14px;font-size:20px;color:#f6efe2">${t.hi}</h2>
+        <p style="margin:0 0 14px;line-height:1.6;color:#c7ccd8">${t.p1}</p>
+        ${t.p2 ? `<p style="margin:0 0 14px;line-height:1.6;color:#c7ccd8">${t.p2}</p>` : ""}
+        <p style="margin:0 0 22px;line-height:1.6;color:#c7ccd8">${t.p3}</p>
+        <p style="margin:0 0 10px;line-height:1.6;color:#9aa1b2;font-size:14px">${t.cta}</p>
+        <a href="${t.ctaUrl}" style="display:inline-block;background:linear-gradient(135deg,#e6bf74,#e83487);color:#0a0a0a;text-decoration:none;font-weight:700;padding:11px 20px;border-radius:8px;font-size:14px">${t.ctaLabel}</a>
+        <p style="margin:26px 0 0;color:#f6efe2;font-weight:600">${t.sign}</p>
+      </div>
+      <div style="padding:14px 26px;background:#080910;color:#5f6678;font-size:12px;border-top:1px solid #1e2030">${t.foot}</div>
+    </div>
+  `;
+
+  const text = [
+    t.hi.replace(/[👋]/g, "").trim(),
+    "",
+    t.p1,
+    t.p2 ? t.p2.replace(/<[^>]+>/g, "") : "",
+    t.p3,
+    "",
+    t.sign,
+    "pittahaya.com"
+  ].filter(Boolean).join("\n");
+
+  try {
+    const response = await fetch(RESEND_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+        "Idempotency-Key": randomUUID(),
+        "User-Agent": "pittahaya-crm-lead-confirm/1.0"
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [lead.email],
+        reply_to: replyTo,
+        subject: t.subject,
+        html,
+        text
+      })
+    });
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
+      console.error("Resend lead confirmation failed", response.status, errorText.slice(0, 300));
+    }
+  } catch (err) {
+    console.error("Resend lead confirmation error", String(err && err.message || err).slice(0, 200));
+  }
+};
+
+// Cloudflare Turnstile verification. Returns true if the token is valid — or
+// if Turnstile isn't configured yet (no secret), so the site never breaks
+// before keys are added. Fails OPEN on a network error to Cloudflare so an
+// outage can't cost you a real lead (honeypot + timing trap still apply).
+const verifyTurnstile = async (token, ip) => {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true;   // not configured yet → skip
+  if (!token) return false;   // configured but no token → block
+  try {
+    const resp = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: String(token), remoteip: ip || "" })
+    });
+    const data = await resp.json().catch(() => ({}));
+    return !!(data && data.success === true);
+  } catch (err) {
+    console.error("Turnstile verify error (failing open)", String((err && err.message) || err).slice(0, 200));
+    return true; // fail open on network error — don't lose real leads
+  }
+};
+
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") {
     Object.entries(responseHeaders).forEach(([key, value]) => res.setHeader(key, value));
@@ -290,15 +405,38 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 200, { success: true, ok: true, message: "Solicitud recibida." });
   }
 
+  // Submit-timing trap: no human fills and submits a form in under ~2.5s.
+  // Treat like the honeypot — pretend success so bots don't learn, but discard.
+  const fillMs = parseInt(body.fill_ms, 10);
+  if (Number.isFinite(fillMs) && fillMs >= 0 && fillMs < 2500) {
+    return sendJson(res, 200, { success: true, ok: true, message: "Solicitud recibida." });
+  }
+
   const lead = mapLead(body, req);
   if (!lead.name || !isEmail(lead.email) || !lead.company || !lead.service || !lead.message) {
     return sendJson(res, 422, { success: false, ok: false, error: "Completa todos los campos antes de enviar." });
   }
 
+  // Cloudflare Turnstile — real human verification (a bot cannot forge a valid
+  // token). Only enforced once TURNSTILE_SECRET_KEY is set in Vercel; before
+  // that it's skipped so the forms keep working with the honeypot + timing trap.
+  const turnstileOk = await verifyTurnstile(body.turnstile_token, getClientIp(req));
+  if (!turnstileOk) {
+    return sendJson(res, 403, {
+      success: false, ok: false,
+      error: "No pudimos verificar que eres una persona. Recarga la página e intenta de nuevo. / We couldn't verify you're human. Please reload and try again."
+    });
+  }
+
   try {
     const savedLead = await insertLead(lead);
     const leadId = savedLead?.id || null;
-    await sendAdminNotification(lead, leadId);
+    // Notify you, and auto-confirm to the customer. Both are best-effort and
+    // run in parallel; neither can break the lead save (errors are caught).
+    await Promise.allSettled([
+      sendAdminNotification(lead, leadId),
+      sendLeadConfirmation(lead)
+    ]);
 
     return sendJson(res, 200, {
       success: true,

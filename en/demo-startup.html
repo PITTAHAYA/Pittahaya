@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="copyright" content="© Pittahaya. All rights reserved." />
+  <meta name="rights" content="Design, copy, demos, brand, images and digital experience protected by copyright. Unauthorized reproduction or use is prohibited." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#050714" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
@@ -115,9 +117,13 @@ small{color:rgba(230,236,255,.5)}
 @media (max-width:620px){.hero{padding:60px 0 60px}.mark span{display:none}.metricsGrid{grid-template-columns:1fr}.dashMock{aspect-ratio:4/5}.finalCta{padding:54px 22px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.terminal{font-size:11.5px;padding:14px}}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}[data-reveal]{opacity:1;transform:none}}
   /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-[data-fx-letters]:not(.fx-ready){visibility:hidden}
-  </style>
-<noscript><style>[data-fx-letters]{visibility:visible !important}</style><!--fx-letters-noscript-fallback--></noscript>
+/* Headline shows instantly from first paint — no JS-driven reveals to glitch on cold load. */
+[data-fx-letters]{opacity:1}
+  
+/* force-instant-reveal: avoid any first-paint flicker on cold load. */
+/* reveals are JS-driven (initReveal reveals above-the-fold synchronously, animates the rest on scroll) */
+</style>
+<noscript><style>[data-fx-letters]{visibility:visible !important}[data-reveal]{opacity:1 !important;transform:none !important}</style><!--fx-letters-noscript-fallback--></noscript>
 </head>
 <body>
 
@@ -151,7 +157,15 @@ small{color:rgba(230,236,255,.5)}
 
       <div class="terminal">
         <div class="terminalDots"><span></span><span></span><span></span></div>
-        <div class="terminalBody" data-fx-typewriter="$ pittahaya init --product=&quot;saas&quot; --tier=&quot;premium&quot;|✓ Brand kit generated|✓ Component library scaffolded|✓ Auth flow wired|✓ Stripe integration ready|> deploy: https://launch.pittahaya.com|> status: live · 99.98% uptime|> first paint: 0.42s|✓ Ready to scale." data-fx-speed="22" data-fx-delay="600">$ pittahaya init</div>
+        <div class="terminalBody">$ pittahaya init --product="saas" --tier="premium"
+<span style="color:var(--lime)">✓</span> Brand kit generated
+<span style="color:var(--lime)">✓</span> Component library scaffolded
+<span style="color:var(--lime)">✓</span> Auth flow wired
+<span style="color:var(--lime)">✓</span> Stripe integration ready
+<span style="color:var(--cyan)">&gt;</span> deploy: https://launch.pittahaya.com
+<span style="color:var(--cyan)">&gt;</span> status: live · 99.98% uptime
+<span style="color:var(--cyan)">&gt;</span> first paint: 0.42s
+<span style="color:var(--lime)">✓</span> Ready to scale.</div>
       </div>
     </div>
   </section>
@@ -163,10 +177,10 @@ small{color:rgba(230,236,255,.5)}
         <p>Before reading the deck, someone technical looks at your site and measures three things: speed, product clarity, and team professionalism. Those three decide whether the next meeting happens.</p>
       </div>
       <div class="metricsGrid" data-reveal>
-        <div class="metric"><span class="metricLabel">First paint</span><div class="metricValue" data-fx-count="0.42" data-fx-suffix="s">0</div><span class="metricDelta">↑ 38% vs sector avg</span></div>
-        <div class="metric"><span class="metricLabel">Conversion to demo</span><div class="metricValue" data-fx-count="14.8" data-fx-suffix="%">0</div><span class="metricDelta">↑ 4.2× vs generic landing</span></div>
-        <div class="metric"><span class="metricLabel">Lighthouse score</span><div class="metricValue" data-fx-count="98" data-fx-suffix="">0</div><span class="metricDelta">↑ Performance + SEO</span></div>
-        <div class="metric"><span class="metricLabel">Time on page</span><div class="metricValue" data-fx-count="2.4" data-fx-suffix="m">0</div><span class="metricDelta">↑ High engagement</span></div>
+        <div class="metric"><span class="metricLabel">First paint</span><div class="metricValue" data-fx-count="0.42" data-fx-suffix="s">0.42s</div><span class="metricDelta">↑ 38% vs sector avg</span></div>
+        <div class="metric"><span class="metricLabel">Conversion to demo</span><div class="metricValue" data-fx-count="14.8" data-fx-suffix="%">14.8%</div><span class="metricDelta">↑ 4.2× vs generic landing</span></div>
+        <div class="metric"><span class="metricLabel">Lighthouse score</span><div class="metricValue" data-fx-count="98" data-fx-suffix="">98</div><span class="metricDelta">↑ Performance + SEO</span></div>
+        <div class="metric"><span class="metricLabel">Time on page</span><div class="metricValue" data-fx-count="2.4" data-fx-suffix="m">2.4m</div><span class="metricDelta">↑ High engagement</span></div>
       </div>
     </div>
   </section>
@@ -195,13 +209,13 @@ small{color:rgba(230,236,255,.5)}
         <div class="dashMock">
           <div class="dashHeader"><span>dashboard.pittahaya.app</span><span>live</span></div>
           <div class="dashCard big">
-            <div><small>Revenue MRR</small><strong data-fx-count="84.2" data-fx-prefix="$" data-fx-suffix="K">0</strong></div>
+            <div><small>Revenue MRR</small><strong data-fx-count="84.2" data-fx-prefix="$" data-fx-suffix="K">$84.2K</strong></div>
             <svg class="dashSpark" viewBox="0 0 200 30"><path d="M 0 22 L 24 18 L 48 20 L 72 12 L 96 14 L 120 8 L 144 6 L 168 4 L 200 2" /></svg>
           </div>
-          <div class="dashCard"><small>Active users</small><strong data-fx-count="2.4" data-fx-suffix="k">0</strong></div>
-          <div class="dashCard"><small>Churn</small><strong data-fx-count="2.1" data-fx-suffix="%">0</strong></div>
-          <div class="dashCard"><small>Latency</small><strong data-fx-count="42" data-fx-suffix="ms">0</strong></div>
-          <div class="dashCard"><small>Deploys / day</small><strong data-fx-count="12" data-fx-suffix="">0</strong></div>
+          <div class="dashCard"><small>Active users</small><strong data-fx-count="2.4" data-fx-suffix="k">2.4k</strong></div>
+          <div class="dashCard"><small>Churn</small><strong data-fx-count="2.1" data-fx-suffix="%">2.1%</strong></div>
+          <div class="dashCard"><small>Latency</small><strong data-fx-count="42" data-fx-suffix="ms">42ms</strong></div>
+          <div class="dashCard"><small>Deploys / day</small><strong data-fx-count="12" data-fx-suffix="">12</strong></div>
         </div>
         <div class="dashCopy">
           <h3>The technical visitor needs to see the product in 6 seconds.</h3>
@@ -248,7 +262,7 @@ small{color:rgba(230,236,255,.5)}
   <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="../assets/demo-landing-fx.js?v=5" defer></script>
-<script src="../assets/chatbot.js?v=v7" defer></script>
+<script src="../assets/demo-landing-fx.js?v=13" defer></script>
+<script src="../assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>
