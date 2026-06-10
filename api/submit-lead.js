@@ -115,7 +115,9 @@ const parseBody = async (req) => {
 
 const mapLead = (body, req) => {
   const service = cleanText(body.service || body.servicio || body.plan || body.need, 120);
-  const plan = cleanText(body.crm_plan || body.selected_plan || body.package || "", 120);
+  // The contact form's "what you need" dropdown is the client's selection —
+  // surface it as the selected plan too (so the CRM "Plan seleccionado" fills).
+  const plan = cleanText(body.crm_plan || body.selected_plan || body.package || body.plan || body.service, 120);
   const message = cleanMessage(body.message || body.mensaje);
 
   let priority = "cold";
@@ -207,19 +209,28 @@ const sendAdminNotification = async (lead, leadId) => {
   const priorityLabel = { hot: "Hot", warm: "Warm", cold: "Cold" }[lead.priority] || "Cold";
 
   const safe = Object.fromEntries(Object.entries(lead).map(([key, value]) => [key, escapeHtml(value)]));
+  const prioColor = { Hot: "#ef4444", Warm: "#f59e0b", Cold: "#60a5fa" }[priorityLabel] || "#60a5fa";
+  const row = (label, value) => `<tr><td style="padding:7px 0;color:#6b7280;width:130px;vertical-align:top">${label}</td><td style="padding:7px 0;color:#111;font-weight:600;line-height:1.55">${value}</td></tr>`;
   const html = `
-    <div style="font-family:Arial,sans-serif;line-height:1.6;color:#151515">
-      <h2 style="margin:0 0 12px;color:#e83487">Nuevo lead guardado en Pittahaya CRM</h2>
-      <p><strong>Nombre:</strong> ${safe.name}</p>
-      <p><strong>Correo:</strong> <a href="mailto:${safe.email}">${safe.email}</a></p>
-      <p><strong>Negocio o marca:</strong> ${safe.company || "—"}</p>
-      <p><strong>Servicio:</strong> ${safe.service || "—"}</p>
-      <p><strong>Prioridad:</strong> ${escapeHtml(priorityLabel)}</p>
-      <p><strong>Fuente:</strong> ${safe.source_page || "—"}</p>
-      <p><strong>Mensaje:</strong><br>${escapeHtml(lead.message).replace(/\n/g, "<br>")}</p>
-      ${leadId ? `<p><a href="${escapeHtml(crmUrl)}">Ver lead en CRM</a></p>` : ""}
+  <div style="background:#f3f4f6;padding:24px;font-family:Arial,Helvetica,sans-serif">
+    <div style="max-width:540px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb">
+      <div style="height:5px;background:linear-gradient(90deg,#e6bf74,#e83487)"></div>
+      <div style="padding:26px 28px">
+        <p style="margin:0 0 6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9ca3af">Pittahaya · Nuevo lead</p>
+        <h2 style="margin:0 0 8px;font-size:23px;color:#111">${safe.name}</h2>
+        <span style="display:inline-block;font-size:11px;font-weight:700;color:#fff;background:${prioColor};border-radius:999px;padding:3px 11px;text-transform:uppercase;letter-spacing:.04em">${escapeHtml(priorityLabel)}</span>
+        <table style="width:100%;border-collapse:collapse;margin-top:18px;font-size:14px">
+          ${row("Correo", `<a href="mailto:${safe.email}" style="color:#e83487;font-weight:600;text-decoration:none">${safe.email}</a>`)}
+          ${lead.phone ? row("Teléfono", safe.phone) : ""}
+          ${row("Negocio", safe.company || "—")}
+          ${row("Servicio / Plan", safe.service || safe.plan || "—")}
+          ${row("Mensaje", `<span style="color:#374151;font-weight:400">${escapeHtml(lead.message).replace(/\n/g, "<br>")}</span>`)}
+          ${row("Fuente", `<span style="color:#9ca3af;font-weight:400;font-size:12px">${safe.source_page || "—"}</span>`)}
+        </table>
+        ${leadId ? `<a href="${escapeHtml(crmUrl)}" style="display:inline-block;margin-top:22px;background:linear-gradient(135deg,#e6bf74,#e83487);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:8px;font-size:14px">Ver lead en el CRM →</a>` : ""}
+      </div>
     </div>
-  `;
+  </div>`;
 
   const text = [
     "Nuevo lead guardado en Pittahaya CRM",
@@ -442,7 +453,7 @@ module.exports = async function handler(req, res) {
       success: true,
       ok: true,
       id: leadId,
-      message: "Solicitud guardada en el CRM. Te responderemos muy pronto."
+      message: "¡Gracias! Recibimos tu mensaje y te responderemos muy pronto."
     });
   } catch (error) {
     // Log full details server-side only; never leak to the client.

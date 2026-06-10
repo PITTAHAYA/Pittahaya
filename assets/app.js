@@ -631,7 +631,7 @@
       sendingStatus: "Sending your request securely…",
       errorGeneric:  "The request could not be sent.",
       errorRetry:    "The request could not be sent. Please try again.",
-      success:    "Request saved. We'll reply to you by email soon.",
+      success:    "Thank you! We got your message and we'll reply very soon. 🌱",
       submit:     "Send request"
     } : {
       meterReady: "Diagnóstico listo para enviar",
@@ -640,7 +640,7 @@
       sendingStatus: "Enviando tu solicitud de forma segura…",
       errorGeneric:  "No se pudo enviar la solicitud.",
       errorRetry:    "No se pudo enviar la solicitud. Intenta otra vez.",
-      success:    "Solicitud guardada. Te responderemos pronto en tu correo.",
+      success:    "¡Gracias! Recibimos tu mensaje y te responderemos muy pronto. 🌱",
       submit:     "Enviar solicitud"
     };
 
@@ -726,9 +726,8 @@
           throw new Error(result.message || result.error || M.errorGeneric);
         }
 
-        // On English pages, prefer the local English message over the
-        // server's Spanish one; on Spanish pages, use the server message.
-        setStatus(inEn ? M.success : (result.message || M.success), "success");
+        // Always show our own friendly, localized message (no internal/CRM wording).
+        setStatus(M.success, "success");
         leadForm.reset();
         updateFormMeter();
       } catch (error) {
