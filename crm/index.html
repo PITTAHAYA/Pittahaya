@@ -784,6 +784,7 @@
         <label class="nl-field">Teléfono<input type="text" id="nl-phone" autocomplete="off"></label>
         <label class="nl-field">Negocio<input type="text" id="nl-company" autocomplete="off"></label>
       </div>
+      <label class="nl-field">Redes sociales <em style="text-transform:none;letter-spacing:normal;color:var(--ash)">(Instagram, Facebook, etc.)</em><input type="text" id="nl-social" placeholder="@usuario · enlaces · etc." autocomplete="off"></label>
       <label class="nl-field">Servicio
         <select id="nl-service">
           <option value="">—</option>
@@ -913,6 +914,7 @@ async function saveNewLead() {
       name, email,
       phone:          val('nl-phone'),
       company:        val('nl-company'),
+      social:         val('nl-social'),
       service:        document.getElementById('nl-service').value,
       message:        val('nl-message'),
       priority:       document.getElementById('nl-priority').value,

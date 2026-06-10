@@ -371,6 +371,20 @@ function renderPage(lead, notes, tasks) {
           <button class="save-btn" id="saveStatusBtn" onclick="saveStatus()">Guardar cambios</button>
         </div>
 
+        <!-- Contacto (editable) -->
+        <div class="card">
+          <div class="card-title">Contacto</div>
+          <div class="select-group">
+            <label>Teléfono</label>
+            <input type="text" id="cPhone" value="${esc(lead.phone || '')}" placeholder="+593 99 999 9999">
+          </div>
+          <div class="select-group" style="margin-top:12px">
+            <label>Redes sociales</label>
+            <input type="text" id="cSocial" value="${esc(lead.social || '')}" placeholder="@instagram · Facebook · enlaces…">
+          </div>
+          <button class="save-btn" id="saveContactBtn" onclick="saveContact()">Guardar contacto</button>
+        </div>
+
         <!-- Finanzas y avance -->
         <div class="card">
           <div class="card-title">Finanzas y avance</div>
@@ -506,6 +520,19 @@ async function saveStatus() {
     toast('Estado actualizado');
   } catch(e) { toast('Error: ' + e.message, true); }
   btn.disabled = false; btn.textContent = 'Guardar cambios';
+}
+
+async function saveContact() {
+  const btn = document.getElementById('saveContactBtn');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  try {
+    await api({ action: 'lead', id: leadId }, 'PATCH', {
+      phone:  document.getElementById('cPhone').value,
+      social: document.getElementById('cSocial').value
+    });
+    toast('Contacto actualizado');
+  } catch (e) { toast('Error: ' + (e.message || e), true); }
+  btn.disabled = false; btn.textContent = 'Guardar contacto';
 }
 
 async function saveFinance() {

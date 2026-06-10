@@ -169,16 +169,17 @@ async function createLead(req, res) {
     source_demo: 'crm-manual',
     status:   statuses.includes(b.status) ? b.status : 'new',
     priority: priorities.includes(b.priority) ? b.priority : 'warm',
+    social:  sanitize(b.social, 400) || '',
     ip_address: '0.0.0.0',
     user_agent: 'CRM manual entry',
     ...financeFromBody(b)
   };
 
   let { data, error } = await supabase.from('leads').insert(lead).select().single();
-  // If the finance columns aren't migrated yet, insert the core fields only.
+  // If new columns aren't migrated yet, insert the core fields only.
   if (error && isSchemaError(error)) {
     const core = { ...lead };
-    FINANCE_FIELDS.forEach(f => delete core[f]);
+    [...FINANCE_FIELDS, 'social'].forEach(f => delete core[f]);
     ({ data, error } = await supabase.from('leads').insert(core).select().single());
   }
   if (error) return res.status(500).json({ error: error.message });
@@ -199,13 +200,14 @@ async function updateLead(req, res, id) {
   if (b.payment_status !== undefined && PAYMENT_STATUSES.includes(b.payment_status)) updates.payment_status = b.payment_status;
   if (b.project_stage  !== undefined && PROJECT_STAGES.includes(b.project_stage))    updates.project_stage  = b.project_stage;
   if (b.next_followup  !== undefined) updates.next_followup = (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null;
+  if (b.social !== undefined) updates.social = sanitize(b.social, 400) || '';
 
   if (!Object.keys(updates).length) return res.status(400).json({ error: 'Nada que actualizar' });
 
   let { error } = await supabase.from('leads').update(updates).eq('id', id);
   if (error && isSchemaError(error)) {
     const core = { ...updates };
-    FINANCE_FIELDS.forEach(f => delete core[f]);
+    [...FINANCE_FIELDS, 'social'].forEach(f => delete core[f]);
     if (Object.keys(core).length) ({ error } = await supabase.from('leads').update(core).eq('id', id));
   }
   if (error) return res.status(500).json({ error: error.message });
@@ -439,7 +441,7 @@ async function exportCSV(req, res) {
 
   if (error) return res.status(500).json({ error: error.message });
 
-  const headers = ['id','created_at','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','deal_value','amount_paid','currency','payment_status','project_stage','next_followup','utm_source','utm_medium','utm_campaign'];
+  const headers = ['id','created_at','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','social','deal_value','amount_paid','currency','payment_status','project_stage','next_followup','utm_source','utm_medium','utm_campaign'];
   const escape = (v) => {
     if (v == null) return '';
     const s = String(v).replace(/"/g, '""');
