@@ -304,10 +304,64 @@ async function createExpense(req, res) {
   return res.status(201).json({ expense: data });
 }
 
+async function updateExpense(req, res, id) {
+  const b = req.body || {};
+  const updates = {};
+  if (b.label !== undefined) { const l = sanitize(b.label, 200); if (l) updates.label = l; }
+  if (b.amount !== undefined) updates.amount = toMoney(b.amount);
+  if (b.category !== undefined && EXPENSE_CATEGORIES.includes(b.category)) updates.category = b.category;
+  if (b.cost_type !== undefined && COST_TYPES.includes(b.cost_type)) updates.cost_type = b.cost_type;
+  if (b.expense_date !== undefined && /^\d{4}-\d{2}-\d{2}$/.test(b.expense_date)) updates.expense_date = b.expense_date;
+  if (b.recurring !== undefined) updates.recurring = !!b.recurring;
+  if (!Object.keys(updates).length) return res.status(400).json({ error: 'Nada que actualizar' });
+  const { error } = await supabase.from('expenses').update(updates).eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+}
+
 async function deleteExpense(req, res, id) {
   const { error } = await supabase.from('expenses').delete().eq('id', id);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
+}
+
+// Monthly P&L for the last 6 months (for the trend chart).
+async function getMonthly(req, res) {
+  const now = new Date();
+  const keys = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+    keys.push(`${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`);
+  }
+  const acc = {};
+  keys.forEach(k => acc[k] = { month: k, revenue: 0, expenses: 0, profit: 0 });
+  try {
+    const { data: leads } = await supabase.from('leads').select('amount_paid, updated_at');
+    (leads || []).forEach(l => {
+      const k = String(l.updated_at || '').slice(0, 7);
+      if (acc[k]) acc[k].revenue += Number(l.amount_paid) || 0;
+    });
+  } catch (e) { /* finance columns not migrated */ }
+  try {
+    const { data: exp } = await supabase.from('expenses').select('amount, expense_date');
+    (exp || []).forEach(e => {
+      const k = String(e.expense_date || '').slice(0, 7);
+      if (acc[k]) acc[k].expenses += Number(e.amount) || 0;
+    });
+  } catch (e) { /* expenses table not migrated */ }
+  const MONTH_ES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const months = keys.map(k => {
+    const d = acc[k];
+    const mi = Number(k.slice(5, 7)) - 1;
+    return {
+      month: k,
+      label: `${MONTH_ES[mi] || ''} ${k.slice(2, 4)}`,
+      revenue:  Math.round(d.revenue * 100) / 100,
+      expenses: Math.round(d.expenses * 100) / 100,
+      profit:   Math.round((d.revenue - d.expenses) * 100) / 100
+    };
+  });
+  return res.status(200).json({ months });
 }
 
 async function getMetrics(req, res) {
@@ -486,7 +540,9 @@ module.exports = async function handler(req, res) {
     if (req.method === 'POST' && action === 'create-lead') return createLead(req, res);
     // Expenses
     if (req.method === 'GET'    && action === 'expenses') return getExpenses(req, res);
+    if (req.method === 'GET'    && action === 'monthly')  return getMonthly(req, res);
     if (req.method === 'POST'   && action === 'expense')  return createExpense(req, res);
+    if (req.method === 'PATCH'  && action === 'expense' && id) return updateExpense(req, res, id);
     if (req.method === 'DELETE' && action === 'expense' && id) return deleteExpense(req, res, id);
     if (req.method === 'PATCH'  && action === 'lead' && id) return updateLead(req, res, id);
     if (req.method === 'DELETE' && action === 'lead' && id) return deleteLead(req, res, id);

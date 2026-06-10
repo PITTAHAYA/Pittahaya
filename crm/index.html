@@ -509,7 +509,37 @@
   .exp-totals { display: flex; gap: 18px; flex-wrap: wrap; margin: 12px 0; }
   .exp-totals .et { font-size: 12px; color: var(--ash); } .exp-totals .et b { color: #e5e5e5; font-size: 15px; font-family: 'Cormorant Garamond',serif; }
   .exp-del { background: none; border: none; color: #555; cursor: pointer; font-size: 13px; } .exp-del:hover { color: #ef4444; }
+  .exp-edit { background: none; border: none; color: #777; cursor: pointer; font-size: 13px; } .exp-edit:hover { color: var(--gold-light); }
   @media (max-width: 800px) { .exp-form { grid-template-columns: 1fr 1fr; } }
+
+  /* ── Charts ── */
+  .charts-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+  @media (max-width: 900px) { .charts-grid { grid-template-columns: 1fr; } }
+  .chart-card { background: var(--onyx-2); border: 1px solid var(--border); border-radius: 4px; padding: 18px; }
+  .chart-card__head { margin-bottom: 12px; }
+  .chart-card__title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 500; color: #e9e9e9; margin: 0; }
+  .chart-card__sub { display: block; font-size: 11px; color: var(--ash); margin-top: 2px; }
+  .chart-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+  .cl-item { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--ash-light); }
+  .cl-dot { width: 9px; height: 9px; border-radius: 2px; display: inline-block; flex: none; }
+  .chart-empty { color: var(--ash); font-size: 12px; padding: 26px 4px; text-align: center; }
+  /* Monthly bar chart */
+  .bar-chart { display: flex; align-items: flex-end; gap: 10px; min-height: 200px; }
+  .mc-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+  .mc-bars { display: flex; align-items: flex-end; gap: 3px; height: 150px; width: 100%; justify-content: center; }
+  .mc-bar { width: 14px; max-width: 30%; border-radius: 2px 2px 0 0; transition: height .4s ease; }
+  .mc-val { font-size: 10px; color: var(--ash-light); font-family: 'Cormorant Garamond', serif; white-space: nowrap; }
+  .mc-label { font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--ash); white-space: nowrap; }
+  /* Category chart */
+  .cat-chart { display: flex; flex-direction: column; gap: 12px; }
+  .cat-row { display: flex; flex-direction: column; gap: 5px; }
+  .cat-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; }
+  .cat-name { display: inline-flex; align-items: center; gap: 7px; color: #e0e0e0; }
+  .cat-amt { color: var(--ash-light); font-size: 11px; }
+  .cat-track { height: 8px; background: var(--onyx-4); border-radius: 4px; overflow: hidden; }
+  .cat-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
+  .cat-total { margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ash); }
+  .cat-total b { color: #e5e5e5; font-family: 'Cormorant Garamond', serif; font-size: 16px; }
 
   /* ── Kanban ── */
   .kanban { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(210px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
@@ -738,7 +768,8 @@
         <option value="direct">Costo directo</option>
       </select>
       <input type="date" id="exp-date" title="Fecha">
-      <button class="btn btn-primary" onclick="addExpense()">+ Agregar gasto</button>
+      <button class="btn btn-primary" id="exp-add-btn" onclick="addExpense()">+ Agregar gasto</button>
+      <button class="btn btn-ghost" id="exp-cancel-btn" onclick="cancelEditExpense()" hidden>Cancelar</button>
     </div>
     <p class="nl-error" id="exp-error" hidden></p>
 
@@ -752,6 +783,41 @@
           <tr><td colspan="6"><div class="loading"><div class="loading-spinner"></div>Cargando gastos...</div></td></tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- ── Gráficos ── -->
+  <div class="finance-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Gráficos</h2>
+        <p class="page-subtitle">Visualiza tu desempeño financiero de un vistazo.</p>
+      </div>
+    </div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-card__head">
+          <h3 class="chart-card__title">Utilidad mensual</h3>
+          <span class="chart-card__sub">Ingresos, gastos y utilidad — últimos 6 meses</span>
+        </div>
+        <div class="chart-legend">
+          <span class="cl-item"><i class="cl-dot" style="background:#34d399"></i>Ingresos</span>
+          <span class="cl-item"><i class="cl-dot" style="background:#f87171"></i>Gastos</span>
+          <span class="cl-item"><i class="cl-dot" style="background:#c9a24a"></i>Utilidad</span>
+        </div>
+        <div class="bar-chart" id="monthlyChart">
+          <div class="loading"><div class="loading-spinner"></div>Cargando…</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card__head">
+          <h3 class="chart-card__title">Gastos por categoría</h3>
+          <span class="chart-card__sub">Distribución de tus gastos registrados</span>
+        </div>
+        <div class="cat-chart" id="categoryChart">
+          <div class="loading"><div class="loading-spinner"></div>Cargando…</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -938,7 +1004,7 @@ async function saveNewLead() {
 // ── Helpers (finance) ─────────────────────────────────────────
 function money(n) {
   n = Number(n) || 0;
-  return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 function stageLabel(s) {
   return ({ diagnosis:'Diagnóstico', design:'Diseño', review:'Revisión', launch:'Publicación', delivered:'Entregado' })[s] || '<span style="color:var(--ash)">—</span>';
@@ -950,11 +1016,13 @@ function paymentLabel(p) {
 }
 
 async function refreshAll() {
-  await Promise.all([loadMetrics(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline()]);
+  await Promise.all([loadMetrics(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
 }
 
 // ── Expenses & P&L ────────────────────────────────────────────
 const EXP_CAT = { software:'Software', marketing:'Marketing', contratistas:'Contratistas', oficina:'Oficina', impuestos:'Impuestos', otros:'Otros' };
+let expensesData = [];
+let editingExpenseId = null;
 
 async function loadExpenses() {
   const body = document.getElementById('expensesBody');
@@ -965,6 +1033,7 @@ async function loadExpenses() {
     if (month) params.month = month;
     const { expenses } = await api(params);
     const rows = expenses || [];
+    expensesData = rows;
     let total = 0, direct = 0, oper = 0;
     body.innerHTML = rows.map(e => {
       const amt = Number(e.amount) || 0; total += amt;
@@ -975,7 +1044,7 @@ async function loadExpenses() {
         <td>${e.cost_type === 'direct' ? 'Costo directo' : 'Operativo'}</td>
         <td style="text-align:right">${money(amt)}</td>
         <td class="date-cell">${(e.expense_date || '').slice(0, 10)}</td>
-        <td><button class="exp-del" title="Eliminar" onclick="deleteExpense('${e.id}')">✕</button></td>
+        <td style="white-space:nowrap"><button class="exp-edit" title="Editar" onclick="editExpense('${e.id}')">✎</button> <button class="exp-del" title="Eliminar" onclick="deleteExpense('${e.id}')">✕</button></td>
       </tr>`;
     }).join('') || '<tr><td colspan="6"><div class="empty">Sin gastos en este período.</div></td></tr>';
     totals.innerHTML = `<span class="et">Total: <b>${money(total)}</b></span>
@@ -986,6 +1055,29 @@ async function loadExpenses() {
   }
 }
 
+function editExpense(id) {
+  const e = expensesData.find(x => String(x.id) === String(id));
+  if (!e) return;
+  editingExpenseId = e.id;
+  document.getElementById('exp-label').value = e.label || '';
+  document.getElementById('exp-amount').value = e.amount != null ? e.amount : '';
+  document.getElementById('exp-category').value = e.category || 'otros';
+  document.getElementById('exp-type').value = e.cost_type || 'operating';
+  if (e.expense_date) document.getElementById('exp-date').value = String(e.expense_date).slice(0, 10);
+  const btn = document.getElementById('exp-add-btn'); if (btn) btn.textContent = 'Guardar cambios';
+  const cancel = document.getElementById('exp-cancel-btn'); if (cancel) cancel.hidden = false;
+  document.getElementById('exp-label').focus();
+}
+
+function cancelEditExpense() {
+  editingExpenseId = null;
+  document.getElementById('exp-label').value = '';
+  document.getElementById('exp-amount').value = '';
+  const err = document.getElementById('exp-error'); if (err) err.hidden = true;
+  const btn = document.getElementById('exp-add-btn'); if (btn) btn.textContent = '+ Agregar gasto';
+  const cancel = document.getElementById('exp-cancel-btn'); if (cancel) cancel.hidden = true;
+}
+
 async function addExpense() {
   const err = document.getElementById('exp-error'); err.hidden = true;
   const label = document.getElementById('exp-label').value.trim();
@@ -993,16 +1085,20 @@ async function addExpense() {
   if (!label || !(parseFloat(amount) > 0)) {
     err.textContent = 'Ingresa una descripción y un monto válido.'; err.hidden = false; return;
   }
+  const payload = {
+    label, amount,
+    category:     document.getElementById('exp-category').value,
+    cost_type:    document.getElementById('exp-type').value,
+    expense_date: document.getElementById('exp-date').value
+  };
   try {
-    await api({ action: 'expense' }, 'POST', {
-      label, amount,
-      category:     document.getElementById('exp-category').value,
-      cost_type:    document.getElementById('exp-type').value,
-      expense_date: document.getElementById('exp-date').value
-    });
-    document.getElementById('exp-label').value = '';
-    document.getElementById('exp-amount').value = '';
-    await Promise.all([loadExpenses(), loadMetrics()]);
+    if (editingExpenseId) {
+      await api({ action: 'expense', id: editingExpenseId }, 'PATCH', payload);
+    } else {
+      await api({ action: 'expense' }, 'POST', payload);
+    }
+    cancelEditExpense();
+    await Promise.all([loadExpenses(), loadMetrics(), loadMonthly()]);
   } catch (e) {
     err.textContent = 'No se pudo guardar: ' + String(e.message || e).slice(0, 140); err.hidden = false;
   }
@@ -1010,7 +1106,7 @@ async function addExpense() {
 
 async function deleteExpense(id) {
   if (!confirm('¿Eliminar este gasto?')) return;
-  try { await api({ action: 'expense', id }, 'DELETE'); await Promise.all([loadExpenses(), loadMetrics()]); }
+  try { await api({ action: 'expense', id }, 'DELETE'); await Promise.all([loadExpenses(), loadMetrics(), loadMonthly()]); }
   catch (e) { alert('Error: ' + (e.message || e)); }
 }
 
@@ -1117,6 +1213,7 @@ async function loadMetrics() {
 
     renderBarChart('chartService', d.serviceCounts, '#c9943a');
     renderBarChart('chartStatus',  d.statusCounts,  '#6366f1');
+    renderCategoryChart(p.byCategory);
 
     const now = new Date();
     document.getElementById('lastUpdated').textContent =
@@ -1136,6 +1233,53 @@ function renderBarChart(containerId, data, color) {
       <div class="bar-count">${count}</div>
     </div>
   `).join('');
+}
+
+// ── Charts: utilidad mensual ──────────────────────────────────
+async function loadMonthly() {
+  const el = document.getElementById('monthlyChart');
+  if (!el) return;
+  try {
+    const { months } = await api({ action: 'monthly' });
+    const rows = months || [];
+    if (!rows.length) { el.innerHTML = '<div class="chart-empty">Aún no hay datos para mostrar.</div>'; return; }
+    const max = Math.max(1, ...rows.map(m => Math.max(Number(m.revenue) || 0, Number(m.expenses) || 0, Math.abs(Number(m.profit) || 0))));
+    el.innerHTML = rows.map(m => {
+      const rev = Number(m.revenue) || 0, exp = Number(m.expenses) || 0, prof = Number(m.profit) || 0;
+      const h = v => Math.max(2, Math.round(Math.abs(v) / max * 100));
+      const profColor = prof >= 0 ? '#c9a24a' : '#f87171';
+      return `<div class="mc-col" title="${esc(m.label || m.month)}\nIngresos: ${money(rev)}\nGastos: ${money(exp)}\nUtilidad: ${money(prof)}">
+        <div class="mc-bars">
+          <div class="mc-bar" style="height:${h(rev)}%;background:#34d399"></div>
+          <div class="mc-bar" style="height:${h(exp)}%;background:#f87171"></div>
+          <div class="mc-bar" style="height:${h(prof)}%;background:${profColor}"></div>
+        </div>
+        <div class="mc-val">${money(prof)}</div>
+        <div class="mc-label">${esc(m.label || m.month)}</div>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    el.innerHTML = `<div class="chart-empty">No se pudo cargar: ${esc(String(e.message || e)).slice(0, 100)}</div>`;
+  }
+}
+
+// ── Charts: gastos por categoría ──────────────────────────────
+function renderCategoryChart(byCategory) {
+  const el = document.getElementById('categoryChart');
+  if (!el) return;
+  const data = byCategory || {};
+  const entries = Object.entries(data).filter(([, v]) => Number(v) > 0).sort((a, b) => b[1] - a[1]);
+  if (!entries.length) { el.innerHTML = '<div class="chart-empty">Sin gastos registrados todavía.</div>'; return; }
+  const total = entries.reduce((s, [, v]) => s + Number(v), 0);
+  const COLORS = { software:'#60a5fa', marketing:'#f472b6', contratistas:'#a78bfa', oficina:'#34d399', impuestos:'#fbbf24', otros:'#94a3b8' };
+  el.innerHTML = entries.map(([cat, v]) => {
+    const amt = Number(v) || 0;
+    const pct = total ? Math.round(amt / total * 100) : 0;
+    return `<div class="cat-row">
+      <div class="cat-top"><span class="cat-name"><i class="cl-dot" style="background:${COLORS[cat] || '#94a3b8'}"></i>${EXP_CAT[cat] || 'Otros'}</span><span class="cat-amt">${money(amt)} · ${pct}%</span></div>
+      <div class="cat-track"><div class="cat-fill" style="width:${pct}%;background:${COLORS[cat] || '#94a3b8'}"></div></div>
+    </div>`;
+  }).join('') + `<div class="cat-total">Total gastos: <b>${money(total)}</b></div>`;
 }
 
 // ── Leads list ────────────────────────────────────────────────
