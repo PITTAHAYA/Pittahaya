@@ -510,6 +510,10 @@
   .exp-totals .et { font-size: 12px; color: var(--ash); } .exp-totals .et b { color: #e5e5e5; font-size: 15px; font-family: 'Cormorant Garamond',serif; }
   .exp-del { background: none; border: none; color: #555; cursor: pointer; font-size: 13px; } .exp-del:hover { color: #ef4444; }
   .exp-edit { background: none; border: none; color: #777; cursor: pointer; font-size: 13px; } .exp-edit:hover { color: var(--gold-light); }
+  .exp-recurring { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--ash-light); margin: 4px 0 2px; cursor: pointer; }
+  .exp-recurring input { accent-color: var(--gold); width: 14px; height: 14px; }
+  .exp-month { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  #exp-gen-btn { font-size: 11px; padding: 7px 10px; }
   @media (max-width: 800px) { .exp-form { grid-template-columns: 1fr 1fr; } }
 
   /* ── Charts ── */
@@ -749,6 +753,7 @@
       <div class="exp-month">
         <label style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ash)">Mes</label>
         <input type="month" id="expMonth" onchange="loadExpenses()">
+        <button class="btn btn-ghost" id="exp-gen-btn" onclick="generateRecurring()" title="Copiar tus gastos recurrentes a este mes">↻ Generar recurrentes</button>
       </div>
     </div>
 
@@ -771,6 +776,7 @@
       <button class="btn btn-primary" id="exp-add-btn" onclick="addExpense()">+ Agregar gasto</button>
       <button class="btn btn-ghost" id="exp-cancel-btn" onclick="cancelEditExpense()" hidden>Cancelar</button>
     </div>
+    <label class="exp-recurring"><input type="checkbox" id="exp-recurring"> Gasto recurrente (se repite cada mes — ej. hosting, suscripciones)</label>
     <p class="nl-error" id="exp-error" hidden></p>
 
     <div class="exp-totals" id="expTotals"></div>
@@ -1063,6 +1069,7 @@ function editExpense(id) {
   document.getElementById('exp-amount').value = e.amount != null ? e.amount : '';
   document.getElementById('exp-category').value = e.category || 'otros';
   document.getElementById('exp-type').value = e.cost_type || 'operating';
+  document.getElementById('exp-recurring').checked = !!e.recurring;
   if (e.expense_date) document.getElementById('exp-date').value = String(e.expense_date).slice(0, 10);
   const btn = document.getElementById('exp-add-btn'); if (btn) btn.textContent = 'Guardar cambios';
   const cancel = document.getElementById('exp-cancel-btn'); if (cancel) cancel.hidden = false;
@@ -1073,6 +1080,7 @@ function cancelEditExpense() {
   editingExpenseId = null;
   document.getElementById('exp-label').value = '';
   document.getElementById('exp-amount').value = '';
+  document.getElementById('exp-recurring').checked = false;
   const err = document.getElementById('exp-error'); if (err) err.hidden = true;
   const btn = document.getElementById('exp-add-btn'); if (btn) btn.textContent = '+ Agregar gasto';
   const cancel = document.getElementById('exp-cancel-btn'); if (cancel) cancel.hidden = true;
@@ -1089,7 +1097,8 @@ async function addExpense() {
     label, amount,
     category:     document.getElementById('exp-category').value,
     cost_type:    document.getElementById('exp-type').value,
-    expense_date: document.getElementById('exp-date').value
+    expense_date: document.getElementById('exp-date').value,
+    recurring:    document.getElementById('exp-recurring').checked
   };
   try {
     if (editingExpenseId) {
@@ -1108,6 +1117,22 @@ async function deleteExpense(id) {
   if (!confirm('¿Eliminar este gasto?')) return;
   try { await api({ action: 'expense', id }, 'DELETE'); await Promise.all([loadExpenses(), loadMetrics(), loadMonthly()]); }
   catch (e) { alert('Error: ' + (e.message || e)); }
+}
+
+async function generateRecurring() {
+  const month = document.getElementById('expMonth')?.value || '';
+  const btn = document.getElementById('exp-gen-btn');
+  if (btn) { btn.disabled = true; btn.textContent = '↻ Generando…'; }
+  try {
+    const r = await api({ action: 'recurring' }, 'POST', { month });
+    await Promise.all([loadExpenses(), loadMetrics(), loadMonthly()]);
+    if (r.created > 0) alert(`Se agregaron ${r.created} gasto(s) recurrente(s) a este mes.`);
+    else alert(r.message || 'No había gastos recurrentes nuevos que agregar.');
+  } catch (e) {
+    alert('Error: ' + (e.message || e));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '↻ Generar recurrentes'; }
+  }
 }
 
 async function deleteLeadRow(id) {

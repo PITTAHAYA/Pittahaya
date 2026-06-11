@@ -325,6 +325,49 @@ async function deleteExpense(req, res, id) {
   return res.status(200).json({ success: true });
 }
 
+// Copy every recurring expense template into the given month (one-click).
+// Skips templates that already have a row in that month with the same label,
+// so it's safe to press more than once. Copies are non-recurring instances.
+async function generateRecurring(req, res) {
+  const b = req.body || {};
+  const now = new Date();
+  const month = (b.month && /^\d{4}-\d{2}$/.test(b.month))
+    ? b.month
+    : `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}`;
+  const start = `${month}-01`;
+  const d = new Date(start + 'T00:00:00Z');
+  const end = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1)).toISOString().slice(0, 10);
+
+  // 1. recurring templates
+  const { data: templates, error: tErr } = await supabase
+    .from('expenses').select('*').eq('recurring', true);
+  if (tErr) return res.status(500).json({ error: tErr.message });
+  if (!templates || !templates.length) return res.status(200).json({ created: 0, message: 'No hay gastos recurrentes definidos.' });
+
+  // 2. what already exists that month
+  const { data: existing, error: eErr } = await supabase
+    .from('expenses').select('label').gte('expense_date', start).lt('expense_date', end);
+  if (eErr) return res.status(500).json({ error: eErr.message });
+  const have = new Set((existing || []).map(e => String(e.label || '').trim().toLowerCase()));
+
+  const toInsert = templates
+    .filter(t => !have.has(String(t.label || '').trim().toLowerCase()))
+    .map(t => ({
+      label: t.label,
+      amount: toMoney(t.amount),
+      category: t.category || 'otros',
+      cost_type: t.cost_type || 'operating',
+      currency: t.currency || 'USD',
+      expense_date: start,
+      recurring: false
+    }));
+
+  if (!toInsert.length) return res.status(200).json({ created: 0, message: 'Todos los gastos recurrentes ya están en este mes.' });
+  const { error: iErr } = await supabase.from('expenses').insert(toInsert);
+  if (iErr) return res.status(500).json({ error: iErr.message });
+  return res.status(200).json({ created: toInsert.length });
+}
+
 // Monthly P&L for the last 6 months (for the trend chart).
 async function getMonthly(req, res) {
   const now = new Date();
@@ -542,6 +585,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET'    && action === 'expenses') return getExpenses(req, res);
     if (req.method === 'GET'    && action === 'monthly')  return getMonthly(req, res);
     if (req.method === 'POST'   && action === 'expense')  return createExpense(req, res);
+    if (req.method === 'POST'   && action === 'recurring') return generateRecurring(req, res);
     if (req.method === 'PATCH'  && action === 'expense' && id) return updateExpense(req, res, id);
     if (req.method === 'DELETE' && action === 'expense' && id) return deleteExpense(req, res, id);
     if (req.method === 'PATCH'  && action === 'lead' && id) return updateLead(req, res, id);
