@@ -78,4 +78,20 @@
   <url><loc>https://www.pittahaya.com/en/demo-highend.html</loc>
     <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
 
+  <url>
+    <loc>https://www.pittahaya.com/privacidad.html</loc>
+    <lastmod>2026-06-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pittahaya.com/terminos.html</loc>
+    <lastmod>2026-06-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pittahaya.com/en/privacy.html</loc>
+    <lastmod>2026-06-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pittahaya.com/en/terms.html</loc>
+    <lastmod>2026-06-10</lastmod>
+  </url>
 </urlset>
