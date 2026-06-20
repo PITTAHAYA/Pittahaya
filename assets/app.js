@@ -632,7 +632,8 @@
       errorGeneric:  "The request could not be sent.",
       errorRetry:    "The request could not be sent. Please try again.",
       success:    "Thank you! We got your message and we'll reply very soon. 🌱",
-      submit:     "Send request"
+      submit:     "Send request",
+      consent:    "Please confirm you've read and accept the Privacy Policy and Terms."
     } : {
       meterReady: "Diagnóstico listo para enviar",
       meterPct:   (p) => `Diagnóstico ${p}% listo`,
@@ -641,7 +642,8 @@
       errorGeneric:  "No se pudo enviar la solicitud.",
       errorRetry:    "No se pudo enviar la solicitud. Intenta otra vez.",
       success:    "¡Gracias! Recibimos tu mensaje y te responderemos muy pronto. 🌱",
-      submit:     "Enviar solicitud"
+      submit:     "Enviar solicitud",
+      consent:    "Por favor confirma que leíste y aceptas la Política de Privacidad y los Términos."
     };
 
     const meter = make("div", "form-meter");
@@ -653,7 +655,7 @@
     leadForm.prepend(meter);
 
     const updateFormMeter = () => {
-      const completed = fields.filter(field => String(field.value || "").trim()).length;
+      const completed = fields.filter(field => field.type === "checkbox" ? field.checked : String(field.value || "").trim()).length;
       const percent = fields.length ? Math.round((completed / fields.length) * 100) : 0;
       meter.style.setProperty("--form-progress", `${percent}%`);
       meterText.textContent = percent === 100 ? M.meterReady : M.meterPct(percent);
@@ -684,6 +686,13 @@
         return;
       }
 
+      // Privacy consent is mandatory (LOPDP/PIPEDA): block submit until ticked.
+      const consentBox = leadForm.querySelector('[name="privacy_consent"]');
+      if (consentBox && !consentBox.checked) {
+        setStatus(M.consent, "error");
+        return;
+      }
+
       const formData = new FormData(leadForm);
       const rawPayload = Object.fromEntries(formData.entries());
       const payload = {
@@ -697,6 +706,8 @@
         source_page: window.location.href,
         source_demo: rawPayload.source_demo || "",
         turnstile_token: rawPayload["cf-turnstile-response"] || "",
+        privacy_consent: (consentBox && consentBox.checked) ? "yes" : "",
+        consent_at: new Date().toISOString(),
         fill_ms: Date.now() - leadFormShownAt,
         utm_source: new URLSearchParams(window.location.search).get("utm_source") || "",
         utm_medium: new URLSearchParams(window.location.search).get("utm_medium") || "",
@@ -757,12 +768,14 @@
       sending: "Sending…",
       ok: "Got it! We'll send your free audit to your email within 24h. 🎉",
       err: "Something went wrong. Please try again or use the contact form.",
-      invalid: "Please add your site, your name and a valid email."
+      invalid: "Please add your site, your name and a valid email.",
+      consent: "Please confirm you accept the Privacy Policy and Terms."
     } : {
       sending: "Enviando…",
       ok: "¡Listo! Te enviaremos tu auditoría gratis a tu correo en menos de 24h. 🎉",
       err: "Algo falló. Intenta de nuevo o usa el formulario de contacto.",
-      invalid: "Agrega tu sitio, tu nombre y un correo válido."
+      invalid: "Agrega tu sitio, tu nombre y un correo válido.",
+      consent: "Por favor confirma que aceptas la Política de Privacidad y los Términos."
     };
     const setAuditStatus = (msg, state) => {
       if (!auditStatus) return;
@@ -778,6 +791,12 @@
       const email = String(data.email || "").trim();
       if (!siteUrl || !name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
         setAuditStatus(AM.invalid, "error");
+        return;
+      }
+      // Privacy consent is mandatory (LOPDP/PIPEDA).
+      const auditConsent = auditForm.querySelector('[name="privacy_consent"]');
+      if (auditConsent && !auditConsent.checked) {
+        setAuditStatus(AM.consent, "error");
         return;
       }
       // Human check (Turnstile) — only block if the widget loaded but isn't passed.
@@ -796,6 +815,8 @@
         source_page: window.location.href,
         source_demo: "lead-magnet:audit",
         turnstile_token: data["cf-turnstile-response"] || "",
+        privacy_consent: (auditConsent && auditConsent.checked) ? "yes" : "",
+        consent_at: new Date().toISOString(),
         fill_ms: Date.now() - auditShownAt
       };
       if (auditBtn) { auditBtn.disabled = true; auditBtn.textContent = AM.sending; }

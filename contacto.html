@@ -141,6 +141,10 @@
                 </select>
               </div>
               <div class="field"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" placeholder="Cuéntame sobre tu negocio y qué tipo de web necesitas" required></textarea></div>
+              <label class="form-consent" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:#b9b5ab;margin:2px 0 6px;cursor:pointer;">
+                <input type="checkbox" name="privacy_consent" value="yes" required style="margin-top:3px;flex:none;width:16px;height:16px;accent-color:#e6bf74;">
+                <span>He leído y acepto la <a href="privacidad.html" target="_blank" rel="noopener" style="color:#e6bf74;">Política de Privacidad</a> y los <a href="terminos.html" target="_blank" rel="noopener" style="color:#e6bf74;">Términos</a>. Autorizo el tratamiento de mis datos para responder a mi solicitud.</span>
+              </label>
               <div class="cf-turnstile" data-sitekey="0x4AAAAAADgGWC4hAMxeoWfL" data-theme="dark"></div>
               <button class="btn btn-gold" type="submit">Enviar solicitud</button>
               <p class="form-status" data-form-status hidden></p>
@@ -194,7 +198,7 @@
   </div>
 </footer>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="assets/app.js?v=m16" defer></script>
+<script src="assets/app.js?v=m17" defer></script>
 <script src="assets/chatbot.js?v=v14" defer></script>
 </body>
 </html>

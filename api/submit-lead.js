@@ -141,11 +141,20 @@ const mapLead = (body, req) => {
     user_agent: cleanText(req.headers["user-agent"], 300),
     utm_source: cleanText(body.utm_source, 100) || null,
     utm_medium: cleanText(body.utm_medium, 100) || null,
-    utm_campaign: cleanText(body.utm_campaign, 100) || null
+    utm_campaign: cleanText(body.utm_campaign, 100) || null,
+    // Proof of privacy consent (LOPDP/PIPEDA). Optional columns — insertLead
+    // strips these and retries if the DB hasn't been migrated yet.
+    privacy_consent: body.privacy_consent === "yes" || body.privacy_consent === true || body.privacy_consent === "true",
+    consent_at: (body.privacy_consent === "yes" || body.privacy_consent === true || body.privacy_consent === "true")
+      ? (cleanText(body.consent_at, 40) || new Date().toISOString())
+      : null
   };
 };
 
-const insertLead = async (lead) => {
+// Optional lead columns that may not exist before the consent migration runs.
+const OPTIONAL_LEAD_FIELDS = ["privacy_consent", "consent_at"];
+
+const insertLead = async (lead, allowRetry = true) => {
   const supabaseUrl = normalizeSupabaseUrl(process.env.SUPABASE_URL);
   const serviceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -185,6 +194,17 @@ const insertLead = async (lead) => {
       error.message = "supabase_table_missing";
     } else if (error.supabaseCode === "PGRST204" || error.details.toLowerCase().includes("column")) {
       error.message = "supabase_schema_mismatch";
+      // Graceful fallback: the consent columns may not exist yet. Strip the
+      // optional fields and retry once so the lead is never lost before the
+      // migration runs (the consent is still recorded in the admin email).
+      if (allowRetry) {
+        const stripped = { ...lead };
+        let removed = false;
+        for (const f of OPTIONAL_LEAD_FIELDS) {
+          if (f in stripped) { delete stripped[f]; removed = true; }
+        }
+        if (removed) return insertLead(stripped, false);
+      }
     }
 
     console.error("Supabase insert failed", {
@@ -226,6 +246,9 @@ const sendAdminNotification = async (lead, leadId) => {
           ${row("Servicio / Plan", safe.service || safe.plan || "—")}
           ${row("Mensaje", `<span style="color:#374151;font-weight:400">${escapeHtml(lead.message).replace(/\n/g, "<br>")}</span>`)}
           ${row("Fuente", `<span style="color:#9ca3af;font-weight:400;font-size:12px">${safe.source_page || "—"}</span>`)}
+          ${row("Consentimiento", lead.privacy_consent
+            ? `<span style="color:#16a34a">✓ Aceptó Política de Privacidad y Términos</span>${lead.consent_at ? `<span style="color:#9ca3af;font-weight:400;font-size:12px"> · ${escapeHtml(String(lead.consent_at))}</span>` : ""}`
+            : `<span style="color:#9ca3af;font-weight:400">—</span>`)}
         </table>
         ${leadId ? `<a href="${escapeHtml(crmUrl)}" style="display:inline-block;margin-top:22px;background:linear-gradient(135deg,#e6bf74,#e83487);color:#fff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:8px;font-size:14px">Ver lead en el CRM →</a>` : ""}
       </div>
