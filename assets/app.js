@@ -739,6 +739,7 @@
 
         // Always show our own friendly, localized message (no internal/CRM wording).
         setStatus(M.success, "success");
+        if (window.track) window.track("Lead Submitted");
         leadForm.reset();
         updateFormMeter();
       } catch (error) {
@@ -830,6 +831,7 @@
         const result = await res.json().catch(() => ({}));
         if (!res.ok || !(result.ok === true || result.success === true)) throw new Error("failed");
         setAuditStatus(AM.ok, "success");
+        if (window.track) window.track("Audit Requested");
         auditForm.reset();
       } catch {
         setAuditStatus(AM.err, "error");
@@ -839,4 +841,18 @@
       }
     });
   }
+
+  // ── Conversion clicks (high intent) ────────────────────────────
+  // One delegated listener: WhatsApp contacts + Shopify plan checkouts.
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest && e.target.closest("a[href]");
+    if (!link || !window.track) return;
+    const href = link.getAttribute("href") || "";
+    if (href.includes("wa.me") || href.includes("whatsapp")) {
+      window.track("WhatsApp Click");
+    } else if (href.includes("myshopify.com")) {
+      const plan = (href.split("/products/")[1] || "").split(/[/?#]/)[0] || "unknown";
+      window.track("Plan Checkout Click", { plan });
+    }
+  });
 })();
