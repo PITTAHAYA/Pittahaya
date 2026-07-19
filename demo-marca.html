@@ -1,235 +1,349 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
-  <meta name="rights" content="Diseño, textos, demos, marca, imágenes y experiencia digital protegidos por derechos de autor. Prohibida su reproducción o uso no autorizado." />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0c0c10" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>Demo · The Brand Lab | Pittahaya</title>
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <meta name="description" content="Demo inmersiva de marca & diseño. Identidad viva, paletas que cambian, tipografía editorial por Pittahaya." />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Pittahaya" />
-  <meta property="og:title" content="Demo · The Brand Lab | Pittahaya" />
-  <meta property="og:description" content="Demo inmersiva de marca & diseño." />
-  <meta property="og:url" content="https://www.pittahaya.com/demo-marca.html" />
-  <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
-  <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-marca.html" />
-  <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-marca.html" />
-  <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-marca.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/chatbot.css?v=v3" />
-  <style>
-:root{--palette-a:#ff6a4d;--palette-b:#ffd166;--palette-c:#0c0c10;--ink:#0c0c10;--ink2:#15151c;--cream:#f7f1e8;--muted:rgba(247,241,232,.68);--line:rgba(247,241,232,.10)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font-family:"Manrope",system-ui,sans-serif;color:var(--cream);background:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .8s ease}
-a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
-.wrap{width:min(1200px,calc(100% - 44px));margin:0 auto}
-.nav{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(12,12,16,.78);backdrop-filter:blur(18px)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-.mark{display:flex;align-items:center;gap:12px}
-.markIcon{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--ink);font-weight:900;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));font-family:"Playfair Display",serif;font-size:24px;transition:background .8s ease;font-style:italic}
-.mark b{display:block;font-family:"Playfair Display",serif;font-style:italic;font-size:20px;letter-spacing:.4px}
-.mark span{display:block;color:rgba(247,241,232,.56);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-family:"Space Mono",monospace}
-.navLinks{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.pill{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:rgba(247,241,232,.86);font-size:13px;transition:all .3s ease}
-.pill:hover{border-color:var(--palette-a);background:rgba(255,255,255,.06)}
-.hero{position:relative;padding:100px 0 80px;isolation:isolate;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-10%;z-index:-1;background:radial-gradient(900px 540px at 14% 16%,color-mix(in srgb,var(--palette-a) 24%,transparent),transparent 64%),radial-gradient(720px 420px at 88% 8%,color-mix(in srgb,var(--palette-b) 16%,transparent),transparent 60%);transition:background .8s ease;filter:blur(6px)}
-.hero canvas[data-fx-particles]{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.4}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:120px;z-index:1;background:linear-gradient(180deg,transparent,var(--ink));pointer-events:none}
-.heroInner{position:relative;z-index:2;text-align:left}
-.eyebrow{display:inline-flex;gap:10px;align-items:center;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--palette-a);padding:8px 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--palette-a) 30%,transparent);background:color-mix(in srgb,var(--palette-a) 8%,transparent);transition:all .8s ease}
-.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--palette-a);animation:dotPulse 1.6s ease-in-out infinite}
-@keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
-h1.heroH{font-family:"Playfair Display",ui-serif,Georgia,serif;font-weight:900;font-size:clamp(56px,9vw,140px);line-height:.86;letter-spacing:-3px;margin:24px 0 22px;max-width:14ch}
-.heroH em{font-style:italic;font-weight:700;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.heroLead{margin:0;max-width:54ch;color:var(--muted);font-size:18px;line-height:1.72;font-weight:400}
-.heroActions{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:54px;padding:15px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--cream);font-family:"Manrope",sans-serif;font-size:15px;font-weight:700;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease;cursor:pointer;will-change:transform}
-.btn:hover{transform:translateY(-2px);border-color:var(--palette-a)}
-.btnPrimary{background:linear-gradient(135deg,var(--palette-a),var(--palette-b));color:var(--ink);border-color:transparent;box-shadow:0 22px 70px color-mix(in srgb,var(--palette-a) 30%,transparent);font-weight:800;transition:background .8s ease,transform .22s ease,box-shadow .22s ease}
-.paletteBar{margin-top:50px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
-.paletteLabel{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-right:8px}
-.swatch{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;transition:transform .25s ease,border-color .25s ease}
-.swatch:hover{transform:translateY(-2px);border-color:rgba(247,241,232,.32)}
-.swatch.is-active{border-color:var(--cream);background:rgba(247,241,232,.08)}
-.swatch i{width:24px;height:24px;border-radius:50%;display:block;background:linear-gradient(135deg,var(--p1),var(--p2));box-shadow:0 4px 14px color-mix(in srgb,var(--p1) 35%,transparent)}
-.swatch span{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:1.2px;text-transform:uppercase}
-.section{padding:90px 0;position:relative}
-.sectionHead{display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;align-items:end;margin-bottom:50px}
-.kicker{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--palette-a);transition:color .8s ease;margin-bottom:14px}
-.sectionHead h2{font-family:"Playfair Display",serif;font-weight:700;font-size:clamp(40px,5vw,84px);line-height:.96;letter-spacing:-1.5px;margin:0}
-.sectionHead h2 em{font-style:italic;color:var(--palette-a);transition:color .8s ease}
-.sectionHead p{margin:0;color:var(--muted);line-height:1.72;font-size:16px}
-.moodGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.mood{position:relative;aspect-ratio:1/1.2;border-radius:18px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .5s cubic-bezier(.2,.7,.3,1);background:linear-gradient(145deg,color-mix(in srgb,var(--palette-a) 25%,var(--ink)),color-mix(in srgb,var(--palette-b) 18%,var(--ink)))}
-.mood:hover{transform:translateY(-6px) scale(1.01)}
-.mood::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7))}
-.mood img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.15) contrast(1.05)}
-.moodMeta{position:absolute;left:18px;right:18px;bottom:18px;z-index:2}
-.moodMeta small{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(247,241,232,.78)}
-.moodMeta h3{font-family:"Playfair Display",serif;font-style:italic;font-size:32px;font-weight:700;margin:6px 0 0;line-height:1}
-.brandMarquee{margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:30px 0}
-.bmTrack{display:flex;gap:50px;animation:bmRoll 24s linear infinite;width:max-content;font-family:"Playfair Display",serif;font-style:italic;font-size:64px;font-weight:700;color:rgba(247,241,232,.18)}
-.bmTrack span{display:inline-flex;gap:50px;white-space:nowrap}
-.bmTrack span::after{content:"✦";color:var(--palette-a);font-style:normal;font-size:32px;transition:color .8s ease}
-@keyframes bmRoll{to{transform:translateX(-50%)}}
-.typeGrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.specimen{padding:36px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));position:relative;overflow:hidden}
-.specimen small{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(247,241,232,.5)}
-.specimenChar{font-family:"Playfair Display",serif;font-size:clamp(120px,18vw,220px);line-height:.8;margin:14px 0 8px;font-weight:900;font-style:italic;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.specimenName{font-family:"Playfair Display",serif;font-style:italic;font-size:22px;color:var(--cream);margin:0}
-.specimenSub{font-family:"Space Mono",monospace;font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:1.2px}
-.finalCta{position:relative;padding:90px 56px;border-radius:34px;border:1px solid var(--line);background:radial-gradient(720px 420px at 80% 20%,color-mix(in srgb,var(--palette-a) 22%,transparent),transparent 62%),radial-gradient(620px 380px at 10% 80%,color-mix(in srgb,var(--palette-b) 18%,transparent),transparent 62%),linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));overflow:hidden;text-align:center;transition:background .8s ease}
-.finalCta h2{font-family:"Playfair Display",serif;font-weight:900;font-size:clamp(40px,5vw,84px);line-height:.96;letter-spacing:-1.5px;margin:0 auto 22px;max-width:18ch}
-.finalCta h2 em{font-style:italic;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.finalCta p{margin:0 auto 32px;max-width:56ch;color:var(--muted);font-size:17px;line-height:1.65}
-.footer{padding:40px 0 50px;border-top:1px solid var(--line);background:rgba(0,0,0,.18)}
-.footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
-small{color:rgba(247,241,232,.58)}
-[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .85s ease,transform .85s ease}
-[data-reveal].in{opacity:1;transform:translateY(0)}
-.demo-corner-logo{position:fixed;left:18px;bottom:18px;z-index:50;width:72px;height:72px;pointer-events:none}
-.demo-corner-logo img{width:100%;height:100%;object-fit:contain}
-@media (max-width:980px){.sectionHead,.typeGrid{grid-template-columns:1fr}.moodGrid{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.hero{padding:60px 0 50px}.mark span{display:none}.moodGrid{grid-template-columns:1fr}.bmTrack{font-size:44px;gap:32px}.bmTrack span{gap:32px}.bmTrack span::after{font-size:22px}.finalCta{padding:54px 22px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.paletteBar{padding:14px}.specimen{padding:24px}.specimenChar{font-size:110px}}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.bmTrack{animation:none}[data-reveal]{opacity:1;transform:none}}
-  /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-/* Headline shows instantly from first paint — no JS-driven reveals to glitch on cold load. */
-[data-fx-letters]{opacity:1}
-  
-/* force-instant-reveal: avoid any first-paint flicker on cold load. */
-/* reveals are JS-driven (initReveal reveals above-the-fold synchronously, animates the rest on scroll) */
-</style>
-<noscript><style>[data-fx-letters]{visibility:visible !important}[data-reveal]{opacity:1 !important;transform:none !important}</style><!--fx-letters-noscript-fallback--></noscript>
-  <link rel="canonical" href="https://www.pittahaya.com/demo-marca.html" />
-  <link rel="manifest" href="/site.webmanifest" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#08070a" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Pittahaya · Brand in Motion</title>
+<meta name="description" content="No creamos logos. Construimos mundos. Una idea de Pittahaya evoluciona hasta un universo de marca completo: identidad, lenguaje visual, aplicaciones, experiencia y ecosistema en movimiento." />
+<meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Pittahaya" />
+<meta property="og:title" content="Pittahaya · Brand in Motion" />
+<meta property="og:description" content="No creamos logos. Construimos mundos. Una idea. Infinitas posibilidades." />
+<meta property="og:url" content="https://www.pittahaya.com/demo-marca.html" />
+<meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/mare-brand.css?v=1" />
 </head>
 <body>
+<div class="grain" aria-hidden="true"></div>
+<div class="tick" data-tick aria-hidden="true"></div>
+<a href="#idea" style="position:absolute;left:-9999px">Saltar al contenido</a>
 
-<header class="nav">
-  <div class="wrap">
-    <a class="mark" href="portafolio.html" aria-label="Pittahaya">
-      <div class="markIcon">M</div>
-      <div><b><em>Brand Lab</em></b><span>Demo · Marca &amp; diseño</span></div>
-    </a>
-    <div class="navLinks">
-      <a class="pill" href="en/demo-marca.html" hreflang="en" lang="en" aria-label="View in English">EN</a>
-      <a class="pill" href="portafolio.html">← Volver</a>
-      <a class="pill" href="contacto.html">Contacto</a>
-    </div>
-  </div>
+<header class="hdr" data-hdr>
+  <a class="brand" href="index.html" aria-label="Pittahaya · inicio">
+    <img src="assets/pitahaya-mark.png" alt="" />
+    <b>Pittahaya</b><span class="brand-tag">Brand in Motion</span>
+  </a>
+  <a class="cta-mini" href="contacto.html">Construir tu mundo</a>
 </header>
 
-<main>
-  <section class="hero">
-    <canvas data-fx-particles aria-hidden="true"></canvas>
-    <div class="wrap heroInner">
-      <span class="eyebrow">Brand lab · paleta viva</span>
-      <h1 class="heroH" data-fx-letters>Una marca que se siente imposible de copiar.</h1>
-      <p class="heroLead">Esta demo cambia color, tipografía y temperatura visual mientras la exploras. Las marcas memorables no eligen una paleta: eligen una personalidad. Pulsa los swatches y siente cómo cambia la habitación.</p>
-      <div class="heroActions">
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Diseñar mi marca →</a>
-        <a class="btn" href="planes.html">Ver planes</a>
-      </div>
-      <div class="paletteBar" data-fx-palette>
-        <span class="paletteLabel">Cambia el mood:</span>
-        <button class="swatch is-active" data-palette="#ff6a4d,#ffd166,#0c0c10" type="button"><i style="--p1:#ff6a4d;--p2:#ffd166"></i><span>Coral solar</span></button>
-        <button class="swatch" data-palette="#e83487,#8acb63,#0c0c10" type="button"><i style="--p1:#e83487;--p2:#8acb63"></i><span>Pitahaya</span></button>
-        <button class="swatch" data-palette="#7ad7f0,#c084fc,#0c0c10" type="button"><i style="--p1:#7ad7f0;--p2:#c084fc"></i><span>Plasma</span></button>
-        <button class="swatch" data-palette="#d4af6a,#f3d99b,#0c0c10" type="button"><i style="--p1:#d4af6a;--p2:#f3d99b"></i><span>Oro líquido</span></button>
-        <button class="swatch" data-palette="#22d3ee,#10b981,#0c0c10" type="button"><i style="--p1:#22d3ee;--p2:#10b981"></i><span>Botánico</span></button>
-      </div>
-    </div>
-  </section>
+<!-- riel de capítulos -->
+<nav class="chapters" aria-label="Capítulos">
+  <button data-chap="idea"><span class="lbl">Una idea</span><span class="dot"></span></button>
+  <button data-chap="identity"><span class="lbl">Identidad</span><span class="dot"></span></button>
+  <button data-chap="elements"><span class="lbl">Elementos</span><span class="dot"></span></button>
+  <button data-chap="applications"><span class="lbl">Aplicaciones</span><span class="dot"></span></button>
+  <button data-chap="experience"><span class="lbl">Experiencia</span><span class="dot"></span></button>
+  <button data-chap="universe"><span class="lbl">Universo</span><span class="dot"></span></button>
+</nav>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Mood board</div><h2>Cada marca empieza por un <em>sentimiento</em>.</h2></div>
-        <p>Antes del logo, del color, del slogan — hay una temperatura emocional. Si la marca no sabe cuál es, todo lo demás será una decoración costosa.</p>
-      </div>
-      <div class="moodGrid" data-reveal>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>01 · Minimal tech</small><h3>Quietud precisa.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>02 · Editorial cálida</small><h3>Sabor de revista.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>03 · Pop digital</small><h3>Atrevido y rápido.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>04 · Orgánico</small><h3>Tacto natural.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>05 · Futurista</small><h3>Eléctrico.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>06 · Artesanal</small><h3>Hecho a mano.</h3></div></div>
-      </div>
-    </div>
-  </section>
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"><img src="assets/marca/ecosystem.jpg" alt="" /></div>
+  <div class="hero-stage" aria-hidden="true"><canvas data-hero-mark></canvas></div>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Manifiesto en bucle</div><h2>Las palabras que <em>llevan</em> tu marca.</h2></div>
-        <p>La identidad no es solo lo que se ve. Es lo que se repite. Cinco palabras que el cliente recuerda — esa es la marca.</p>
-      </div>
-      <div class="brandMarquee" aria-hidden="true" data-fx-marquee>
-        <div class="bmTrack"><span>Audacia</span><span>Calma</span><span>Memorable</span><span>Distinta</span><span>Cálida</span><span>Atrevida</span><span>Honesta</span><span>Editorial</span></div>
-      </div>
-    </div>
-  </section>
+  <div class="orbit-objs" aria-hidden="true">
+    <span class="orbit-obj" data-ang="200" data-rad="40"><i></i>Guía de marca</span>
+    <span class="orbit-obj" data-ang="248" data-rad="42"><i></i>Papelería</span>
+    <span class="orbit-obj" data-ang="150" data-rad="41"><i></i>Packaging</span>
+    <span class="orbit-obj" data-ang="112" data-rad="40"><i></i>Bolsa</span>
+    <span class="orbit-obj" data-ang="-20" data-rad="42"><i></i>App móvil</span>
+    <span class="orbit-obj" data-ang="30" data-rad="41"><i></i>Sitio web</span>
+    <span class="orbit-obj" data-ang="70" data-rad="40"><i></i>Campaña</span>
+    <span class="orbit-obj" data-ang="-58" data-rad="41"><i></i>Producto</span>
+  </div>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Tipografía como ADN</div><h2>El primer detalle que el ojo <em>reconoce</em>.</h2></div>
-        <p>Una marca premium no se reconoce primero por el logo. Se reconoce por la forma de la "A", el ritmo del párrafo, el espacio entre letras. La tipografía es el rostro silencioso.</p>
-      </div>
-      <div class="typeGrid" data-reveal>
-        <div class="specimen"><small>Display · Playfair Italic 900</small><div class="specimenChar">Aa</div><p class="specimenName">Para titulares con peso editorial.</p><p class="specimenSub">Serif · alto contraste · italic ornamental</p></div>
-        <div class="specimen"><small>Body · Manrope 400/800</small><div class="specimenChar" style="font-family:'Manrope',sans-serif;font-style:normal;font-weight:800">Aa</div><p class="specimenName">Para texto que respira y conduce.</p><p class="specimenSub">Sans · geométrica · neutralidad cálida</p></div>
-      </div>
+  <div class="hero-in">
+    <p class="kicker">Pittahaya · estudio de marca</p>
+    <h1 class="display">Brand in <span class="l2"><em class="serif-i">Motion</em></span></h1>
+    <p class="hero-sub">No creamos logos. Construimos mundos.</p>
+    <div class="hero-cta">
+      <a class="btn btn--fill" href="#idea">Explorar el proceso</a>
+      <a class="btn" href="#universe">Entrar al universo</a>
     </div>
-  </section>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><i></i><span>Desliza</span></div>
+</section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="finalCta" data-reveal>
-        <div class="kicker" style="display:inline-block">Tu turno</div>
-        <h2>Construyamos la marca que tu cliente <em>no logra olvidar</em>.</h2>
-        <p>Dime qué vendes, qué temperatura quieres provocar y qué referentes te emocionan. Te devuelvo una dirección visual viva — palabras, colores, tipografía, gestos.</p>
-        <a class="btn btnPrimary" href="contacto.html" data-fx-magnet="22">Crear mi identidad →</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer demo-footer">
+<!-- ═══════════════ 01 · UNA IDEA ═══════════════ -->
+<section class="stage spark-stage" id="idea" data-spark-stage>
+  <div class="spark-canvas" aria-hidden="true"><canvas data-spark-mark></canvas></div>
   <div class="wrap">
-    <div class="demo-footer-brand">
-      <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
-      <span>Demo interna para clientes</span>
-      <strong>Pittahaya</strong>
-      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Diseño, demos y contenido protegidos. Prohibida su copia o uso no autorizado.</small>
+    <div class="spark-copy" style="max-width:560px">
+      <span class="stage-num">01 — Una idea</span>
+      <h2 class="d2" data-reveal>Todo empieza con una <em class="fruit">sola chispa.</em></h2>
+      <p class="lede" data-reveal>Pittahaya nace como un punto de luz: una semilla donde se encuentran creatividad, estrategia, diseño, tecnología e inteligencia artificial. Desliza, y la chispa se convierte en forma.</p>
+      <div class="spark-seeds" data-reveal>
+        <span>Creatividad</span><span>Estrategia</span><span>Diseño</span><span>Tecnología</span><span>IA</span>
+      </div>
     </div>
-    <div class="navLinks">
-      <a class="pill" href="portafolio.html">Ver más demos</a>
-      <a class="pill" href="contacto.html">Comencemos tu proyecto</a>
+  </div>
+</section>
+
+<!-- ═══════════════ 02 · IDENTIDAD ═══════════════ -->
+<section class="stage" id="identity">
+  <div class="stage-head">
+    <span class="stage-num" data-reveal>02 — Identidad</span>
+    <h2 class="d2" data-reveal data-weight>Definimos el <em class="champ">alma</em> de la marca.</h2>
+    <p class="lede" data-reveal>El monograma no es una estampa fija. Es un sistema vivo: respira, se adapta y sostiene su carácter en cualquier material, color o escala.</p>
+  </div>
+  <div class="wrap">
+    <div class="id-grid">
+      <div class="id-canvas" data-reveal>
+        <canvas data-id-mark></canvas>
+        <div class="id-controls">
+          <button data-id-mode="brand" class="on">Marca</button>
+          <button data-id-mode="mono">Monocromo</button>
+          <button data-id-mode="champ">Metal</button>
+          <button data-id-mode="scatter">Semilla</button>
+        </div>
+      </div>
+      <div data-reveal>
+        <h3 class="d3">Un símbolo con raíz.</h3>
+        <p class="lede" style="margin-top:18px">La pitahaya —cuerpo magenta, escamas de fuego verde— traduce lo orgánico a geometría precisa. Naturaleza y tecnología en una misma marca.</p>
+        <dl class="id-facts">
+          <div><dt>Nombre</dt><dd>Pittahaya</dd></div>
+          <div><dt>Naturaleza</dt><dd>Identidad responsiva</dd></div>
+          <div><dt>Construcción</dt><dd>Semilla → forma</dd></div>
+          <div><dt>Personalidad</dt><dd>Orgánica · precisa</dd></div>
+          <div><dt>Posicionamiento</dt><dd>Mundos de marca completos</dd></div>
+        </dl>
+      </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 03 · ELEMENTOS ═══════════════ -->
+<section class="stage" id="elements">
+  <div class="stage-head">
+    <span class="stage-num" data-reveal>03 — Elementos</span>
+    <h2 class="d2" data-reveal data-weight>Tipografía, color, forma y detalle <em class="fruit">cobran vida.</em></h2>
+    <p class="lede" data-reveal>La identidad se expande en un lenguaje visual completo. No es un logo: es un sistema de diseño entero, coherente en cada decisión.</p>
+  </div>
+  <div class="wrap">
+    <div class="elems">
+      <div class="elem e-type" data-reveal>
+        <span class="tag">Tipografía · editorial + funcional</span>
+        <div class="spec">
+          <span class="big" data-weight>Fraunces</span>
+          <div class="row">
+            <b class="s1">Serif editorial de alto contraste</b>
+            <b class="s2">Space Grotesk · sistema · UI</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="elem e-color" data-reveal>
+        <span class="tag">Color · cimientos y acentos</span>
+        <div class="swatches">
+          <div class="sw black"><small>Negro 08070A</small></div>
+          <div class="sw char"><small>Carbón 1A1620</small></div>
+          <div class="sw ivory"><small>Marfil F4EFE6</small></div>
+          <div class="sw champ"><small>Champán</small></div>
+          <div class="sw fruit"><small>Fruta E0357B</small></div>
+          <div class="sw lime"><small>Lima 9FCE3A</small></div>
+        </div>
+      </div>
+
+      <div class="elem e-pattern" data-reveal><canvas data-pattern></canvas></div>
+
+      <div class="elem e-voice" data-reveal>
+        <span class="tag" style="padding-bottom:14px">Tono de voz · principio de movimiento</span>
+        <p class="quote">Hablamos como diseñamos: <em>con precisión y calidez.</em> Cada palabra, como cada píxel, pertenece al mismo sistema — y todo se mueve desde un mismo centro.</p>
+        <p class="attrib">— Principio editorial de Pittahaya</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 04 · APLICACIONES ═══════════════ -->
+<section class="stage" id="applications">
+  <div class="stage-head">
+    <span class="stage-num" data-reveal>04 — Aplicaciones</span>
+    <h2 class="d2" data-reveal data-weight>La marca vive en cada <em class="champ">punto de contacto.</em></h2>
+    <p class="lede" data-reveal>Del papel al píxel. Cada objeto nace del mismo centro y conserva su ADN: material, luz, tipografía y detalle, art-directed, nunca un mockup genérico.</p>
+  </div>
+  <div class="wrap">
+    <div class="apps">
+      <article class="app a-wide" tabindex="0" data-parallax>
+        <img src="assets/marca/materials.jpg" alt="Muestras de materiales de marca: tarjeta marfil con emboss, placa de metal champán, vidrio negro." />
+        <div class="app-label">
+          <span class="n">Materiales · papelería</span>
+          <h3>El detalle se toca.</h3>
+          <p>Algodón marfil, emboss ciego profundo, metal cepillado y vidrio ahumado. La calidad se percibe antes de leerse.</p>
+        </div>
+      </article>
+      <article class="app a-tall" tabindex="0" data-parallax>
+        <img src="assets/marca/packaging.jpg" alt="Packaging premium negro mate y bolsa con monograma en relieve." />
+        <div class="app-label">
+          <span class="n">Packaging · retail</span>
+          <h3>El primer gesto.</h3>
+          <p>Caja rígida y bolsa en negro mate con monograma en relieve ciego que atrapa la luz champán.</p>
+        </div>
+      </article>
+      <article class="app a-half" tabindex="0" data-parallax>
+        <img src="assets/marca/devices.jpg" alt="Portátil y móvil mostrando la interfaz editorial oscura de Pittahaya." />
+        <div class="app-label">
+          <span class="n">Digital · web + móvil</span>
+          <h3>La misma alma, en pantalla.</h3>
+          <p>Tipografía editorial marfil, divisores champán y un único acento fruta. El sistema impreso se vuelve interfaz sin perder carácter.</p>
+        </div>
+      </article>
+      <article class="app a-third" tabindex="0" data-parallax>
+        <img src="assets/marca/ecosystem.jpg" alt="Colateral de marca conectado por hilos de luz." />
+        <div class="app-label">
+          <span class="n">Sistema · colateral</span>
+          <h3>Todo conectado.</h3>
+          <p>Guías, tarjetas y campañas hilvanadas por una misma luz.</p>
+        </div>
+      </article>
+      <article class="app a-third" tabindex="0" data-parallax>
+        <img src="assets/marca/materials.jpg" alt="Detalle macro de tarjeta con emboss." style="object-position:70% 40%" />
+        <div class="app-label">
+          <span class="n">Print · tarjetería</span>
+          <h3>Emboss ciego.</h3>
+          <p>El monograma sin tinta: solo relieve y sombra.</p>
+        </div>
+      </article>
+      <article class="app a-third" tabindex="0" data-parallax>
+        <img src="assets/marca/packaging.jpg" alt="Bolsa de compra premium con asa tejida." style="object-position:30% 50%" />
+        <div class="app-label">
+          <span class="n">Retail · bolsa</span>
+          <h3>Se lleva a casa.</h3>
+          <p>La identidad que sale a la calle.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- plate cinematográfica con hotspots -->
+    <figure class="filmplate" data-parallax data-reveal>
+      <img src="assets/marca/ecosystem.jpg" alt="Ecosistema de marca de Pittahaya conectado por hilos de luz champán." />
+      <button class="hotspot" style="left:31%;top:38%" aria-label="Tarjetas con emboss">
+        <i></i><span class="tip"><b>Papelería</b><span>Emboss ciego sobre algodón marfil</span></span>
+      </button>
+      <button class="hotspot" style="left:61%;top:34%" aria-label="Bolsa de retail">
+        <i></i><span class="tip"><b>Retail</b><span>Bolsa negra · asa tejida</span></span>
+      </button>
+      <button class="hotspot" style="left:76%;top:52%" aria-label="Interfaz móvil">
+        <i></i><span class="tip"><b>Digital</b><span>La marca en la palma</span></span>
+      </button>
+      <button class="hotspot" style="left:45%;top:66%" aria-label="Packaging">
+        <i></i><span class="tip"><b>Packaging</b><span>Caja rígida en negro mate</span></span>
+      </button>
+    </figure>
+  </div>
+</section>
+
+<!-- ═══════════════ 05 · EXPERIENCIA ═══════════════ -->
+<section class="stage" id="experience">
+  <div class="stage-head">
+    <span class="stage-num" data-reveal>05 — Experiencia</span>
+    <h2 class="d2" data-reveal data-weight>Creamos experiencias que <em class="fruit">conectan.</em></h2>
+    <p class="lede" data-reveal>Lo físico y lo digital son un solo continuo. Cada objeto de marca puede transformarse en una interacción viva.</p>
+  </div>
+  <div class="wrap">
+    <div class="morphs">
+      <div class="morph" data-reveal>
+        <div class="morph-side"><span class="tag">Físico</span><h3>Tarjeta de presentación</h3><p>Algodón marfil, emboss ciego, un gesto de mano.</p></div>
+        <div class="morph-arrow" aria-hidden="true"></div>
+        <div class="morph-side to"><span class="tag">Digital</span><h3>Perfil interactivo</h3><p>La tarjeta se despliega en un perfil vivo, con contacto y portfolio.</p></div>
+      </div>
+      <div class="morph" data-reveal>
+        <div class="morph-side"><span class="tag">Impreso</span><h3>Guía de marca</h3><p>Un manual encuadernado, tinta sobre papel.</p></div>
+        <div class="morph-arrow" aria-hidden="true"></div>
+        <div class="morph-side to"><span class="tag">Digital</span><h3>Sistema de diseño</h3><p>Las páginas se vuelven tokens, componentes y reglas interactivas.</p></div>
+      </div>
+      <div class="morph" data-reveal>
+        <div class="morph-side"><span class="tag">Móvil</span><h3>Una pantalla</h3><p>La interfaz en la palma de la mano.</p></div>
+        <div class="morph-arrow" aria-hidden="true"></div>
+        <div class="morph-side to"><span class="tag">Ecosistema</span><h3>Web + social + campaña</h3><p>La misma retícula se adapta a cada formato sin perder el alma.</p></div>
+      </div>
+      <div class="morph" data-reveal>
+        <div class="morph-side"><span class="tag">Estático</span><h3>Marca fija</h3><p>Un monograma quieto.</p></div>
+        <div class="morph-arrow" aria-hidden="true"></div>
+        <div class="morph-side to"><span class="tag">IA · movimiento</span><h3>Identidad viva</h3><p>El símbolo respira, responde y se reensambla con cada interacción.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 06 · UNIVERSO ═══════════════ -->
+<section class="universe" id="universe">
+  <div class="universe-bg" aria-hidden="true"><img src="assets/marca/universe.jpg" alt="" /></div>
+  <div class="universe-canvas" aria-hidden="true"><canvas data-uni-mark></canvas></div>
+  <div class="wrap universe-in">
+    <span class="stage-num" data-reveal>06 — Universo</span>
+    <h2 class="d2" data-reveal>Un ecosistema entero en <em class="champ">perfecta armonía.</em></h2>
+    <p class="lede" data-reveal>Todo lo que recorriste —chispa, identidad, elementos, aplicaciones, experiencia— orbita ahora alrededor de un solo corazón. El monograma en el centro. La marca, un mundo.</p>
+    <div class="uni-stats stagger">
+      <div><b>1</b><small>Idea central</small></div>
+      <div><b>∞</b><small>Posibilidades</small></div>
+      <div><b>6</b><small>Etapas de mundo</small></div>
+      <div><b>1</b><small>Sistema en armonía</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CAPACIDADES ═══════════════ -->
+<section class="stage caps">
+  <div class="stage-head">
+    <span class="stage-num" data-reveal>Lo que acabas de ver</span>
+    <h2 class="d3" data-reveal>Cada etapa fue una capacidad en acción.</h2>
+  </div>
+  <div class="wrap">
+    <div class="caps-grid stagger">
+      <span class="cap"><span class="d">01</span>Estrategia</span>
+      <span class="cap"><span class="d">02</span>Identidad de marca</span>
+      <span class="cap"><span class="d">03</span>Dirección creativa</span>
+      <span class="cap"><span class="d">04</span>Diseño web</span>
+      <span class="cap"><span class="d">05</span>E-commerce</span>
+      <span class="cap"><span class="d">06</span>Productos digitales</span>
+      <span class="cap"><span class="d">07</span>Motion</span>
+      <span class="cap"><span class="d">08</span>Experiencias con IA</span>
+      <span class="cap"><span class="d">09</span>Automatización</span>
+      <span class="cap"><span class="d">10</span>Campañas</span>
+      <span class="cap"><span class="d">11</span>Sistemas de contenido</span>
+      <span class="cap"><span class="d">12</span>Ecosistemas de marca completos</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CIERRE ═══════════════ -->
+<section class="finale">
+  <div class="finale-in">
+    <p class="kicker center" data-reveal>El mundo de Pittahaya</p>
+    <h2 class="display" data-reveal>Una idea.<span class="l2">Infinitas posibilidades.</span></h2>
+    <p class="lede" data-reveal>Pittahaya transforma estrategia, identidad, diseño y tecnología en mundos de marca completos.</p>
+    <div class="finale-cta" data-reveal>
+      <a class="btn btn--fill" href="contacto.html">Construir tu mundo</a>
+      <a class="btn" href="portafolio.html">Explorar nuestro trabajo</a>
+    </div>
+    <p class="finale-sig" data-reveal>Pittahaya · Brand in Motion · Demo interactiva</p>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <span>Pittahaya · Brand in Motion</span>
+    <nav>
+      <a href="portafolio.html">Portafolio</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="privacidad.html">Privacidad</a>
+      <span>© <span data-year>2026</span></span>
+    </nav>
   </div>
 </footer>
 
-<div class="demo-corner-logo" aria-hidden="true">
-  <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
-</div>
-
-<script src="assets/demo-landing-fx.js?v=13" defer></script>
-<script src="assets/chatbot.js?v=v14" defer></script>
-<script src="assets/analytics.js?v=1" defer></script>
+<script src="assets/mare-brand.js?v=1" defer></script>
 </body>
 </html>

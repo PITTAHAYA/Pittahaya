@@ -4,3 +4,6 @@ node_modules/
 *.log
 .claude/
 social-posts/
+
+# Fuentes crudas de generación (no se publican; quedan en local)
+casas/
