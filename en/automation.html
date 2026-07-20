@@ -27,12 +27,13 @@
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/styles.css?v=m26" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css?v=m28" />
+  <link rel="stylesheet" href="../assets/casa.css?v=6" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
+  <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
   <link rel="canonical" href="https://www.pittahaya.com/en/automation.html" />
   <link rel="manifest" href="/site.webmanifest" />
 </head>
@@ -55,7 +56,7 @@
       <a data-nav href="portfolio.html">Portfolio</a>
       <a data-nav href="about.html">About</a>
       <a data-nav href="faq.html">FAQ</a>
-      <a class="lang-switch" href="../automatizacion.html" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
+      <a class="lang-switch" href="../automatizacion.html" hreflang="es" lang="es" aria-label="View in Spanish">ES</a>
       <a data-nav href="contact.html" class="btn btn-ghost" style="padding:10px 12px;">Contact</a>
     </nav>
     <button id="openDrawer" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">☰</button>
@@ -85,12 +86,23 @@
 </div>
 
 <main>
+<section class="phead">
+  <div class="phead-bg" aria-hidden="true"><img src="../assets/casa/ia.jpg" alt="" /></div>
+  <div class="phead-in">
+    <p class="phead-rotulo">Artificial intelligence</p>
+    <h1 class="phead-t">
+      <span class="phead-mask"><span>AI that works</span></span>
+      <span class="phead-mask d1"><span><em>even while you sleep.</em></span></span>
+    </h1>
+    <p class="phead-sub">Automatic support, lead capture and processes that stop eating your day.</p>
+  </div>
+</section>
   <!-- ════════ HERO with live feed ════════ -->
   <section class="aiHero">
     <div class="container aiHero-grid">
       <div data-air>
         <span class="ai-eyebrow"><span class="live-dot" aria-hidden="true"></span> AI Automation · Working now</span>
-        <h1>Your business, selling on its <em>own</em> — 24 hours a day.</h1>
+        
         <p class="lead">While you sleep, eat, or serve another customer, artificial intelligence answers, books, follows up, and closes sales for you. It's not science fiction — it's a system we build for your business that works without rest.</p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="contact.html">I want to automate my business</a>
@@ -141,12 +153,12 @@
         <h2>A complete system that works without rest.</h2>
       </div>
       <div class="ai-serv" data-air>
-        <div class="ai-card"><div class="ai-ico" aria-hidden="true">💬</div><h3>Smart chatbots</h3><p>Instant 24/7 support: answer questions, qualify leads, book appointments, and hand off to a human only when needed.</p></div>
-        <div class="ai-card"><div class="ai-ico" aria-hidden="true">🤖</div><h3>AI agents</h3><p>Autonomous assistants trained on your information: lead follow-up, email replies, quotes, and repetitive tasks.</p></div>
-        <div class="ai-card"><div class="ai-ico" aria-hidden="true">⚙️</div><h3>Process automation</h3><p>We connect your tools (email, calendar, CRM, payments) and remove the manual work: invoices, reports, and internal flows.</p></div>
-        <div class="ai-card"><div class="ai-ico" aria-hidden="true">🎯</div><h3>Capture &amp; follow-up</h3><p>Every contact gets an instant reply and automatic follow-up. No customer goes cold for lack of a response.</p></div>
-        <div class="ai-card"><div class="ai-ico" aria-hidden="true">📅</div><h3>Booking &amp; scheduling</h3><p>Clients book themselves and receive automatic confirmations and reminders. Fewer no-shows, zero manual coordination.</p></div>
-        <div class="ai-card"><div class="ai-ico" aria-hidden="true">📊</div><h3>Reports &amp; content</h3><p>Automatic generation of reports, product descriptions, and posts — ready to review and publish in minutes.</p></div>
+        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/smart-chatbot.png" alt="" decoding="async" /></div><h3>Smart chatbots</h3><p>Instant 24/7 support: answer questions, qualify leads, book appointments, and hand off to a human only when needed.</p></div>
+        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/ai-agent.png" alt="" loading="lazy" decoding="async" /></div><h3>AI agents</h3><p>Autonomous assistants trained on your information: lead follow-up, email replies, quotes, and repetitive tasks.</p></div>
+        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/process-automation.png" alt="" loading="lazy" decoding="async" /></div><h3>Process automation</h3><p>We connect your tools (email, calendar, CRM, payments) and remove the manual work: invoices, reports, and internal flows.</p></div>
+        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/lead-followup.png" alt="" loading="lazy" decoding="async" /></div><h3>Capture &amp; follow-up</h3><p>Every contact gets an instant reply and automatic follow-up. No customer goes cold for lack of a response.</p></div>
+        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/booking-scheduling.png" alt="" loading="lazy" decoding="async" /></div><h3>Booking &amp; scheduling</h3><p>Clients book themselves and receive automatic confirmations and reminders. Fewer no-shows, zero manual coordination.</p></div>
+        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/reports-content.png" alt="" loading="lazy" decoding="async" /></div><h3>Reports &amp; content</h3><p>Automatic generation of reports, product descriptions, and posts — ready to review and publish in minutes.</p></div>
       </div>
     </div>
   </section>
@@ -192,14 +204,14 @@
         <h2>We automate it for <em>any industry.</em></h2>
       </div>
       <div class="ai-uses" data-air>
-        <div class="ai-use"><div class="ico" aria-hidden="true">🍽️</div><h4>Restaurants</h4><p>Automatic reservations, chat orders, and confirmations without anyone answering the phone.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">🏥</div><h4>Clinics &amp; health</h4><p>Appointment scheduling, automatic reminders, and answers to common questions 24/7.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">🛍️</div><h4>Stores &amp; e-commerce</h4><p>Sales support, cart recovery, and automatic post-sale follow-up.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">💼</div><h4>Services &amp; consulting</h4><p>Lead qualification, automatic quotes, and call scheduling.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">🏠</div><h4>Real estate</h4><p>Instant replies to prospects, lead filtering, and visit coordination.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">💪</div><h4>Gyms &amp; studios</h4><p>Sign-ups, class bookings, and reminders to reduce no-shows.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">🎓</div><h4>Education &amp; courses</h4><p>Student enrollment, frequent answers, and payment follow-up.</p></div>
-        <div class="ai-use"><div class="ico" aria-hidden="true">🚀</div><h4>Startups &amp; SaaS</h4><p>Automatic onboarding, 24/7 support, and user qualification for your team.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-restaurant.png" alt="" loading="lazy" decoding="async" /></div><h4>Restaurants</h4><p>Automatic reservations, chat orders, and confirmations without anyone answering the phone.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-health.png" alt="" loading="lazy" decoding="async" /></div><h4>Clinics &amp; health</h4><p>Appointment scheduling, automatic reminders, and answers to common questions 24/7.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-ecommerce.png" alt="" loading="lazy" decoding="async" /></div><h4>Stores &amp; e-commerce</h4><p>Sales support, cart recovery, and automatic post-sale follow-up.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-consulting.png" alt="" loading="lazy" decoding="async" /></div><h4>Services &amp; consulting</h4><p>Lead qualification, automatic quotes, and call scheduling.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-real-estate.png" alt="" loading="lazy" decoding="async" /></div><h4>Real estate</h4><p>Instant replies to prospects, lead filtering, and visit coordination.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-fitness.png" alt="" loading="lazy" decoding="async" /></div><h4>Gyms &amp; studios</h4><p>Sign-ups, class bookings, and reminders to reduce no-shows.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-education.png" alt="" loading="lazy" decoding="async" /></div><h4>Education &amp; courses</h4><p>Student enrollment, frequent answers, and payment follow-up.</p></div>
+        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="../assets/ai-icons/industry-saas.png" alt="" loading="lazy" decoding="async" /></div><h4>Startups &amp; SaaS</h4><p>Automatic onboarding, 24/7 support, and user qualification for your team.</p></div>
       </div>
     </div>
   </section>
@@ -287,7 +299,8 @@
 <script src="../assets/analytics.js?v=1" defer></script>
 
 <script src="../assets/app.js?v=m18" defer></script>
-<script src="../assets/ai-fx.js?v=1" defer></script>
-<script src="../assets/chatbot.js?v=v14" defer></script>
+<script src="../assets/ai-fx.js?v=2" defer></script>
+<script src="../assets/chatbot.js?v=v16" defer></script>
+<script src="../assets/casa.js?v=6" defer></script>
 </body>
 </html>

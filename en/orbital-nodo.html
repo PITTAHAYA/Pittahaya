@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#04060a" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>The node — ORBITAL | Pittahaya</title>
+<meta name="description" content="Architecture of the orbital computing node: 1.2 PFLOP, deployable radiators, and a 14-year design life." />
+<meta name="copyright" content="© Pittahaya. All rights reserved." />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Pittahaya" />
+<meta property="og:title" content="The node — ORBITAL | Pittahaya" />
+<meta property="og:description" content="Architecture of the orbital computing node: 1.2 PFLOP, deployable radiators, and a 14-year design life." />
+<meta property="og:url" content="https://www.pittahaya.com/en/orbital-nodo.html" />
+<meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://www.pittahaya.com/en/orbital-nodo.html" />
+<link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-nodo.html" />
+<link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-nodo.html" />
+<link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/orbital-nodo.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/orbital.css?v=3" />
+</head>
+<body>
+<div class="tick" data-tick aria-hidden="true"></div>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+
+<header class="hdr" data-hdr>
+  <a class="brand" href="demo-startup.html" aria-label="ORBITAL · home">
+    <span class="mark" aria-hidden="true"></span>
+    <span><b>ORBITAL</b><span>Low-Earth orbit computing</span></span>
+  </a>
+  <button class="burger" data-burger type="button" aria-expanded="false" aria-controls="nav-main" aria-label="Open navigation">
+    <i></i><i></i><i></i>
+  </button>
+  <nav class="nav" id="nav-main" data-nav aria-label="Primary">
+    <a href="demo-startup.html">Home</a>
+    <a href="orbital-constelacion.html">Constellation</a>
+    <a href="orbital-nodo.html" class="is-here" aria-current="page">The node</a>
+    <a href="orbital-mision.html">Mission</a>
+    <a href="orbital-compania.html">Company</a>
+    <a class="out" href="portfolio.html">← Demos</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="phead">
+  <div class="phead-bg" aria-hidden="true"><img src="../assets/orbital/radiator.jpg" alt="" /></div>
+  <div class="wrap">
+    <p class="eyebrow">Hardware</p>
+    <h1 class="d2">An object that powers on<br>once and <em class="hl">never shuts down.</em></h1>
+    <p class="lede">There are no technicians in orbit. Every design decision answers a single question: what happens if this fails and no one can touch it for fourteen years?</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-media" data-reveal>
+        <img src="../assets/orbital/node.jpg" alt="Orbital computing node against a black background, with machined cooling fins and a gold thermal blanket." />
+      </div>
+      <div class="split-body">
+        <p class="eyebrow" data-reveal>ORB-N4</p>
+        <h2 class="d3" data-reveal>Four subsystems.<br>No critical moving parts.</h2>
+        <p class="lede" data-reveal>The aluminum 7075 chassis is machined from a single piece and serves as structure, shielding, and heat sink. The electronics are triplicated with majority voting: a radiation strike that corrupts one core is discarded before it can propagate.</p>
+        <dl class="specs" data-reveal>
+          <div><dt>Compute</dt><dd>1.2 PFLOP FP8</dd></div>
+          <div><dt>Memory</dt><dd>2 TB HBM3e ECC</dd></div>
+          <div><dt>Storage</dt><dd>96 TB shielded NAND</dd></div>
+          <div><dt>Peak power</dt><dd>19.2 kW</dd></div>
+          <div><dt>Dry mass</dt><dd>840 kg</dd></div>
+          <div><dt>Tolerance</dt><dd>60 krad (Si)</dd></div>
+          <div><dt>Thermal range</dt><dd>−40 °C to +65 °C</dd></div>
+          <div><dt>Design life</dt><dd>14 years</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<figure class="plate" data-plate>
+  <img src="../assets/orbital/radiator.jpg" alt="Close-up of an orbital node's gold-foil radiator wing in direct sunlight." />
+  <figcaption><b>Radiator wing · 18-layer MLI</b>The foil is not decorative: it reflects 96% of incident solar radiation and emits heat from the core into the vacuum.</figcaption>
+</figure>
+
+<section class="sec">
+  <div class="sec-head">
+    <p class="eyebrow" data-reveal>Thermal control</p>
+    <h2 class="d2" data-reveal>Cooling without air<br>or water.</h2>
+    <p class="lede" data-reveal>There is no convection in a vacuum. The only way heat can escape is through infrared radiation — which means redesigning the problem from first principles.</p>
+  </div>
+  <div class="wrap">
+    <div class="thesis">
+      <article data-reveal>
+        <span class="n">01 / Capture</span>
+        <h3>Vapor chambers</h3>
+        <p>Heat from the core travels through phase change to the base of the radiators. No pumps: capillary action sustains the cycle.</p>
+        <div class="fig"><b>18</b><span>kW transferred</span></div>
+      </article>
+      <article data-reveal>
+        <span class="n">02 / Emission</span>
+        <h3>Deployable radiators</h3>
+        <p>Two 22 m² wings with high-emissivity coatings unfold after separation from the launch vehicle and never move again.</p>
+        <div class="fig"><b>44</b><span>m² of emitting area</span></div>
+      </article>
+      <article data-reveal>
+        <span class="n">03 / Management</span>
+        <h3>Sun-synchronized workloads</h3>
+        <p>The scheduler knows the ephemerides: heavy workloads run during illuminated phases and migrate to another node before each eclipse.</p>
+        <div class="fig"><b>0</b><span>jobs lost in 12 months</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--line">
+  <div class="wrap">
+    <div class="split split--flip">
+      <div class="split-media is-wide" data-reveal>
+        <img src="../assets/orbital/cleanroom.jpg" alt="Two cleanroom-suited engineers beside an orbital computing module in its assembly fixture." />
+      </div>
+      <div class="split-body">
+        <p class="eyebrow" data-reveal>Integration</p>
+        <h2 class="d3" data-reveal>ISO 5 cleanroom.<br>Eleven weeks per node.</h2>
+        <p class="lede" data-reveal>Each module undergoes thermal-vacuum cycling, random vibration, and pyrotechnic shock before receiving flight clearance. No node leaves the building without surviving a simulated launch.</p>
+        <dl class="specs" data-reveal>
+          <div><dt>Thermal vacuum</dt><dd>8 cycles · 96 h</dd></div>
+          <div><dt>Vibration</dt><dd>14.1 g RMS</dd></div>
+          <div><dt>Shock</dt><dd>2,000 g · 1 kHz</dd></div>
+          <div><dt>Acceptance</dt><dd>1,412 points</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--line" style="padding-bottom:0">
+  <div class="sec-head"><p class="eyebrow" data-reveal>Continue</p></div>
+  <div class="next" style="margin-top:34px">
+    <a href="orbital-constelacion.html" data-reveal>
+      <span class="n">01</span>
+      <h3>The constellation</h3>
+      <p>Where every node is right now and what it is computing.</p>
+      <span class="go">Open →</span>
+    </a>
+    <a href="orbital-mision.html" data-reveal>
+      <span class="n">03</span>
+      <h3>Mission control</h3>
+      <p>Operations console and launch manifest.</p>
+      <span class="go">Open →</span>
+    </a>
+    <a href="orbital-compania.html" data-reveal>
+      <span class="n">04</span>
+      <h3>The company</h3>
+      <p>Timeline, backing, and where we are headed.</p>
+      <span class="go">Open →</span>
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <span>ORBITAL · A Pittahaya demo</span>
+    <nav>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <span>© <span data-year>2026</span></span>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/orbital.js?v=4" defer></script>
+<script src="../assets/orbital-tracker.js?v=4" defer></script>
+</body>
+</html>
