@@ -380,3 +380,100 @@ body .nav .btn-ghost:hover{border-color:#e0357b;color:#ff5c9c;background:transpa
 .vitrina-fila:hover .vf-i{transform:translateX(5px);color:var(--fruta-viva)}
 .vitrina-todo{margin:0;border-radius:0;border:0;justify-content:center;background:var(--tinta)}
 .vitrina-todo:hover{background:var(--carbon)}
+
+/* ═══════════════════════════════════════════════════════════
+   UNIFICACIÓN DE IDENTIDAD
+   styles.css venía de la etapa anterior: fondo con cuadrícula,
+   tarjetas con degradado magenta y botones ámbar. Estas reglas
+   lo alinean con la identidad sin tocar el marcado ni el HTML.
+   Solo aplica en páginas que cargan casa.css.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --pk-negro:#08070a;--pk-tinta:#0d0b11;--pk-carbon:#16131c;
+  --pk-linea:rgba(244,239,230,.11);--pk-linea2:rgba(244,239,230,.22);
+  --pk-marfil:#f4efe6;--pk-marfil2:rgba(244,239,230,.62);--pk-marfil3:rgba(244,239,230,.34);
+  --pk-fruta:#e0357b;--pk-fruta2:#ff5c9c;--pk-lima:#9fce3a;--pk-champan:#d9c3a0;
+  --pk-serif:"Fraunces",Georgia,serif;--pk-sans:"Space Grotesk",system-ui,sans-serif;
+  --pk-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --pk-ease:cubic-bezier(.19,1,.22,1);
+}
+
+/* fondo: fuera la cuadrícula */
+body{background:var(--pk-negro)!important;background-image:none!important;
+  color:var(--pk-marfil);font-family:var(--pk-sans)}
+body::before,body::after{background-image:none!important}
+.section,.section.compact{background-image:none!important}
+
+/* tipografía */
+h1,h2,h3,.section-title,.d1{font-family:var(--pk-serif);font-weight:340;letter-spacing:-.028em}
+.section-lead,.lead,p{font-family:var(--pk-sans)}
+.kicker{font-family:var(--pk-mono)!important;font-size:11px!important;letter-spacing:.28em!important;
+  text-transform:uppercase!important;color:var(--pk-fruta2)!important;background:none!important;
+  border:0!important;padding:0!important}
+
+/* tarjetas: superficie plana con filo fino, sin degradado magenta */
+.card,.plan,.ai-num,.audit-card,.faq-item,.value-card,.step{
+  background:var(--pk-tinta)!important;
+  border:1px solid var(--pk-linea)!important;
+  box-shadow:none!important;
+  border-radius:16px!important;
+  transition:border-color .5s var(--pk-ease),transform .6s var(--pk-ease)!important;
+}
+.card:hover,.plan:hover,.faq-item:hover,.value-card:hover{
+  border-color:var(--pk-linea2)!important;transform:translateY(-3px)}
+.card-inner{background:none!important}
+.hover-lift:hover{transform:translateY(-3px)}
+
+/* numeradores y iconos */
+.icon,.num,.step-num{background:rgba(244,239,230,.05)!important;border:1px solid var(--pk-linea)!important;
+  color:var(--pk-champan)!important;font-family:var(--pk-mono)!important;box-shadow:none!important}
+
+/* insignias */
+.badge,.ai-tag,.pill,.tag{
+  background:rgba(244,239,230,.04)!important;border:1px solid var(--pk-linea)!important;
+  color:var(--pk-marfil2)!important;font-family:var(--pk-mono)!important;
+  font-size:10px!important;letter-spacing:.16em!important;text-transform:uppercase!important;
+  border-radius:999px!important;box-shadow:none!important}
+.badge .dot,.live-dot{background:var(--pk-lima)!important;box-shadow:0 0 8px var(--pk-lima)!important}
+
+/* botones: marfil sólido / contorno fino. Fuera el ámbar. */
+.btn,.btn-gold,.btn-ghost,.ai-cta .btn{
+  font-family:var(--pk-mono)!important;font-size:11px!important;letter-spacing:.18em!important;
+  text-transform:uppercase!important;border-radius:999px!important;padding:14px 26px!important;
+  box-shadow:none!important;transition:all .4s var(--pk-ease)!important}
+.btn-gold{background:var(--pk-marfil)!important;color:var(--pk-negro)!important;
+  border:1px solid var(--pk-marfil)!important}
+.btn-gold:hover{background:var(--pk-lima)!important;border-color:var(--pk-lima)!important;
+  color:var(--pk-negro)!important;transform:translateY(-2px)}
+.btn-ghost,.btn:not(.btn-gold){background:transparent!important;color:var(--pk-marfil)!important;
+  border:1px solid var(--pk-linea2)!important}
+.btn-ghost:hover,.btn:not(.btn-gold):hover{border-color:var(--pk-fruta)!important;
+  color:var(--pk-fruta2)!important;transform:translateY(-2px)}
+
+/* bandas destacadas (IA) sin verde chillón */
+.ai-band{background:var(--pk-tinta)!important;border:1px solid var(--pk-linea)!important;
+  border-radius:18px!important;box-shadow:none!important}
+.ai-band .kicker,.ai-tag{color:var(--pk-lima)!important}
+.ai-num b{background:none!important;-webkit-text-fill-color:var(--pk-marfil)!important;
+  color:var(--pk-marfil)!important;font-family:var(--pk-serif)!important}
+
+/* reglas y separadores */
+.hr,hr{border-color:var(--pk-linea)!important;background:var(--pk-linea)!important}
+
+/* pie */
+.footer{background:var(--pk-negro)!important;border-top:1px solid var(--pk-linea)!important}
+.footer a:hover{color:var(--pk-fruta2)!important}
+
+/* formularios */
+input,textarea,select{background:rgba(244,239,230,.04)!important;border:1px solid var(--pk-linea)!important;
+  color:var(--pk-marfil)!important;border-radius:10px!important;font-family:var(--pk-sans)!important}
+input:focus,textarea:focus,select:focus{border-color:var(--pk-lima)!important;outline:none!important}
+::placeholder{color:var(--pk-marfil3)!important}
+
+/* el halo magenta de .card::before y los degradados heredados
+   del cuerpo pertenecían a la etapa anterior */
+.card::before,.card::after,
+.plan::before,.plan::after,
+.section::before,.section::after{background:none!important;opacity:0!important;content:none!important}
+.top-ambient,.bg-orb,.orb,.glow{display:none!important}
+main,.section,.container{background-image:none!important}
