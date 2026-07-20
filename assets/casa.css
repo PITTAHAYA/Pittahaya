@@ -230,3 +230,42 @@
 @media (max-width:600px){
   .casa-heroe-pie .btn2,.casa-cierre-bot .btn2{width:100%;justify-content:center}
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ENTRADA DE PÁGINA INTERIOR
+   Componente autónomo: no necesita el envoltorio .casa, así que
+   convive con styles.css sin alterar el contenido existente.
+   ═══════════════════════════════════════════════════════════ */
+.phead{
+  --negro:#08070a;--marfil:#f4efe6;--marfil-2:rgba(244,239,230,.62);
+  --marfil-3:rgba(244,239,230,.34);--fruta-viva:#ff5c9c;--champan:#d9c3a0;
+  --lima:#9fce3a;--linea:rgba(244,239,230,.11);
+  --serif:"Fraunces",Georgia,serif;--sans:"Space Grotesk",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.19,1,.22,1);
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:clamp(96px,15vh,190px) clamp(20px,5vw,72px) clamp(52px,8vh,96px);
+  background:var(--negro);border-bottom:1px solid var(--linea);
+  margin-bottom:clamp(24px,4vw,56px);
+}
+.phead-bg{position:absolute;inset:0;z-index:-2}
+.phead-bg img{width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);
+  transition:opacity 1.8s var(--ease),transform 12s var(--ease)}
+.phead-bg img.lista{opacity:.34;transform:scale(1)}
+.phead-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,7,10,.9),rgba(8,7,10,.42) 46%,rgba(8,7,10,.88) 84%,var(--negro))}
+.phead-in{position:relative;z-index:2;max-width:1460px;margin:0 auto}
+.phead-rotulo{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--fruta-viva);display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.phead-rotulo::before{content:"";width:26px;height:1px;background:currentColor;opacity:.7}
+.phead h1,.phead .phead-t{margin:0;font-family:var(--serif);font-weight:320;
+  font-size:clamp(38px,6.4vw,96px);letter-spacing:-.04em;line-height:.96;color:var(--marfil);
+  max-width:17ch}
+.phead h1 em,.phead .phead-t em{font-style:normal;color:var(--champan)}
+.phead-sub{margin:24px 0 0;font-family:var(--sans);font-size:clamp(16px,1.5vw,20px);
+  color:var(--marfil-2);max-width:56ch;line-height:1.6}
+.phead-mask{display:block;overflow:hidden}
+.phead-mask > span{display:block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+.phead-mask.vis > span{transform:none}
+.phead-mask.d1 > span{transition-delay:.08s}
+@media (prefers-reduced-motion:reduce){.phead-mask > span{transform:none;transition:none}}
