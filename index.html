@@ -31,8 +31,9 @@
   <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=m27" />
+  <link rel="stylesheet" href="assets/casa.css?v=1" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
@@ -145,193 +146,199 @@
     </div>
   </div>
 </div>
-<main>
-  <section class="v2-hero v2-grain">
-    <div class="container">
-      <div class="v2-eyebrow">
-        Estudio de diseño web &amp; IA
-        <span class="v2-avail"><i></i> Tomando proyectos nuevos</span>
-      </div>
-      <h1>
-        <span class="v2-h1-intro">Tu web debe hacer que tu marca se vea</span>
-        <span class="v2-h1-big">imposible de <em>ignorar.</em></span>
-      </h1>
-      <p class="v2-hero-sub">Diseñamos webs a la medida y las potenciamos con inteligencia artificial: un sistema que atrae, convierte y trabaja por ti las 24 horas — raíz latina, estándar internacional.</p>
-      <div class="v2-hero-actions">
-        <a class="btn btn-gold" href="contacto.html">Empezar mi proyecto →</a>
-        <a class="btn" href="#trabajo">Ver el trabajo</a>
-      </div>
-      <div class="v2-hero-foot">
-        <span>Diseño a medida, sin plantillas</span>
-        <span>IA integrada</span>
-        <span>Respuesta en menos de 24h</span>
-      </div>
-    </div>
-  </section>
+<main class="casa">
 
-  <!-- ════════════ MARQUEE ════════════ -->
-  <div class="v2-marquee" aria-hidden="true">
-    <div class="v2-marquee-track">
-      <span>Diseño a medida <i>◆</i> Sin plantillas <i>◆</i> <b>IA que trabaja 24/7</b> <i>◆</i> Raíz latina, estándar internacional <i>◆</i> Quito → el mundo <i>◆</i></span>
-      <span>Diseño a medida <i>◆</i> Sin plantillas <i>◆</i> <b>IA que trabaja 24/7</b> <i>◆</i> Raíz latina, estándar internacional <i>◆</i> Quito → el mundo <i>◆</i></span>
+<!-- ═══════════════ HÉROE ═══════════════ -->
+<section class="casa-heroe">
+  <div class="casa-heroe-fondo" aria-hidden="true">
+    <img src="assets/marca/muro.jpg" alt="" />
+    <video src="assets/marca/muro.mp4" muted loop playsinline preload="none" poster="assets/marca/muro.jpg"></video>
+  </div>
+  <div class="casa-heroe-foco" data-foco aria-hidden="true"></div>
+
+  <div class="casa-heroe-in">
+    <span class="casa-disp-pill"><i></i> Tomando proyectos nuevos</span>
+    <h1 class="casa-disp">
+      <span class="mask vis"><span>No hacemos páginas.</span></span>
+      <span class="mask vis d1"><span><em class="fruta">Construimos mundos.</em></span></span>
+    </h1>
+    <p class="plomo">Estudio de diseño y tecnología con raíz ecuatoriana. Diseñamos la identidad, la programamos entera y la dejamos funcionando — sin plantillas, sin librerías prestadas, sin promesas que no se puedan comprobar.</p>
+    <div class="casa-heroe-pie">
+      <a class="btn2 btn2--lleno" href="#mundos">Ver los seis mundos</a>
+      <a class="btn2" href="contacto.html">Empezar un proyecto</a>
     </div>
   </div>
+</section>
 
-  <!-- ════════════ MANIFIESTO ════════════ -->
-  <section class="v2-manifesto v2-grain">
-    <div class="container">
-      <blockquote class="reveal">No <span class="v2-strike">vendemos páginas.</span> Construimos tu <em>mejor vendedor.</em></blockquote>
-      <p class="reveal">Cada pixel tiene un solo trabajo: que tu cliente se quede, confíe y escriba. Lo demás es decoración.</p>
+<!-- ═══════════════ MARQUESINA ═══════════════ -->
+<div class="casa-marq" aria-hidden="true">
+  <div class="casa-marq-pista">
+    <span>Estrategia</span><span>Identidad de marca</span><span>Dirección creativa</span><span>Diseño web</span><span>E-commerce</span><span>Productos digitales</span><span>Motion</span><span>Experiencias con IA</span><span>Automatización</span><span>Campañas</span>
+    <span>Estrategia</span><span>Identidad de marca</span><span>Dirección creativa</span><span>Diseño web</span><span>E-commerce</span><span>Productos digitales</span><span>Motion</span><span>Experiencias con IA</span><span>Automatización</span><span>Campañas</span>
+  </div>
+</div>
+
+<!-- ═══════════════ MANIFIESTO ═══════════════ -->
+<section class="casa-manif">
+  <div class="env">
+    <blockquote data-rev>No <span class="tachado">vendemos páginas.</span> Construimos tu <em class="champan">mejor vendedor.</em></blockquote>
+  </div>
+</section>
+
+<!-- ═══════════════ LOS MUNDOS ═══════════════ -->
+<section class="casa-tramo casa-tramo--linea" id="mundos">
+  <div class="casa-tramo-cab">
+    <span class="casa-num" data-rev>La obra</span>
+    <h2 class="casa-t1">
+      <span class="mask"><span>Seis mundos.</span></span>
+      <span class="mask d1"><span>Ninguno es una maqueta.</span></span>
+    </h2>
+    <p class="plomo" data-rev>Nada de fotos de archivo. Cada uno es una marca completa que diseñamos y programamos: entra, tócala, rómpela. Funcionan de verdad.</p>
+  </div>
+
+  <div class="env">
+    <div class="casa-mundos">
+
+      <a class="mundo w-7" href="demo-highend.html" data-rev
+         style="--m-acento:#c6a473;--m-brillo:rgba(198,164,115,.20)">
+        <img src="assets/aurelia/facade.jpg" alt="AURELIA · villa de lujo con recorrido en video conducido por scroll" loading="lazy" width="1100" height="649" />
+        <span class="mundo-brillo" aria-hidden="true"></span>
+        <span class="mundo-cuerpo">
+          <span class="mundo-alto"><span class="mundo-sector">Inmobiliario de lujo</span></span>
+          <h3>Aurelia</h3>
+          <p>Villa Mare Alta. Caminas de la entrada a la piscina infinita — y el scroll conduce la cámara.</p>
+          <span class="mundo-mec">Video scrubbeado · búsqueda en 2,6 ms</span>
+          <span class="mundo-ir">Entrar →</span>
+        </span>
+      </a>
+
+      <a class="mundo w-5" href="demo-startup.html" data-rev
+         style="--m-acento:#6fd6e8;--m-brillo:rgba(111,214,232,.18)">
+        <img src="assets/orbital/array.jpg" alt="ORBITAL · infraestructura de cómputo en órbita con constelación en vivo" loading="lazy" width="1100" height="649" />
+        <span class="mundo-brillo" aria-hidden="true"></span>
+        <span class="mundo-cuerpo">
+          <span class="mundo-alto"><span class="mundo-sector">Tecnología · infraestructura</span></span>
+          <h3>Orbital</h3>
+          <p>Centros de datos en órbita baja. La constelación se propaga con mecánica orbital real.</p>
+          <span class="mundo-mec">24 nodos · eclipses calculados</span>
+          <span class="mundo-ir">Entrar →</span>
+        </span>
+      </a>
+
+      <a class="mundo w-4" href="demo-servicios.html" data-rev
+         style="--m-acento:#d3a074;--m-brillo:rgba(176,122,74,.22)">
+        <img src="assets/origen/hero-pod.jpg" alt="ORIGEN 0° · comercio de chocolate de lujo con configurador y carrito" loading="lazy" width="1100" height="649" />
+        <span class="mundo-brillo" aria-hidden="true"></span>
+        <span class="mundo-cuerpo">
+          <span class="mundo-alto"><span class="mundo-sector">Comercio de lujo</span></span>
+          <h3>Origen 0°</h3>
+          <p>Chocolate de latitud cero, con caja de cata que armas tú.</p>
+          <span class="mundo-mec">Carrito real · 5 páginas</span>
+          <span class="mundo-ir">Entrar →</span>
+        </span>
+      </a>
+
+      <a class="mundo w-4" href="demo-corporativa.html" data-rev
+         style="--m-acento:#d2b176;--m-brillo:rgba(173,130,72,.20)">
+        <img src="assets/atlas/hero.jpg" alt="ATLAS · holding de capital privado con arquitectura por sectores" loading="lazy" width="1100" height="649" />
+        <span class="mundo-brillo" aria-hidden="true"></span>
+        <span class="mundo-cuerpo">
+          <span class="mundo-alto"><span class="mundo-sector">Capital privado</span></span>
+          <h3>Atlas</h3>
+          <p>Energía, minería, marítimo e infraestructura bajo un mismo techo.</p>
+          <span class="mundo-mec">Sobriedad institucional</span>
+          <span class="mundo-ir">Entrar →</span>
+        </span>
+      </a>
+
+      <a class="mundo w-4" href="demo-landing.html" data-rev
+         style="--m-acento:#e6b25c;--m-brillo:rgba(255,106,42,.20)">
+        <img src="assets/veloce/hero-A.jpg" alt="VELOCE · lanzamiento de hyper-GT con silueta giratoria" loading="lazy" width="1100" height="649" />
+        <span class="mundo-brillo" aria-hidden="true"></span>
+        <span class="mundo-cuerpo">
+          <span class="mundo-alto"><span class="mundo-sector">Automoción</span></span>
+          <h3>Veloce</h3>
+          <p>Lanzamiento de un hyper-GT. La silueta gira con tu dedo.</p>
+          <span class="mundo-mec">Turntable arrastrable</span>
+          <span class="mundo-ir">Entrar →</span>
+        </span>
+      </a>
+
+      <a class="mundo w-12" href="demo-marca.html" data-rev
+         style="--m-acento:#9fce3a;--m-brillo:rgba(224,53,123,.20);min-height:340px">
+        <img src="assets/marca/muro.jpg" alt="Marca y Diseño · sistema de identidad auditable con modo Rayos X" loading="lazy" width="1100" height="649" />
+        <span class="mundo-brillo" aria-hidden="true"></span>
+        <span class="mundo-cuerpo">
+          <span class="mundo-alto"><span class="mundo-sector">El estudio · sistema de diseño</span></span>
+          <h3>Marca &amp; Diseño</h3>
+          <p>Nuestra propia identidad, con un interruptor que le arranca la piel a la página y te deja auditar la retícula, los tokens y cada componente. Si el sistema es bueno, aguanta que lo mires por dentro.</p>
+          <span class="mundo-mec">Pulsa X y míralo por dentro</span>
+          <span class="mundo-ir">Entrar →</span>
+        </span>
+      </a>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ════════════ EL TRABAJO (demos reales, nada de stock) ════════════ -->
-  <section class="v2-work" id="trabajo">
-    <div class="container">
-      <div class="v2-work-head reveal">
-        <h2>El trabajo</h2>
-        <span class="v2-count">Seis direcciones · diseñadas y construidas por nosotros</span>
-      </div>
-      <p class="v2-work-lead reveal">Nada de fotos de archivo ni maquetas: seis mundos completos, diseñados y programados por nosotros. Entra en cualquiera — funcionan de verdad.</p>
+<!-- ═══════════════ CIFRAS ═══════════════ -->
+<section class="casa-tramo" style="padding-bottom:0">
+  <div class="casa-cifras">
+    <div data-rev><b><span data-cifra="6">6</span></b><small>Mundos construidos</small><p>Cada uno con su propia identidad completa.</p></div>
+    <div data-rev><b><span data-cifra="14">14</span></b><small>Páginas funcionando</small><p>No maquetas: código que corre.</p></div>
+    <div data-rev><b><span data-cifra="0">0</span></b><small>Librerías externas</small><p>Todo escrito a mano. Carga rápido y no envejece.</p></div>
+    <div data-rev><b><span data-cifra="100">100</span><span style="font-size:.5em">%</span></b><small>Diseño propio</small><p>Sin plantillas compradas ni temas reciclados.</p></div>
+  </div>
+</section>
 
-      <div class="v2-work-grid">
-        <a class="v2-work-item is-featured reveal" href="demo-highend.html">
-          <div class="v2-browser">
-            <div class="v2-browser-bar"><i></i><i></i><i></i><em>aurelia · inmobiliario</em></div>
-            <div class="v2-browser-shot"><img src="assets/aurelia/facade.jpg" width="1100" height="649" alt="AURELIA: villa de lujo con recorrido en video conducido por scroll" loading="lazy"></div>
-          </div>
-          <div class="v2-work-meta">
-            <div><h3>Aurelia</h3><span>Inmobiliario de lujo · recorrido en video por scroll</span></div>
-            <span class="v2-arrow">Ver demo →</span>
-          </div>
-        </a>
+<!-- ═══════════════ OFICIOS ═══════════════ -->
+<section class="casa-tramo" id="que-hacemos">
+  <div class="casa-tramo-cab">
+    <span class="casa-num" data-rev>Qué hacemos</span>
+    <h2 class="casa-t1">
+      <span class="mask"><span>Diseño que se ve caro.</span></span>
+      <span class="mask d1"><span>Tecnología que trabaja sola.</span></span>
+    </h2>
+  </div>
 
-        <a class="v2-work-item reveal" href="demo-corporativa.html">
-          <div class="v2-browser">
-            <div class="v2-browser-bar"><i></i><i></i><i></i><em>atlas · capital privado</em></div>
-            <div class="v2-browser-shot"><img src="assets/atlas/hero.jpg" width="1100" height="649" alt="ATLAS: holding de capital privado con arquitectura por sectores" loading="lazy"></div>
-          </div>
-          <div class="v2-work-meta">
-            <div><h3>Atlas</h3><span>Capital privado · sobriedad institucional</span></div>
-            <span class="v2-arrow">→</span>
-          </div>
-        </a>
-
-        <a class="v2-work-item reveal" href="demo-servicios.html" style="transition-delay:.08s">
-          <div class="v2-browser">
-            <div class="v2-browser-bar"><i></i><i></i><i></i><em>origen 0° · comercio</em></div>
-            <div class="v2-browser-shot"><img src="assets/origen/hero-pod.jpg" width="1100" height="649" alt="ORIGEN 0°: comercio de chocolate de lujo con configurador y carrito" loading="lazy"></div>
-          </div>
-          <div class="v2-work-meta">
-            <div><h3>Origen 0°</h3><span>Comercio de lujo · carrito real</span></div>
-            <span class="v2-arrow">→</span>
-          </div>
-        </a>
-
-        <a class="v2-work-item reveal" href="demo-startup.html">
-          <div class="v2-browser">
-            <div class="v2-browser-bar"><i></i><i></i><i></i><em>orbital · infraestructura</em></div>
-            <div class="v2-browser-shot"><img src="assets/orbital/array.jpg" width="1100" height="649" alt="ORBITAL: infraestructura de cómputo en órbita con constelación en vivo" loading="lazy"></div>
-          </div>
-          <div class="v2-work-meta">
-            <div><h3>Orbital</h3><span>Tecnología · constelación en vivo</span></div>
-            <span class="v2-arrow">→</span>
-          </div>
-        </a>
-
-        <a class="v2-work-item reveal" href="demo-landing.html" style="transition-delay:.08s">
-          <div class="v2-browser">
-            <div class="v2-browser-bar"><i></i><i></i><i></i><em>veloce · automoción</em></div>
-            <div class="v2-browser-shot"><img src="assets/veloce/hero-A.jpg" width="1100" height="649" alt="VELOCE: lanzamiento de hyper-GT con silueta giratoria" loading="lazy"></div>
-          </div>
-          <div class="v2-work-meta">
-            <div><h3>Veloce</h3><span>Lanzamiento · silueta que giras</span></div>
-            <span class="v2-arrow">→</span>
-          </div>
-        </a>
-
-        <a class="v2-work-item reveal" href="demo-marca.html">
-          <div class="v2-browser">
-            <div class="v2-browser-bar"><i></i><i></i><i></i><em>marca &amp; diseño · sistema</em></div>
-            <div class="v2-browser-shot"><img src="assets/marca/muro.jpg" width="1100" height="649" alt="Marca y Diseño: sistema de identidad auditable con modo Rayos X" loading="lazy"></div>
-          </div>
-          <div class="v2-work-meta">
-            <div><h3>Marca &amp; Diseño</h3><span>Identidad · ábrela por dentro</span></div>
-            <span class="v2-arrow">→</span>
-          </div>
-        </a>
-      </div>
-
-      <div class="v2-work-cta reveal">
-        <a class="v2-link" href="portafolio.html">Ver el portafolio completo <span>→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════ DOS MOTORES (editorial split) ════════════ -->
-  <section class="v2-split" id="que-hacemos">
-    <div class="container v2-split-grid">
-      <div class="v2-engine reveal">
-        <div class="v2-num">01</div>
+  <div class="env">
+    <div class="casa-oficios">
+      <div class="oficio o-6" data-rev>
+        <span class="etq">01 · Marca y web</span>
         <h3>Una web que se ve cara — y vende sola.</h3>
-        <p>A la medida de tu negocio: rápida, memorable y con un camino directo al contacto. SEO base incluido para que Google te encuentre.</p>
-        <a class="v2-link" href="servicios.html">Ver servicios <span>→</span></a>
+        <p>Identidad, dirección de arte y desarrollo a medida. Diseñamos el sistema completo y lo programamos nosotros, así que lo que ves en la propuesta es exactamente lo que se entrega.</p>
+        <ul>
+          <li>Identidad y sistema de diseño</li>
+          <li>Diseño y desarrollo a medida</li>
+          <li>E-commerce y productos digitales</li>
+          <li>Motion y dirección de arte</li>
+        </ul>
       </div>
-      <div class="v2-engine v2-ai reveal" style="transition-delay:.1s">
-        <div class="v2-num">02</div>
+
+      <div class="oficio o-6" data-rev>
+        <span class="etq">02 · IA y automatización</span>
         <h3>IA que trabaja por ti — incluso mientras duermes.</h3>
-        <p>Chatbots y agentes que responden, agendan y hacen seguimiento las 24 horas. Atiendes a más clientes sin contratar más personal.</p>
-        <a class="v2-link" href="automatizacion.html">Ver automatización <span>→</span></a>
+        <p>Atención automática, captación de clientes y procesos que dejan de comerte el día. Se integra con lo que ya usas y responde en tu tono, no en el de un robot.</p>
+        <ul>
+          <li>Asistentes que atienden y califican</li>
+          <li>Automatización de captación y seguimiento</li>
+          <li>Contenido y campañas asistidas</li>
+          <li>Integración con tus herramientas</li>
+        </ul>
       </div>
-    </div>
-  </section>
 
-  <!-- ════════════ NÚMEROS ════════════ -->
-  <section class="v2-stats">
-    <div class="container v2-stats-grid">
-      <div class="v2-stat reveal"><b>7<i>s</i></b><span>para causar una primera impresión fuerte</span></div>
-      <div class="v2-stat reveal" style="transition-delay:.08s"><b>1</b><span>mensaje claro · visual impecable · CTA directo</span></div>
-      <div class="v2-stat reveal" style="transition-delay:.16s"><b>24<i>/7</i></b><span>tu mejor vendedor, siempre disponible</span></div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIOS -->
-  <!-- WHY TRUST US — founder promise + guarantee (honest, no invented testimonials) -->
-  <section class="section compact" id="confianza">
-    <div class="container">
-      <div class="kicker reveal">Por qué confiar en nosotros</div>
-      <h2 class="section-title reveal">Somos un estudio joven — y eso juega a tu favor</h2>
-      <p class="section-lead reveal">No tenemos cientos de clientes que atender en masa. Tenemos foco, tiempo y muchas ganas de que tu proyecto sea de los que mostramos con orgullo. Tu web no es un número para nosotros: es nuestra carta de presentación.</p>
-      <div class="trust-grid">
-        <div class="founder-card reveal">
-          <div class="founder-top">
-            <!-- 👉 Reemplaza este círculo por tu foto real:
-                 <img class="founder-photo" src="assets/founder.jpg" alt="Fundador de Pittahaya"> -->
-            <div class="founder-photo" role="img" aria-label="Fundador de Pittahaya"></div>
-            <div class="founder-id">
-              <strong>Una promesa personal</strong>
-              <span>Fundador · Pittahaya</span>
-            </div>
-          </div>
-          <p>“Detrás de Pittahaya hay una persona real que va a diseñar tu proyecto, no un call center. Voy a tratar tu web como si fuera la mía: con cuidado, comunicación clara y sin desaparecer a mitad del camino. Esa es mi palabra.”</p>
+      <div class="oficio o-12" data-rev style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+        <div style="flex:1 1 320px">
+          <span class="etq">Cómo trabajamos</span>
+          <h3 style="margin-bottom:10px">Pocos proyectos. Mucha atención.</h3>
+          <p style="max-width:56ch">Somos un estudio joven y eso juega a tu favor: no tenemos cientos de cuentas que atender en masa. Tenemos foco, tiempo y muchas ganas de que tu proyecto sea el que enseñemos.</p>
         </div>
-        <div class="guarantee-card reveal" style="transition-delay:.08s">
-          <div class="guarantee-badge" aria-hidden="true">✓</div>
-          <h3>Garantía de satisfacción</h3>
-          <p>Trabajamos con diagnóstico, revisiones y ajustes antes de la entrega final. Si algo no te convence, lo seguimos puliendo hasta que represente tu marca. No entregamos algo a medias ni te dejamos solo.</p>
-        </div>
-      </div>
-      <div class="trust-signals reveal">
-        <span class="trust-chip">Trato directo con quien diseña</span>
-        <span class="trust-chip">Todo por escrito, sin sorpresas</span>
-        <span class="trust-chip">Respuesta en menos de 24h</span>
-        <span class="trust-chip">100% remoto en Latinoamérica</span>
-        <span class="trust-chip">HTTPS y seguridad desde la base</span>
+        <a class="btn2" href="servicios.html" style="flex:none">Ver servicios</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FREE WEBSITE AUDIT — lead magnet -->
   <section class="section compact" id="auditoria">
     <div class="container">
       <div class="audit-card reveal">
@@ -414,5 +421,6 @@
 <script src="assets/analytics.js?v=1" defer></script>
 <script src="assets/app.js?v=m18" defer></script>
 <script src="assets/chatbot.js?v=v14" defer></script>
+<script src="assets/casa.js?v=1" defer></script>
 </body>
 </html>
