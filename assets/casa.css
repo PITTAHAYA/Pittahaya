@@ -88,7 +88,7 @@
 .casa-heroe-fondo{position:absolute;inset:0;z-index:-2}
 .casa-heroe-fondo img,.casa-heroe-fondo video{width:100%;height:100%;object-fit:cover;
   opacity:0;transform:scale(1.06);transition:opacity 2s var(--ease),transform 12s var(--ease)}
-.casa-heroe-fondo img.lista,.casa-heroe-fondo video.lista{opacity:.34;transform:scale(1)}
+.casa-heroe-fondo img.lista,.casa-heroe-fondo video.lista{opacity:.46;transform:scale(1)}
 .casa-heroe-fondo video{position:absolute;inset:0}
 .casa-heroe-fondo.con-video img.lista{opacity:0}
 .casa-heroe-fondo::after{content:"";position:absolute;inset:0;
@@ -100,8 +100,11 @@
 @media (hover:none){.casa-heroe-foco{display:none}}
 
 .casa-heroe-in{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;width:100%}
-.casa-disp{font-family:var(--serif);font-size:clamp(44px,8.4vw,142px);font-weight:300;
-  letter-spacing:-.045em;line-height:.92;max-width:15ch}
+.casa-disp{font-family:var(--serif);font-size:clamp(42px,7.6vw,128px);font-weight:300;
+  letter-spacing:-.04em;line-height:1.04;max-width:16ch}
+/* las máscaras recortan a la caja de línea: sin holgura los
+   descendentes (y, g, p) se cortan y chocan con la línea previa */
+.casa-disp .mask{padding-bottom:.08em;margin-bottom:-.02em}
 .casa-heroe .plomo{margin-top:28px}
 .casa-heroe-pie{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:42px}
 
@@ -151,7 +154,9 @@
 .mundo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
   transform:scale(1.03);transition:transform 1.4s var(--ease),filter 1s var(--ease);filter:saturate(.92)}
 .mundo::after{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(8,7,10,.16) 0%,rgba(8,7,10,.62) 52%,rgba(8,7,10,.94) 100%)}
+  background:
+    linear-gradient(180deg,rgba(8,7,10,.30) 0%,rgba(8,7,10,.70) 46%,rgba(8,7,10,.96) 100%),
+    linear-gradient(90deg,rgba(8,7,10,.72) 0%,rgba(8,7,10,.30) 46%,transparent 78%)}
 .mundo:hover img{transform:scale(1.09);filter:saturate(1.05)}
 .mundo:hover{border-color:var(--m-acento,var(--linea-2));
   box-shadow:0 34px 80px -34px rgba(0,0,0,.92)}
@@ -269,3 +274,58 @@
 .phead-mask.vis > span{transform:none}
 .phead-mask.d1 > span{transition-delay:.08s}
 @media (prefers-reduced-motion:reduce){.phead-mask > span{transform:none;transition:none}}
+
+/* ── héroe: lista de entregables y nota de servicio ───── */
+.casa-entrega{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.casa-entrega li{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--marfil-2);border:1px solid var(--linea);border-radius:999px;padding:9px 15px;
+  display:flex;align-items:center;gap:9px;background:rgba(13,11,17,.5)}
+.casa-entrega li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--lima);flex:none}
+.casa-heroe-nota{margin:22px 0 0;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  color:var(--marfil-3)}
+
+/* el héroe deja libre la esquina de los botones flotantes
+   (WhatsApp y chat viven fijos abajo con z-index alto) */
+.casa-heroe{padding-bottom:clamp(104px,15vh,150px)}
+
+/* ═══════════════════════════════════════════════════════════
+   CABECERA — alineada con la identidad
+   styles.css la dejaba en Manrope sobre una banda granate que
+   chocaba con el Fraunces del contenido.
+   ═══════════════════════════════════════════════════════════ */
+body .top-ambient{display:none}
+body .header{
+  background:rgba(8,7,10,.82);
+  border-bottom:1px solid rgba(244,239,230,.10);
+  box-shadow:none;
+}
+body .header.is-stuck,body .header.scrolled{background:rgba(8,7,10,.96)}
+body .brand-name{
+  font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:20px;
+  letter-spacing:.005em;text-transform:none;color:#f4efe6;
+}
+body .brand-sub{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(244,239,230,.36);
+}
+body .brand-logo{width:38px;height:38px}
+body .nav a[data-nav]{
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-size:13px;letter-spacing:.01em;color:rgba(244,239,230,.68);
+  border-radius:8px;
+}
+body .nav a[data-nav]:hover{color:#f4efe6;background:rgba(244,239,230,.06)}
+body .nav a[data-nav].active,body .nav a[data-nav][aria-current="page"]{
+  color:#f4efe6;background:rgba(244,239,230,.08)}
+body .nav .lang-switch{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-size:10px;letter-spacing:.16em;color:rgba(244,239,230,.5);
+  border:1px solid rgba(244,239,230,.16);border-radius:999px;padding:7px 11px}
+body .nav .lang-switch:hover{color:#9fce3a;border-color:#9fce3a}
+body .nav .btn-ghost{
+  font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  border:1px solid rgba(244,239,230,.22);border-radius:999px;color:#f4efe6;
+  background:transparent;transition:all .4s cubic-bezier(.19,1,.22,1)}
+body .nav .btn-ghost:hover{border-color:#e0357b;color:#ff5c9c;background:transparent}
