@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#04060a" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Mission control — ORBITAL | Pittahaya</title>
+<meta name="description" content="Live operations console, contact windows, and launch manifest." />
+<meta name="copyright" content="© Pittahaya. All rights reserved." />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Pittahaya" />
+<meta property="og:title" content="Mission control — ORBITAL | Pittahaya" />
+<meta property="og:description" content="Live operations console, contact windows, and launch manifest." />
+<meta property="og:url" content="https://www.pittahaya.com/en/orbital-mision.html" />
+<meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://www.pittahaya.com/en/orbital-mision.html" />
+<link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-mision.html" />
+<link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-mision.html" />
+<link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/orbital-mision.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/orbital.css?v=3" />
+</head>
+<body>
+<div class="tick" data-tick aria-hidden="true"></div>
+<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+
+<header class="hdr" data-hdr>
+  <a class="brand" href="demo-startup.html" aria-label="ORBITAL · home">
+    <span class="mark" aria-hidden="true"></span>
+    <span><b>ORBITAL</b><span>Low-Earth orbit computing</span></span>
+  </a>
+  <button class="burger" data-burger type="button" aria-expanded="false" aria-controls="nav-main" aria-label="Open navigation">
+    <i></i><i></i><i></i>
+  </button>
+  <nav class="nav" id="nav-main" data-nav aria-label="Primary">
+    <a href="demo-startup.html">Home</a>
+    <a href="orbital-constelacion.html">Constellation</a>
+    <a href="orbital-nodo.html">The node</a>
+    <a href="orbital-mision.html" class="is-here" aria-current="page">Mission</a>
+    <a href="orbital-compania.html">Company</a>
+    <a class="out" href="portfolio.html">← Demos</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="phead">
+  <div class="wrap">
+    <p class="eyebrow">Operations</p>
+    <h1 class="d2">Mission control.</h1>
+    <p class="lede">The constellation is operated from Quito by a team of eleven. This is what they see on screen right now.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:clamp(38px,5vw,64px)">
+  <div class="wrap">
+    <div class="console">
+      <div class="console-bar">
+        <span>ORBITAL · Ops</span>
+        <span>Quito · MOC-1</span>
+        <span class="live">Live</span>
+      </div>
+      <div class="console-grid">
+
+        <section class="cw-4">
+          <div class="cw-head"><span>Aggregate compute</span></div>
+          <div class="kpi">28.8<span class="u">PFLOP</span></div>
+          <div class="kpi-sub"><span class="up">▲ 4.2 PF</span> since the last launch</div>
+          <div class="bars" data-bars aria-hidden="true">
+            <i style="--h:52%"></i><i style="--h:64%"></i><i style="--h:58%"></i><i style="--h:72%"></i>
+            <i style="--h:66%"></i><i style="--h:80%"></i><i style="--h:74%"></i><i style="--h:86%"></i>
+            <i style="--h:78%"></i><i style="--h:90%"></i><i style="--h:70%"></i><i style="--h:62%"></i>
+            <i style="--h:84%"></i><i style="--h:76%"></i>
+          </div>
+        </section>
+
+        <section class="cw-5">
+          <div class="cw-head"><span>Power generated · 24 h</span><span>19.2 kW peak</span></div>
+          <div class="kpi">286<span class="u">kWh</span></div>
+          <div class="kpi-sub">Full cycle · 15 revolutions</div>
+          <div class="spark" aria-hidden="true">
+            <svg viewBox="0 0 300 74" preserveAspectRatio="none" role="presentation">
+              <defs><linearGradient id="og" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6fd6e8" stop-opacity=".42"/>
+                <stop offset="100%" stop-color="#6fd6e8" stop-opacity="0"/>
+              </linearGradient></defs>
+              <polygon class="fillp" points="0,74 0,52 21,26 43,58 64,18 86,50 107,14 129,46 150,10 172,42 193,16 215,48 236,20 258,44 279,22 300,38 300,74"/>
+              <polyline points="0,52 21,26 43,58 64,18 86,50 107,14 129,46 150,10 172,42 193,16 215,48 236,20 258,44 279,22 300,38"/>
+            </svg>
+          </div>
+        </section>
+
+        <section class="cw-3">
+          <div class="cw-head"><span>Orbital planes</span></div>
+          <div class="planes">
+            <div class="plane"><i style="background:#6fd6e8;box-shadow:0 0 8px #6fd6e8"></i> ECU-1 · equatorial <b>8/8</b></div>
+            <div class="plane"><i style="background:#ff9d4d;box-shadow:0 0 8px #ff9d4d"></i> POL-1 · polar <b>8/8</b></div>
+            <div class="plane"><i style="background:#8b93ff;box-shadow:0 0 8px #8b93ff"></i> SSO-1 · Sun-synchronous <b>8/8</b></div>
+          </div>
+          <div class="kpi-sub" style="margin-top:20px"><span class="up">24/24</span> nodes nominal</div>
+        </section>
+
+        <section class="cw-7">
+          <div class="cw-head"><span>Telemetry · stream</span><span>MOC-1</span></div>
+          <div class="stream" data-stream aria-live="polite" aria-label="Telemetry stream"></div>
+        </section>
+
+        <section class="cw-5">
+          <div class="cw-head"><span>Contact windows</span><span>Next</span></div>
+          <div class="passes">
+            <div class="pass" data-pass><span class="gs">Quito</span><span class="pass-bar"><i></i></span><b>—</b></div>
+            <div class="pass" data-pass><span class="gs">Singapore</span><span class="pass-bar"><i></i></span><b>—</b></div>
+            <div class="pass" data-pass><span class="gs">Nairobi</span><span class="pass-bar"><i></i></span><b>—</b></div>
+            <div class="pass" data-pass><span class="gs">Svalbard</span><span class="pass-bar"><i></i></span><b>—</b></div>
+          </div>
+          <div class="kpi-sub" style="margin-top:18px">Continuous coverage · no gaps &gt; 90 s</div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--line">
+  <div class="sec-head">
+    <p class="eyebrow" data-reveal>Manifest</p>
+    <h2 class="d2" data-reveal>What goes up this year.</h2>
+  </div>
+  <div class="wrap">
+    <div class="manifest">
+      <div class="mrow mhead">
+        <span>Mission</span><span>Payload</span><span class="orb">Orbit</span><span class="date">Window</span><span>Status</span>
+      </div>
+      <div class="mrow" data-reveal><span class="code">ORB-07</span><span class="name">Eight ECU-1 nodes</span><span class="orb">520 km · 0.3°</span><span class="date">Feb 2026</span><span class="st ok">In orbit</span></div>
+      <div class="mrow" data-reveal><span class="code">ORB-08</span><span class="name">Eight POL-1 nodes</span><span class="orb">610 km · 87°</span><span class="date">May 2026</span><span class="st ok">In orbit</span></div>
+      <div class="mrow" data-reveal><span class="code">ORB-09</span><span class="name">Eight SSO-1 nodes</span><span class="orb">480 km · 98°</span><span class="date">Jul 2026</span><span class="st ok">In orbit</span></div>
+      <div class="mrow" data-reveal><span class="code">ORB-10</span><span class="name">Twelve ECU-1 nodes · block II</span><span class="orb">520 km · 0.3°</span><span class="date">Oct 2026</span><span class="st go">In integration</span></div>
+      <div class="mrow" data-reveal><span class="code">ORB-11</span><span class="name">Optical switching node</span><span class="orb">1,200 km · 0.3°</span><span class="date">Dec 2026</span><span class="st go">In integration</span></div>
+      <div class="mrow" data-reveal><span class="code">ORB-12</span><span class="name">Twenty-four nodes · block III</span><span class="orb">520 km · mixed</span><span class="date">2027</span><span class="st pl">Planned</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--line" style="padding-bottom:0">
+  <div class="sec-head"><p class="eyebrow" data-reveal>Continue</p></div>
+  <div class="next" style="margin-top:34px">
+    <a href="orbital-constelacion.html" data-reveal>
+      <span class="n">01</span>
+      <h3>The constellation</h3>
+      <p>Live tracking of all 24 nodes and latency by city.</p>
+      <span class="go">Open →</span>
+    </a>
+    <a href="orbital-nodo.html" data-reveal>
+      <span class="n">02</span>
+      <h3>The node</h3>
+      <p>What is inside the computing module.</p>
+      <span class="go">Open →</span>
+    </a>
+    <a href="orbital-compania.html" data-reveal>
+      <span class="n">04</span>
+      <h3>The company</h3>
+      <p>Timeline, institutional backing, and thesis.</p>
+      <span class="go">Open →</span>
+    </a>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-in">
+    <span>ORBITAL · A Pittahaya demo</span>
+    <nav>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <span>© <span data-year>2026</span></span>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/orbital.js?v=4" defer></script>
+<script src="../assets/orbital-tracker.js?v=4" defer></script>
+</body>
+</html>

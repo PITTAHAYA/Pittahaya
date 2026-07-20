@@ -5,38 +5,41 @@
   "use strict";
 
   var doc = document;
+  var isEnglish = /^en\b/i.test(doc.documentElement.lang || "");
+  var assetRoot = isEnglish ? "../assets/origen/" : "assets/origen/";
+  var t = function (spanish, english) { return isEnglish ? english : spanish; };
   var reduced = matchMedia("(prefers-reduced-motion: reduce)");
   var money = function (n) { return "$" + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, ""); };
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
   /* ── the collection ── */
   var PRODUCTS = [
-    { id: "nube",     name: "Nube de Leche",  pct: "58%", price: 24, img: "assets/origen/cloud-milk.jpg",
-      notes: "Caramelo · vainilla · leche tostada", origin: "Manabí", intensity: 2, light: true,
-      copy: "Leche suave y elegante, sin el empalago habitual. El cacao sigue presente." },
-    { id: "latitud",  name: "Latitud Cero",   pct: "72%", price: 28, img: "assets/origen/latitude-zero.jpg",
-      notes: "Cacao profundo · fruta roja · jazmín", origin: "Los Ríos", intensity: 3, feature: true,
-      copy: "Floral, profundo y naturalmente complejo. La barra que define la casa." },
-    { id: "tierra",   name: "Tierra Negra",   pct: "85%", price: 30, img: "assets/origen/tierra-negra.jpg",
-      notes: "Cacao tostado · nuez · fruta oscura", origin: "Esmeraldas", intensity: 4,
-      copy: "Estructurado, mineral y elegante. Un final largo que se sostiene solo." },
-    { id: "altitud",  name: "Altitud Pura",   pct: "92%", price: 32, img: "assets/origen/pure-altitude.jpg",
-      notes: "Cacao puro · espresso · cedro", origin: "Amazonía", intensity: 5,
-      copy: "Intenso y sin concesiones. Para quien ya no busca dulzor." },
-    { id: "rosa",     name: "Rosa & Cacao",   pct: "70%", price: 34, img: "assets/origen/rose-cacao.jpg",
-      notes: "Rosa · frutos rojos · final floral", origin: "Los Ríos", intensity: 3, limited: true,
-      copy: "Pétalos de rosa ecuatoriana sobre cacao oscuro. Edición limitada." },
-    { id: "sal",      name: "Sal Amazónica",  pct: "75%", price: 29, img: "assets/origen/amazonian-salt.jpg",
-      notes: "Cacao · sal mineral · fruta tropical", origin: "Amazonía", intensity: 4,
-      copy: "Sal mineral de la cuenca amazónica sobre un cacao de cuerpo tropical." }
+    { id: "nube",     name: "Nube de Leche",  pct: "58%", price: 24, img: assetRoot + "cloud-milk.jpg",
+      notes: t("Caramelo · vainilla · leche tostada", "Caramel · vanilla · toasted milk"), origin: "Manabí", intensity: 2, light: true,
+      copy: t("Leche suave y elegante, sin el empalago habitual. El cacao sigue presente.", "Soft, elegant milk without the usual cloying sweetness. The cacao remains present.") },
+    { id: "latitud",  name: "Latitud Cero",   pct: "72%", price: 28, img: assetRoot + "latitude-zero.jpg",
+      notes: t("Cacao profundo · fruta roja · jazmín", "Deep cacao · red fruit · jasmine"), origin: "Los Ríos", intensity: 3, feature: true,
+      copy: t("Floral, profundo y naturalmente complejo. La barra que define la casa.", "Floral, deep, and naturally complex. The bar that defines the house.") },
+    { id: "tierra",   name: "Tierra Negra",   pct: "85%", price: 30, img: assetRoot + "tierra-negra.jpg",
+      notes: t("Cacao tostado · nuez · fruta oscura", "Roasted cacao · walnut · dark fruit"), origin: "Esmeraldas", intensity: 4,
+      copy: t("Estructurado, mineral y elegante. Un final largo que se sostiene solo.", "Structured, mineral, and elegant. A long finish that stands on its own.") },
+    { id: "altitud",  name: "Altitud Pura",   pct: "92%", price: 32, img: assetRoot + "pure-altitude.jpg",
+      notes: t("Cacao puro · espresso · cedro", "Pure cacao · espresso · cedar"), origin: t("Amazonía", "Amazonia"), intensity: 5,
+      copy: t("Intenso y sin concesiones. Para quien ya no busca dulzor.", "Intense and uncompromising. For those no longer seeking sweetness.") },
+    { id: "rosa",     name: "Rosa & Cacao",   pct: "70%", price: 34, img: assetRoot + "rose-cacao.jpg",
+      notes: t("Rosa · frutos rojos · final floral", "Rose · red berries · floral finish"), origin: "Los Ríos", intensity: 3, limited: true,
+      copy: t("Pétalos de rosa ecuatoriana sobre cacao oscuro. Edición limitada.", "Ecuadorian rose petals over dark cacao. Limited edition.") },
+    { id: "sal",      name: "Sal Amazónica",  pct: "75%", price: 29, img: assetRoot + "amazonian-salt.jpg",
+      notes: t("Cacao · sal mineral · fruta tropical", "Cacao · mineral salt · tropical fruit"), origin: t("Amazonía", "Amazonia"), intensity: 4,
+      copy: t("Sal mineral de la cuenca amazónica sobre un cacao de cuerpo tropical.", "Mineral salt from the Amazon basin over a full-bodied tropical cacao.") }
   ];
   var byId = {};
   PRODUCTS.forEach(function (p) { byId[p.id] = p; });
 
   var EXTRA = {
-    "soc-descubrimiento": { name: "Sociedad · Descubrimiento", price: 34, sub: "Suscripción mensual", img: "assets/origen/latitude-zero.jpg" },
-    "soc-oscura":         { name: "Sociedad · Colección Oscura", price: 52, sub: "Suscripción mensual", img: "assets/origen/tierra-negra.jpg" },
-    "soc-raros":          { name: "Sociedad · Orígenes Raros",  price: 88, sub: "Suscripción mensual", img: "assets/origen/rose-cacao.jpg" }
+    "soc-descubrimiento": { name: t("Sociedad · Descubrimiento", "Society · Discovery"), price: 34, sub: t("Suscripción mensual", "Monthly subscription"), img: assetRoot + "latitude-zero.jpg" },
+    "soc-oscura":         { name: t("Sociedad · Colección Oscura", "Society · Dark Collection"), price: 52, sub: t("Suscripción mensual", "Monthly subscription"), img: assetRoot + "tierra-negra.jpg" },
+    "soc-raros":          { name: t("Sociedad · Orígenes Raros", "Society · Rare Origins"), price: 88, sub: t("Suscripción mensual", "Monthly subscription"), img: assetRoot + "rose-cacao.jpg" }
   };
 
   /* ── the bag drawer + confirmation live on every page: inject once ── */
@@ -44,21 +47,21 @@
     var shell = doc.createElement("div");
     shell.innerHTML =
       '<div class="cart-scrim" data-cart-scrim aria-hidden="true"></div>' +
-      '<aside class="cart" data-cart role="dialog" aria-modal="true" aria-label="Bolsa de compra" aria-hidden="true">' +
-        '<div class="cart-head"><b class="serif">Su bolsa</b>' +
-        '<button class="cart-close" type="button" data-cart-close aria-label="Cerrar bolsa">×</button></div>' +
+      '<aside class="cart" data-cart role="dialog" aria-modal="true" aria-label="' + t("Bolsa de compra", "Shopping bag") + '" aria-hidden="true">' +
+        '<div class="cart-head"><b class="serif">' + t("Su bolsa", "Your bag") + '</b>' +
+        '<button class="cart-close" type="button" data-cart-close aria-label="' + t("Cerrar bolsa", "Close bag") + '">×</button></div>' +
         '<div class="cart-body" data-cart-body></div>' +
         '<div class="cart-foot">' +
-          '<div class="cart-line"><span>Subtotal</span><span data-cart-sub>$0</span></div>' +
-          '<div class="cart-total"><span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--faint)">Total</span><b class="serif" data-cart-total>$0</b></div>' +
-          '<p class="cart-ship">Envío gratuito en pedidos superiores a $90. Empaque isotérmico incluido de mayo a septiembre.</p>' +
-          '<button class="btn btn--solid" type="button" data-checkout disabled>Finalizar compra</button>' +
+          '<div class="cart-line"><span>' + t("Subtotal", "Subtotal") + '</span><span data-cart-sub>$0</span></div>' +
+          '<div class="cart-total"><span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--faint)">' + t("Total", "Total") + '</span><b class="serif" data-cart-total>$0</b></div>' +
+          '<p class="cart-ship">' + t("Envío gratuito en pedidos superiores a $90. Empaque isotérmico incluido de mayo a septiembre.", "Complimentary shipping on orders over $90. Insulated packaging included from May through September.") + '</p>' +
+          '<button class="btn btn--solid" type="button" data-checkout disabled>' + t("Finalizar compra", "Checkout") + '</button>' +
         '</div>' +
       '</aside>' +
       '<div class="confirm" data-confirm aria-hidden="true"><div>' +
-        '<h2 class="serif">Su viaje empieza en Ecuador.</h2>' +
-        '<p>Pedido confirmado</p>' +
-        '<div><a class="btn" href="origen-coleccion.html">Volver a la colección</a></div>' +
+        '<h2 class="serif">' + t("Su viaje empieza en Ecuador.", "Your journey begins in Ecuador.") + '</h2>' +
+        '<p>' + t("Pedido confirmado", "Order confirmed") + '</p>' +
+        '<div><a class="btn" href="origen-coleccion.html">' + t("Volver a la colección", "Return to the collection") + '</a></div>' +
       '</div></div>';
     while (shell.firstChild) doc.body.appendChild(shell.firstChild);
   }
@@ -171,7 +174,7 @@
       h3.textContent = p.name;
       var pct = doc.createElement("p");
       pct.className = "product-pct";
-      pct.textContent = p.pct + " cacao · " + p.origin + (p.limited ? " · edición limitada" : "");
+      pct.textContent = p.pct + " cacao · " + p.origin + (p.limited ? t(" · edición limitada", " · limited edition") : "");
       var notes = doc.createElement("p");
       notes.className = "product-notes";
       notes.textContent = p.copy + " " + p.notes + ".";
@@ -184,7 +187,7 @@
       price.textContent = money(p.price);
       var meter = doc.createElement("div");
       meter.className = "intensity";
-      meter.setAttribute("aria-label", "Intensidad " + p.intensity + " de 5");
+      meter.setAttribute("aria-label", t("Intensidad ", "Intensity ") + p.intensity + t(" de 5", " out of 5"));
       for (var k = 0; k < 5; k++) {
         var s = doc.createElement("span");
         if (k < p.intensity) s.className = "on";
@@ -194,7 +197,7 @@
       add.className = "btn btn--solid";
       add.type = "button";
       add.setAttribute("data-add", p.id);
-      add.textContent = "Añadir a la bolsa";
+      add.textContent = t("Añadir a la bolsa", "Add to bag");
       buy.appendChild(price); buy.appendChild(meter); buy.appendChild(add);
 
       inner.appendChild(num); inner.appendChild(mid); inner.appendChild(buy);
@@ -205,11 +208,11 @@
 
   /* ── flavour explorer ── */
   var NOTES = [
-    { t: "Cacao profundo", c: "La estructura sobre la que todo lo demás se apoya. Tostado sin amargor, largo y limpio.", m: 4, x: 30, y: 40 },
-    { t: "Fruta roja",     c: "Un ataque brillante de grosella y cereza que aparece en los primeros segundos y se retira.", m: 3, x: 70, y: 30 },
-    { t: "Jazmín",         c: "Un final floral delicado, desarrollado de forma natural por el cacao fino de aroma.", m: 2, x: 50, y: 22 },
-    { t: "Caramelo",       c: "El cuerpo dulce que aparece a media fusión, resultado del tueste lento y bajo.", m: 3, x: 40, y: 62 },
-    { t: "Nuez tostada",   c: "El cierre seco y cálido que deja la barra limpia y pide el siguiente trozo.", m: 3, x: 66, y: 70 }
+    { t: t("Cacao profundo", "Deep cacao"), c: t("La estructura sobre la que todo lo demás se apoya. Tostado sin amargor, largo y limpio.", "The structure supporting everything else. Roasted without bitterness, long and clean."), m: 4, x: 30, y: 40 },
+    { t: t("Fruta roja", "Red fruit"),     c: t("Un ataque brillante de grosella y cereza que aparece en los primeros segundos y se retira.", "A bright opening of redcurrant and cherry that appears in the first seconds, then recedes."), m: 3, x: 70, y: 30 },
+    { t: t("Jazmín", "Jasmine"),         c: t("Un final floral delicado, desarrollado de forma natural por el cacao fino de aroma.", "A delicate floral finish developed naturally by fine-flavour cacao."), m: 2, x: 50, y: 22 },
+    { t: t("Caramelo", "Caramel"),       c: t("El cuerpo dulce que aparece a media fusión, resultado del tueste lento y bajo.", "The sweet body emerging midway through the melt, created by a slow, low roast."), m: 3, x: 40, y: 62 },
+    { t: t("Nuez tostada", "Toasted walnut"),   c: t("El cierre seco y cálido que deja la barra limpia y pide el siguiente trozo.", "The dry, warm close that leaves a clean palate and invites the next piece."), m: 3, x: 66, y: 70 }
   ];
   var flavour = doc.querySelector("[data-flavour]");
   if (flavour) {
@@ -235,17 +238,17 @@
 
   /* ── origins explorer ── */
   var REGIONS = [
-    { n: "Manabí", climate: "Seco, con brisa marina", profile: "Nuez, caramelo, cuerpo firme", harvest: "Marzo – junio",
-      c: "Suelo arenoso y menos lluvia obligan al árbol a concentrar. El resultado es un cacao de cuerpo firme y dulzor tostado, con poca acidez.",
+    { n: "Manabí", climate: t("Seco, con brisa marina", "Dry, with a sea breeze"), profile: t("Nuez, caramelo, cuerpo firme", "Walnut, caramel, firm body"), harvest: t("Marzo – junio", "March – June"),
+      c: t("Suelo arenoso y menos lluvia obligan al árbol a concentrar. El resultado es un cacao de cuerpo firme y dulzor tostado, con poca acidez.", "Sandy soil and lower rainfall force the tree to concentrate. The result is a firm-bodied cacao with roasted sweetness and low acidity."),
       p: "Nube de Leche 58%" },
-    { n: "Esmeraldas", climate: "Trópico húmedo, lluvia constante", profile: "Fruta oscura, mineral, final largo", harvest: "Todo el año",
-      c: "La humedad permanente y el suelo volcánico dan un grano denso y mineral. Fermenta rápido y exige control estricto de temperatura.",
+    { n: "Esmeraldas", climate: t("Trópico húmedo, lluvia constante", "Humid tropics, constant rainfall"), profile: t("Fruta oscura, mineral, final largo", "Dark fruit, mineral, long finish"), harvest: t("Todo el año", "Year-round"),
+      c: t("La humedad permanente y el suelo volcánico dan un grano denso y mineral. Fermenta rápido y exige control estricto de temperatura.", "Persistent humidity and volcanic soil produce a dense, mineral bean. It ferments quickly and demands strict temperature control."),
       p: "Tierra Negra 85%" },
-    { n: "Los Ríos", climate: "Valle fluvial, cálido y estable", profile: "Floral, fruta roja, jazmín", harvest: "Abril – septiembre",
-      c: "El corazón del cacao fino de aroma. El agua del río modera la temperatura y permite fermentaciones largas que revelan lo floral.",
+    { n: "Los Ríos", climate: t("Valle fluvial, cálido y estable", "Warm, stable river valley"), profile: t("Floral, fruta roja, jazmín", "Floral, red fruit, jasmine"), harvest: t("Abril – septiembre", "April – September"),
+      c: t("El corazón del cacao fino de aroma. El agua del río modera la temperatura y permite fermentaciones largas que revelan lo floral.", "The heartland of fine-flavour cacao. River water moderates the temperature and enables long fermentations that reveal floral notes."),
       p: "Latitud Cero 72%" },
-    { n: "Amazonía", climate: "Selva alta, húmeda y sombreada", profile: "Cacao puro, cedro, especia", harvest: "Enero – mayo",
-      c: "Cultivo bajo dosel, con árboles antiguos y rendimientos bajos. Grano pequeño, intenso y de una profundidad que no admite azúcar.",
+    { n: t("Amazonía", "Amazonia"), climate: t("Selva alta, húmeda y sombreada", "High rainforest, humid and shaded"), profile: t("Cacao puro, cedro, especia", "Pure cacao, cedar, spice"), harvest: t("Enero – mayo", "January – May"),
+      c: t("Cultivo bajo dosel, con árboles antiguos y rendimientos bajos. Grano pequeño, intenso y de una profundidad que no admite azúcar.", "Grown beneath the canopy among old trees with low yields. A small, intense bean of such depth that it needs no sugar."),
       p: "Altitud Pura 92%" }
   ];
   var regions = doc.querySelector("[data-regions]");
@@ -268,13 +271,13 @@
         rProfile.textContent = r.profile;
         rHarvest.textContent = r.harvest;
         rCopy.textContent = r.c;
-        rProduct.textContent = "Ver " + r.p + " →";
+        rProduct.textContent = t("Ver ", "View ") + r.p + " →";
       });
     });
   }
 
   /* ═══ CART (persists across pages) ═══ */
-  var STORE = "origen0-bag";
+  var STORE = isEnglish ? "origen0-bag-en" : "origen0-bag";
   var cart = [];
   try {
     var saved = sessionStorage.getItem(STORE);
@@ -310,7 +313,10 @@
     if (!cart.length) {
       var empty = doc.createElement("p");
       empty.className = "cart-empty";
-      empty.textContent = "Su bolsa está vacía. Empiece por Latitud Cero 72% — o componga una caja de degustación.";
+      empty.textContent = t(
+        "Su bolsa está vacía. Empiece por Latitud Cero 72% — o componga una caja de degustación.",
+        "Your bag is empty. Begin with Latitud Cero 72% — or compose a tasting box."
+      );
       cartBody.appendChild(empty);
     } else {
       cart.forEach(function (line, idx) {
@@ -352,10 +358,10 @@
         var q = doc.createElement("div");
         q.className = "ci-qty";
         var minus = doc.createElement("button"); minus.type = "button"; minus.textContent = "−";
-        minus.setAttribute("aria-label", "Quitar uno");
+        minus.setAttribute("aria-label", t("Quitar uno", "Remove one"));
         var val = doc.createElement("span"); val.textContent = line.qty;
         var plus = doc.createElement("button"); plus.type = "button"; plus.textContent = "+";
-        plus.setAttribute("aria-label", "Añadir uno");
+        plus.setAttribute("aria-label", t("Añadir uno", "Add one"));
         minus.addEventListener("click", function () { changeQty(idx, -1); });
         plus.addEventListener("click", function () { changeQty(idx, 1); });
         q.appendChild(minus); q.appendChild(val); q.appendChild(plus);
@@ -366,7 +372,7 @@
         var pr = doc.createElement("div"); pr.className = "ci-price serif";
         pr.textContent = money(line.price * line.qty);
         var rm = doc.createElement("button"); rm.className = "ci-remove"; rm.type = "button";
-        rm.textContent = "Quitar";
+        rm.textContent = t("Quitar", "Remove");
         rm.addEventListener("click", function () { removeLine(idx); });
         right.appendChild(pr); right.appendChild(rm);
         row.appendChild(right);
@@ -467,10 +473,10 @@
 
         var q = doc.createElement("div"); q.className = "pick-qty";
         var minus = doc.createElement("button"); minus.className = "qbtn"; minus.type = "button";
-        minus.textContent = "−"; minus.setAttribute("aria-label", "Quitar " + p.name);
+        minus.textContent = "−"; minus.setAttribute("aria-label", t("Quitar ", "Remove ") + p.name);
         var val = doc.createElement("span"); val.className = "qval"; val.textContent = picks[p.id] || 0;
         var plus = doc.createElement("button"); plus.className = "qbtn"; plus.type = "button";
-        plus.textContent = "+"; plus.setAttribute("aria-label", "Añadir " + p.name);
+        plus.textContent = "+"; plus.setAttribute("aria-label", t("Añadir ", "Add ") + p.name);
         if (!picks[p.id]) minus.disabled = true;
         if (picked() >= capacity) plus.disabled = true;
         minus.addEventListener("click", function () { setPick(p.id, -1); });
@@ -509,15 +515,22 @@
       visual.appendChild(bars);
       var lid = doc.createElement("div"); lid.className = "box-lid";
       visual.appendChild(lid);
-      countEl.textContent = n + " de " + capacity + " espacios";
-      formatEl.textContent = mini ? "Miniaturas de cata" : "Tamaño completo";
+      countEl.textContent = isEnglish
+        ? n + " of " + capacity + " spaces"
+        : n + " de " + capacity + " espacios";
+      formatEl.textContent = mini
+        ? t("Miniaturas de cata", "Tasting miniatures")
+        : t("Tamaño completo", "Full size");
       totalBox.textContent = money(boxPrice());
       stage.classList.toggle("is-full", n === capacity);
       if (n === capacity) {
-        statusEl.textContent = "Su colección está lista.";
+        statusEl.textContent = t("Su colección está lista.", "Your collection is ready.");
         addBoxBtn.disabled = false;
       } else {
-        statusEl.textContent = "Seleccione " + (capacity - n) + " " + (capacity - n === 1 ? "barra más" : "barras más") + " para completar la caja.";
+        var remaining = capacity - n;
+        statusEl.textContent = isEnglish
+          ? "Select " + remaining + " more " + (remaining === 1 ? "bar" : "bars") + " to complete the box."
+          : "Seleccione " + remaining + " " + (remaining === 1 ? "barra más" : "barras más") + " para completar la caja.";
         addBoxBtn.disabled = true;
       }
     }
@@ -556,7 +569,7 @@
       });
       addToCart({
         key: "box-" + Date.now(),
-        name: "Caja de degustación · " + capacity + (mini ? " miniaturas" : " barras"),
+        name: t("Caja de degustación", "Tasting box") + " · " + capacity + (mini ? t(" miniaturas", " miniatures") : t(" barras", " bars")),
         sub: names,
         price: boxPrice(),
         bars: barImgs,

@@ -1137,7 +1137,9 @@
   // Build a friendly "personalization prefix" if we know the name and it's the first time
   const personalize = (responseText) => {
     if (state.name && state.msgCount === 1) {
-      return `${responseText}\n\n— Por cierto, mucho gusto ${state.name}.`;
+      return inEn
+        ? `${responseText}\n\n— By the way, nice to meet you, ${state.name}.`
+        : `${responseText}\n\n— Por cierto, mucho gusto ${state.name}.`;
     }
     return responseText;
   };

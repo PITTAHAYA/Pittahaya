@@ -13,6 +13,8 @@
   if (!canvas || !canvas.getContext) return;
 
   var ctx = canvas.getContext("2d");
+  var isEnglish = /^en\b/i.test(document.documentElement.lang || "");
+  var locale = isEnglish ? "en-US" : "es";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ── salidas laterales ── */
@@ -61,7 +63,7 @@
   /* ── estaciones terrestres (lat, lon en grados) ── */
   var STATIONS = [
     { name: "Quito", lat: -0.18, lon: -78.47 },
-    { name: "Singapur", lat: 1.35, lon: 103.82 },
+    { name: isEnglish ? "Singapore" : "Singapur", lat: 1.35, lon: 103.82 },
     { name: "Nairobi", lat: -1.29, lon: 36.82 },
     { name: "Svalbard", lat: 78.22, lon: 15.65 }
   ];
@@ -275,12 +277,14 @@
       var eclipse = !s.lit;
       outState.classList.toggle("is-eclipse", eclipse);
       var label = outState.querySelector("span");
-      if (label) label.textContent = eclipse ? "Eclipse · batería" : "Solar · nominal";
+      if (label) label.textContent = eclipse
+        ? (isEnglish ? "Eclipse · battery" : "Eclipse · batería")
+        : (isEnglish ? "Solar · nominal" : "Solar · nominal");
     }
     /* velocidad orbital circular: v = √(μ/r), μ = 398 600 km³/s² */
     var altKm = s.plane.altKm;
     var velKm = Math.sqrt(398600 / (RE + altKm)).toFixed(2);
-    if (outAlt) outAlt.textContent = altKm.toLocaleString("es") + " km";
+    if (outAlt) outAlt.textContent = altKm.toLocaleString(locale) + " km";
     if (outVel) outVel.textContent = velKm + " km/s";
     if (outLat) outLat.textContent = (Math.asin(Math.max(-1, Math.min(1, s.z / s.plane.alt))) * 180 / Math.PI).toFixed(1) + "°";
     if (outTemp) outTemp.textContent = (s.lit ? 41 + (s.idx % 5) : -18 - (s.idx % 7)) + " °C";
@@ -293,8 +297,10 @@
   function pushHud() {
     var litCount = 0;
     sats.forEach(function (s) { if (s.lit) litCount++; });
-    if (hudCount) hudCount.textContent = sats.length + " nodos · 3 planos";
-    if (hudSun) hudSun.textContent = litCount + " en sol · " + (sats.length - litCount) + " en eclipse";
+    if (hudCount) hudCount.textContent = sats.length + (isEnglish ? " nodes · 3 planes" : " nodos · 3 planos");
+    if (hudSun) hudSun.textContent = isEnglish
+      ? litCount + " in sunlight · " + (sats.length - litCount) + " in eclipse"
+      : litCount + " en sol · " + (sats.length - litCount) + " en eclipse";
     if (hudTime) {
       var d = new Date();
       hudTime.textContent = String(d.getUTCHours()).padStart(2, "0") + ":" +
@@ -361,7 +367,9 @@
   });
   canvas.tabIndex = 0;
   canvas.setAttribute("role", "application");
-  canvas.setAttribute("aria-label", "Rastreador de constelación. Usa las flechas para recorrer los nodos.");
+  canvas.setAttribute("aria-label", isEnglish
+    ? "Constellation tracker. Use the arrow keys to move through the nodes."
+    : "Rastreador de constelación. Usa las flechas para recorrer los nodos.");
 
   window.addEventListener("resize", resize, { passive: true });
 

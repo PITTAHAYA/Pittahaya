@@ -466,7 +466,9 @@
     const input = $("input[type=range]", slider);
     const out   = $("[data-fx-scope-value]", slider);
     const label = $("[data-fx-scope-label]", slider);
-    const stops = (slider.getAttribute("data-fx-scope-stops") || "Esencial,Negocio,Premium,Ecosistema").split(",");
+    const english = /^en\b/i.test(document.documentElement.lang || "");
+    const fallbackStops = english ? "Essential,Business,Premium,Ecosystem" : "Esencial,Negocio,Premium,Ecosistema";
+    const stops = (slider.getAttribute("data-fx-scope-stops") || fallbackStops).split(",");
     if (!input || !out) return;
     const update = () => {
       const v = parseInt(input.value, 10);

@@ -6,344 +6,406 @@
 <meta name="theme-color" content="#08070a" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
-<title>Pittahaya · Brand in Motion</title>
-<meta name="description" content="No creamos logos. Construimos mundos. Una idea de Pittahaya evoluciona hasta un universo de marca completo: identidad, lenguaje visual, aplicaciones, experiencia y ecosistema en movimiento." />
+<title>Pittahaya · Marca &amp; Diseño</title>
+<meta name="description" content="No enseñamos un método: enseñamos la obra. Cinco mundos de marca construidos y funcionando — y un interruptor que te deja ver el sistema que los sostiene." />
 <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Pittahaya" />
-<meta property="og:title" content="Pittahaya · Brand in Motion" />
-<meta property="og:description" content="No creamos logos. Construimos mundos. Una idea. Infinitas posibilidades." />
+<meta property="og:title" content="Pittahaya · Marca &amp; Diseño" />
+<meta property="og:description" content="Cinco mundos construidos. Un interruptor que enseña el sistema por dentro." />
 <meta property="og:url" content="https://www.pittahaya.com/demo-marca.html" />
 <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/mare-brand.css?v=1" />
+<link rel="stylesheet" href="assets/firma.css?v=2" />
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
-<div class="tick" data-tick aria-hidden="true"></div>
-<a href="#idea" style="position:absolute;left:-9999px">Saltar al contenido</a>
-
-<header class="hdr" data-hdr>
-  <a class="brand" href="index.html" aria-label="Pittahaya · inicio">
+<!-- telón de entrada -->
+<div class="telon" data-telon aria-hidden="true">
+  <div class="telon-marca">
     <img src="assets/pitahaya-mark.png" alt="" />
-    <b>Pittahaya</b><span class="brand-tag">Brand in Motion</span>
+    <span class="telon-barra"><i></i></span>
+    <span class="telon-txt">Pittahaya</span>
+  </div>
+</div>
+
+<div class="progreso" data-prog aria-hidden="true"></div>
+<div class="xray-barrido" aria-hidden="true"></div>
+
+<!-- superposición de retícula: solo visible en Rayos X -->
+<div class="xray-grid" aria-hidden="true">
+  <div class="ritmo"></div>
+  <div class="cols">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+</div>
+<div class="xray-aviso" aria-hidden="true">Rayos X · retícula de 12 · ritmo de 8 px</div>
+
+<header class="barra" data-barra>
+  <a class="firma" href="index.html" aria-label="Pittahaya · inicio">
+    <img src="assets/pitahaya-mark.png" alt="" />
+    <span style="display:grid"><b>Pittahaya</b><span>Marca &amp; Diseño</span></span>
   </a>
-  <a class="cta-mini" href="contacto.html">Construir tu mundo</a>
+  <nav class="barra-nav" aria-label="Secciones">
+    <a href="#semillero">El Semillero</a>
+    <a href="#sistema">El Sistema</a>
+    <a href="#carta">La Carta</a>
+  </nav>
+  <button class="xray-sw" data-xray type="button" aria-pressed="false">
+    <span class="led" aria-hidden="true"></span>
+    <span data-xray-txt>Ver el sistema</span>
+    <kbd>X</kbd>
+  </button>
 </header>
 
-<!-- riel de capítulos -->
-<nav class="chapters" aria-label="Capítulos">
-  <button data-chap="idea"><span class="lbl">Una idea</span><span class="dot"></span></button>
-  <button data-chap="identity"><span class="lbl">Identidad</span><span class="dot"></span></button>
-  <button data-chap="elements"><span class="lbl">Elementos</span><span class="dot"></span></button>
-  <button data-chap="applications"><span class="lbl">Aplicaciones</span><span class="dot"></span></button>
-  <button data-chap="experience"><span class="lbl">Experiencia</span><span class="dot"></span></button>
-  <button data-chap="universe"><span class="lbl">Universo</span><span class="dot"></span></button>
-</nav>
+<main>
 
-<!-- ═══════════════ HERO ═══════════════ -->
-<section class="hero">
-  <div class="hero-bg" aria-hidden="true"><img src="assets/marca/ecosystem.jpg" alt="" /></div>
-  <div class="hero-stage" aria-hidden="true"><canvas data-hero-mark></canvas></div>
-
-  <div class="orbit-objs" aria-hidden="true">
-    <span class="orbit-obj" data-ang="200" data-rad="40"><i></i>Guía de marca</span>
-    <span class="orbit-obj" data-ang="248" data-rad="42"><i></i>Papelería</span>
-    <span class="orbit-obj" data-ang="150" data-rad="41"><i></i>Packaging</span>
-    <span class="orbit-obj" data-ang="112" data-rad="40"><i></i>Bolsa</span>
-    <span class="orbit-obj" data-ang="-20" data-rad="42"><i></i>App móvil</span>
-    <span class="orbit-obj" data-ang="30" data-rad="41"><i></i>Sitio web</span>
-    <span class="orbit-obj" data-ang="70" data-rad="40"><i></i>Campaña</span>
-    <span class="orbit-obj" data-ang="-58" data-rad="41"><i></i>Producto</span>
+<!-- ═══════════════ HÉROE ═══════════════ -->
+<section class="heroe">
+  <div class="heroe-fondo" aria-hidden="true">
+    <img src="assets/marca/muro.jpg" alt="" />
+    <video src="assets/marca/muro.mp4" muted loop playsinline preload="metadata" poster="assets/marca/muro.jpg"></video>
   </div>
-
-  <div class="hero-in">
-    <p class="kicker">Pittahaya · estudio de marca</p>
-    <h1 class="display">Brand in <span class="l2"><em class="serif-i">Motion</em></span></h1>
-    <p class="hero-sub">No creamos logos. Construimos mundos.</p>
-    <div class="hero-cta">
-      <a class="btn btn--fill" href="#idea">Explorar el proceso</a>
-      <a class="btn" href="#universe">Entrar al universo</a>
-    </div>
-  </div>
-  <div class="scroll-cue" aria-hidden="true"><i></i><span>Desliza</span></div>
-</section>
-
-<!-- ═══════════════ 01 · UNA IDEA ═══════════════ -->
-<section class="stage spark-stage" id="idea" data-spark-stage>
-  <div class="spark-canvas" aria-hidden="true"><canvas data-spark-mark></canvas></div>
-  <div class="wrap">
-    <div class="spark-copy" style="max-width:560px">
-      <span class="stage-num">01 — Una idea</span>
-      <h2 class="d2" data-reveal>Todo empieza con una <em class="fruit">sola chispa.</em></h2>
-      <p class="lede" data-reveal>Pittahaya nace como un punto de luz: una semilla donde se encuentran creatividad, estrategia, diseño, tecnología e inteligencia artificial. Desliza, y la chispa se convierte en forma.</p>
-      <div class="spark-seeds" data-reveal>
-        <span>Creatividad</span><span>Estrategia</span><span>Diseño</span><span>Tecnología</span><span>IA</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ 02 · IDENTIDAD ═══════════════ -->
-<section class="stage" id="identity">
-  <div class="stage-head">
-    <span class="stage-num" data-reveal>02 — Identidad</span>
-    <h2 class="d2" data-reveal data-weight>Definimos el <em class="champ">alma</em> de la marca.</h2>
-    <p class="lede" data-reveal>El monograma no es una estampa fija. Es un sistema vivo: respira, se adapta y sostiene su carácter en cualquier material, color o escala.</p>
-  </div>
-  <div class="wrap">
-    <div class="id-grid">
-      <div class="id-canvas" data-reveal>
-        <canvas data-id-mark></canvas>
-        <div class="id-controls">
-          <button data-id-mode="brand" class="on">Marca</button>
-          <button data-id-mode="mono">Monocromo</button>
-          <button data-id-mode="champ">Metal</button>
-          <button data-id-mode="scatter">Semilla</button>
-        </div>
-      </div>
-      <div data-reveal>
-        <h3 class="d3">Un símbolo con raíz.</h3>
-        <p class="lede" style="margin-top:18px">La pitahaya —cuerpo magenta, escamas de fuego verde— traduce lo orgánico a geometría precisa. Naturaleza y tecnología en una misma marca.</p>
-        <dl class="id-facts">
-          <div><dt>Nombre</dt><dd>Pittahaya</dd></div>
-          <div><dt>Naturaleza</dt><dd>Identidad responsiva</dd></div>
-          <div><dt>Construcción</dt><dd>Semilla → forma</dd></div>
-          <div><dt>Personalidad</dt><dd>Orgánica · precisa</dd></div>
-          <div><dt>Posicionamiento</dt><dd>Mundos de marca completos</dd></div>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ 03 · ELEMENTOS ═══════════════ -->
-<section class="stage" id="elements">
-  <div class="stage-head">
-    <span class="stage-num" data-reveal>03 — Elementos</span>
-    <h2 class="d2" data-reveal data-weight>Tipografía, color, forma y detalle <em class="fruit">cobran vida.</em></h2>
-    <p class="lede" data-reveal>La identidad se expande en un lenguaje visual completo. No es un logo: es un sistema de diseño entero, coherente en cada decisión.</p>
-  </div>
-  <div class="wrap">
-    <div class="elems">
-      <div class="elem e-type" data-reveal>
-        <span class="tag">Tipografía · editorial + funcional</span>
-        <div class="spec">
-          <span class="big" data-weight>Fraunces</span>
-          <div class="row">
-            <b class="s1">Serif editorial de alto contraste</b>
-            <b class="s2">Space Grotesk · sistema · UI</b>
-          </div>
-        </div>
-      </div>
-
-      <div class="elem e-color" data-reveal>
-        <span class="tag">Color · cimientos y acentos</span>
-        <div class="swatches">
-          <div class="sw black"><small>Negro 08070A</small></div>
-          <div class="sw char"><small>Carbón 1A1620</small></div>
-          <div class="sw ivory"><small>Marfil F4EFE6</small></div>
-          <div class="sw champ"><small>Champán</small></div>
-          <div class="sw fruit"><small>Fruta E0357B</small></div>
-          <div class="sw lime"><small>Lima 9FCE3A</small></div>
-        </div>
-      </div>
-
-      <div class="elem e-pattern" data-reveal><canvas data-pattern></canvas></div>
-
-      <div class="elem e-voice" data-reveal>
-        <span class="tag" style="padding-bottom:14px">Tono de voz · principio de movimiento</span>
-        <p class="quote">Hablamos como diseñamos: <em>con precisión y calidez.</em> Cada palabra, como cada píxel, pertenece al mismo sistema — y todo se mueve desde un mismo centro.</p>
-        <p class="attrib">— Principio editorial de Pittahaya</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ 04 · APLICACIONES ═══════════════ -->
-<section class="stage" id="applications">
-  <div class="stage-head">
-    <span class="stage-num" data-reveal>04 — Aplicaciones</span>
-    <h2 class="d2" data-reveal data-weight>La marca vive en cada <em class="champ">punto de contacto.</em></h2>
-    <p class="lede" data-reveal>Del papel al píxel. Cada objeto nace del mismo centro y conserva su ADN: material, luz, tipografía y detalle, art-directed, nunca un mockup genérico.</p>
-  </div>
-  <div class="wrap">
-    <div class="apps">
-      <article class="app a-wide" tabindex="0" data-parallax>
-        <img src="assets/marca/materials.jpg" alt="Muestras de materiales de marca: tarjeta marfil con emboss, placa de metal champán, vidrio negro." />
-        <div class="app-label">
-          <span class="n">Materiales · papelería</span>
-          <h3>El detalle se toca.</h3>
-          <p>Algodón marfil, emboss ciego profundo, metal cepillado y vidrio ahumado. La calidad se percibe antes de leerse.</p>
-        </div>
-      </article>
-      <article class="app a-tall" tabindex="0" data-parallax>
-        <img src="assets/marca/packaging.jpg" alt="Packaging premium negro mate y bolsa con monograma en relieve." />
-        <div class="app-label">
-          <span class="n">Packaging · retail</span>
-          <h3>El primer gesto.</h3>
-          <p>Caja rígida y bolsa en negro mate con monograma en relieve ciego que atrapa la luz champán.</p>
-        </div>
-      </article>
-      <article class="app a-half" tabindex="0" data-parallax>
-        <img src="assets/marca/devices.jpg" alt="Portátil y móvil mostrando la interfaz editorial oscura de Pittahaya." />
-        <div class="app-label">
-          <span class="n">Digital · web + móvil</span>
-          <h3>La misma alma, en pantalla.</h3>
-          <p>Tipografía editorial marfil, divisores champán y un único acento fruta. El sistema impreso se vuelve interfaz sin perder carácter.</p>
-        </div>
-      </article>
-      <article class="app a-third" tabindex="0" data-parallax>
-        <img src="assets/marca/ecosystem.jpg" alt="Colateral de marca conectado por hilos de luz." />
-        <div class="app-label">
-          <span class="n">Sistema · colateral</span>
-          <h3>Todo conectado.</h3>
-          <p>Guías, tarjetas y campañas hilvanadas por una misma luz.</p>
-        </div>
-      </article>
-      <article class="app a-third" tabindex="0" data-parallax>
-        <img src="assets/marca/materials.jpg" alt="Detalle macro de tarjeta con emboss." style="object-position:70% 40%" />
-        <div class="app-label">
-          <span class="n">Print · tarjetería</span>
-          <h3>Emboss ciego.</h3>
-          <p>El monograma sin tinta: solo relieve y sombra.</p>
-        </div>
-      </article>
-      <article class="app a-third" tabindex="0" data-parallax>
-        <img src="assets/marca/packaging.jpg" alt="Bolsa de compra premium con asa tejida." style="object-position:30% 50%" />
-        <div class="app-label">
-          <span class="n">Retail · bolsa</span>
-          <h3>Se lleva a casa.</h3>
-          <p>La identidad que sale a la calle.</p>
-        </div>
-      </article>
-    </div>
-
-    <!-- plate cinematográfica con hotspots -->
-    <figure class="filmplate" data-parallax data-reveal>
-      <img src="assets/marca/ecosystem.jpg" alt="Ecosistema de marca de Pittahaya conectado por hilos de luz champán." />
-      <button class="hotspot" style="left:31%;top:38%" aria-label="Tarjetas con emboss">
-        <i></i><span class="tip"><b>Papelería</b><span>Emboss ciego sobre algodón marfil</span></span>
+  <div class="heroe-foco" data-foco aria-hidden="true"></div>
+  <div class="heroe-in">
+    <p class="rotulo">Pittahaya · estudio de marca y diseño</p>
+    <h1 class="display" data-comp="hero/display">
+      <span class="mask vis"><span>No lo contamos.</span></span>
+      <span class="mask vis d1"><span><em class="fruta">Lo dejamos abierto.</em></span></span>
+    </h1>
+    <p class="plomo">Cualquiera puede decir que tiene un sistema de diseño. Nosotros te damos el interruptor para que lo audites — y cinco mundos de marca, construidos y funcionando, para que compruebes que sale de ahí.</p>
+    <p class="nota">--t-display · Fraunces 300 · tracking −.045em</p>
+    <div class="heroe-pie">
+      <a class="boton boton--lleno" href="#semillero">Ver la obra</a>
+      <button class="boton" data-xray type="button" aria-pressed="false">
+        <span data-xray-txt>Ver el sistema</span>
       </button>
-      <button class="hotspot" style="left:61%;top:34%" aria-label="Bolsa de retail">
-        <i></i><span class="tip"><b>Retail</b><span>Bolsa negra · asa tejida</span></span>
-      </button>
-      <button class="hotspot" style="left:76%;top:52%" aria-label="Interfaz móvil">
-        <i></i><span class="tip"><b>Digital</b><span>La marca en la palma</span></span>
-      </button>
-      <button class="hotspot" style="left:45%;top:66%" aria-label="Packaging">
-        <i></i><span class="tip"><b>Packaging</b><span>Caja rígida en negro mate</span></span>
-      </button>
-    </figure>
-  </div>
-</section>
-
-<!-- ═══════════════ 05 · EXPERIENCIA ═══════════════ -->
-<section class="stage" id="experience">
-  <div class="stage-head">
-    <span class="stage-num" data-reveal>05 — Experiencia</span>
-    <h2 class="d2" data-reveal data-weight>Creamos experiencias que <em class="fruit">conectan.</em></h2>
-    <p class="lede" data-reveal>Lo físico y lo digital son un solo continuo. Cada objeto de marca puede transformarse en una interacción viva.</p>
-  </div>
-  <div class="wrap">
-    <div class="morphs">
-      <div class="morph" data-reveal>
-        <div class="morph-side"><span class="tag">Físico</span><h3>Tarjeta de presentación</h3><p>Algodón marfil, emboss ciego, un gesto de mano.</p></div>
-        <div class="morph-arrow" aria-hidden="true"></div>
-        <div class="morph-side to"><span class="tag">Digital</span><h3>Perfil interactivo</h3><p>La tarjeta se despliega en un perfil vivo, con contacto y portfolio.</p></div>
-      </div>
-      <div class="morph" data-reveal>
-        <div class="morph-side"><span class="tag">Impreso</span><h3>Guía de marca</h3><p>Un manual encuadernado, tinta sobre papel.</p></div>
-        <div class="morph-arrow" aria-hidden="true"></div>
-        <div class="morph-side to"><span class="tag">Digital</span><h3>Sistema de diseño</h3><p>Las páginas se vuelven tokens, componentes y reglas interactivas.</p></div>
-      </div>
-      <div class="morph" data-reveal>
-        <div class="morph-side"><span class="tag">Móvil</span><h3>Una pantalla</h3><p>La interfaz en la palma de la mano.</p></div>
-        <div class="morph-arrow" aria-hidden="true"></div>
-        <div class="morph-side to"><span class="tag">Ecosistema</span><h3>Web + social + campaña</h3><p>La misma retícula se adapta a cada formato sin perder el alma.</p></div>
-      </div>
-      <div class="morph" data-reveal>
-        <div class="morph-side"><span class="tag">Estático</span><h3>Marca fija</h3><p>Un monograma quieto.</p></div>
-        <div class="morph-arrow" aria-hidden="true"></div>
-        <div class="morph-side to"><span class="tag">IA · movimiento</span><h3>Identidad viva</h3><p>El símbolo respira, responde y se reensambla con cada interacción.</p></div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ 06 · UNIVERSO ═══════════════ -->
-<section class="universe" id="universe">
-  <div class="universe-bg" aria-hidden="true"><img src="assets/marca/universe.jpg" alt="" /></div>
-  <div class="universe-canvas" aria-hidden="true"><canvas data-uni-mark></canvas></div>
-  <div class="wrap universe-in">
-    <span class="stage-num" data-reveal>06 — Universo</span>
-    <h2 class="d2" data-reveal>Un ecosistema entero en <em class="champ">perfecta armonía.</em></h2>
-    <p class="lede" data-reveal>Todo lo que recorriste —chispa, identidad, elementos, aplicaciones, experiencia— orbita ahora alrededor de un solo corazón. El monograma en el centro. La marca, un mundo.</p>
-    <div class="uni-stats stagger">
-      <div><b>1</b><small>Idea central</small></div>
-      <div><b>∞</b><small>Posibilidades</small></div>
-      <div><b>6</b><small>Etapas de mundo</small></div>
-      <div><b>1</b><small>Sistema en armonía</small></div>
+<!-- marcador de obra -->
+<div class="env">
+  <div class="marcador" data-comp="marcador/obra">
+    <div><b><span data-cifra="5">5</span></b><small>Mundos construidos</small></div>
+    <div><b><span data-cifra="13">13</span></b><small>Páginas funcionando</small></div>
+    <div><b><span data-cifra="0">0</span></b><small>Librerías externas</small></div>
+    <div><b><span data-cifra="1">1</span></b><small>Sistema debajo</small></div>
+  </div>
+</div>
+
+<!-- ═══════════════ EL SEMILLERO ═══════════════ -->
+<section class="tramo" id="semillero">
+  <div class="tramo-cab">
+    <span class="num" data-rev>01 — El Semillero</span>
+    <h2 class="t1" data-comp="seccion/titular">
+      <span class="mask"><span>Cinco mundos.</span></span>
+      <span class="mask d1"><span>Ninguno es una maqueta.</span></span>
+    </h2>
+    <p class="plomo" data-rev>Cada ficha se pinta con los tokens reales de su mundo: su paleta exacta, su tipografía, su retícula. No son capturas — es el mismo sistema, renderizado aquí. Y cada una abre el demo que funciona de verdad.</p>
+    <p class="nota">.semilla · custom properties --m-* por mundo</p>
+  </div>
+
+  <div class="env">
+    <div class="semillero" data-comp="grid/semillero">
+
+      <!-- AURELIA -->
+      <a class="semilla" href="demo-highend.html" data-rev
+         style="--m-fondo:#14110d;--m-texto:#f7f4ee;--m-tenue:rgba(247,244,238,.56);--m-acento:#c6a473;
+                --m-linea:rgba(247,244,238,.10);--m-brillo:rgba(198,164,115,.20);--m-reticula:52px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:320;--m-track:-.03em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Video scrubbeado por scroll<br>Códec todo-intra · búsqueda 2,6 ms</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Inmobiliario de lujo</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Aurelia</span>
+          <span class="semilla-linea">Villa Mare Alta. Un recorrido en primera persona de la entrada a la piscina infinita, conducido por tu scroll.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#14110d"></i>
+              <i class="espec-sw" style="background:#f7f4ee"></i>
+              <i class="espec-sw" style="background:#98764a"></i>
+              <i class="espec-sw" style="background:#c6a473"></i>
+              <span class="espec-meta">tinta · papel · bronce</span>
+            </span>
+            <span class="espec-tipo">Fraunces · Cormorant</span>
+          </span>
+          <span class="semilla-ir">Abrir el mundo →</span>
+        </span>
+      </a>
+
+      <!-- ATLAS -->
+      <a class="semilla" href="demo-corporativa.html" data-rev
+         style="--m-fondo:#0b0d10;--m-texto:#ebe7df;--m-tenue:rgba(235,231,223,.58);--m-acento:#d2b176;
+                --m-linea:rgba(235,231,223,.10);--m-brillo:rgba(173,130,72,.18);--m-reticula:38px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:340;--m-track:-.026em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Arquitectura por sectores<br>Archivo institucional navegable</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Capital privado</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Atlas</span>
+          <span class="semilla-linea">Un holding que opera energía, minería, marítimo e infraestructura. Sobriedad institucional sin una sola concesión decorativa.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#0b0d10"></i>
+              <i class="espec-sw" style="background:#ebe7df"></i>
+              <i class="espec-sw" style="background:#ad8248"></i>
+              <i class="espec-sw" style="background:#f3efe7"></i>
+              <span class="espec-meta">vacío · tinta · bronce</span>
+            </span>
+            <span class="espec-tipo">Cormorant Garamond · Inter</span>
+          </span>
+          <span class="semilla-ir">Abrir el mundo →</span>
+        </span>
+      </a>
+
+      <!-- ORIGEN 0° -->
+      <a class="semilla" href="demo-servicios.html" data-rev
+         style="--m-fondo:#0a0705;--m-texto:#f2ece1;--m-tenue:rgba(242,236,225,.58);--m-acento:#d3a074;
+                --m-linea:rgba(242,236,225,.09);--m-brillo:rgba(176,122,74,.22);--m-reticula:44px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:300;--m-track:-.02em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Comercio real · 5 páginas<br>Carrito que sobrevive a la navegación</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Comercio de lujo</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Origen 0°</span>
+          <span class="semilla-linea">Chocolate ecuatoriano de latitud cero. Configurador de caja de cata y carrito que persiste entre páginas.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#0a0705"></i>
+              <i class="espec-sw" style="background:#f2ece1"></i>
+              <i class="espec-sw" style="background:#b07a4a"></i>
+              <i class="espec-sw" style="background:#6d2436"></i>
+              <span class="espec-meta">cacao · marfil · cobre</span>
+            </span>
+            <span class="espec-tipo">Cormorant Garamond · Inter</span>
+          </span>
+          <span class="semilla-ir">Abrir el mundo →</span>
+        </span>
+      </a>
+
+      <!-- ORBITAL -->
+      <a class="semilla" href="demo-startup.html" data-rev
+         style="--m-fondo:#04060a;--m-texto:#e9eff8;--m-tenue:rgba(233,239,248,.55);--m-acento:#6fd6e8;
+                --m-linea:rgba(180,205,240,.10);--m-brillo:rgba(111,214,232,.16);--m-reticula:32px;
+                --m-tipo:'Space Grotesk',system-ui,sans-serif;--m-peso:400;--m-track:-.035em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Constelación en vivo<br>Propagación kepleriana · eclipses reales</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Infraestructura orbital</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Orbital</span>
+          <span class="semilla-linea">Cómputo en órbita baja. La telemetría se calcula, no se inventa: altitudes y velocidades cuadran con el manifiesto de lanzamientos.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#04060a"></i>
+              <i class="espec-sw" style="background:#e9eff8"></i>
+              <i class="espec-sw" style="background:#6fd6e8"></i>
+              <i class="espec-sw" style="background:#ff9d4d"></i>
+              <span class="espec-meta">vacío · hielo · solar</span>
+            </span>
+            <span class="espec-tipo">Space Grotesk · JetBrains Mono</span>
+          </span>
+          <span class="semilla-ir">Abrir el mundo →</span>
+        </span>
+      </a>
+
+      <!-- VELOCE -->
+      <a class="semilla" href="demo-landing.html" data-rev
+         style="--m-fondo:#08080a;--m-texto:#f4f0e7;--m-tenue:rgba(244,240,231,.56);--m-acento:#e6b25c;
+                --m-linea:rgba(244,240,231,.09);--m-brillo:rgba(255,106,42,.18);--m-reticula:30px;
+                --m-tipo:'Space Grotesk',system-ui,sans-serif;--m-peso:600;--m-track:-.04em;--m-caja:uppercase">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Turntable arrastrable<br>Secuencia de imágenes por gesto</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Automoción</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Veloce</span>
+          <span class="semilla-linea">Lanzamiento de un hyper-GT. Silueta que giras con el dedo y despiece que se abre en movimiento.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#08080a"></i>
+              <i class="espec-sw" style="background:#f4f0e7"></i>
+              <i class="espec-sw" style="background:#e6b25c"></i>
+              <i class="espec-sw" style="background:#ff6a2a"></i>
+              <span class="espec-meta">vacío · hueso · ámbar</span>
+            </span>
+            <span class="espec-tipo">Sora · JetBrains Mono</span>
+          </span>
+          <span class="semilla-ir">Abrir el mundo →</span>
+        </span>
+      </a>
+
+      <!-- ficha del propio estudio -->
+      <a class="semilla" href="#sistema" data-rev
+         style="--m-fondo:#0d0b11;--m-texto:#f4efe6;--m-tenue:rgba(244,239,230,.58);--m-acento:#9fce3a;
+                --m-linea:rgba(244,239,230,.10);--m-brillo:rgba(224,53,123,.20);--m-reticula:36px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:340;--m-track:-.03em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Esta misma página<br>Pulsa X y mírala por dentro</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">El estudio</span>
+            <span class="semilla-anio">Ahora</span>
+          </span>
+          <span class="semilla-nombre">Pittahaya</span>
+          <span class="semilla-linea">La sexta ficha eres tú mirándola. Esta página también corre sobre el sistema — y te deja abrirlo.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#08070a"></i>
+              <i class="espec-sw" style="background:#f4efe6"></i>
+              <i class="espec-sw" style="background:#e0357b"></i>
+              <i class="espec-sw" style="background:#9fce3a"></i>
+              <span class="espec-meta">negro · marfil · fruta · lima</span>
+            </span>
+            <span class="espec-tipo">Fraunces · Space Grotesk</span>
+          </span>
+          <span class="semilla-ir">Ver el sistema →</span>
+        </span>
+      </a>
+
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ CAPACIDADES ═══════════════ -->
-<section class="stage caps">
-  <div class="stage-head">
-    <span class="stage-num" data-reveal>Lo que acabas de ver</span>
-    <h2 class="d3" data-reveal>Cada etapa fue una capacidad en acción.</h2>
+<!-- ═══════════════ EL SISTEMA ═══════════════ -->
+<section class="tramo tramo--linea" id="sistema">
+  <div class="tramo-cab">
+    <span class="num" data-rev>02 — El Sistema</span>
+    <h2 class="t1" data-comp="seccion/titular">
+      <span class="mask"><span>Lo que sostiene</span></span>
+      <span class="mask d1"><span>los cinco mundos.</span></span>
+    </h2>
+    <p class="plomo" data-rev>Ninguno de esos mundos empezó de cero. Todos salen de las mismas decisiones: una escala tipográfica, un ritmo de espaciado, una retícula y una regla de color. Aquí está, en vivo — y con Rayos X puedes verla sobre cualquier parte de la página.</p>
   </div>
-  <div class="wrap">
-    <div class="caps-grid stagger">
-      <span class="cap"><span class="d">01</span>Estrategia</span>
-      <span class="cap"><span class="d">02</span>Identidad de marca</span>
-      <span class="cap"><span class="d">03</span>Dirección creativa</span>
-      <span class="cap"><span class="d">04</span>Diseño web</span>
-      <span class="cap"><span class="d">05</span>E-commerce</span>
-      <span class="cap"><span class="d">06</span>Productos digitales</span>
-      <span class="cap"><span class="d">07</span>Motion</span>
-      <span class="cap"><span class="d">08</span>Experiencias con IA</span>
-      <span class="cap"><span class="d">09</span>Automatización</span>
-      <span class="cap"><span class="d">10</span>Campañas</span>
-      <span class="cap"><span class="d">11</span>Sistemas de contenido</span>
-      <span class="cap"><span class="d">12</span>Ecosistemas de marca completos</span>
+
+  <div class="env">
+    <div class="sistema">
+
+      <div class="mod m-7" data-comp="modulo/escala">
+        <span class="etq">Escala tipográfica · proporción fluida</span>
+        <div class="escala">
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:clamp(30px,4vw,56px)">Display</span><span class="escala-tok">--t-display · clamp(48,9.5vw,160)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:clamp(24px,3vw,40px)">Titular</span><span class="escala-tok">--t-1 · clamp(36,5.6vw,86)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:clamp(20px,2.2vw,30px)">Sección</span><span class="escala-tok">--t-2 · clamp(26,3.4vw,50)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:22px">Subtítulo</span><span class="escala-tok">--t-3 · clamp(20,2.2vw,30)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:16px;font-family:var(--sans)">Cuerpo de texto</span><span class="escala-tok">--t-cuerpo · clamp(15,1.35vw,18)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:11px;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase">Micro</span><span class="escala-tok">--t-micro · 11px</span></div>
+        </div>
+        <p class="nota">Un solo eje: serif editorial para lo que emociona, grotesca para lo que informa, monoespaciada para lo que mide.</p>
+      </div>
+
+      <div class="mod m-5" style="display:flex;flex-direction:column" data-comp="modulo/paleta">
+        <span class="etq">Color · cimientos y acento</span>
+        <p>Negro y marfil hacen el 95% del trabajo. Fruta y lima sólo aparecen donde hay que mirar. Un acento que se usa mucho deja de ser acento.</p>
+        <div class="paleta">
+          <div class="tono" style="background:#08070a"><b style="color:rgba(244,239,230,.8)">08070A</b></div>
+          <div class="tono" style="background:#16131c"><b style="color:rgba(244,239,230,.8)">16131C</b></div>
+          <div class="tono" style="background:#f4efe6"><b style="color:#08070a">F4EFE6</b></div>
+          <div class="tono" style="background:#d9c3a0"><b style="color:#08070a">D9C3A0</b></div>
+          <div class="tono" style="background:#e0357b"><b style="color:#08070a">E0357B</b></div>
+          <div class="tono" style="background:#9fce3a"><b style="color:#08070a">9FCE3A</b></div>
+        </div>
+      </div>
+
+      <div class="mod m-5" data-comp="modulo/ritmo">
+        <span class="etq">Ritmo · base de 8 px</span>
+        <p>Todo espaciado es múltiplo de ocho. Suena rígido; es exactamente lo que hace que cinco mundos distintos se sientan hechos por la misma mano.</p>
+        <div class="ritmo-demo" aria-hidden="true">
+          <i style="height:8%"></i><i style="height:16%"></i><i style="height:24%"></i><i style="height:40%"></i>
+          <i style="height:56%"></i><i style="height:72%"></i><i style="height:88%"></i><i style="height:100%"></i>
+        </div>
+        <p class="nota">--ritmo: 8px · 8 · 16 · 24 · 40 · 56 · 72 · 88 · 96</p>
+      </div>
+
+      <div class="mod m-7" data-comp="modulo/reticula">
+        <span class="etq">Retícula · 12 columnas</span>
+        <p>Doce columnas porque se parte limpio en 2, 3, 4 y 6. El margen respira con la ventana; el canal no. Activa los Rayos X y la verás caer sobre todo lo demás.</p>
+        <p class="nota">--col: 12 · --gutter: clamp(12,1.6vw,24) · --margen: clamp(20,5vw,72) · --maxw: 1460</p>
+        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(12,1fr);gap:6px" aria-hidden="true">
+          <i style="grid-column:span 12;height:26px;background:rgba(224,53,123,.30);border-radius:4px"></i>
+          <i style="grid-column:span 6;height:26px;background:rgba(224,53,123,.22);border-radius:4px"></i>
+          <i style="grid-column:span 6;height:26px;background:rgba(224,53,123,.22);border-radius:4px"></i>
+          <i style="grid-column:span 4;height:26px;background:rgba(159,206,58,.22);border-radius:4px"></i>
+          <i style="grid-column:span 4;height:26px;background:rgba(159,206,58,.22);border-radius:4px"></i>
+          <i style="grid-column:span 4;height:26px;background:rgba(159,206,58,.22);border-radius:4px"></i>
+        </div>
+      </div>
+
+      <div class="mod m-12" data-comp="modulo/plano">
+        <figure class="foto" style="margin:0;border-radius:10px;overflow:hidden">
+          <img src="assets/marca/plano.jpg" alt="Macro de una hoja de especificación técnica con retícula de construcción, marcas de registro y una línea magenta." />
+        </figure>
+        <p class="nota" style="margin-top:14px">La retícula no es un adorno de portafolio: es la razón de que un cliente pueda pedir una página nueva dos años después y encaje sin discusión.</p>
+      </div>
+
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LA CARTA ═══════════════ -->
+<section class="carta" id="carta">
+  <div class="carta-in">
+    <p class="rotulo" style="justify-content:center" data-rev>La carta</p>
+    <blockquote data-rev>Casi todo el trabajo de marca se juzga por una presentación bonita que nadie vuelve a abrir. Preferimos entregar algo que <em>funcione, se pueda medir y se pueda auditar.</em> Si el sistema es bueno, aguanta que lo mires por dentro.</blockquote>
+    <cite data-rev>— El estudio · Pittahaya, Ecuador</cite>
   </div>
 </section>
 
 <!-- ═══════════════ CIERRE ═══════════════ -->
-<section class="finale">
-  <div class="finale-in">
-    <p class="kicker center" data-reveal>El mundo de Pittahaya</p>
-    <h2 class="display" data-reveal>Una idea.<span class="l2">Infinitas posibilidades.</span></h2>
-    <p class="lede" data-reveal>Pittahaya transforma estrategia, identidad, diseño y tecnología en mundos de marca completos.</p>
-    <div class="finale-cta" data-reveal>
-      <a class="btn btn--fill" href="contacto.html">Construir tu mundo</a>
-      <a class="btn" href="portafolio.html">Explorar nuestro trabajo</a>
+<section class="cierre">
+  <div class="env">
+    <p class="rotulo" style="justify-content:center" data-rev>Marca &amp; Diseño</p>
+    <h2 class="display">
+      <span class="mask"><span>Una idea.</span></span>
+      <span class="mask d1"><span><em class="champan">Un sistema que la sostiene.</em></span></span>
+    </h2>
+    <p class="plomo" data-rev>Estrategia, identidad, diseño y tecnología en mundos de marca completos — construidos para durar más que la presentación.</p>
+    <div class="cierre-bot" data-rev>
+      <a class="boton boton--lleno" href="contacto.html">Construir tu mundo</a>
+      <a class="boton" href="portafolio.html">Ver el portafolio</a>
     </div>
-    <p class="finale-sig" data-reveal>Pittahaya · Brand in Motion · Demo interactiva</p>
   </div>
 </section>
 
-<footer class="ft">
-  <div class="wrap ft-in">
-    <span>Pittahaya · Brand in Motion</span>
+</main>
+
+<footer class="pie">
+  <div class="env pie-in">
+    <span>Pittahaya · Marca &amp; Diseño</span>
     <nav>
       <a href="portafolio.html">Portafolio</a>
       <a href="contacto.html">Contacto</a>
       <a href="privacidad.html">Privacidad</a>
-      <span>© <span data-year>2026</span></span>
+      <span>© <span data-anio>2026</span></span>
     </nav>
   </div>
 </footer>
 
-<script src="assets/mare-brand.js?v=1" defer></script>
+<script src="assets/firma.js?v=2" defer></script>
 </body>
 </html>

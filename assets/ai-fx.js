@@ -11,6 +11,7 @@
   "use strict";
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const english = /^en\b/i.test(document.documentElement.lang || "");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ===== 1. Reveal on scroll ================================= */
@@ -49,7 +50,7 @@
       row.innerHTML =
         `<span class="aiFeedIco">${item.i}</span>` +
         `<span class="aiFeedTxt">${txt}</span>` +
-        `<span class="aiFeedTime">ahora</span>`;
+        `<span class="aiFeedTime">${english ? "now" : "ahora"}</span>`;
       return row;
     };
 

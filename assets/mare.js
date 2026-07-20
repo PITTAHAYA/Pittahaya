@@ -2,6 +2,7 @@
 (function () {
   "use strict";
 
+  var isEnglish = /^en\b/i.test(document.documentElement.lang || "");
   var clamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
   var easeInOut = function (p) { return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; };
 
@@ -239,7 +240,7 @@
   var counters = document.querySelectorAll("[data-count]");
   if (counters.length && "IntersectionObserver" in window) {
     var fmt = function (n) {
-      return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");   /* 5600 → 5.600 */
+      return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, isEnglish ? "," : ".");
     };
     var run = function (el) {
       var to = parseFloat(el.getAttribute("data-count"));

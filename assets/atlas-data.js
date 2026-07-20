@@ -1,6 +1,9 @@
 (function () {
   "use strict";
 
+  const isEnglish = /^en\b/i.test(document.documentElement.lang || "");
+  const t = (spanish, english) => isEnglish ? english : spanish;
+
   function makeCompany(entry) {
     return Object.freeze(Object.assign({
       yearsOwned: null,
@@ -38,33 +41,64 @@
     makeCompany({ id: "ATLAS-24", name: "Plataforma logistica urbana", sector: "Infraestructura", country: "Brasil", region: "Sao Paulo", acquisitionYear: 2025, yearsOwned: 1, assetType: "Ultima milla", description: "Plataforma de distribucion urbana para bienes esenciales.", capabilities: ["Cercania", "Rotacion", "Ocupacion"] })
   ]);
 
+  const englishCompanyCopy = Object.freeze({
+    "ATLAS-01": { name: "Andean energy portfolio", sector: "Energy", country: "Ecuador", region: "Andes - distributed generation", assetType: "Critical generation", description: "Electrical continuity platform for Andean industrial corridors.", capabilities: ["Continuity", "Major maintenance", "Long-term contracts"] },
+    "ATLAS-02": { name: "Coastal transmission network", sector: "Energy", country: "Chile", region: "South Pacific - transmission", assetType: "Regulated network", description: "Transmission asset supporting coastal industrial demand.", capabilities: ["Redundancy", "Regulation", "Captive demand"] },
+    "ATLAS-03": { name: "Thermal backup reserve", sector: "Energy", country: "Mexico", region: "Bajío - firm capacity", assetType: "Operational backup", description: "Backup capacity for cycles of high productive demand.", capabilities: ["Availability", "Fuel", "Operating control"] },
+    "ATLAS-04": { name: "Regulated industrial metering", sector: "Energy", country: "Colombia", region: "Industrial Caribbean", assetType: "Metering infrastructure", description: "Metering and control platform for regulated industrial clients.", capabilities: ["Critical data", "Billing", "24/7 operations"] },
+    "ATLAS-05": { name: "Continuity microgrids", sector: "Energy", country: "Peru", region: "Remote mining operations", assetType: "Distributed energy", description: "Microgrids designed for operations that cannot stop.", capabilities: ["Autonomy", "Backup", "Local engineering"] },
+    "ATLAS-06": { name: "Operational storage", sector: "Energy", country: "United States", region: "Gulf Coast", assetType: "Flexible capacity", description: "Flexible capacity for grid stability and industrial continuity.", capabilities: ["Batteries", "Ancillary services", "Flexibility"] },
+    "ATLAS-07": { name: "Pacific multipurpose terminal", sector: "Maritime & logistics", country: "Ecuador", region: "Deepwater port", assetType: "Essential terminal", description: "Multipurpose terminal for industrial cargo and food exports.", capabilities: ["Port operations", "Draft", "Logistics chain"] },
+    "ATLAS-08": { name: "Port cold chain", sector: "Maritime & logistics", country: "Panama", region: "Refrigerated hub", assetType: "Food logistics", description: "Cold-chain infrastructure that reduces loss and protects export value.", capabilities: ["Cold storage", "Traceability", "Turnover"] },
+    "ATLAS-09": { name: "Harbour tugboats", sector: "Maritime & logistics", country: "Netherlands", region: "Rotterdam", assetType: "Port service", description: "Port-support fleet serving harbours with high operational density.", capabilities: ["Manoeuvring", "Safety", "Availability"] },
+    "ATLAS-10": { name: "Essential marine maintenance", sector: "Maritime & logistics", country: "Spain", region: "Western Mediterranean", assetType: "Operating shipyard", description: "Maintenance base for commercial fleets and auxiliary services.", capabilities: ["Repair", "Dry dock", "Skilled workforce"] },
+    "ATLAS-11": { name: "Inland waterway corridor", sector: "Maritime & logistics", country: "Brazil", region: "Industrial waterway", assetType: "River transport", description: "River operation connecting inland production with port access.", capabilities: ["Barges", "Grain", "Low cost"] },
+    "ATLAS-12": { name: "Intermodal depot", sector: "Maritime & logistics", country: "Singapore", region: "Asia-Pacific", assetType: "Intermodal", description: "Intermodal node for regional redistribution of critical cargo.", capabilities: ["Customs", "Yard", "Speed"] },
+    "ATLAS-13": { name: "Northern industrial quarry", sector: "Mining & resources", country: "Peru", region: "Central Andes", assetType: "Critical aggregates", description: "Aggregate reserves for long-term regional infrastructure.", capabilities: ["Reserves", "Permits", "Recurring demand"] },
+    "ATLAS-14": { name: "Aggregate processing", sector: "Mining & resources", country: "Canada", region: "Western corridor", assetType: "Processing", description: "Processing plant with stable civil-construction contracts.", capabilities: ["Crushing", "Quality", "Framework agreements"] },
+    "ATLAS-15": { name: "Geological services", sector: "Mining & resources", country: "Australia", region: "Mineral belt", assetType: "Technical intelligence", description: "Technical team reducing uncertainty before capital is deployed.", capabilities: ["Due diligence", "Sampling", "Geological models"] },
+    "ATLAS-16": { name: "Transition mineral reserve", sector: "Mining & resources", country: "Chile", region: "Norte Grande", assetType: "Critical resources", description: "Interest in a mineral reserve associated with electrification.", capabilities: ["Copper", "Permits", "Long-term"] },
+    "ATLAS-17": { name: "Circular industrial water", sector: "Mining & resources", country: "Mexico", region: "Industrial desert", assetType: "Water reuse", description: "Water-reuse system for mining operations and heavy manufacturing.", capabilities: ["Treatment", "Recirculation", "Social licence"] },
+    "ATLAS-18": { name: "Mining operations supplies", sector: "Mining & resources", country: "Ecuador", region: "Andes", assetType: "Essential supply", description: "Technical distribution of supplies for continuously operating sites.", capabilities: ["Critical inventory", "Field operations", "Technical support"] },
+    "ATLAS-19": { name: "Critical regional fibre", sector: "Infrastructure", country: "Colombia", region: "Secondary cities", assetType: "Connectivity", description: "Regional fibre for cities where redundancy remains scarce.", capabilities: ["Rings", "Last mile", "Enterprise contracts"] },
+    "ATLAS-20": { name: "Sovereign data centres", sector: "Infrastructure", country: "United States", region: "Texas", assetType: "Essential computing", description: "Compute capacity for clients requiring local control.", capabilities: ["Energy", "Cooling", "Physical security"] },
+    "ATLAS-21": { name: "Secondary road concession", sector: "Infrastructure", country: "Ecuador", region: "Productive highlands", assetType: "Regional mobility", description: "Road concession connecting agricultural production and light industry.", capabilities: ["Tolls", "Maintenance", "Productive flow"] },
+    "ATLAS-22": { name: "Rural towers", sector: "Infrastructure", country: "Peru", region: "Altiplano", assetType: "Telecommunications", description: "Rural towers with long leases and low turnover.", capabilities: ["Coverage", "Remote power", "Operators"] },
+    "ATLAS-23": { name: "Water treatment", sector: "Infrastructure", country: "Spain", region: "Mediterranean arc", assetType: "Urban water", description: "Compact water-treatment plant for coastal municipalities.", capabilities: ["Water", "Maintenance", "Compliance"] },
+    "ATLAS-24": { name: "Urban logistics platform", sector: "Infrastructure", country: "Brazil", region: "São Paulo", assetType: "Last mile", description: "Urban distribution platform for essential goods.", capabilities: ["Proximity", "Turnover", "Occupancy"] }
+  });
+
+  const localizedCompanyFolios = isEnglish
+    ? Object.freeze(companyFolios.map((company) => makeCompany(Object.assign({}, company, englishCompanyCopy[company.id]))))
+    : companyFolios;
+
   window.ATLAS_CONTENT = Object.freeze({
     hero: Object.freeze({
-      eyebrow: "Grupo de capital privado · capital permanente",
-      title: "Las compañías que perduran no tienen prisa.",
-      summary: "ATLAS es propietario, no intermediario. Adquirimos y sostenemos negocios esenciales durante décadas — no trimestres — a través de energía, infraestructura, marítimo y minería."
+      eyebrow: t("Grupo de capital privado · capital permanente", "Private capital group · permanent capital"),
+      title: t("Las compañías que perduran no tienen prisa.", "Enduring companies are in no hurry."),
+      summary: t("ATLAS es propietario, no intermediario. Adquirimos y sostenemos negocios esenciales durante décadas — no trimestres — a través de energía, infraestructura, marítimo y minería.", "ATLAS is an owner, not an intermediary. We acquire and sustain essential businesses for decades — not quarters — across energy, infrastructure, maritime, and mining.")
     }),
     thesis: Object.freeze({
-      title: "No perseguimos retornos. Perseguimos permanencia."
+      title: t("No perseguimos retornos. Perseguimos permanencia.", "We do not chase returns. We pursue permanence.")
     }),
     sectors: Object.freeze([
-      Object.freeze({ id: "energia", number: "01", name: "Energía", descriptor: "Generación · transmisión", motion: "energy" }),
-      Object.freeze({ id: "maritimo", number: "02", name: "Marítimo & logística", descriptor: "Puertos · cadenas logísticas", motion: "maritime" }),
-      Object.freeze({ id: "mineria", number: "03", name: "Minería & recursos", descriptor: "Recursos críticos · reservas", motion: "mining" }),
-      Object.freeze({ id: "infraestructura", number: "04", name: "Infraestructura", descriptor: "Conectividad · servicios esenciales", motion: "infrastructure" })
+      Object.freeze({ id: "energia", number: "01", name: t("Energía", "Energy"), descriptor: t("Generación · transmisión", "Generation · transmission"), motion: "energy" }),
+      Object.freeze({ id: "maritimo", number: "02", name: t("Marítimo & logística", "Maritime & logistics"), descriptor: t("Puertos · cadenas logísticas", "Ports · logistics networks"), motion: "maritime" }),
+      Object.freeze({ id: "mineria", number: "03", name: t("Minería & recursos", "Mining & resources"), descriptor: t("Recursos críticos · reservas", "Critical resources · reserves"), motion: "mining" }),
+      Object.freeze({ id: "infraestructura", number: "04", name: t("Infraestructura", "Infrastructure"), descriptor: t("Conectividad · servicios esenciales", "Connectivity · essential services"), motion: "infrastructure" })
     ]),
     metrics: Object.freeze([
-      Object.freeze({ value: "$6.4", suffix: "MM", label: "Capital gestionado" }),
-      Object.freeze({ value: "24", suffix: "", label: "Compañías en propiedad" }),
-      Object.freeze({ value: "33", suffix: "años", label: "Horizonte medio de tenencia" }),
-      Object.freeze({ value: "0", suffix: "", label: "Ventas forzadas · en 33 años" })
+      Object.freeze({ value: "$6.4", suffix: t("MM", "B"), label: t("Capital gestionado", "Capital managed") }),
+      Object.freeze({ value: "24", suffix: "", label: t("Compañías en propiedad", "Companies owned") }),
+      Object.freeze({ value: "33", suffix: t("años", "years"), label: t("Horizonte medio de tenencia", "Average holding horizon") }),
+      Object.freeze({ value: "0", suffix: "", label: t("Ventas forzadas · en 33 años", "Forced sales · in 33 years") })
     ]),
     offices: Object.freeze([
-      Object.freeze({ city: "Quito", role: "Sede · Andes" }),
-      Object.freeze({ city: "Houston", role: "Energía" }),
-      Object.freeze({ city: "Róterdam", role: "Marítimo" }),
-      Object.freeze({ city: "Singapur", role: "Asia-Pacífico" })
+      Object.freeze({ city: "Quito", role: t("Sede · Andes", "Headquarters · Andes") }),
+      Object.freeze({ city: "Houston", role: t("Energía", "Energy") }),
+      Object.freeze({ city: t("Róterdam", "Rotterdam"), role: t("Marítimo", "Maritime") }),
+      Object.freeze({ city: t("Singapur", "Singapore"), role: t("Asia-Pacífico", "Asia-Pacific") })
     ]),
-    companies: companyFolios
+    companies: localizedCompanyFolios
   });
 })();

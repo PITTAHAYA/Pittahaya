@@ -5,6 +5,8 @@
   var doc = document;
   var root = doc.documentElement;
   var body = doc.body;
+  var isEnglish = /^en\b/i.test(root.lang || "");
+  var t = function (spanish, english) { return isEnglish ? english : spanish; };
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   var header = doc.querySelector("[data-header]");
   var progress = doc.querySelector("[data-progress]");
@@ -69,7 +71,9 @@
     nav.classList.toggle("is-open", open);
     body.classList.toggle("nav-open", open);
     navToggle.setAttribute("aria-expanded", String(open));
-    navToggle.setAttribute("aria-label", open ? "Cerrar navegación" : "Abrir navegación");
+    navToggle.setAttribute("aria-label", open
+      ? t("Cerrar navegación", "Close navigation")
+      : t("Abrir navegación", "Open navigation"));
 
     if (open) {
       lastFocused = doc.activeElement;
@@ -193,10 +197,10 @@
         if (!meta) return;
 
         var items = [
-          ["Sector", normaliseValue(company.sector, "Clasificacion reservada")],
-          ["Region", normaliseValue(company.region || company.country, "Jurisdiccion reservada")],
-          ["Entrada", normaliseValue(company.acquisitionYear, "Bajo validacion")],
-          ["Tesis", normaliseValue(company.assetType, "Funcion esencial")]
+          ["Sector", normaliseValue(company.sector, t("Clasificacion reservada", "Reserved classification"))],
+          [t("Region", "Region"), normaliseValue(company.region || company.country, t("Jurisdiccion reservada", "Reserved jurisdiction"))],
+          [t("Entrada", "Entry"), normaliseValue(company.acquisitionYear, t("Bajo validacion", "Pending validation"))],
+          [t("Tesis", "Thesis"), normaliseValue(company.assetType, t("Funcion esencial", "Essential function"))]
         ];
 
         meta.replaceChildren();
@@ -218,22 +222,25 @@
 
         var fields = disclosure.querySelectorAll("div");
         var values = [
-          normaliseValue(company.sector, "Clasificacion operativa"),
-          normaliseValue(company.region || company.country, "Jurisdiccion"),
-          normaliseValue(company.acquisitionYear, "Ano de entrada"),
-          normaliseValue(company.assetType, "Funcion esencial")
+          normaliseValue(company.sector, t("Clasificacion operativa", "Operating classification")),
+          normaliseValue(company.region || company.country, t("Jurisdiccion", "Jurisdiction")),
+          normaliseValue(company.acquisitionYear, t("Ano de entrada", "Entry year")),
+          normaliseValue(company.assetType, t("Funcion esencial", "Essential function"))
         ];
 
         fields.forEach(function (field, fieldIndex) {
           var value = field.querySelector("b");
-          if (value) value.textContent = values[fieldIndex] || "Reservado";
+          if (value) value.textContent = values[fieldIndex] || t("Reservado", "Reserved");
         });
 
         var note = disclosure.querySelector("p");
         if (note) {
           note.textContent = normaliseValue(
             company.description,
-            "Detalle operativo disponible despues de la validacion institucional."
+            t(
+              "Detalle operativo disponible despues de la validacion institucional.",
+              "Operating detail available after institutional validation."
+            )
           );
         }
       }
@@ -249,7 +256,7 @@
           var number = String(index + 1).padStart(2, "0");
           var fallbackId = "FOLIO " + number;
           readout.textContent = normaliseValue(company.id, fallbackId) + " - " +
-            normaliseValue(company.name, "Registro privado");
+            normaliseValue(company.name, t("Registro privado", "Private record"));
         }
         renderArchiveMeta(company);
         updateDisclosure(company);
@@ -267,11 +274,11 @@
         volume.className = "archive-volume";
         heading.className = "archive-volume__label";
         rail.className = "archive-volume__rail";
-        heading.appendChild(makeTextElement("span", "", "Volumen " + numeral));
+        heading.appendChild(makeTextElement("span", "", t("Volumen ", "Volume ") + numeral));
         heading.appendChild(makeTextElement(
           "small",
           "",
-          "Folios " + String(start + 1).padStart(2, "0") + "–" + String(end).padStart(2, "0")
+          t("Folios ", "Folios ") + String(start + 1).padStart(2, "0") + "–" + String(end).padStart(2, "0")
         ));
 
         companies.slice(start, end).forEach(function (company, offset) {
@@ -281,9 +288,9 @@
 
           folio.className = "archive-folio-marker" + (index === 0 ? " is-selected" : "");
           folio.type = "button";
-          folio.setAttribute("aria-label", "Consultar " +
+          folio.setAttribute("aria-label", t("Consultar ", "View ") +
             normaliseValue(company.id, "folio " + number) + " - " +
-            normaliseValue(company.name, "registro privado"));
+            normaliseValue(company.name, t("registro privado", "private record")));
           folio.setAttribute("aria-pressed", String(index === 0));
           folio.appendChild(makeTextElement("span", "archive-folio-marker__tick", ""));
           folio.appendChild(makeTextElement("b", "archive-folio-marker__number", number));

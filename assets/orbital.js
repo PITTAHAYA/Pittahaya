@@ -5,6 +5,8 @@
   "use strict";
 
   var doc = document;
+  var isEnglish = /^en\b/i.test(doc.documentElement.lang || "");
+  var locale = isEnglish ? "en-US" : "es";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   /* ── cabecera + progreso ───────────────────────────── */
@@ -39,19 +41,23 @@
     burger.addEventListener("click", function () {
       var open = burger.getAttribute("aria-expanded") !== "true";
       burger.setAttribute("aria-expanded", String(open));
-      burger.setAttribute("aria-label", open ? "Cerrar navegación" : "Abrir navegación");
+      burger.setAttribute("aria-label", open
+        ? (isEnglish ? "Close navigation" : "Cerrar navegación")
+        : (isEnglish ? "Open navigation" : "Abrir navegación"));
       nav.classList.toggle("is-open", open);
     });
     nav.addEventListener("click", function (e) {
       if (e.target.closest("a")) {
         nav.classList.remove("is-open");
         burger.setAttribute("aria-expanded", "false");
+        burger.setAttribute("aria-label", isEnglish ? "Open navigation" : "Abrir navegación");
       }
     });
     doc.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("is-open")) {
         nav.classList.remove("is-open");
         burger.setAttribute("aria-expanded", "false");
+        burger.setAttribute("aria-label", isEnglish ? "Open navigation" : "Abrir navegación");
         burger.focus();
       }
     });
@@ -99,7 +105,7 @@
         (function step(now) {
           var p = Math.min(1, (now - start) / dur);
           var eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = (target * eased).toLocaleString("es", {
+          el.textContent = (target * eased).toLocaleString(locale, {
             minimumFractionDigits: dec, maximumFractionDigits: dec
           });
           if (p < 1) requestAnimationFrame(step);
@@ -110,7 +116,7 @@
   } else {
     counters.forEach(function (c) {
       var dec = parseInt(c.getAttribute("data-dec") || "0", 10);
-      c.textContent = parseFloat(c.getAttribute("data-count")).toLocaleString("es", {
+      c.textContent = parseFloat(c.getAttribute("data-count")).toLocaleString(locale, {
         minimumFractionDigits: dec, maximumFractionDigits: dec
       });
     });
@@ -123,8 +129,8 @@
     { id: "uio", name: "Quito", gs: "ECU-1", orb: 11, fib: 96 },
     { id: "gru", name: "São Paulo", gs: "ECU-1", orb: 14, fib: 128 },
     { id: "iad", name: "Virginia", gs: "POL-1", orb: 13, fib: 74 },
-    { id: "lhr", name: "Londres", gs: "POL-1", orb: 12, fib: 88 },
-    { id: "sin", name: "Singapur", gs: "SSO-1", orb: 15, fib: 214 },
+    { id: "lhr", name: isEnglish ? "London" : "Londres", gs: "POL-1", orb: 12, fib: 88 },
+    { id: "sin", name: isEnglish ? "Singapore" : "Singapur", gs: "SSO-1", orb: 15, fib: 214 },
     { id: "nbo", name: "Nairobi", gs: "SSO-1", orb: 16, fib: 246 }
   ];
 
@@ -168,9 +174,13 @@
       if (barThem) barThem.style.width = Math.min(100, (city.fib / maxScale) * 100) + "%";
       if (latNote) {
         var factor = (city.fib / city.orb).toFixed(1);
-        latNote.textContent = "Desde " + city.name + ", el enlace óptico al plano " + city.gs +
-          " resuelve " + factor + "× más rápido que la ruta terrestre al centro de datos más cercano. " +
-          "La luz viaja un 47% más rápido en el vacío que en fibra de sílice.";
+        latNote.textContent = isEnglish
+          ? "From " + city.name + ", the optical link to plane " + city.gs +
+            " resolves " + factor + "× faster than the terrestrial route to the nearest data centre. " +
+            "Light travels 47% faster through vacuum than through silica fibre."
+          : "Desde " + city.name + ", el enlace óptico al plano " + city.gs +
+            " resuelve " + factor + "× más rápido que la ruta terrestre al centro de datos más cercano. " +
+            "La luz viaja un 47% más rápido en el vacío que en fibra de sílice.";
       }
     }
     select(CITIES[0], latList.children[0]);
@@ -179,7 +189,20 @@
   /* ── consola de misión: telemetría en vivo ─────────── */
   var stream = doc.querySelector("[data-stream]");
   if (stream && !reduce.matches) {
-    var EVENTS = [
+    var EVENTS = isEnglish ? [
+      ["ok", "ECU-1-04 · inference batch complete · 8.4 PFLOP"],
+      ["ic", "POL-1-02 · optical link established with SSO-1-07"],
+      ["ok", "Svalbard · contact window open · 11 min"],
+      ["ic", "ECU-1-01 · entering sunlight · radiators retracted"],
+      ["ok", "Quito · 2.1 TB downlinked · integrity verified"],
+      ["wn", "POL-1-06 · eclipse in 90 s · migrating load to POL-1-07"],
+      ["ok", "SSO-1-03 · orbit correction · Δv 0.4 m/s"],
+      ["ic", "Nairobi · handover complete with no packet loss"],
+      ["ok", "Constellation · 24/24 nodes nominal"],
+      ["ic", "ECU-1-08 · core temperature 39 °C · within limits"],
+      ["wn", "Debris detected · avoidance manoeuvre scheduled T-14 min"],
+      ["ok", "Singapore · model synchronization · 640 GB"]
+    ] : [
       ["ok", "ECU-1-04 · lote de inferencia completado · 8.4 PFLOP"],
       ["ic", "POL-1-02 · enlace óptico establecido con SSO-1-07"],
       ["ok", "Svalbard · ventana de contacto abierta · 11 min"],

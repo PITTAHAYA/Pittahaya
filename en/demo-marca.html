@@ -1,232 +1,415 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="copyright" content="© Pittahaya. All rights reserved." />
-  <meta name="rights" content="Design, copy, demos, brand, images and digital experience protected by copyright. Unauthorized reproduction or use is prohibited." />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0c0c10" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>Demo · The Brand Lab | Pittahaya</title>
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-  <meta name="description" content="Immersive brand & design demo. Living identity, color palettes that shift, editorial typography by Pittahaya." />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Demo · The Brand Lab | Pittahaya" />
-  <meta property="og:url" content="https://www.pittahaya.com/en/demo-marca.html" />
-  <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
-  <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-marca.html" />
-  <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-marca.html" />
-  <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-marca.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/chatbot.css?v=v3" />
-  <style>
-:root{--palette-a:#ff6a4d;--palette-b:#ffd166;--palette-c:#0c0c10;--ink:#0c0c10;--ink2:#15151c;--cream:#f7f1e8;--muted:rgba(247,241,232,.68);--line:rgba(247,241,232,.10)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font-family:"Manrope",system-ui,sans-serif;color:var(--cream);background:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .8s ease}
-a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
-.wrap{width:min(1200px,calc(100% - 44px));margin:0 auto}
-.nav{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(12,12,16,.78);backdrop-filter:blur(18px)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
-.mark{display:flex;align-items:center;gap:12px}
-.markIcon{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--ink);font-weight:900;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));font-family:"Playfair Display",serif;font-size:24px;transition:background .8s ease;font-style:italic}
-.mark b{display:block;font-family:"Playfair Display",serif;font-style:italic;font-size:20px;letter-spacing:.4px}
-.mark span{display:block;color:rgba(247,241,232,.56);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-family:"Space Mono",monospace}
-.navLinks{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.pill{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:rgba(247,241,232,.86);font-size:13px;transition:all .3s ease}
-.pill:hover{border-color:var(--palette-a);background:rgba(255,255,255,.06)}
-.hero{position:relative;padding:100px 0 80px;isolation:isolate;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-10%;z-index:-1;background:radial-gradient(900px 540px at 14% 16%,color-mix(in srgb,var(--palette-a) 24%,transparent),transparent 64%),radial-gradient(720px 420px at 88% 8%,color-mix(in srgb,var(--palette-b) 16%,transparent),transparent 60%);transition:background .8s ease;filter:blur(6px)}
-.hero canvas[data-fx-particles]{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.4}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:120px;z-index:1;background:linear-gradient(180deg,transparent,var(--ink));pointer-events:none}
-.heroInner{position:relative;z-index:2}
-.eyebrow{display:inline-flex;gap:10px;align-items:center;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--palette-a);padding:8px 14px;border-radius:999px;border:1px solid color-mix(in srgb,var(--palette-a) 30%,transparent);background:color-mix(in srgb,var(--palette-a) 8%,transparent);transition:all .8s ease}
-.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--palette-a);animation:dotPulse 1.6s ease-in-out infinite}
-@keyframes dotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
-h1.heroH{font-family:"Playfair Display",ui-serif,Georgia,serif;font-weight:900;font-size:clamp(56px,9vw,140px);line-height:.86;letter-spacing:-3px;margin:24px 0 22px;max-width:14ch}
-.heroH em{font-style:italic;font-weight:700;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.heroLead{margin:0;max-width:54ch;color:var(--muted);font-size:18px;line-height:1.72}
-.heroActions{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:54px;padding:15px 22px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--cream);font-family:"Manrope",sans-serif;font-size:15px;font-weight:700;transition:all .22s ease;cursor:pointer;will-change:transform}
-.btn:hover{transform:translateY(-2px);border-color:var(--palette-a)}
-.btnPrimary{background:linear-gradient(135deg,var(--palette-a),var(--palette-b));color:var(--ink);border-color:transparent;box-shadow:0 22px 70px color-mix(in srgb,var(--palette-a) 30%,transparent);font-weight:800;transition:background .8s ease,transform .22s ease,box-shadow .22s ease}
-.paletteBar{margin-top:50px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
-.paletteLabel{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);margin-right:8px}
-.swatch{display:flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;transition:all .25s ease}
-.swatch:hover{transform:translateY(-2px);border-color:rgba(247,241,232,.32)}
-.swatch.is-active{border-color:var(--cream);background:rgba(247,241,232,.08)}
-.swatch i{width:24px;height:24px;border-radius:50%;display:block;background:linear-gradient(135deg,var(--p1),var(--p2));box-shadow:0 4px 14px color-mix(in srgb,var(--p1) 35%,transparent)}
-.swatch span{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:1.2px;text-transform:uppercase}
-.section{padding:90px 0;position:relative}
-.sectionHead{display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;align-items:end;margin-bottom:50px}
-.kicker{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--palette-a);transition:color .8s ease;margin-bottom:14px}
-.sectionHead h2{font-family:"Playfair Display",serif;font-weight:700;font-size:clamp(40px,5vw,84px);line-height:.96;letter-spacing:-1.5px;margin:0}
-.sectionHead h2 em{font-style:italic;color:var(--palette-a);transition:color .8s ease}
-.sectionHead p{margin:0;color:var(--muted);line-height:1.72;font-size:16px}
-.moodGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.mood{position:relative;aspect-ratio:1/1.2;border-radius:18px;overflow:hidden;border:1px solid var(--line);cursor:pointer;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
-.mood:hover{transform:translateY(-6px) scale(1.01)}
-.mood::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.7))}
-.mood img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.15) contrast(1.05)}
-.moodMeta{position:absolute;left:18px;right:18px;bottom:18px;z-index:2}
-.moodMeta small{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(247,241,232,.78)}
-.moodMeta h3{font-family:"Playfair Display",serif;font-style:italic;font-size:32px;font-weight:700;margin:6px 0 0;line-height:1}
-.brandMarquee{margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:30px 0}
-.bmTrack{display:flex;gap:50px;animation:bmRoll 24s linear infinite;width:max-content;font-family:"Playfair Display",serif;font-style:italic;font-size:64px;font-weight:700;color:rgba(247,241,232,.18)}
-.bmTrack span{display:inline-flex;gap:50px;white-space:nowrap}
-.bmTrack span::after{content:"✦";color:var(--palette-a);font-style:normal;font-size:32px;transition:color .8s ease}
-@keyframes bmRoll{to{transform:translateX(-50%)}}
-.typeGrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.specimen{padding:36px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));position:relative;overflow:hidden}
-.specimen small{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(247,241,232,.5)}
-.specimenChar{font-family:"Playfair Display",serif;font-size:clamp(120px,18vw,220px);line-height:.8;margin:14px 0 8px;font-weight:900;font-style:italic;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.specimenName{font-family:"Playfair Display",serif;font-style:italic;font-size:22px;color:var(--cream);margin:0}
-.specimenSub{font-family:"Space Mono",monospace;font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:1.2px}
-.finalCta{position:relative;padding:90px 56px;border-radius:34px;border:1px solid var(--line);background:radial-gradient(720px 420px at 80% 20%,color-mix(in srgb,var(--palette-a) 22%,transparent),transparent 62%),radial-gradient(620px 380px at 10% 80%,color-mix(in srgb,var(--palette-b) 18%,transparent),transparent 62%),linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));overflow:hidden;text-align:center;transition:background .8s ease}
-.finalCta h2{font-family:"Playfair Display",serif;font-weight:900;font-size:clamp(40px,5vw,84px);line-height:.96;letter-spacing:-1.5px;margin:0 auto 22px;max-width:18ch}
-.finalCta h2 em{font-style:italic;background:linear-gradient(135deg,var(--palette-a),var(--palette-b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:background .8s ease}
-.finalCta p{margin:0 auto 32px;max-width:56ch;color:var(--muted);font-size:17px;line-height:1.65}
-.footer{padding:40px 0 50px;border-top:1px solid var(--line);background:rgba(0,0,0,.18)}
-.footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
-small{color:rgba(247,241,232,.58)}
-[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .85s ease,transform .85s ease}
-[data-reveal].in{opacity:1;transform:translateY(0)}
-.demo-corner-logo{position:fixed;left:18px;bottom:18px;z-index:50;width:72px;height:72px;pointer-events:none}
-.demo-corner-logo img{width:100%;height:100%;object-fit:contain}
-@media (max-width:980px){.sectionHead,.typeGrid{grid-template-columns:1fr}.moodGrid{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.hero{padding:60px 0 50px}.mark span{display:none}.moodGrid{grid-template-columns:1fr}.bmTrack{font-size:44px;gap:32px}.bmTrack span{gap:32px}.bmTrack span::after{font-size:22px}.finalCta{padding:54px 22px}.demo-corner-logo{width:60px;height:60px}.heroActions .btn{flex:1;min-width:100%}.paletteBar{padding:14px}.specimen{padding:24px}.specimenChar{font-size:110px}}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}.bmTrack{animation:none}[data-reveal]{opacity:1;transform:none}}
-  /* fx-letters-guard: hide headline until JS splits chars, prevents first-paint flash */
-/* Headline shows instantly from first paint — no JS-driven reveals to glitch on cold load. */
-[data-fx-letters]{opacity:1}
-  
-/* force-instant-reveal: avoid any first-paint flicker on cold load. */
-/* reveals are JS-driven (initReveal reveals above-the-fold synchronously, animates the rest on scroll) */
-</style>
-<noscript><style>[data-fx-letters]{visibility:visible !important}[data-reveal]{opacity:1 !important;transform:none !important}</style><!--fx-letters-noscript-fallback--></noscript>
-  <link rel="canonical" href="https://www.pittahaya.com/en/demo-marca.html" />
-  <link rel="manifest" href="/site.webmanifest" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#08070a" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+<title>Pittahaya · Brand &amp; Design</title>
+<meta name="description" content="We don't present a method; we present the work. Five brand worlds, built and running — and a switch that lets you see the system supporting them." />
+<meta name="copyright" content="© Pittahaya. All rights reserved." />
+<link rel="icon" href="../favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Pittahaya" />
+<meta property="og:title" content="Pittahaya · Brand &amp; Design" />
+<meta property="og:description" content="Five worlds built. One switch that reveals the system within." />
+<meta property="og:url" content="https://www.pittahaya.com/en/demo-marca.html" />
+<link rel="canonical" href="https://www.pittahaya.com/en/demo-marca.html" />
+<link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-marca.html" />
+<link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-marca.html" />
+<link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-marca.html" />
+<meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/firma.css?v=2" />
 </head>
 <body>
-<header class="nav">
-  <div class="wrap">
-    <a class="mark" href="portfolio.html" aria-label="Pittahaya">
-      <div class="markIcon">M</div>
-      <div><b><em>Brand Lab</em></b><span>Demo · Brand &amp; design</span></div>
-    </a>
-    <div class="navLinks">
-      <a class="pill" href="../demo-marca.html" hreflang="es" lang="es" aria-label="Ver en español">ES</a>
-      <a class="pill" href="portfolio.html">← Back</a>
-      <a class="pill" href="contact.html">Contact</a>
-    </div>
+<!-- telón de entrada -->
+<div class="telon" data-telon aria-hidden="true">
+  <div class="telon-marca">
+    <img src="../assets/pitahaya-mark.png" alt="" />
+    <span class="telon-barra"><i></i></span>
+    <span class="telon-txt">Pittahaya</span>
   </div>
+</div>
+
+<div class="progreso" data-prog aria-hidden="true"></div>
+<div class="xray-barrido" aria-hidden="true"></div>
+
+<!-- superposición de retícula: solo visible en X-Ray -->
+<div class="xray-grid" aria-hidden="true">
+  <div class="ritmo"></div>
+  <div class="cols">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+</div>
+<div class="xray-aviso" aria-hidden="true">X-Ray · 12-column grid · 8 px rhythm</div>
+
+<header class="barra" data-barra>
+  <a class="firma" href="index.html" aria-label="Pittahaya · home">
+    <img src="../assets/pitahaya-mark.png" alt="" />
+    <span style="display:grid"><b>Pittahaya</b><span>Brand &amp; Design</span></span>
+  </a>
+  <nav class="barra-nav" aria-label="Sections">
+    <a href="#semillero">The Seedbed</a>
+    <a href="#sistema">The System</a>
+    <a href="#carta">The Letter</a>
+  </nav>
+  <button class="xray-sw" data-xray type="button" aria-pressed="false">
+    <span class="led" aria-hidden="true"></span>
+    <span data-xray-txt>View the system</span>
+    <kbd>X</kbd>
+  </button>
 </header>
 
 <main>
-  <section class="hero">
-    <canvas data-fx-particles aria-hidden="true"></canvas>
-    <div class="wrap heroInner">
-      <span class="eyebrow">Brand lab · living palette</span>
-      <h1 class="heroH" data-fx-letters>A brand that feels impossible to copy.</h1>
-      <p class="heroLead">This demo changes color, typography and visual temperature as you explore it. Memorable brands don't pick a palette — they pick a personality. Click the swatches and feel the room change.</p>
-      <div class="heroActions">
-        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Design my brand →</a>
-        <a class="btn" href="plans.html">See plans</a>
-      </div>
-      <div class="paletteBar" data-fx-palette>
-        <span class="paletteLabel">Switch the mood:</span>
-        <button class="swatch is-active" data-palette="#ff6a4d,#ffd166,#0c0c10" type="button"><i style="--p1:#ff6a4d;--p2:#ffd166"></i><span>Solar coral</span></button>
-        <button class="swatch" data-palette="#e83487,#8acb63,#0c0c10" type="button"><i style="--p1:#e83487;--p2:#8acb63"></i><span>Pitahaya</span></button>
-        <button class="swatch" data-palette="#7ad7f0,#c084fc,#0c0c10" type="button"><i style="--p1:#7ad7f0;--p2:#c084fc"></i><span>Plasma</span></button>
-        <button class="swatch" data-palette="#d4af6a,#f3d99b,#0c0c10" type="button"><i style="--p1:#d4af6a;--p2:#f3d99b"></i><span>Liquid gold</span></button>
-        <button class="swatch" data-palette="#22d3ee,#10b981,#0c0c10" type="button"><i style="--p1:#22d3ee;--p2:#10b981"></i><span>Botanical</span></button>
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Mood board</div><h2>Every brand starts with a <em>feeling</em>.</h2></div>
-        <p>Before the logo, the color, the slogan — there's an emotional temperature. If the brand doesn't know what it is, everything else becomes expensive decoration.</p>
-      </div>
-      <div class="moodGrid" data-reveal>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>01 · Minimal tech</small><h3>Precise calm.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>02 · Warm editorial</small><h3>Magazine flavor.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>03 · Digital pop</small><h3>Bold and fast.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>04 · Organic</small><h3>Natural touch.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>05 · Futurist</small><h3>Electric.</h3></div></div>
-        <div class="mood" data-fx-tilt><img width="1400" height="933" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mood"><div class="moodMeta"><small>06 · Artisanal</small><h3>Handmade.</h3></div></div>
-      </div>
+<!-- ═══════════════ HÉROE ═══════════════ -->
+<section class="heroe">
+  <div class="heroe-fondo" aria-hidden="true">
+    <img src="../assets/marca/muro.jpg" alt="" />
+    <video src="../assets/marca/muro.mp4" muted loop playsinline preload="metadata" poster="../assets/marca/muro.jpg"></video>
+  </div>
+  <div class="heroe-foco" data-foco aria-hidden="true"></div>
+  <div class="heroe-in">
+    <p class="rotulo">Pittahaya · brand and design studio</p>
+    <h1 class="display" data-comp="hero/display">
+      <span class="mask vis"><span>We don't just talk about it.</span></span>
+      <span class="mask vis d1"><span><em class="fruta">We leave it open.</em></span></span>
+    </h1>
+    <p class="plomo">Anyone can claim to have a design system. We give you the switch to audit ours — and five brand worlds, built and running, so you can see exactly what grows from it.</p>
+    <p class="nota">--t-display · Fraunces 300 · tracking −.045em</p>
+    <div class="heroe-pie">
+      <a class="boton boton--lleno" href="#semillero">View the work</a>
+      <button class="boton" data-xray type="button" aria-pressed="false">
+        <span data-xray-txt>View the system</span>
+      </button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Manifesto in loop</div><h2>The words that <em>carry</em> your brand.</h2></div>
-        <p>Identity isn't only what's seen. It's what's repeated. Five words the client remembers — that's the brand.</p>
-      </div>
-      <div class="brandMarquee" aria-hidden="true" data-fx-marquee>
-        <div class="bmTrack"><span>Bold</span><span>Calm</span><span>Memorable</span><span>Distinct</span><span>Warm</span><span>Daring</span><span>Honest</span><span>Editorial</span></div>
-      </div>
-    </div>
-  </section>
+<!-- marcador de obra -->
+<div class="env">
+  <div class="marcador" data-comp="marker/work">
+    <div><b><span data-cifra="5">5</span></b><small>Worlds built</small></div>
+    <div><b><span data-cifra="13">13</span></b><small>Live pages</small></div>
+    <div><b><span data-cifra="0">0</span></b><small>External libraries</small></div>
+    <div><b><span data-cifra="1">1</span></b><small>System underneath</small></div>
+  </div>
+</div>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="sectionHead" data-reveal>
-        <div><div class="kicker">Typography as DNA</div><h2>The first detail the eye <em>recognizes</em>.</h2></div>
-        <p>A premium brand isn't recognized first by its logo. It's recognized by the shape of the "A", the rhythm of the paragraph, the space between letters. Typography is the silent face.</p>
-      </div>
-      <div class="typeGrid" data-reveal>
-        <div class="specimen"><small>Display · Playfair Italic 900</small><div class="specimenChar">Aa</div><p class="specimenName">For headlines with editorial weight.</p><p class="specimenSub">Serif · high contrast · ornamental italic</p></div>
-        <div class="specimen"><small>Body · Manrope 400/800</small><div class="specimenChar" style="font-family:'Manrope',sans-serif;font-style:normal;font-weight:800">Aa</div><p class="specimenName">For text that breathes and leads.</p><p class="specimenSub">Sans · geometric · warm neutrality</p></div>
-      </div>
-    </div>
-  </section>
+<!-- ═══════════════ EL SEMILLERO ═══════════════ -->
+<section class="tramo" id="semillero">
+  <div class="tramo-cab">
+    <span class="num" data-rev>01 — The Seedbed</span>
+    <h2 class="t1" data-comp="section/headline">
+      <span class="mask"><span>Five worlds.</span></span>
+      <span class="mask d1"><span>None is a mockup.</span></span>
+    </h2>
+    <p class="plomo" data-rev>Each card is rendered with its world's real tokens: its exact palette, typography, and grid. These are not screenshots — it is the same system, rendered here. And every card opens the fully working demo.</p>
+    <p class="nota">.semilla · custom properties --m-* per world</p>
+  </div>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="finalCta" data-reveal>
-        <div class="kicker" style="display:inline-block">Your move</div>
-        <h2>Let's build the brand your client <em>can't forget</em>.</h2>
-        <p>Tell me what you sell, what temperature you want to evoke, and what references move you. I'll return a living visual direction — words, colors, typography, gestures.</p>
-        <a class="btn btnPrimary" href="contact.html" data-fx-magnet="22">Create my identity →</a>
-      </div>
+  <div class="env">
+    <div class="semillero" data-comp="grid/seedbed">
+
+      <!-- AURELIA -->
+      <a class="semilla" href="demo-highend.html" data-rev
+         style="--m-fondo:#14110d;--m-texto:#f7f4ee;--m-tenue:rgba(247,244,238,.56);--m-acento:#c6a473;
+                --m-linea:rgba(247,244,238,.10);--m-brillo:rgba(198,164,115,.20);--m-reticula:52px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:320;--m-track:-.03em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Scroll-scrubbed video<br>All-intra codec · 2.6 ms seek</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Luxury real estate</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Aurelia</span>
+          <span class="semilla-linea">Villa Mare Alta. A first-person journey from the entrance to the infinity pool, driven by your scroll.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#14110d"></i>
+              <i class="espec-sw" style="background:#f7f4ee"></i>
+              <i class="espec-sw" style="background:#98764a"></i>
+              <i class="espec-sw" style="background:#c6a473"></i>
+              <span class="espec-meta">ink · paper · bronze</span>
+            </span>
+            <span class="espec-tipo">Fraunces · Cormorant</span>
+          </span>
+          <span class="semilla-ir">Open the world →</span>
+        </span>
+      </a>
+
+      <!-- ATLAS -->
+      <a class="semilla" href="demo-corporativa.html" data-rev
+         style="--m-fondo:#0b0d10;--m-texto:#ebe7df;--m-tenue:rgba(235,231,223,.58);--m-acento:#d2b176;
+                --m-linea:rgba(235,231,223,.10);--m-brillo:rgba(173,130,72,.18);--m-reticula:38px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:340;--m-track:-.026em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Sector-based architecture<br>Navigable institutional archive</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Private capital</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Atlas</span>
+          <span class="semilla-linea">An operating group spanning energy, mining, maritime, and infrastructure. Institutional restraint without a single decorative concession.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#0b0d10"></i>
+              <i class="espec-sw" style="background:#ebe7df"></i>
+              <i class="espec-sw" style="background:#ad8248"></i>
+              <i class="espec-sw" style="background:#f3efe7"></i>
+              <span class="espec-meta">void · ink · bronze</span>
+            </span>
+            <span class="espec-tipo">Cormorant Garamond · Inter</span>
+          </span>
+          <span class="semilla-ir">Open the world →</span>
+        </span>
+      </a>
+
+      <!-- ORIGEN 0° -->
+      <a class="semilla" href="demo-servicios.html" data-rev
+         style="--m-fondo:#0a0705;--m-texto:#f2ece1;--m-tenue:rgba(242,236,225,.58);--m-acento:#d3a074;
+                --m-linea:rgba(242,236,225,.09);--m-brillo:rgba(176,122,74,.22);--m-reticula:44px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:300;--m-track:-.02em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Real commerce · 5 pages<br>Cart that persists across navigation</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Luxury commerce</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Origen 0°</span>
+          <span class="semilla-linea">Zero-latitude Ecuadorian chocolate. A tasting-box configurator and a cart that persists across pages.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#0a0705"></i>
+              <i class="espec-sw" style="background:#f2ece1"></i>
+              <i class="espec-sw" style="background:#b07a4a"></i>
+              <i class="espec-sw" style="background:#6d2436"></i>
+              <span class="espec-meta">cocoa · ivory · copper</span>
+            </span>
+            <span class="espec-tipo">Cormorant Garamond · Inter</span>
+          </span>
+          <span class="semilla-ir">Open the world →</span>
+        </span>
+      </a>
+
+      <!-- ORBITAL -->
+      <a class="semilla" href="demo-startup.html" data-rev
+         style="--m-fondo:#04060a;--m-texto:#e9eff8;--m-tenue:rgba(233,239,248,.55);--m-acento:#6fd6e8;
+                --m-linea:rgba(180,205,240,.10);--m-brillo:rgba(111,214,232,.16);--m-reticula:32px;
+                --m-tipo:'Space Grotesk',system-ui,sans-serif;--m-peso:400;--m-track:-.035em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Live constellation<br>Keplerian propagation · real eclipses</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Orbital infrastructure</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Orbital</span>
+          <span class="semilla-linea">Low-Earth-orbit computing. The telemetry is calculated, not invented: altitudes and speeds match the launch manifest.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#04060a"></i>
+              <i class="espec-sw" style="background:#e9eff8"></i>
+              <i class="espec-sw" style="background:#6fd6e8"></i>
+              <i class="espec-sw" style="background:#ff9d4d"></i>
+              <span class="espec-meta">void · ice · solar</span>
+            </span>
+            <span class="espec-tipo">Space Grotesk · JetBrains Mono</span>
+          </span>
+          <span class="semilla-ir">Open the world →</span>
+        </span>
+      </a>
+
+      <!-- VELOCE -->
+      <a class="semilla" href="demo-landing.html" data-rev
+         style="--m-fondo:#08080a;--m-texto:#f4f0e7;--m-tenue:rgba(244,240,231,.56);--m-acento:#e6b25c;
+                --m-linea:rgba(244,240,231,.09);--m-brillo:rgba(255,106,42,.18);--m-reticula:30px;
+                --m-tipo:'Space Grotesk',system-ui,sans-serif;--m-peso:600;--m-track:-.04em;--m-caja:uppercase">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">Draggable turntable<br>Gesture-driven image sequence</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">Automotive</span>
+            <span class="semilla-anio">2026</span>
+          </span>
+          <span class="semilla-nombre">Veloce</span>
+          <span class="semilla-linea">The launch of a hyper-GT. A silhouette you rotate with a finger and an exploded view that opens in motion.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#08080a"></i>
+              <i class="espec-sw" style="background:#f4f0e7"></i>
+              <i class="espec-sw" style="background:#e6b25c"></i>
+              <i class="espec-sw" style="background:#ff6a2a"></i>
+              <span class="espec-meta">void · bone · amber</span>
+            </span>
+            <span class="espec-tipo">Sora · JetBrains Mono</span>
+          </span>
+          <span class="semilla-ir">Open the world →</span>
+        </span>
+      </a>
+
+      <!-- ficha del propio estudio -->
+      <a class="semilla" href="#sistema" data-rev
+         style="--m-fondo:#0d0b11;--m-texto:#f4efe6;--m-tenue:rgba(244,239,230,.58);--m-acento:#9fce3a;
+                --m-linea:rgba(244,239,230,.10);--m-brillo:rgba(224,53,123,.20);--m-reticula:36px;
+                --m-tipo:'Fraunces',Georgia,serif;--m-peso:340;--m-track:-.03em">
+        <span class="semilla-lienzo" aria-hidden="true"></span>
+        <span class="semilla-brillo" aria-hidden="true"></span>
+        <span class="semilla-mec">This very page<br>Press X and look inside</span>
+        <span class="semilla-cuerpo">
+          <span class="semilla-tapa">
+            <span class="semilla-sector">The studio</span>
+            <span class="semilla-anio">Now</span>
+          </span>
+          <span class="semilla-nombre">Pittahaya</span>
+          <span class="semilla-linea">The sixth card is you looking at it. This page also runs on the system — and lets you open it.</span>
+          <span class="espec">
+            <span class="espec-fila">
+              <i class="espec-sw" style="background:#08070a"></i>
+              <i class="espec-sw" style="background:#f4efe6"></i>
+              <i class="espec-sw" style="background:#e0357b"></i>
+              <i class="espec-sw" style="background:#9fce3a"></i>
+              <span class="espec-meta">black · ivory · fruit · lime</span>
+            </span>
+            <span class="espec-tipo">Fraunces · Space Grotesk</span>
+          </span>
+          <span class="semilla-ir">View the system →</span>
+        </span>
+      </a>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ═══════════════ EL SISTEMA ═══════════════ -->
+<section class="tramo tramo--linea" id="sistema">
+  <div class="tramo-cab">
+    <span class="num" data-rev>02 — The System</span>
+    <h2 class="t1" data-comp="section/headline">
+      <span class="mask"><span>What holds</span></span>
+      <span class="mask d1"><span>the five worlds together.</span></span>
+    </h2>
+    <p class="plomo" data-rev>None of those worlds started from scratch. They all emerge from the same decisions: a type scale, spacing rhythm, grid, and color rule. Here it is, live — and X-Ray lets you see it over every part of the page.</p>
+  </div>
+
+  <div class="env">
+    <div class="sistema">
+
+      <div class="mod m-7" data-comp="module/scale">
+        <span class="etq">Type scale · fluid ratio</span>
+        <div class="escala">
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:clamp(30px,4vw,56px)">Display</span><span class="escala-tok">--t-display · clamp(48,9.5vw,160)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:clamp(24px,3vw,40px)">Heading</span><span class="escala-tok">--t-1 · clamp(36,5.6vw,86)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:clamp(20px,2.2vw,30px)">Section</span><span class="escala-tok">--t-2 · clamp(26,3.4vw,50)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:22px">Subheading</span><span class="escala-tok">--t-3 · clamp(20,2.2vw,30)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:16px;font-family:var(--sans)">Body copy</span><span class="escala-tok">--t-cuerpo · clamp(15,1.35vw,18)</span></div>
+          <div class="escala-fila"><span class="escala-muestra" style="font-size:11px;font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase">Micro</span><span class="escala-tok">--t-micro · 11px</span></div>
+        </div>
+        <p class="nota">One axis: editorial serif for what moves, grotesque for what informs, and monospaced for what measures.</p>
+      </div>
+
+      <div class="mod m-5" style="display:flex;flex-direction:column" data-comp="module/palette">
+        <span class="etq">Color · foundations and accent</span>
+        <p>Black and ivory do 95% of the work. Fruit and lime appear only where attention belongs. An accent used too often stops being an accent.</p>
+        <div class="paleta">
+          <div class="tono" style="background:#08070a"><b style="color:rgba(244,239,230,.8)">08070A</b></div>
+          <div class="tono" style="background:#16131c"><b style="color:rgba(244,239,230,.8)">16131C</b></div>
+          <div class="tono" style="background:#f4efe6"><b style="color:#08070a">F4EFE6</b></div>
+          <div class="tono" style="background:#d9c3a0"><b style="color:#08070a">D9C3A0</b></div>
+          <div class="tono" style="background:#e0357b"><b style="color:#08070a">E0357B</b></div>
+          <div class="tono" style="background:#9fce3a"><b style="color:#08070a">9FCE3A</b></div>
+        </div>
+      </div>
+
+      <div class="mod m-5" data-comp="module/rhythm">
+        <span class="etq">Rhythm · 8 px base</span>
+        <p>Every spacing value is a multiple of eight. It sounds rigid; that is exactly what makes five different worlds feel made by the same hand.</p>
+        <div class="ritmo-demo" aria-hidden="true">
+          <i style="height:8%"></i><i style="height:16%"></i><i style="height:24%"></i><i style="height:40%"></i>
+          <i style="height:56%"></i><i style="height:72%"></i><i style="height:88%"></i><i style="height:100%"></i>
+        </div>
+        <p class="nota">--ritmo: 8px · 8 · 16 · 24 · 40 · 56 · 72 · 88 · 96</p>
+      </div>
+
+      <div class="mod m-7" data-comp="module/grid">
+        <span class="etq">Grid · 12 columns</span>
+        <p>Twelve columns because they divide cleanly into 2, 3, 4, and 6. The margin breathes with the viewport; the gutter does not. Turn on X-Ray and you will see the grid fall across everything else.</p>
+        <p class="nota">--col: 12 · --gutter: clamp(12,1.6vw,24) · --margen: clamp(20,5vw,72) · --maxw: 1460</p>
+        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(12,1fr);gap:6px" aria-hidden="true">
+          <i style="grid-column:span 12;height:26px;background:rgba(224,53,123,.30);border-radius:4px"></i>
+          <i style="grid-column:span 6;height:26px;background:rgba(224,53,123,.22);border-radius:4px"></i>
+          <i style="grid-column:span 6;height:26px;background:rgba(224,53,123,.22);border-radius:4px"></i>
+          <i style="grid-column:span 4;height:26px;background:rgba(159,206,58,.22);border-radius:4px"></i>
+          <i style="grid-column:span 4;height:26px;background:rgba(159,206,58,.22);border-radius:4px"></i>
+          <i style="grid-column:span 4;height:26px;background:rgba(159,206,58,.22);border-radius:4px"></i>
+        </div>
+      </div>
+
+      <div class="mod m-12" data-comp="module/blueprint">
+        <figure class="foto" style="margin:0;border-radius:10px;overflow:hidden">
+          <img src="../assets/marca/plano.jpg" alt="Close-up of a technical specification sheet with a construction grid, registration marks, and a magenta line." />
+        </figure>
+        <p class="nota" style="margin-top:14px">The grid is not portfolio decoration: it is why a client can request a new page two years later and have it fit without debate.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LA CARTA ═══════════════ -->
+<section class="carta" id="carta">
+  <div class="carta-in">
+    <p class="rotulo" style="justify-content:center" data-rev>The letter</p>
+    <blockquote data-rev>Nearly all brand work is judged by a beautiful presentation no one opens again. We prefer to deliver something that <em>works, can be measured, and can be audited.</em> If the system is good, it holds up when you look inside.</blockquote>
+    <cite data-rev>— The studio · Pittahaya, Ecuador</cite>
+  </div>
+</section>
+
+<!-- ═══════════════ CIERRE ═══════════════ -->
+<section class="cierre">
+  <div class="env">
+    <p class="rotulo" style="justify-content:center" data-rev>Brand &amp; Design</p>
+    <h2 class="display">
+      <span class="mask"><span>One idea.</span></span>
+      <span class="mask d1"><span><em class="champan">A system that supports it.</em></span></span>
+    </h2>
+    <p class="plomo" data-rev>Strategy, identity, design, and technology in complete brand worlds — built to outlast the presentation.</p>
+    <div class="cierre-bot" data-rev>
+      <a class="boton boton--lleno" href="contact.html">Build your world</a>
+      <a class="boton" href="portfolio.html">View the portfolio</a>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer class="footer demo-footer">
-  <div class="wrap">
-    <div class="demo-footer-brand">
-      <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
-      <span>Internal client demo</span>
-      <strong>Pittahaya</strong>
-      <small class="demo-footer-legal">© <span data-year></span> Pittahaya. Design, demos and content protected. Unauthorized copy or use prohibited.</small>
-    </div>
-    <div class="navLinks">
-      <a class="pill" href="portfolio.html">More demos</a>
-      <a class="pill" href="contact.html">Start your project</a>
-    </div>
+<footer class="pie">
+  <div class="env pie-in">
+    <span>Pittahaya · Brand &amp; Design</span>
+    <nav>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <span>© <span data-anio>2026</span></span>
+    </nav>
   </div>
 </footer>
 
-<div class="demo-corner-logo" aria-hidden="true">
-  <img src="../assets/pitahaya-logo.png" alt="Pittahaya logo">
-</div>
-
-<script src="../assets/demo-landing-fx.js?v=13" defer></script>
-<script src="../assets/chatbot.js?v=v14" defer></script>
-<script src="../assets/analytics.js?v=1" defer></script>
+<script src="../assets/firma.js?v=3" defer></script>
 </body>
 </html>
