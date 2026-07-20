@@ -52,31 +52,65 @@
 
   <!-- ── Demos (Spanish) ────────────────────────────── -->
   <url><loc>https://www.pittahaya.com/demo-landing.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/demo-corporativa.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/demo-marca.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/demo-servicios.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/demo-startup.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/demo-highend.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
 
   <!-- ── Demos (English) ────────────────────────────── -->
   <url><loc>https://www.pittahaya.com/en/demo-landing.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/en/demo-corporativa.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/en/demo-marca.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/en/demo-servicios.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/en/demo-startup.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://www.pittahaya.com/en/demo-highend.html</loc>
-    <lastmod>2026-06-10</lastmod><priority>0.5</priority></url>
+    <lastmod>2026-07-19</lastmod><priority>0.5</priority></url>
+
+  <!-- ── ORIGEN and ORBITAL demo subpages ────── -->
+  <url><loc>https://www.pittahaya.com/origen-coleccion.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-coleccion.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-coleccion.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/origen-coleccion.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-coleccion.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-coleccion.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/origen-caja.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-caja.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-caja.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/origen-caja.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-caja.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-caja.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/origen-origenes.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-origenes.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-origenes.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/origen-origenes.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-origenes.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-origenes.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/origen-sociedad.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-sociedad.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-sociedad.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/origen-sociedad.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/origen-sociedad.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/origen-sociedad.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/orbital-constelacion.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-constelacion.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-constelacion.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/orbital-constelacion.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-constelacion.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-constelacion.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/orbital-nodo.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-nodo.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-nodo.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/orbital-nodo.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-nodo.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-nodo.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/orbital-mision.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-mision.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-mision.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/orbital-mision.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-mision.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-mision.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/orbital-compania.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-compania.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-compania.html"/><priority>0.5</priority></url>
+  <url><loc>https://www.pittahaya.com/en/orbital-compania.html</loc><lastmod>2026-07-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.pittahaya.com/orbital-compania.html"/><xhtml:link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/orbital-compania.html"/><priority>0.5</priority></url>
 
   <url>
     <loc>https://www.pittahaya.com/privacidad.html</loc>
