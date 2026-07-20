@@ -8,9 +8,21 @@
   "use strict";
 
   var doc = document;
-  var casa = doc.querySelector(".casa");
-  if (!casa) return;
+  /* El ámbito es .casa en la portada; en las páginas interiores
+     solo existe .phead. Antes se salía aquí y dejaba la imagen del
+     héroe en opacity:0 y el h1 enmascarado sin revelar. */
+  var casa = doc.querySelector(".casa") || doc;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── entrada de página interior ───────────────────────── */
+  var pheadImg = doc.querySelector(".phead-bg img");
+  if (pheadImg) {
+    if (pheadImg.complete) pheadImg.classList.add("lista");
+    else pheadImg.addEventListener("load", function () { pheadImg.classList.add("lista"); });
+  }
+  Array.prototype.slice.call(doc.querySelectorAll(".phead-mask")).forEach(function (m) {
+    m.classList.add("vis");
+  });
 
   /* ── revelados y máscaras ─────────────────────────────── */
   var revs = Array.prototype.slice.call(casa.querySelectorAll("[data-rev],.mask"));
