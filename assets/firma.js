@@ -242,7 +242,9 @@
     else hi.addEventListener("load", function () { hi.classList.add("lista"); });
   }
   var hv = doc.querySelector(".heroe-fondo video");
-  if (hv && !reduce) {
+  /* En móvil manda la foto nítida: el video no se carga. */
+  var pantallaGrande = window.matchMedia("(min-width: 761px)").matches;
+  if (hv && !reduce && pantallaGrande) {
     hv.addEventListener("canplay", function () {
       var cont = hv.parentElement;
       if (cont) cont.classList.add("con-video");

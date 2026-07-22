@@ -162,7 +162,10 @@
     else img.addEventListener("load", function () { img.classList.add("lista"); });
   }
   var vid = casa.querySelector(".casa-heroe-fondo video");
-  if (vid && !reduce) {
+  /* En móvil el video pesa y se ve peor que la foto: no se carga y
+     manda la imagen nítida (mejor calidad y menos datos). */
+  var pantallaGrande = window.matchMedia("(min-width: 761px)").matches;
+  if (vid && !reduce && pantallaGrande) {
     /* se carga solo cuando el héroe está a la vista */
     var arrancado = false;
     function arrancar() {

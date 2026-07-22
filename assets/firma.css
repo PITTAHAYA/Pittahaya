@@ -408,3 +408,9 @@ body.xray .xray-aviso{opacity:1;transform:none}
 .pie-in a:hover{color:var(--fruta-viva)}
 
 @media (max-width:600px){.heroe-pie .boton,.cierre-bot .boton{width:100%;justify-content:center}}
+
+/* móvil: el héroe muestra la foto, no el video */
+@media (max-width:760px){
+  .heroe-fondo video{display:none!important}
+  .heroe-fondo.con-video img.lista{opacity:.42!important}
+}

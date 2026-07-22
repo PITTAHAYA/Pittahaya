@@ -495,3 +495,9 @@ input:focus,textarea:focus,select:focus{border-color:var(--pk-lima)!important;ou
 .section::before,.section::after{background:none!important;opacity:0!important;content:none!important}
 .top-ambient,.bg-orb,.orb,.glow{display:none!important}
 main,.section,.container{background-image:none!important}
+
+/* móvil: sin video en el héroe, solo la foto nítida (calidad + datos) */
+@media (max-width:760px){
+  .casa-heroe-fondo video{display:none!important}
+  .casa-heroe-fondo.con-video img.lista{opacity:.46!important}
+}
