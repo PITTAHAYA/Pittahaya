@@ -7,3 +7,6 @@ social-posts/
 
 # Fuentes crudas de generación (no se publican; quedan en local)
 casas/
+
+# Respaldos y herramientas locales
+assets/backup-social/

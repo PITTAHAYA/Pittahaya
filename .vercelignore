@@ -1,0 +1,22 @@
+# ── No publicar en el sitio (siguen en git para tu registro) ──
+
+# Migraciones de base de datos del CRM: exponen el esquema
+sql/
+
+# Documentos internos de trabajo
+AI-AUTO-REPLY-PLAN.md
+assets/atlas-content-validation.md
+
+# Herramienta de desarrollo (no es parte del sitio)
+frame-grab.html
+
+# Respaldos y fuentes crudas
+assets/backup-social/
+casas/
+
+# Config y tooling que no debe servirse
+package.json
+package-lock.json
+node_modules/
+.claude/
+social-posts/
