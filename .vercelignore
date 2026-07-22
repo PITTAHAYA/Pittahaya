@@ -12,7 +12,9 @@ frame-grab.html
 
 # Respaldos y fuentes crudas
 assets/backup-social/
-casas/
+# La barra inicial ancla a la RAÍZ: /casas/ (368 MB de PNGs crudos)
+# NO debe excluir assets/casas/, que son imágenes del demo AURELIA.
+/casas/
 
 # Config y tooling que no debe servirse
 package.json
