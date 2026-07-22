@@ -576,13 +576,91 @@
     });
   });
 
-  // WhatsApp floating button (update WHATSAPP_NUMBER with your real number)
-  const WHATSAPP_NUMBER = "17783187994";
-  const WA_MSG = encodeURIComponent(inEn
-    ? "Hi Pittahaya, I'd like to request a free diagnostic for my website."
-    : "Hola Pittahaya, me interesa solicitar un diagnóstico gratis para mi web.");
+  // WhatsApp floating button: the opening message reflects the visitor's context.
+  const WHATSAPP_NUMBER = "593994484612";
+  const whatsappCopy = {
+    general: {
+      es: "¡Hola, Pittahaya! Quiero que mi presencia digital refleje el verdadero valor de mi negocio. Me gustaría empezar con el diagnóstico gratuito. ¿Qué necesitan de mí?",
+      en: "Hi Pittahaya! I want my online presence to reflect the true value of my business. I’d like to start with the free diagnostic. What do you need from me?"
+    },
+    web: {
+      es: "¡Hola, Pittahaya! Quiero una web que refleje el verdadero nivel de mi negocio. Me gustaría empezar con el diagnóstico gratuito. ¿Qué necesitan de mí?",
+      en: "Hi Pittahaya! I want a website that reflects the true level of my business. I’d like to start with the free diagnostic. What do you need from me?"
+    },
+    automation: {
+      es: "¡Hola, Pittahaya! Quiero descubrir qué procesos de mi negocio podemos automatizar con IA. Me gustaría empezar con un diagnóstico. ¿Qué necesitan de mí?",
+      en: "Hi Pittahaya! I’d like to discover which parts of my business we can automate with AI. I’d like to start with a diagnostic. What do you need from me?"
+    },
+    plans: {
+      es: "¡Hola, Pittahaya! Estoy evaluando sus planes y quiero saber cuál encaja mejor con mi negocio. ¿Podemos revisarlo juntos?",
+      en: "Hi Pittahaya! I’m reviewing your plans and would like to know which one best fits my business. Can we go through it together?"
+    },
+    portfolio: {
+      es: "¡Hola, Pittahaya! Vi su portafolio y quiero una experiencia con ese nivel para mi marca. Me gustaría contarles sobre mi proyecto. ¿Qué necesitan de mí?",
+      en: "Hi Pittahaya! I saw your portfolio and want an experience at that level for my brand. I’d love to tell you about my project. What do you need from me?"
+    },
+    faq: {
+      es: "¡Hola, Pittahaya! Estuve revisando sus preguntas frecuentes y quiero conversar sobre mi proyecto. ¿Qué información necesitan para orientarme?",
+      en: "Hi Pittahaya! I’ve been reviewing your FAQs and would like to discuss my project. What information do you need to guide me?"
+    },
+    privacy: {
+      es: "Hola, Pittahaya. Tengo una consulta relacionada con privacidad y el tratamiento de mis datos. ¿Con quién puedo revisarla?",
+      en: "Hi Pittahaya. I have a question about privacy and how my data is handled. Who can help me with it?"
+    },
+    terms: {
+      es: "Hola, Pittahaya. Tengo una consulta sobre sus términos y condiciones. ¿Podrían ayudarme?",
+      en: "Hi Pittahaya. I have a question about your terms and conditions. Could you help me?"
+    }
+  };
+  const whatsappContext = (() => {
+    if (["servicios.html", "services.html"].includes(path)) return "web";
+    if (["automatizacion.html", "automation.html"].includes(path)) return "automation";
+    if (["planes.html", "plans.html"].includes(path)) return "plans";
+    if (["portafolio.html", "portfolio.html"].includes(path)) return "portfolio";
+    if (path === "faq.html") return "faq";
+    if (["privacidad.html", "privacy.html"].includes(path)) return "privacy";
+    if (["terminos.html", "terms.html"].includes(path)) return "terms";
+    return "general";
+  })();
+  const demoNames = {
+    "demo-corporativa.html": "ATLAS",
+    "demo-highend.html": "AURELIA",
+    "demo-landing.html": "VÉLOCE",
+    "demo-marca.html": "Pittahaya Brand System",
+    "demo-servicios.html": "ORIGEN 0°",
+    "demo-startup.html": "ORBITAL",
+    "origen-coleccion.html": "ORIGEN 0°",
+    "origen-caja.html": "ORIGEN 0°",
+    "origen-origenes.html": "ORIGEN 0°",
+    "origen-sociedad.html": "ORIGEN 0°",
+    "orbital-constelacion.html": "ORBITAL",
+    "orbital-nodo.html": "ORBITAL",
+    "orbital-mision.html": "ORBITAL",
+    "orbital-compania.html": "ORBITAL"
+  };
+  const referrerPage = (() => {
+    if (!document.referrer) return "";
+    try {
+      return (new URL(document.referrer).pathname.split("/").pop() || "").toLowerCase();
+    } catch (_) {
+      return "";
+    }
+  })();
+  const referredDemo = demoNames[referrerPage];
+  const cameFromDemo = referredDemo && ["contacto.html", "contact.html"].includes(path);
+  const whatsappMessage = cameFromDemo
+    ? (inEn
+      ? `Hi Pittahaya! I saw the ${referredDemo} demo and want an experience at that level for my brand. What would you need to get started?`
+      : `¡Hola, Pittahaya! Vi la demo ${referredDemo} y quiero una experiencia con ese nivel para mi marca. ¿Qué necesitarían para empezar?`)
+    : whatsappCopy[whatsappContext][inEn ? "en" : "es"];
+  const WA_MSG = encodeURIComponent(whatsappMessage);
   const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_MSG}`;
   const waLabel = inEn ? "Message on WhatsApp" : "Escribir por WhatsApp";
+
+  // Keep every direct WhatsApp CTA on the page aligned with the same context.
+  $$(`a[href^="https://wa.me/${WHATSAPP_NUMBER}"]`).forEach(anchor => {
+    anchor.href = waHref;
+  });
 
   const waBtn = document.createElement("a");
   waBtn.className = "whatsapp-float";

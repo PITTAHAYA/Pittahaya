@@ -380,9 +380,9 @@
         cartBody.appendChild(row);
       });
     }
-    var t = cartTotal();
-    if (subEl) subEl.textContent = money(t);
-    if (totalEl) totalEl.textContent = money(t);
+    var total = cartTotal();
+    if (subEl) subEl.textContent = money(total);
+    if (totalEl) totalEl.textContent = money(total);
     if (bagCount) bagCount.textContent = cartCount();
     if (checkoutBtn) checkoutBtn.disabled = !cart.length;
     persist();

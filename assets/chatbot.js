@@ -6,6 +6,10 @@
   const LANG = /^en/i.test(document.documentElement.lang || "")
     || /^\/en\//.test(location.pathname) ? "en" : "es";
   const inEn = LANG === "en";
+  const chatbotScript = document.currentScript;
+  const logoSrc = chatbotScript && chatbotScript.src
+    ? new URL("pitahaya-logo.png", chatbotScript.src).href
+    : new URL(inEn ? "../assets/pitahaya-logo.png" : "assets/pitahaya-logo.png", document.baseURI).href;
 
   // ── Routes ───────────────────────────────────────────────────
   // English pages live in /en/ with renamed files; same-folder relative URLs.
@@ -265,10 +269,12 @@
   launcher.type = "button";
   launcher.setAttribute("aria-label", T.launcherAria);
   launcher.setAttribute("aria-expanded", "false");
-  const launcherSpark = make("span", "pitahaya-chat__spark");
-  launcherSpark.setAttribute("aria-hidden", "true");
+  const launcherLogo = make("img", "pitahaya-chat__launcher-logo");
+  launcherLogo.src = logoSrc;
+  launcherLogo.alt = "";
+  launcherLogo.setAttribute("aria-hidden", "true");
   const launcherText = make("span", "", T.launcherText);
-  launcher.append(launcherSpark, launcherText);
+  launcher.append(launcherLogo, launcherText);
 
   const panel = make("div", "pitahaya-chat__panel");
   panel.setAttribute("role", "dialog");
@@ -277,12 +283,8 @@
   const header = make("div", "pitahaya-chat__header");
   const identity = make("div", "pitahaya-chat__identity");
   const avatar = make("img", "pitahaya-chat__avatar");
-  // Reuse whatever path the page itself uses for its favicon, so
-  // the logo loads correctly from both / (Spanish) and /en/ (English).
-  const faviconLink = document.querySelector('link[rel="icon"]')
-    || document.querySelector('link[rel="apple-touch-icon"]');
-  avatar.src = faviconLink ? faviconLink.href : "assets/pitahaya-logo.png";
-  avatar.alt = "Pittahaya";
+  avatar.src = logoSrc;
+  avatar.alt = "";
   const identityText = make("div", "");
   const titleEl  = make("span", "pitahaya-chat__title", T.title);
   const statusEl = make("span", "pitahaya-chat__status", T.status);
