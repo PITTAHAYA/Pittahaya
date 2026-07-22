@@ -6,7 +6,9 @@ node_modules/
 social-posts/
 
 # Fuentes crudas de generación (no se publican; quedan en local)
-casas/
+# La barra inicial ancla la regla a la RAÍZ: /casas/ NO debe tocar
+# assets/casas/, que sí son imágenes usadas por el demo AURELIA.
+/casas/
 
 # Respaldos y herramientas locales
 assets/backup-social/
