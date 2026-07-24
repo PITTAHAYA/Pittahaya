@@ -501,3 +501,16 @@ main,.section,.container{background-image:none!important}
   .casa-heroe-fondo video{display:none!important}
   .casa-heroe-fondo.con-video img.lista{opacity:.46!important}
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MÓVIL: menos es más
+   En pantallas pequeñas se ocultan bloques secundarios para que
+   la propuesta se lea de un vistazo. El eslogan, el héroe, los
+   servicios y el CTA se mantienen siempre.
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 760px){
+  .movil-oculto{display:none !important}
+  /* en las tarjetas "qué hacemos", el título y la frase venden;
+     las viñetas de detalle se guardan para escritorio */
+  .oficio ul{display:none}
+}
