@@ -55,7 +55,7 @@
     sendLabel:     "Send",
     privacyNote:   "Local assistant: your messages are not sent to external servers.",
     initialPrompts:["How much does it cost?", "AI automation", "Show demos", "Why Pittahaya?"],
-    altPrompts:    ["How long does it take?", "How many revisions?", "Is hosting included?", "Do you work outside Ecuador?"],
+    altPrompts:    ["How long does it take?", "How many revisions?", "Is hosting included?", "Do you work worldwide?"],
     greeting:      "Hi! I'm Pittahaya's assistant. I can answer anything about web design, AI automation (chatbots & agents that work 24/7), pricing, plans, timelines, demos or the process — whatever you need to take the first step. How can I help?",
     greetingActions: [
       { label: "How much does it cost?", prompt: "How much does it cost?" },
@@ -108,7 +108,7 @@
     sendLabel:     "Enviar",
     privacyNote:   "Asistente local: tus mensajes no se envían a servidores externos.",
     initialPrompts:["¿Cuánto cuesta?", "Automatización con IA", "Ver demos", "¿Por qué Pittahaya?"],
-    altPrompts:    ["¿Cuánto tiempo toma?", "¿Cuántas revisiones incluye?", "¿Incluye hosting?", "¿Trabajas fuera de Ecuador?"],
+    altPrompts:    ["¿Cuánto tiempo toma?", "¿Cuántas revisiones incluye?", "¿Incluye hosting?", "¿Atienden a todo el mundo?"],
     greeting:      "¡Hola! Soy el asistente de Pittahaya. Puedo responder lo que necesites sobre diseño web, automatización con IA (chatbots y agentes que trabajan 24/7), precios, planes, tiempos, demos o el proceso. ¿En qué te ayudo?",
     greetingActions: [
       { label: "¿Cuánto cuesta?",       prompt: "¿Cuánto cuesta?" },
@@ -620,10 +620,10 @@
     // ── Geography ──────────────────────────
     {
       id: "geography",
-      phrases: ["trabajan fuera de ecuador", "solo en quito", "estan en guayaquil", "donde estan ubicados", "donde estan", "donde quedan", "cual es su ubicacion", "de donde son", "pueden atender a mexico", "latinoamerica", "do you work outside ecuador", "are you only in quito", "where are you located", "where are you based", "what is your location", "can you work with other countries", "do you work internationally"],
-      keywords: ["ecuador", "quito", "guayaquil", "cuenca", "internacional", "latinoamerica", "mexico", "colombia", "peru", "chile", "españa", "international", "country", "abroad", "usa", "spain"],
-      text: "Pittahaya tiene raíz ecuatoriana pero trabaja con clientes en toda Latinoamérica y más allá. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega se hacen por medios digitales sin importar tu ubicación.",
-      en: { text: "Pittahaya has Ecuadorian roots but works with clients across Latin America and beyond. The process is 100% remote: diagnostic, design, revisions and delivery all happen digitally, no matter where you are." },
+      phrases: ["trabajan fuera de ecuador", "solo en quito", "estan en guayaquil", "donde estan ubicados", "donde estan", "donde quedan", "cual es su ubicacion", "de donde son", "pueden atender a mexico", "latinoamerica", "do you work outside ecuador", "are you only in quito", "where are you located", "where are you based", "what is your location", "can you work with other countries", "do you work internationally", "are you in canada", "estan en canada", "trabajan desde canada", "do you work worldwide", "atienden a todo el mundo"],
+      keywords: ["ecuador", "quito", "guayaquil", "canada", "canadá", "toronto", "internacional", "latinoamerica", "mexico", "colombia", "peru", "chile", "españa", "international", "country", "abroad", "usa", "spain", "worldwide", "mundo"],
+      text: "Pittahaya tiene base en Canadá y raíz ecuatoriana, y trabaja con clientes en todo el mundo. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega se hacen por medios digitales, sin importar dónde estés.",
+      en: { text: "Pittahaya is based in Canada, with Ecuadorian roots, and works with clients worldwide. The process is 100% remote: diagnostic, design, revisions and delivery all happen digitally, no matter where you are." },
       actions: act.contact
     },
 
@@ -961,9 +961,9 @@
     {
       id: "billing",
       phrases: ["dan factura", "emiten factura", "aceptan dolares", "en que moneda cobran", "puedo pagar en dolares", "do you give an invoice", "do you issue invoices", "do you accept dollars", "what currency"],
-      keywords: ["factura", "facturacion", "recibo", "dolares", "moneda", "iva", "invoice", "receipt", "dollars", "currency", "billing"],
-      text: "Sí, se emite el comprobante correspondiente por el servicio. Ecuador trabaja en dólares estadounidenses (USD), que es la moneda de referencia para las cotizaciones; para clientes de otros países se acuerda la forma más cómoda. Los detalles de facturación se definen al confirmar el proyecto.",
-      en: { text: "Yes, the corresponding receipt/invoice is issued for the service. Ecuador works in US dollars (USD), which is the reference currency for quotes; for clients in other countries we agree on the most convenient method. Billing details are defined when the project is confirmed." },
+      keywords: ["factura", "facturacion", "recibo", "dolares", "cad", "usd", "moneda", "iva", "invoice", "receipt", "dollars", "currency", "billing", "canadian"],
+      text: "Sí, se emite el comprobante correspondiente por el servicio. Facturamos en dólares (USD) para clientes en Ecuador y en dólares canadienses (CAD) para clientes en Canadá — tenemos cuentas en ambos países, así el pago es local y cómodo. Para otros países se acuerda la forma más conveniente. Los detalles de facturación se definen al confirmar el proyecto.",
+      en: { text: "Yes, the corresponding receipt/invoice is issued for the service. We bill in US dollars (USD) for clients in Ecuador and in Canadian dollars (CAD) for clients in Canada — we have accounts in both countries, so payment stays local and easy. For other countries we agree on the most convenient method. Billing details are defined when the project is confirmed." },
       actions: act.contact
     },
 
