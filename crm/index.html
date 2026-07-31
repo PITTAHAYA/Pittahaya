@@ -1361,7 +1361,7 @@ async function loadLeads() {
 
     updatePagination();
   } catch(e) {
-    tbody.innerHTML = `<tr><td colspan="8"><div class="empty">Error al cargar leads: ${e.message}</div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty">Error al cargar leads: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
   }
 }
 
@@ -1418,8 +1418,11 @@ function formatDate(iso) {
 }
 
 function shortUrl(url) {
+  // El valor viene de source_page (formulario público): el servidor solo
+  // limpia caracteres de control, no HTML. Se escapa aquí porque el
+  // resultado se inserta con innerHTML.
   if (!url) return '—';
-  try { return new URL(url).pathname; } catch { return url.slice(0, 20); }
+  try { return esc(new URL(url).pathname); } catch { return esc(String(url).slice(0, 20)); }
 }
 
 init().catch((e) => {
