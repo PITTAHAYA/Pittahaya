@@ -303,6 +303,75 @@
   .reveal-lines p{ font-size:20px;line-height:1.32; }
 }
 
+/* ── La elaboración: un carrete que se desliza ──────────────
+   La lista vertical de seis pasos ocupaba media pantalla y no
+   invitaba a nada. En el teléfono pasa a ser un carrete: se
+   arrastra con el dedo y cada paso entra en foco al centrarse.
+   Sólo transform/opacity — el desplazamiento lo lleva el navegador. */
+@media (max-width:860px){
+  .process-track{
+    display:flex!important;grid-template-columns:none!important;
+    --tarjeta:min(250px,64vw);
+    gap:12px;border:0;margin-top:22px;padding:6px 0 4px;
+    margin-inline:calc(50% - 50vw);
+    /* el relleno lateral deja que la primera y la última se centren */
+    padding-inline:calc(50vw - var(--tarjeta) / 2);
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .process-track::-webkit-scrollbar{ display:none; }
+
+  .process-step{
+    position:relative;flex:0 0 var(--tarjeta);min-height:0;scroll-snap-align:center;
+    display:flex;flex-direction:column;justify-content:flex-end;gap:6px;
+    padding:22px 18px 20px;border:1px solid var(--hair);border-radius:16px;
+    background:linear-gradient(160deg,rgba(242,236,225,.05),rgba(242,236,225,.015))!important;
+    /* --k: 1 en el centro, 0 en los extremos. Lo escribe el motor. */
+    transform:scale(calc(.9 + var(--k,0) * .1));
+    opacity:calc(.42 + var(--k,0) * .58);
+    transition:transform .45s var(--ease),opacity .45s var(--ease),border-color .45s ease;
+    will-change:transform,opacity;
+  }
+  .process-step::after{ display:none; }
+
+  /* el numeral vuelve, pero como filigrana enorme detrás */
+  .process-step i{
+    display:block!important;position:absolute;top:8px;right:12px;left:auto;
+    font-family:var(--serif);font-style:normal;
+    font-size:52px;line-height:1;letter-spacing:-2px;
+    color:rgba(176,122,74,.16);
+    transform:translateY(calc((1 - var(--k,0)) * 8px));
+    transition:color .45s ease,transform .45s var(--ease);
+  }
+  .process-step b{
+    font-size:21px;font-weight:300;color:var(--ivory);
+    text-wrap:balance;
+  }
+  .process-step span{
+    display:block!important;font-size:12.5px;line-height:1.5;color:var(--dim);
+    opacity:calc(var(--k,0) * var(--k,0));
+    transform:translateY(calc((1 - var(--k,0)) * 6px));
+    transition:opacity .5s ease,transform .5s var(--ease);
+  }
+  .process-step.is-foco{ border-color:rgba(176,122,74,.5); }
+  .process-step.is-foco i{ color:rgba(211,160,116,.5); }
+
+  /* barra de avance del carrete */
+  .process-rail{
+    position:relative;height:1px;margin:18px auto 0;
+    width:min(100% - 44px,340px);background:var(--hair);
+  }
+  .process-rail i{
+    position:absolute;top:-1px;left:0;height:3px;border-radius:3px;
+    width:var(--w,17%);background:var(--copper2);
+    transform:translateX(var(--x,0));
+    transition:transform .18s linear;
+  }
+}
+@media (max-width:400px){
+  .process-track{ --tarjeta:min(230px,72vw); }
+}
+
 /* ── 4. La tableta que vuela a la bolsa ────────────────────── */
 .bq-fly{
   position:fixed;z-index:320;pointer-events:none;border-radius:12px;object-fit:cover;
@@ -452,19 +521,6 @@
 
   /* Sin números y sin párrafos. En un teléfono la elaboración se dice
      con seis palabras, no con seis fichas técnicas. */
-  .process-track{ grid-template-columns:1fr!important;margin-top:22px;gap:0;border:0; }
-  .process-step{
-    min-height:0;justify-content:center;gap:0;
-    padding:15px 0;border-bottom:1px solid var(--hair);
-    background:none!important;
-  }
-  .process-step:last-child{ border-bottom:0; }
-  .process-step::after{ display:none; }
-  .process-step i,.process-step span{ display:none; }
-  .process-step b{
-    font-size:22px;font-weight:300;letter-spacing:.2px;
-    color:var(--ivory);
-  }
 
   /* el ritual, igual de callado */
   .ritual-steps{ grid-template-columns:1fr!important;gap:0;margin-top:22px;text-align:left; }

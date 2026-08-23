@@ -681,6 +681,55 @@
     });
   }
 
+  /* ---------------------------------------------------------- */
+  /* 3. El carrete de la elaboración                            */
+  /* ---------------------------------------------------------- */
+  var carrete = doc.querySelector(".process-track");
+  var pasos = carrete ? carrete.querySelectorAll(".process-step") : [];
+
+  if (carrete && pasos.length && !quieto) {
+    var barra = doc.createElement("div");
+    barra.className = "process-rail";
+    barra.setAttribute("aria-hidden", "true");
+    barra.innerHTML = "<i></i>";
+    carrete.parentNode.insertBefore(barra, carrete.nextSibling);
+    var aguja = barra.firstChild;
+
+    var pendiente = false;
+
+    function medir() {
+      pendiente = false;
+      if (!carrete.offsetParent) return;          // oculto: nada que medir
+      var r = carrete.getBoundingClientRect();
+      var centro = r.left + r.width / 2;
+      var cerca = null, dCerca = Infinity;
+
+      for (var i = 0; i < pasos.length; i++) {
+        var p = pasos[i];
+        var b = p.getBoundingClientRect();
+        var d = Math.abs(b.left + b.width / 2 - centro);
+        // 1 en el centro, 0 a una tarjeta y media de distancia
+        var k = Math.max(0, 1 - d / (b.width * 1.5));
+        p.style.setProperty("--k", k.toFixed(3));
+        if (d < dCerca) { dCerca = d; cerca = p; }
+      }
+
+      for (var j = 0; j < pasos.length; j++) pasos[j].classList.toggle("is-foco", pasos[j] === cerca);
+
+      var recorrido = carrete.scrollWidth - carrete.clientWidth;
+      var avance = recorrido > 0 ? carrete.scrollLeft / recorrido : 0;
+      var anchoAguja = aguja.getBoundingClientRect().width || 1;
+      aguja.style.setProperty("--w", (100 / pasos.length) + "%");
+      aguja.style.setProperty("--x", (avance * (barra.clientWidth - anchoAguja)).toFixed(1) + "px");
+    }
+
+    function pedir() { if (!pendiente) { pendiente = true; requestAnimationFrame(medir); } }
+
+    carrete.addEventListener("scroll", pedir, { passive: true });
+    window.addEventListener("resize", pedir, { passive: true });
+    if ("ResizeObserver" in window) new ResizeObserver(pedir).observe(carrete);
+    requestAnimationFrame(medir);
+  }
   /* ── 2. Titulares palabra a palabra ───────────────────────── */
   if (quieto || !("IntersectionObserver" in window)) return;
 
