@@ -81,22 +81,9 @@
 .crt-card:hover::before,.crt-card:focus-within::before,
 .crt-card.is-foco::before{ color:rgba(255,255,255,.1)!important; }
 
-/* el paso numerado del proceso adopta el mismo criterio editorial */
-.ps-num{
-  width:auto!important;height:auto!important;
-  border-radius:0!important;background:none!important;box-shadow:none!important;
-  font-family:var(--serif,"Fraunces",Georgia,serif)!important;
-  font-weight:400!important;font-size:38px!important;line-height:1!important;
-  color:rgba(232,52,135,.42)!important;
-  margin-bottom:6px!important;
-  transition:color .4s ease,transform .5s cubic-bezier(.16,.7,.2,1);
-}
-.process-strip li:hover .ps-num{ color:rgba(232,52,135,.8)!important;transform:translateY(-3px); }
-
 @media (max-width:760px){
   .vv-foto > img,.vv-foto > video{ transform:scale(1.06); }
   .btn:hover::after,.btn2:hover::after,.boton:hover::after{ width:0;height:0; }
-  .ps-num{ font-size:32px!important; }
 }
 
 @media (prefers-reduced-motion:reduce){

@@ -159,12 +159,16 @@
       const pre = el.getAttribute("data-ai-prefix") || "";
       if (reduce) { el.textContent = `${pre}${end.toFixed(dec)}${suf}`; return; }
       const t0 = performance.now(), dur = 1500;
+      const final = `${pre}${end.toFixed(dec)}${suf}`;
       const step = (now) => {
         const t = Math.min(1, (now - t0) / dur);
         el.textContent = `${pre}${(end * ease(t)).toFixed(dec)}${suf}`;
         if (t < 1) requestAnimationFrame(step);
+        else el.textContent = final;
       };
       requestAnimationFrame(step);
+      // si rAF se congela (pestaña oculta) el contador se quedaba en 99%
+      setTimeout(() => { el.textContent = final; }, dur + 120);
     };
     const io = new IntersectionObserver(es => {
       es.forEach(e => { if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); } });

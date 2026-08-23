@@ -20,7 +20,9 @@
     /* los planes entran al carrete ahora que su detalle se pliega:
        antes cada tarjeta medía 861 px y no cabía. */
     { rejilla: ".pricing",      tarjeta: ".card.price",     acento: "rgba(232,52,135,.5)" },
-    { rejilla: ".bridge-map",   tarjeta: ".bridge-node",    acento: "rgba(210,177,118,.55)" },
+    /* el mapa del sistema no se numera: es un diagrama de relación y
+       la misma lista ya va numerada en las fichas de sector */
+    { rejilla: ".bridge-map",   tarjeta: ".bridge-node",    acento: "rgba(210,177,118,.55)", sinNumero: true },
     { rejilla: ".process-strip",tarjeta: "li",              acento: "rgba(232,52,135,.5)" }
   ];
 
@@ -34,11 +36,26 @@
       rejilla.classList.add("crt-rail");
       rejilla.style.setProperty("--crt-acento", def.acento);
 
+      /* Un solo número por tarjeta.
+         · Si la tarjeta lleva una cápsula que sólo contiene el número
+           (.ps-num, .icon, .n…), esa se retira y manda el fantasma:
+           es el estilo editorial de la casa.
+         · Si el número va dentro de una frase ("01 · activa"), esa
+           frase se queda y el fantasma no se pone: duplicarlo era
+           justo lo que se veía mal. */
+      var SOLO_NUMERO = ".ps-num, .icon, .n, .num, .step-n, .sector-number";
+
       Array.prototype.forEach.call(tarjetas, function (t, i) {
         t.classList.add("crt-card");
-        if (!t.getAttribute("data-crt-n")) {
-          t.setAttribute("data-crt-n", String(i + 1).padStart(2, "0"));
-        }
+        if (def.sinNumero || t.getAttribute("data-crt-n")) return;
+
+        var capsula = t.querySelector(SOLO_NUMERO);
+        if (capsula && /^\s*\d{1,2}\s*$/.test(capsula.textContent)) capsula.remove();
+
+        var suelto = (t.textContent || "").replace(/\s+/g, " ");
+        if (/(^|[^\d])\d{1,2}\s*[·.\-–—)]/.test(suelto)) return;   // ya numerada en la copia
+
+        t.setAttribute("data-crt-n", String(i + 1).padStart(2, "0"));
       });
 
       var barra = doc.createElement("div");

@@ -219,17 +219,8 @@ main, .footer { position: relative; z-index: 1; }
 
 /* ── 7. Puertas de continuación ────────────────────────────── */
 .atlas-next__card { position: relative; overflow: hidden; isolation: isolate; }
-.atlas-next__card::before {
-  content: attr(data-n);
-  position: absolute;
-  z-index: -1;
-  top: -0.24em;
-  right: 0.06em;
-  font: 400 clamp(90px, 13vw, 168px)/1 "Cormorant Garamond", Georgia, serif;
-  color: rgba(235, 231, 223, 0.05);
-  transition: color 0.6s var(--ease), transform 0.9s var(--ease);
-  transform: translateY(0);
-}
+/* El romano de estas puertas duplicaba lenguaje: en la misma página
+   ya viven los sectores 01-04. Son navegación, no una lista numerada. */
 .atlas-next__card::after {
   content: "";
   position: absolute;
@@ -243,7 +234,6 @@ main, .footer { position: relative; z-index: 1; }
   transform-origin: left;
   transition: transform 0.85s cubic-bezier(0.16, 0.7, 0.2, 1);
 }
-.atlas-next__card:hover::before, .atlas-next__card:focus-visible::before { color: rgba(210, 177, 118, 0.16); transform: translateY(-8px); }
 .atlas-next__card:hover::after, .atlas-next__card:focus-visible::after { transform: scaleX(1); }
 .atlas-next__card i { transition: transform 0.26s var(--ease), color 0.24s ease; }
 .atlas-next__card:hover i { transform: translateX(9px); }
