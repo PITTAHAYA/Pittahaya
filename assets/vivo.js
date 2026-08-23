@@ -133,6 +133,16 @@
   bloques.forEach(function (b) { ojo.observe(b); });
 
   /* ---------------------------------------------------------- */
+  /* 4 bis. Las cifras se subrayan solas al aterrizar           */
+  /* ---------------------------------------------------------- */
+  Array.prototype.forEach.call(doc.querySelectorAll("[data-cifra], [data-count], [data-ai-count]"), function (c) {
+    var caja = c.closest("b") || c.parentElement;
+    if (!caja || caja.classList.contains("vv-cifra")) return;
+    caja.classList.add("vv-cifra");
+    ojo.observe(caja);
+  });
+
+  /* ---------------------------------------------------------- */
   /* 5. Enlaces con subrayado que se dibuja                     */
   /* ---------------------------------------------------------- */
   Array.prototype.forEach.call(

@@ -92,3 +92,82 @@
   .btn,.btn2,.boton,.sel__go,.diag-btn{ transform:none!important; }
   .vv-hilo{ display:none; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   Vivo · segunda capa
+   Gestos con intención, no adornos. Cada uno responde a algo
+   que el visitante hace.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 8. La cifra se dibuja con su propio filete ────────────── */
+.vv-cifra{ position:relative;display:inline-block; }
+.vv-cifra::after{
+  content:"";position:absolute;left:0;right:0;bottom:-.14em;height:2px;
+  background:linear-gradient(90deg,var(--pk-magenta,#e83487),var(--pk-lima,#c6ff6a));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 1.1s .25s cubic-bezier(.16,.7,.2,1);
+}
+.vv-cifra.is-vivo::after{ transform:scaleX(1); }
+
+/* ── 9. Las filas de la vitrina se abren al pasar ──────────── */
+.vitrina-fila{ position:relative;overflow:hidden;isolation:isolate; }
+.vitrina-fila::before{
+  content:"";position:absolute;z-index:-1;inset:0;
+  background:linear-gradient(90deg,rgba(232,52,135,.16),transparent 62%);
+  transform:translateX(-100%);
+  transition:transform .62s cubic-bezier(.16,.7,.2,1);
+}
+.vitrina-fila:hover::before,.vitrina-fila:focus-visible::before{ transform:translateX(0); }
+.vitrina-fila .vf-i{ transition:transform .42s cubic-bezier(.16,.7,.2,1); }
+.vitrina-fila:hover .vf-i{ transform:translateX(7px); }
+.vitrina-fila .vf-n{ transition:letter-spacing .5s cubic-bezier(.16,.7,.2,1); }
+.vitrina-fila:hover .vf-n{ letter-spacing:.4px; }
+
+/* ── 10. La pieza mayor respira al acercarse el puntero ────── */
+.vitrina-mayor{ position:relative;overflow:hidden; }
+.vitrina-mayor img{
+  transition:transform 1.5s cubic-bezier(.16,.7,.2,1),filter 1s ease;
+  will-change:transform;
+}
+.vitrina-mayor:hover img{ transform:scale(1.045);filter:saturate(1.08); }
+.vitrina-mayor .vitrina-ir{
+  display:inline-flex;align-items:center;gap:9px;
+  transition:gap .42s cubic-bezier(.16,.7,.2,1);
+}
+.vitrina-mayor:hover .vitrina-ir{ gap:16px; }
+
+/* ── 11. El cintillo del héroe late una sola vez al entrar ─── */
+.casa-heroe .etiqueta,.phead-rotulo{
+  position:relative;
+}
+.casa-heroe .etiqueta::after,.phead-rotulo::after{
+  content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;
+  background:linear-gradient(90deg,var(--pk-magenta,#e83487),transparent);
+  animation:vv-rotulo 1.1s .5s cubic-bezier(.16,.7,.2,1) forwards;
+}
+@keyframes vv-rotulo{ to{ width:52px; } }
+
+/* ── 12. Los campos del formulario se encienden al escribir ── */
+.audit-field{ position:relative; }
+.audit-field input,.audit-field textarea{
+  transition:border-color .3s ease,background .3s ease,transform .3s cubic-bezier(.16,.7,.2,1);
+}
+.audit-field input:focus,.audit-field textarea:focus{ transform:translateY(-1px); }
+.audit-field::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,var(--pk-magenta,#e83487),var(--pk-lima,#c6ff6a));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .42s cubic-bezier(.16,.7,.2,1);
+  pointer-events:none;border-radius:2px;
+}
+.audit-field:focus-within::after{ transform:scaleX(1); }
+
+/* ── 13. El pie se levanta escalonado ──────────────────────── */
+.foot-cols > div{ transition-delay:var(--d,0ms); }
+
+@media (prefers-reduced-motion:reduce){
+  .vv-cifra::after{ transform:scaleX(1);transition:none; }
+  .vitrina-fila::before,.vitrina-mayor img,.audit-field::after{ transition:none; }
+  .casa-heroe .etiqueta::after,.phead-rotulo::after{ animation:none;width:52px; }
+}
