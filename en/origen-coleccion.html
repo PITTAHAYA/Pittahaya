@@ -31,11 +31,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/origen.css?v=3" />
+  <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="progress" data-progress aria-hidden="true"></div>
+<div class="bq-wrapper" data-bq-wrapper aria-hidden="true">
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__seal"><div><b data-bq-seal>ORIGEN 0°</b><i>Latitude zero</i></div></div>
+</div>
+<div class="bq-grain" aria-hidden="true"></div>
 <header class="site-header" data-header>
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, home">ORIGEN 0°<span>Latitude zero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Open navigation"><i aria-hidden="true"></i></button>
@@ -56,7 +63,7 @@
     <div class="wrap">
       <p class="eyebrow" data-reveal>The collection</p>
       <h1 class="display" data-reveal>Six editions. <em>One origin.</em></h1>
-      <p class="lead" data-reveal>From the most delicate milk chocolate to an uncompromising 92%. Each bar inhabits its own visual world and its own moment of the day.</p>
+      <p data-corto="From the most delicate milk to 92%, no compromises." class="lead" data-reveal>From the most delicate milk chocolate to an uncompromising 92%. Each bar inhabits its own visual world and its own moment of the day.</p>
     </div>
   </section>
   <section class="collection" id="coleccion" aria-label="Products"><div data-collection></div></section>
@@ -97,6 +104,7 @@
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
 <script src="../assets/origen.js?v=5" defer></script>
+<script src="../assets/origen-boutique.js?v=1" defer></script>
 <script src="../assets/chatbot.js?v=v18" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

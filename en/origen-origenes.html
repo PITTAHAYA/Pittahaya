@@ -31,11 +31,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/origen.css?v=3" />
+  <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="progress" data-progress aria-hidden="true"></div>
+<div class="bq-wrapper" data-bq-wrapper aria-hidden="true">
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__seal"><div><b data-bq-seal>ORIGEN 0°</b><i>Latitude zero</i></div></div>
+</div>
+<div class="bq-grain" aria-hidden="true"></div>
 <header class="site-header" data-header>
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, home">ORIGEN 0°<span>Latitude zero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Open navigation"><i aria-hidden="true"></i></button>
@@ -58,7 +65,7 @@
       <p class="eyebrow" data-reveal>The land</p>
       <h1 class="display" id="origin-title" data-reveal style="margin-top:16px;max-width:15ch">Flavor begins <em>much earlier.</em></h1>
       <p class="origin-quote serif" data-reveal>“Quality begins with the people who understand the land.”</p>
-      <p class="lead" data-reveal style="margin-top:26px">We work with growers who have spent three generations reading the climate, humidity, and exact point of fermentation. We do not buy cacao: we buy judgment. The rest—the roasting, conching, and tempering—can only preserve what they have already achieved.</p>
+      <p data-corto="We do not buy cacao: we buy judgement. Three generations reading the weather." class="lead" data-reveal style="margin-top:26px">We work with growers who have spent three generations reading the climate, humidity, and exact point of fermentation. We do not buy cacao: we buy judgment. The rest—the roasting, conching, and tempering—can only preserve what they have already achieved.</p>
     </div>
   </section>
 
@@ -66,7 +73,7 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <div><p class="eyebrow">Origin explorer</p><h2 class="display" id="regions-title">Why origin <em>changes flavor.</em></h2></div>
-        <p class="lead">One country, four climates. Altitude, rainfall, and soil leave a signature you can recognize in the cup.</p>
+        <p data-corto="One country, four climates. Four signatures in the cup." class="lead">One country, four climates. Altitude, rainfall, and soil leave a signature you can recognize in the cup.</p>
       </div>
       <div class="region-grid">
         <div class="region-list" role="tablist" aria-label="Origin regions">
@@ -111,6 +118,7 @@
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
 <script src="../assets/origen.js?v=5" defer></script>
+<script src="../assets/origen-boutique.js?v=1" defer></script>
 <script src="../assets/chatbot.js?v=v18" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

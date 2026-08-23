@@ -27,9 +27,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/orbital.css?v=3" />
+<link rel="stylesheet" href="../assets/orbital-immersive.css?v=1" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
+<div class="obx-sky" aria-hidden="true">
+  <div class="obx-sky__layer obx-sky__layer--far"></div>
+  <div class="obx-sky__layer obx-sky__layer--near"></div>
+  <div class="obx-sky__horizon"></div>
+</div>
+
+<div class="obx-link" data-obx-link aria-hidden="true">
+  <div class="obx-link__hud">
+    <b>Acquiring link</b>
+    <u data-obx-dest>ORBITAL</u>
+    <div class="obx-link__bar"></div>
+  </div>
+</div>
+
+<div class="obx-cross" data-obx-cross aria-hidden="true">
+  <i></i><i></i><i></i><i></i><b></b>
+</div>
 <a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
 
 <header class="hdr" data-hdr>
@@ -56,7 +74,7 @@
   <div class="wrap">
     <p class="eyebrow">Hardware</p>
     <h1 class="d2">An object that powers on<br>once and <em class="hl">never shuts down.</em></h1>
-    <p class="lede">There are no technicians in orbit. Every design decision answers a single question: what happens if this fails and no one can touch it for fourteen years?</p>
+    <p data-corto="No technicians in orbit. Every choice answers one question: what if it fails for fourteen years?" class="lede">There are no technicians in orbit. Every design decision answers a single question: what happens if this fails and no one can touch it for fourteen years?</p>
   </div>
 </section>
 
@@ -69,7 +87,7 @@
       <div class="split-body">
         <p class="eyebrow" data-reveal>ORB-N4</p>
         <h2 class="d3" data-reveal>Four subsystems.<br>No critical moving parts.</h2>
-        <p class="lede" data-reveal>The aluminum 7075 chassis is machined from a single piece and serves as structure, shielding, and heat sink. The electronics are triplicated with majority voting: a radiation strike that corrupts one core is discarded before it can propagate.</p>
+        <p data-corto="Aluminum 7075 chassis, one piece: structure, shielding, heat sink. Triplicated electronics." class="lede" data-reveal>The aluminum 7075 chassis is machined from a single piece and serves as structure, shielding, and heat sink. The electronics are triplicated with majority voting: a radiation strike that corrupts one core is discarded before it can propagate.</p>
         <dl class="specs" data-reveal>
           <div><dt>Compute</dt><dd>1.2 PFLOP FP8</dd></div>
           <div><dt>Memory</dt><dd>2 TB HBM3e ECC</dd></div>
@@ -94,26 +112,26 @@
   <div class="sec-head">
     <p class="eyebrow" data-reveal>Thermal control</p>
     <h2 class="d2" data-reveal>Cooling without air<br>or water.</h2>
-    <p class="lede" data-reveal>There is no convection in a vacuum. The only way heat can escape is through infrared radiation — which means redesigning the problem from first principles.</p>
+    <p data-corto="No convection in a vacuum. Heat only escapes as infrared radiation." class="lede" data-reveal>There is no convection in a vacuum. The only way heat can escape is through infrared radiation — which means redesigning the problem from first principles.</p>
   </div>
   <div class="wrap">
     <div class="thesis">
       <article data-reveal>
         <span class="n">01 / Capture</span>
         <h3>Vapor chambers</h3>
-        <p>Heat from the core travels through phase change to the base of the radiators. No pumps: capillary action sustains the cycle.</p>
+        <p data-corto="Phase change carries heat to the radiators. No pumps: capillary action.">Heat from the core travels through phase change to the base of the radiators. No pumps: capillary action sustains the cycle.</p>
         <div class="fig"><b>18</b><span>kW transferred</span></div>
       </article>
       <article data-reveal>
         <span class="n">02 / Emission</span>
         <h3>Deployable radiators</h3>
-        <p>Two 22 m² wings with high-emissivity coatings unfold after separation from the launch vehicle and never move again.</p>
+        <p data-corto="Two 22 m² wings unfold after separation and never move again.">Two 22 m² wings with high-emissivity coatings unfold after separation from the launch vehicle and never move again.</p>
         <div class="fig"><b>44</b><span>m² of emitting area</span></div>
       </article>
       <article data-reveal>
         <span class="n">03 / Management</span>
         <h3>Sun-synchronized workloads</h3>
-        <p>The scheduler knows the ephemerides: heavy workloads run during illuminated phases and migrate to another node before each eclipse.</p>
+        <p data-corto="Heavy work runs in sunlight and migrates before each eclipse.">The scheduler knows the ephemerides: heavy workloads run during illuminated phases and migrate to another node before each eclipse.</p>
         <div class="fig"><b>0</b><span>jobs lost in 12 months</span></div>
       </article>
     </div>
@@ -129,7 +147,7 @@
       <div class="split-body">
         <p class="eyebrow" data-reveal>Integration</p>
         <h2 class="d3" data-reveal>ISO 5 cleanroom.<br>Eleven weeks per node.</h2>
-        <p class="lede" data-reveal>Each module undergoes thermal-vacuum cycling, random vibration, and pyrotechnic shock before receiving flight clearance. No node leaves the building without surviving a simulated launch.</p>
+        <p data-corto="Thermal vacuum, vibration, pyro shock. None flies without surviving a simulated launch." class="lede" data-reveal>Each module undergoes thermal-vacuum cycling, random vibration, and pyrotechnic shock before receiving flight clearance. No node leaves the building without surviving a simulated launch.</p>
         <dl class="specs" data-reveal>
           <div><dt>Thermal vacuum</dt><dd>8 cycles · 96 h</dd></div>
           <div><dt>Vibration</dt><dd>14.1 g RMS</dd></div>
@@ -147,19 +165,19 @@
     <a href="orbital-constelacion.html" data-reveal>
       <span class="n">01</span>
       <h3>The constellation</h3>
-      <p>Where every node is right now and what it is computing.</p>
+      <p data-corto="Where every node is.">Where every node is right now and what it is computing.</p>
       <span class="go">Open →</span>
     </a>
     <a href="orbital-mision.html" data-reveal>
       <span class="n">03</span>
       <h3>Mission control</h3>
-      <p>Operations console and launch manifest.</p>
+      <p data-corto="Live console.">Operations console and launch manifest.</p>
       <span class="go">Open →</span>
     </a>
     <a href="orbital-compania.html" data-reveal>
       <span class="n">04</span>
       <h3>The company</h3>
-      <p>Timeline, backing, and where we are headed.</p>
+      <p data-corto="Timeline and thesis.">Timeline, backing, and where we are headed.</p>
       <span class="go">Open →</span>
     </a>
   </div>
@@ -179,6 +197,7 @@
 </footer>
 
 <script src="../assets/orbital.js?v=4" defer></script>
+<script src="../assets/orbital-immersive.js?v=1" defer></script>
 <script src="../assets/orbital-tracker.js?v=4" defer></script>
 </body>
 </html>

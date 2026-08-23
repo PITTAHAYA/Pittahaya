@@ -28,11 +28,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/origen.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
 <div class="progress" data-progress aria-hidden="true"></div>
+<div class="bq-wrapper" data-bq-wrapper aria-hidden="true">
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__seal"><div><b data-bq-seal>ORIGEN 0°</b><i>Latitud cero</i></div></div>
+</div>
+<div class="bq-grain" aria-hidden="true"></div>
 <header class="site-header" data-header>
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, inicio">ORIGEN 0°<span>Latitud cero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Abrir navegación"><i aria-hidden="true"></i></button>
@@ -53,7 +60,7 @@
     <div class="wrap">
       <p class="eyebrow" data-reveal>Caja de degustación</p>
       <h1 class="display" data-reveal>Componga <em>su colección.</em></h1>
-      <p class="lead" data-reveal>Elija el formato, seleccione las barras y vea cómo se arma su caja. Envuelta a mano, con tarjeta personalizada si lo desea.</p>
+      <p data-corto="Elija formato y barras. Envuelta a mano." class="lead" data-reveal>Elija el formato, seleccione las barras y vea cómo se arma su caja. Envuelta a mano, con tarjeta personalizada si lo desea.</p>
     </div>
   </section>
   <section class="section builder" id="caja" data-builder style="padding-top:0">
@@ -105,6 +112,7 @@
 <div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
 <script src="assets/origen.js?v=5" defer></script>
+<script src="assets/origen-boutique.js?v=1" defer></script>
 <script src="assets/chatbot.js?v=v18" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

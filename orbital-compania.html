@@ -23,9 +23,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/orbital.css?v=3" />
+<link rel="stylesheet" href="assets/orbital-immersive.css?v=1" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
+<div class="obx-sky" aria-hidden="true">
+  <div class="obx-sky__layer obx-sky__layer--far"></div>
+  <div class="obx-sky__layer obx-sky__layer--near"></div>
+  <div class="obx-sky__horizon"></div>
+</div>
+
+<div class="obx-link" data-obx-link aria-hidden="true">
+  <div class="obx-link__hud">
+    <b>Adquiriendo enlace</b>
+    <u data-obx-dest>ORBITAL</u>
+    <div class="obx-link__bar"></div>
+  </div>
+</div>
+
+<div class="obx-cross" data-obx-cross aria-hidden="true">
+  <i></i><i></i><i></i><i></i><b></b>
+</div>
 <a class="skip" href="#main" style="position:absolute;left:-9999px">Saltar al contenido</a>
 
 <header class="hdr" data-hdr>
@@ -52,7 +70,7 @@
   <div class="wrap">
     <p class="eyebrow">Compañía</p>
     <h1 class="d2">Empezamos con una pregunta<br>que <em class="hl">nadie quería hacerse.</em></h1>
-    <p class="lede">Si el cuello de botella de la inteligencia artificial es la energía y el agua, ¿por qué seguimos construyendo en el único sitio donde ambas son escasas?</p>
+    <p data-corto="Si la IA se traba por energía y agua, ¿por qué construimos donde ambas escasean?" class="lede">Si el cuello de botella de la inteligencia artificial es la energía y el agua, ¿por qué seguimos construyendo en el único sitio donde ambas son escasas?</p>
   </div>
 </section>
 
@@ -66,32 +84,32 @@
       <div class="tevent" data-reveal>
         <time>2021</time>
         <h3>El cálculo en una servilleta</h3>
-        <p>Tres ingenieros de control térmico calculan cuánta superficie radiante haría falta para disipar un rack de GPU en órbita. El número sale más pequeño de lo que esperaban.</p>
+        <p data-corto="Tres ingenieros calculan la superficie radiante para un rack en órbita. Sale más pequeña de lo esperado.">Tres ingenieros de control térmico calculan cuánta superficie radiante haría falta para disipar un rack de GPU en órbita. El número sale más pequeño de lo que esperaban.</p>
       </div>
       <div class="tevent" data-reveal>
         <time>2022</time>
         <h3>ORB-01 · demostrador</h3>
-        <p>Un cubesat de 12U con una única GPU comercial sobrevive nueve meses y entrega el primer resultado de inferencia calculado fuera de la atmósfera.</p>
+        <p data-corto="Un cubesat de 12U sobrevive nueve meses y entrega la primera inferencia fuera de la atmósfera.">Un cubesat de 12U con una única GPU comercial sobrevive nueve meses y entrega el primer resultado de inferencia calculado fuera de la atmósfera.</p>
       </div>
       <div class="tevent" data-reveal>
         <time>2023</time>
         <h3>Serie A · 48 M USD</h3>
-        <p>Se levanta capital para industrializar el nodo. Se firma el terreno de la estación de Quito a 4 180 metros.</p>
+        <p data-corto="Capital para industrializar el nodo. Se firma la estación de Quito.">Se levanta capital para industrializar el nodo. Se firma el terreno de la estación de Quito a 4 180 metros.</p>
       </div>
       <div class="tevent" data-reveal>
         <time>2024</time>
         <h3>Primer plano completo</h3>
-        <p>Ocho nodos ECU-1 alcanzan órbita ecuatorial. La constelación entrega su primer cliente en producción.</p>
+        <p data-corto="Ocho nodos en órbita ecuatorial. Primer cliente en producción.">Ocho nodos ECU-1 alcanzan órbita ecuatorial. La constelación entrega su primer cliente en producción.</p>
       </div>
       <div class="tevent" data-reveal>
         <time>2025</time>
         <h3>Serie B · 210 M USD</h3>
-        <p>Tres planos operativos, cuatro estaciones terrestres, 28,8 petaflops desplegados y disponibilidad del 99,98%.</p>
+        <p data-corto="Tres planos, cuatro estaciones, 28,8 PF, 99,98%.">Tres planos operativos, cuatro estaciones terrestres, 28,8 petaflops desplegados y disponibilidad del 99,98%.</p>
       </div>
       <div class="tevent is-now" data-reveal>
         <time>2026 · ahora</time>
         <h3>Bloque II</h3>
-        <p>Doce nodos más y el primer conmutador óptico dedicado. Objetivo: 100 petaflops en órbita antes de que termine 2027.</p>
+        <p data-corto="Doce nodos más y el primer conmutador óptico. Objetivo: 100 PF en 2027.">Doce nodos más y el primer conmutador óptico dedicado. Objetivo: 100 petaflops en órbita antes de que termine 2027.</p>
       </div>
     </div>
   </div>
@@ -114,10 +132,10 @@
 
 <section class="sec">
   <div class="figs">
-    <div data-reveal><b><span data-count="258">258</span><span class="u">M</span></b><small>Capital levantado · USD</small><p>Series A y B, más deuda de infraestructura.</p></div>
-    <div data-reveal><b><span data-count="147">147</span></b><small>Personas</small><p>Quito, Toulouse y Singapur.</p></div>
-    <div data-reveal><b><span data-count="9">9</span></b><small>Clientes en producción</small><p>Laboratorios de IA, observación terrestre y defensa civil.</p></div>
-    <div data-reveal><b><span data-count="0">0</span></b><small>Litros de agua al año</small><p>La cifra que ningún centro de datos terrestre puede escribir.</p></div>
+    <div data-reveal><b><span data-count="258">258</span><span class="u">M</span></b><small>Capital levantado · USD</small><p data-corto="Series A y B.">Series A y B, más deuda de infraestructura.</p></div>
+    <div data-reveal><b><span data-count="147">147</span></b><small>Personas</small><p data-corto="Tres oficinas.">Quito, Toulouse y Singapur.</p></div>
+    <div data-reveal><b><span data-count="9">9</span></b><small>Clientes en producción</small><p data-corto="IA, observación y defensa civil.">Laboratorios de IA, observación terrestre y defensa civil.</p></div>
+    <div data-reveal><b><span data-count="0">0</span></b><small>Litros de agua al año</small><p data-corto="Ningún centro de datos puede escribirlo.">La cifra que ningún centro de datos terrestre puede escribir.</p></div>
   </div>
 </section>
 
@@ -125,7 +143,7 @@
   <div class="wrap">
     <p class="eyebrow" style="justify-content:center" data-reveal>El siguiente paso</p>
     <h2 class="d2" data-reveal>Cien petaflops sobre tu cabeza<br>antes de 2028.</h2>
-    <p class="lede" data-reveal>Estamos abriendo capacidad para cargas de entrenamiento sostenido y para operadores que necesiten cómputo soberano fuera de cualquier jurisdicción terrestre.</p>
+    <p data-corto="Abrimos capacidad para entrenamiento sostenido y cómputo soberano." class="lede" data-reveal>Estamos abriendo capacidad para cargas de entrenamiento sostenido y para operadores que necesiten cómputo soberano fuera de cualquier jurisdicción terrestre.</p>
     <div class="close-cta" data-reveal>
       <a class="btn btn--fill" href="contacto.html">Reservar capacidad</a>
       <a class="btn" href="orbital-constelacion.html">Ver la constelación</a>
@@ -133,7 +151,7 @@
 
     <div class="sig" data-reveal>
       <small>Esta compañía no existe</small>
-      <p>ORBITAL es una demo. La constelación se propaga con mecánica orbital real, la telemetría se calcula en el navegador y cada página está construida a mano — sin plantillas, sin librerías, sin dependencias externas.</p>
+      <p data-corto="ORBITAL es una demo: mecánica orbital real, telemetría en el navegador, todo a mano.">ORBITAL es una demo. La constelación se propaga con mecánica orbital real, la telemetría se calcula en el navegador y cada página está construida a mano — sin plantillas, sin librerías, sin dependencias externas.</p>
       <p>Es lo que hacemos cuando una marca necesita parecer lo que aspira a ser.</p>
       <div class="brandline">PITTAHAYA</div>
       <div class="close-cta" style="margin-top:26px">
@@ -158,6 +176,7 @@
 </footer>
 
 <script src="assets/orbital.js?v=3" defer></script>
+<script src="assets/orbital-immersive.js?v=1" defer></script>
 <script src="assets/orbital-tracker.js?v=3" defer></script>
 </body>
 </html>

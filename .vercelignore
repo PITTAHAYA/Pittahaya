@@ -22,3 +22,6 @@ package-lock.json
 node_modules/
 .claude/
 social-posts/
+
+# copia de seguridad local del ATLAS de una sola página
+/.backup-atlas/

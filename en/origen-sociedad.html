@@ -31,11 +31,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/origen.css?v=3" />
+  <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="progress" data-progress aria-hidden="true"></div>
+<div class="bq-wrapper" data-bq-wrapper aria-hidden="true">
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__seal"><div><b data-bq-seal>ORIGEN 0°</b><i>Latitude zero</i></div></div>
+</div>
+<div class="bq-grain" aria-hidden="true"></div>
 <header class="site-header" data-header>
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, home">ORIGEN 0°<span>Latitude zero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Open navigation"><i aria-hidden="true"></i></button>
@@ -56,7 +63,7 @@
     <div class="wrap">
       <p class="eyebrow" data-reveal>Private membership</p>
       <h1 class="display" data-reveal>The Origin <em>Society.</em></h1>
-      <p class="lead" data-reveal>A new origin every month. Limited harvests, early access, and a tasting guide written for every shipment.</p>
+      <p data-corto="A new origin every month. Limited harvests." class="lead" data-reveal>A new origin every month. Limited harvests, early access, and a tasting guide written for every shipment.</p>
     </div>
   </section>
   <section class="section society" id="sociedad" style="padding-top:0">
@@ -91,7 +98,7 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <div><p class="eyebrow">Journal</p><h2 class="display" id="journal-title">Notes <em>from the house.</em></h2></div>
-        <p class="lead">What we learn in the field and workshop, written without unnecessary jargon.</p>
+        <p data-corto="From the field and the workshop, without jargon." class="lead">What we learn in the field and workshop, written without unnecessary jargon.</p>
       </div>
       <div class="journal-grid">
         <article class="entry" data-reveal><i>Tasting</i><h3 class="serif">What the percentage really means</h3><p>Why an 85% can be sweeter than a 72%, and what to look at instead.</p><span class="rd">Read →</span></article>
@@ -109,7 +116,7 @@
       <div class="studio-rule" data-reveal aria-hidden="true"></div>
       <p class="eyebrow" data-reveal>The studio behind it</p>
       <h2 class="display" id="studio-title" data-reveal style="margin:16px auto 0;max-width:18ch">This world was imagined and built by <em>Pittahaya.</em></h2>
-      <p class="lead" data-reveal style="margin-top:28px">ORIGEN 0° does not exist. The brand, art direction, photography, store, configurator, and every interaction you just explored were created as a demonstration. Your product deserves more than a store.</p>
+      <p data-corto="ORIGEN 0° does not exist. All of this is a demonstration. Your product deserves more than a store." class="lead" data-reveal style="margin-top:28px">ORIGEN 0° does not exist. The brand, art direction, photography, store, configurator, and every interaction you just explored were created as a demonstration. Your product deserves more than a store.</p>
       <div class="studio-caps" data-reveal>
         <span>Brand identity</span><span>Creative direction</span><span>Cinematic storytelling</span><span>Premium UX/UI</span><span>E-commerce</span><span>Product configurators</span><span>Visual systems</span><span>Motion design</span><span>Responsive experiences</span>
       </div>
@@ -142,6 +149,7 @@
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
 <script src="../assets/origen.js?v=5" defer></script>
+<script src="../assets/origen-boutique.js?v=1" defer></script>
 <script src="../assets/chatbot.js?v=v18" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

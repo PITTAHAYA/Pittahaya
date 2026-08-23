@@ -23,9 +23,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/orbital.css?v=3" />
+<link rel="stylesheet" href="assets/orbital-immersive.css?v=1" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
+<div class="obx-sky" aria-hidden="true">
+  <div class="obx-sky__layer obx-sky__layer--far"></div>
+  <div class="obx-sky__layer obx-sky__layer--near"></div>
+  <div class="obx-sky__horizon"></div>
+</div>
+
+<div class="obx-link" data-obx-link aria-hidden="true">
+  <div class="obx-link__hud">
+    <b>Adquiriendo enlace</b>
+    <u data-obx-dest>ORBITAL</u>
+    <div class="obx-link__bar"></div>
+  </div>
+</div>
+
+<div class="obx-cross" data-obx-cross aria-hidden="true">
+  <i></i><i></i><i></i><i></i><b></b>
+</div>
 <a class="skip" href="#main" style="position:absolute;left:-9999px">Saltar al contenido</a>
 
 <header class="hdr" data-hdr>
@@ -52,7 +70,7 @@
   <div class="hero-in">
     <p class="eyebrow">Constelación ECU-1 · operativa</p>
     <h1 class="d1">El centro de datos que <em class="hl">nunca toca el suelo.</em></h1>
-    <p class="lede">La inteligencia artificial dejó de caber en la Tierra. ORBITAL construye y opera cómputo en órbita baja: sol permanente, refrigeración contra el vacío a 3 K, cero hectáreas, cero agua.</p>
+    <p data-corto="La IA ya no cabe en la Tierra. Cómputo en órbita baja: sol permanente, frío del vacío, cero agua." class="lede">La inteligencia artificial dejó de caber en la Tierra. ORBITAL construye y opera cómputo en órbita baja: sol permanente, refrigeración contra el vacío a 3 K, cero hectáreas, cero agua.</p>
   </div>
   <div class="hero-hud" aria-label="Estado de la constelación">
     <div><b><span data-count="24">24</span></b><small>Nodos en órbita</small></div>
@@ -67,26 +85,26 @@
   <div class="sec-head">
     <p class="eyebrow" data-reveal>La tesis</p>
     <h2 class="d2" data-reveal>La Tierra se quedó sin<br>energía, agua y terreno.</h2>
-    <p class="lede" data-reveal>Un centro de datos de gigavatio consume la electricidad de una ciudad mediana y evapora millones de litros al año para enfriarse. En órbita baja, los tres problemas desaparecen a la vez.</p>
+    <p data-corto="Un gigavatio consume como una ciudad y evapora millones de litros. En órbita, nada de eso ocurre." class="lede" data-reveal>Un centro de datos de gigavatio consume la electricidad de una ciudad mediana y evapora millones de litros al año para enfriarse. En órbita baja, los tres problemas desaparecen a la vez.</p>
   </div>
   <div class="wrap">
     <div class="thesis">
       <article data-reveal>
         <span class="n">01 / Energía</span>
         <h3>Sol sin noche</h3>
-        <p>En una órbita sincrónica al Sol, los paneles reciben irradiancia constante sin atmósfera que la filtre. No hay ciclo diurno, no hay nubes, no hay estacionalidad.</p>
+        <p data-corto="Irradiancia constante, sin atmósfera. No hay noche, ni nubes, ni estaciones.">En una órbita sincrónica al Sol, los paneles reciben irradiancia constante sin atmósfera que la filtre. No hay ciclo diurno, no hay nubes, no hay estacionalidad.</p>
         <div class="fig"><b>1 361</b><span>W/m² · constante solar</span></div>
       </article>
       <article data-reveal>
         <span class="n">02 / Refrigeración</span>
         <h3>El vacío es el disipador</h3>
-        <p>El espacio profundo está a 2,7 K. Los radiadores desplegables emiten el calor residual por radiación infrarroja directa. Sin torres, sin chillers, sin una sola gota de agua.</p>
+        <p data-corto="El espacio está a 2,7 K. Los radiadores emiten el calor al vacío. Cero agua.">El espacio profundo está a 2,7 K. Los radiadores desplegables emiten el calor residual por radiación infrarroja directa. Sin torres, sin chillers, sin una sola gota de agua.</p>
         <div class="fig"><b>0</b><span>litros de agua al año</span></div>
       </article>
       <article data-reveal>
         <span class="n">03 / Latencia</span>
         <h3>La luz corre más en el vacío</h3>
-        <p>En fibra de sílice la luz viaja al 67% de <em class="ice">c</em>. En el vacío, al 100%. Sobre distancias continentales, el enlace óptico intersatelital gana a la fibra terrestre.</p>
+        <p data-corto="En fibra la luz va al 67% de c. En el vacío, al 100%.">En fibra de sílice la luz viaja al 67% de <em class="ice">c</em>. En el vacío, al 100%. Sobre distancias continentales, el enlace óptico intersatelital gana a la fibra terrestre.</p>
         <div class="fig"><b>+47</b><span>% más rápido que la fibra</span></div>
       </article>
     </div>
@@ -107,7 +125,7 @@
       <div class="split-body">
         <p class="eyebrow" data-reveal>La unidad</p>
         <h2 class="d3" data-reveal>Un nodo. 1,2 petaflops.<br>Catorce años sin mantenimiento.</h2>
-        <p class="lede" data-reveal>Cada nodo es un sistema cerrado: cómputo, potencia, control térmico y enlace óptico en un único módulo tolerante a radiación. Se lanza plegado, se despliega en 90 segundos y no vuelve a tocarse.</p>
+        <p data-corto="Un módulo cerrado: cómputo, potencia, térmica y enlace. Se despliega en 90 s y no se toca más." class="lede" data-reveal>Cada nodo es un sistema cerrado: cómputo, potencia, control térmico y enlace óptico en un único módulo tolerante a radiación. Se lanza plegado, se despliega en 90 segundos y no vuelve a tocarse.</p>
         <dl class="specs" data-reveal>
           <div><dt>Cómputo</dt><dd>1,2 PFLOP · FP8</dd></div>
           <div><dt>Potencia</dt><dd>19,2 kW pico</dd></div>
@@ -125,10 +143,10 @@
     <h2 class="d2" data-reveal>Lo que ya está arriba.</h2>
   </div>
   <div class="figs" style="margin-top:56px">
-    <div data-reveal><b><span data-count="24">24</span></b><small>Nodos operativos</small><p>Tres planos orbitales: ecuatorial, polar y sincrónico al Sol.</p></div>
-    <div data-reveal><b><span data-count="28.8" data-dec="1">28,8</span><span class="u">PF</span></b><small>Cómputo desplegado</small><p>Equivalente a un centro de datos terrestre de 34 MW.</p></div>
-    <div data-reveal><b><span data-count="4">4</span></b><small>Estaciones terrestres</small><p>Quito, Singapur, Nairobi y Svalbard. Cobertura continua.</p></div>
-    <div data-reveal><b><span data-count="99.98" data-dec="2">99,98</span><span class="u">%</span></b><small>Disponibilidad · 12 meses</small><p>Sin una sola interrupción atribuible al segmento espacial.</p></div>
+    <div data-reveal><b><span data-count="24">24</span></b><small>Nodos operativos</small><p data-corto="Tres planos orbitales.">Tres planos orbitales: ecuatorial, polar y sincrónico al Sol.</p></div>
+    <div data-reveal><b><span data-count="28.8" data-dec="1">28,8</span><span class="u">PF</span></b><small>Cómputo desplegado</small><p data-corto="Como 34 MW en tierra.">Equivalente a un centro de datos terrestre de 34 MW.</p></div>
+    <div data-reveal><b><span data-count="4">4</span></b><small>Estaciones terrestres</small><p data-corto="Cobertura continua.">Quito, Singapur, Nairobi y Svalbard. Cobertura continua.</p></div>
+    <div data-reveal><b><span data-count="99.98" data-dec="2">99,98</span><span class="u">%</span></b><small>Disponibilidad · 12 meses</small><p data-corto="Sin una sola interrupción.">Sin una sola interrupción atribuible al segmento espacial.</p></div>
   </div>
 </section>
 
@@ -138,25 +156,25 @@
     <a href="orbital-constelacion.html" data-reveal>
       <span class="n">01</span>
       <h3>La constelación</h3>
-      <p>Rastreador en vivo de los 24 nodos, segmento terrestre y latencia comparada por ciudad.</p>
+      <p data-corto="Los 24 nodos en vivo.">Rastreador en vivo de los 24 nodos, segmento terrestre y latencia comparada por ciudad.</p>
       <span class="go">Abrir →</span>
     </a>
     <a href="orbital-nodo.html" data-reveal>
       <span class="n">02</span>
       <h3>El nodo</h3>
-      <p>Arquitectura, materiales y ensamblaje del módulo de cómputo orbital.</p>
+      <p data-corto="Dentro del módulo.">Arquitectura, materiales y ensamblaje del módulo de cómputo orbital.</p>
       <span class="go">Abrir →</span>
     </a>
     <a href="orbital-mision.html" data-reveal>
       <span class="n">03</span>
       <h3>Control de misión</h3>
-      <p>Consola de operaciones en vivo y manifiesto de lanzamientos.</p>
+      <p data-corto="Consola en vivo.">Consola de operaciones en vivo y manifiesto de lanzamientos.</p>
       <span class="go">Abrir →</span>
     </a>
     <a href="orbital-compania.html" data-reveal>
       <span class="n">04</span>
       <h3>La compañía</h3>
-      <p>Cronología, respaldo institucional y hacia dónde vamos.</p>
+      <p data-corto="Cronología y tesis.">Cronología, respaldo institucional y hacia dónde vamos.</p>
       <span class="go">Abrir →</span>
     </a>
   </div>
@@ -176,6 +194,7 @@
 </footer>
 
 <script src="assets/orbital.js?v=3" defer></script>
+<script src="assets/orbital-immersive.js?v=1" defer></script>
 <script src="assets/orbital-tracker.js?v=3" defer></script>
 </body>
 </html>

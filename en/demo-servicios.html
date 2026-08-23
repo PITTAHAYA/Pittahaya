@@ -31,11 +31,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/origen.css?v=3" />
+  <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="progress" data-progress aria-hidden="true"></div>
+<div class="bq-wrapper" data-bq-wrapper aria-hidden="true">
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__half"></div>
+  <div class="bq-wrapper__seal"><div><b data-bq-seal>ORIGEN 0°</b><i>Latitude zero</i></div></div>
+</div>
+<div class="bq-grain" aria-hidden="true"></div>
 <header class="site-header" data-header>
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, home">ORIGEN 0°<span>Latitude zero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Open navigation"><i aria-hidden="true"></i></button>
@@ -60,7 +67,7 @@
       <h1 id="hero-title" class="serif">Born at <em>latitude zero.</em></h1>
       <div class="hero-lower">
         <div>
-          <p class="hero-copy">Rare Ecuadorian cacao, transformed into chocolate. Controlled fermentation, slow roasting, nothing unnecessary.</p>
+          <p data-corto="Nothing unnecessary. Every stage reveals what the cacao already held." class="hero-copy">Rare Ecuadorian cacao, transformed into chocolate. Controlled fermentation, slow roasting, nothing unnecessary.</p>
           <div class="hero-actions">
             <a class="btn btn--solid" href="origen-coleccion.html">View the collection</a>
             <a class="btn" href="origen-origenes.html">Discover the origin</a>
@@ -109,7 +116,7 @@
       <div data-reveal>
         <p class="eyebrow">Single origin · 72% cacao</p>
         <h2 class="display" id="flagship-title" style="margin-top:14px">Latitud Cero <em>72%</em></h2>
-        <p class="lead" style="margin-top:20px">Floral, deep, and naturally complex. Single-origin Ecuadorian cacao, grown where the equator crosses the rainforest.</p>
+        <p data-corto="Floral, deep, complex. Single origin, Ecuador." class="lead" style="margin-top:20px">Floral, deep, and naturally complex. Single-origin Ecuadorian cacao, grown where the equator crosses the rainforest.</p>
         <div class="price-row"><span class="price serif">$28<small>CAD</small></span></div>
         <dl class="spec-list">
           <div><dt>Intensity</dt><dd>Medium–high</dd></div>
@@ -129,7 +136,7 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <div><p class="eyebrow">Sensory profile · Latitud Cero 72%</p><h2 class="display" id="flavour-title">Five notes, <em>one bar.</em></h2></div>
-        <p class="lead">Ecuadorian fine-flavor cacao develops its complexity naturally. Select a note to explore it.</p>
+        <p data-corto="Tap a note to follow it." class="lead">Ecuadorian fine-flavor cacao develops its complexity naturally. Select a note to explore it.</p>
       </div>
       <div class="flavour-grid">
         <div class="notes" role="tablist" aria-label="Tasting notes">
@@ -187,6 +194,7 @@
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
 <script src="../assets/origen.js?v=5" defer></script>
+<script src="../assets/origen-boutique.js?v=1" defer></script>
 <script src="../assets/chatbot.js?v=v18" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

@@ -1,0 +1,623 @@
+/* ═══════════════════════════════════════════════════════════
+   ORIGEN 0° · La boutique
+   La colección deja de ser una pila editorial y pasa a ser una
+   sala de exhibición: piso de marfil, tabletas flotando sobre
+   su peana, vista rápida a pantalla completa y bolsa táctil.
+   Sólo transform/opacity en lo que se anima por cuadro.
+   ═══════════════════════════════════════════════════════════ */
+
+:root{
+  --plinth:#f4efe6;
+  --plinth-2:#ebe3d5;
+  --plinth-ink:#1a120c;
+  --plinth-dim:rgba(26,18,12,.66);   /* 5.3:1 sobre marfil */
+  --plinth-faint:rgba(26,18,12,.64);  /* 5.1:1 — .36 daba 2.3:1 */
+  --plinth-copper:#8a5628;            /* cobre legible: #b07a4a daba 3.2:1 */
+  --plinth-hair:rgba(26,18,12,.1);
+}
+
+/* ── 1. El piso de la sala ─────────────────────────────────── */
+.bq-floor{
+  position:relative;
+  background:
+    radial-gradient(120% 70% at 50% -10%, #fbf7f0 0%, var(--plinth) 46%, var(--plinth-2) 100%);
+  color:var(--plinth-ink);
+  padding:clamp(56px,8vw,110px) 0 clamp(64px,9vw,128px);
+  isolation:isolate;
+}
+.bq-floor::before,
+.bq-floor::after{
+  content:"";position:absolute;left:0;right:0;height:120px;pointer-events:none;z-index:2;
+}
+.bq-floor::before{ top:0;background:linear-gradient(var(--cacao),transparent); opacity:.5; }
+.bq-floor::after{ bottom:0;background:linear-gradient(transparent,var(--cacao)); opacity:.5; }
+
+.bq-floor__head{
+  width:min(1340px,calc(100% - 9vw));margin:0 auto clamp(38px,5vw,64px);
+  display:flex;flex-wrap:wrap;gap:20px 34px;align-items:flex-end;justify-content:space-between;
+}
+.bq-floor__head p.eyebrow{ color:var(--plinth-copper);margin:0 0 12px; }
+.bq-floor__head h2{
+  font-family:var(--serif);font-weight:300;margin:0;
+  font-size:clamp(30px,4.4vw,58px);line-height:1.04;letter-spacing:-.5px;
+  color:var(--plinth-ink);max-width:14ch;
+}
+.bq-floor__head h2 em{ font-style:italic;color:var(--copper); }
+.bq-floor__head--slim{ align-items:center;margin-bottom:clamp(26px,3.4vw,40px); }
+.bq-floor__head--slim p.eyebrow{ margin:0; }
+.bq-floor__count{
+  font-size:9.5px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--plinth-faint);white-space:nowrap;
+}
+
+/* el anillo global es cobre claro: sobre marfil no se ve (1.9:1) */
+.bq-floor :focus-visible,
+.bq-sheet :focus-visible,
+.bq-dial :focus-visible{ outline:2px solid var(--plinth-ink);outline-offset:3px; }
+.bq-sheet__media :focus-visible,
+.bq-dial--oscuro :focus-visible{ outline-color:#f6f1e8; }
+
+/* ── 2. La rejilla ─────────────────────────────────────────── */
+.bq-grid{
+  width:min(1340px,calc(100% - 9vw));margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(18px,2.2vw,30px);
+}
+
+.bq-card{
+  position:relative;display:flex;flex-direction:column;
+  padding:26px 24px 22px;border-radius:22px;
+  background:linear-gradient(#fffdf9,#f7f2e9);
+  box-shadow:0 1px 2px rgba(26,18,12,.05),0 12px 28px -18px rgba(26,18,12,.34);
+  transition:transform .26s var(--ease),box-shadow .3s var(--ease);
+  opacity:0;
+}
+.bq-card.is-in{ opacity:1; }
+.bq-card{ cursor:pointer;-webkit-tap-highlight-color:transparent; }
+.bq-card:hover,.bq-card:focus-within{
+  transform:translateY(-6px);
+  box-shadow:0 2px 4px rgba(26,18,12,.06),0 34px 60px -26px rgba(26,18,12,.44);
+}
+
+.bq-card__num{
+  position:absolute;top:20px;right:24px;z-index:2;
+  font-family:var(--serif);font-size:26px;line-height:1;
+  color:rgba(138,86,40,.42);
+}
+.bq-card__flag{
+  position:absolute;top:20px;left:24px;z-index:2;
+  padding:5px 10px;border-radius:100px;
+  background:var(--burgundy);color:#f6efe6;
+  font-size:8px;letter-spacing:2.2px;text-transform:uppercase;
+}
+.bq-card__flag--house{ background:var(--copper); }
+
+/* la peana y la tableta que flota sobre ella */
+.bq-card__stage{
+  position:relative;margin:14px 0 20px;padding:8px 0 26px;
+  display:grid;place-items:center;
+}
+.bq-card__stage::after{
+  content:"";position:absolute;bottom:8px;left:50%;
+  width:62%;height:14px;margin-left:-31%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(26,18,12,.3),transparent 72%);
+  transition:transform .5s var(--ease),opacity .5s var(--ease);
+}
+.bq-card__stage img{
+  width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;
+  transition:transform .5s var(--ease);
+  will-change:transform;
+}
+.bq-card:hover .bq-card__stage img{ transform:translateY(-10px) scale(1.03); }
+.bq-card:hover .bq-card__stage::after{ transform:scaleX(1.16) scaleY(.8);opacity:.7; }
+
+.bq-card__name{
+  font-family:var(--serif);font-weight:400;margin:0 0 6px;
+  font-size:clamp(21px,2vw,27px);line-height:1.1;letter-spacing:-.2px;color:var(--plinth-ink);
+}
+.bq-card__meta{
+  margin:0 0 14px;font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;
+  color:var(--plinth-faint);
+}
+.bq-card__notes{
+  margin:0 0 18px;font-size:13.5px;line-height:1.6;color:var(--plinth-dim);
+  flex:1;
+}
+
+.bq-meter{ display:flex;gap:5px;margin-bottom:18px; }
+.bq-meter span{
+  width:100%;height:2px;border-radius:2px;background:rgba(26,18,12,.12);
+  transform-origin:left;transform:scaleX(0);
+  transition:transform .7s var(--ease) var(--md,0ms);
+}
+.bq-card.is-in .bq-meter span{ transform:scaleX(1); }
+.bq-meter span.on{ background:var(--copper); }
+
+.bq-card__foot{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding-top:16px;border-top:1px solid var(--plinth-hair);
+}
+.bq-card__price{ font-family:var(--serif);font-size:26px;line-height:1;color:var(--plinth-ink); }
+.bq-card__acts{ display:flex;align-items:center;gap:8px; }
+
+.bq-look{
+  padding:11px 16px;border:1px solid rgba(26,18,12,.18);border-radius:100px;background:none;
+  font-family:var(--sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--plinth-ink);
+  transition:background .22s ease,color .22s ease,border-color .22s ease;
+}
+.bq-look:hover,.bq-look:focus-visible{ background:var(--plinth-ink);color:var(--plinth);border-color:var(--plinth-ink); }
+
+.bq-add{
+  position:relative;width:42px;height:42px;border:0;border-radius:50%;
+  background:var(--plinth-ink);color:var(--plinth);
+  display:grid;place-items:center;
+  transition:transform .24s var(--ease),background .24s ease;
+}
+.bq-add::before,.bq-add::after{
+  content:"";position:absolute;background:currentColor;border-radius:2px;
+  transition:transform .5s var(--ease);
+}
+.bq-add::before{ width:13px;height:1.5px; }
+.bq-add::after{ width:1.5px;height:13px; }
+.bq-add:hover{ background:var(--copper);transform:scale(1.08); }
+.bq-add:hover::after{ transform:rotate(90deg); }
+.bq-add.is-done{ background:var(--moss); }
+.bq-add.is-done::before{ transform:rotate(-45deg) translate(-2px,3px);width:8px; }
+.bq-add.is-done::after{ transform:rotate(-45deg) translate(3px,1px);height:15px; }
+
+/* Área táctil mínima 44x44 (Apple HIG) / 48x48 (Material).
+   Medido a 768 px: nav-toggle 42x38, bag-btn 108x42, look 59x36, add 42x42. */
+.bq-look{ min-height:44px; }
+.bq-add{ width:44px;height:44px; }
+.nav-toggle,.bag-btn{ min-width:44px;min-height:44px; }
+/* enlaces de navegación y de pie: 17 px y 27 px de alto medidos a 768 px */
+.site-nav .nav-link{ min-height:44px;display:inline-flex;align-items:center; }
+.foot-cols a,.foot-bar a{ min-height:44px;display:inline-flex;align-items:center; }
+
+/* La bolsa es donde se cobra: ahí los controles no pueden medir 24 px.
+   Medidos a 768 px: cerrar 27x30, cantidad 24x24, quitar 43x12. */
+.cart-close{ min-width:44px;min-height:44px;display:grid;place-items:center; }
+.ci-qty button{ position:relative;width:40px;height:40px;border-radius:50%; }
+/* el círculo se ve de 40 px pero se toca en 44: HIG permite ampliar el área
+   de impacto más allá del límite visual sin mover la maquetación */
+.ci-qty button::after{ content:"";position:absolute;inset:-2px;border-radius:50%; }
+.ci-remove{ min-height:44px;display:inline-flex!important;align-items:center;justify-content:flex-end; }
+/* Además del contraste: 'quitar' en gris apagado sobre cacao no llegaba a 4.5:1 */
+.ci-remove{ color:rgba(242,236,225,.62); }
+.ci-remove:hover,.ci-remove:focus-visible{ color:var(--ivory); }
+.skip-link:focus{ min-height:44px;display:inline-flex;align-items:center; }
+.bq-sheet__close{ width:46px;height:46px; }
+.bq-sheet__step{ width:48px;height:48px; }
+
+/* ── 3. Vista rápida a pantalla completa ───────────────────── */
+.bq-sheet{
+  position:fixed;z-index:300;inset:0;
+  display:grid;grid-template-columns:1.05fr .95fr;
+  background:var(--plinth);color:var(--plinth-ink);
+  visibility:hidden;opacity:0;
+  transition:opacity .5s ease,visibility .5s;
+}
+.bq-sheet.is-open{ visibility:visible;opacity:1; }
+
+.bq-sheet__media{
+  position:relative;overflow:hidden;background:var(--plinth-2);
+  display:grid;place-items:center;
+}
+.bq-sheet__media img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.08);
+  transition:transform 1.4s var(--ease);
+}
+.bq-sheet.is-open .bq-sheet__media img{ transform:scale(1); }
+
+.bq-sheet__body{
+  display:flex;flex-direction:column;justify-content:center;gap:0;
+  padding:clamp(34px,5vw,84px);overflow-y:auto;
+}
+.bq-sheet__in > *{
+  opacity:0;transform:translateY(20px);
+  transition:opacity .7s ease var(--sd,0ms),transform .8s var(--ease) var(--sd,0ms);
+}
+.bq-sheet.is-open .bq-sheet__in > *{ opacity:1;transform:none; }
+
+.bq-sheet__eyebrow{ font-size:9.5px;letter-spacing:3.4px;text-transform:uppercase;color:var(--plinth-copper);margin:0 0 16px; }
+.bq-sheet__name{
+  font-family:var(--serif);font-weight:300;margin:0 0 10px;
+  font-size:clamp(34px,4.6vw,64px);line-height:1;letter-spacing:-.8px;
+}
+.bq-sheet__meta{ margin:0 0 26px;font-size:10px;letter-spacing:2.6px;text-transform:uppercase;color:var(--plinth-faint); }
+.bq-sheet__copy{ margin:0 0 28px;font-size:16px;line-height:1.7;color:var(--plinth-dim);max-width:44ch; }
+
+.bq-spec{ display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--plinth-hair);border-block:1px solid var(--plinth-hair);margin-bottom:30px; }
+.bq-spec div{ background:var(--plinth);padding:16px 18px; }
+.bq-spec dt{ font-size:8.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--plinth-faint);margin:0 0 7px; }
+.bq-spec dd{ margin:0;font-family:var(--serif);font-size:21px;line-height:1; }
+
+.bq-sheet__buy{ display:flex;flex-wrap:wrap;align-items:center;gap:16px; }
+.bq-sheet__price{ font-family:var(--serif);font-size:36px;line-height:1; }
+.bq-sheet__cta{
+  flex:1;min-width:190px;min-height:54px;padding:0 26px;border:0;border-radius:100px;
+  background:var(--plinth-ink);color:var(--plinth);
+  font-family:var(--sans);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;
+  transition:background .45s ease,transform .5s var(--ease);
+}
+.bq-sheet__cta:hover{ background:var(--copper);transform:translateY(-2px); }
+.bq-sheet__cta.is-done{ background:var(--moss); }
+
+.bq-sheet__close{
+  position:fixed;z-index:2;top:22px;right:24px;
+  width:46px;height:46px;border:1px solid rgba(26,18,12,.18);border-radius:50%;
+  background:rgba(244,239,230,.82);backdrop-filter:blur(8px);
+  color:var(--plinth-ink);font-size:20px;line-height:1;
+  display:grid;place-items:center;
+  transition:transform .5s var(--ease),background .4s ease;
+}
+.bq-sheet__close:hover{ transform:rotate(90deg);background:var(--plinth-ink);color:var(--plinth); }
+
+/* pasar de una tableta a la siguiente sin cerrar */
+.bq-sheet__step{
+  position:absolute;z-index:2;top:50%;margin-top:-24px;
+  width:48px;height:48px;border:1px solid rgba(244,239,230,.34);border-radius:50%;
+  background:rgba(26,18,12,.28);backdrop-filter:blur(6px);color:#f6efe6;
+  display:grid;place-items:center;font-size:17px;
+  transition:background .4s ease,transform .5s var(--ease);
+}
+.bq-sheet__step:hover{ background:var(--plinth-ink);transform:scale(1.08); }
+.bq-sheet__step--prev{ left:18px; }
+.bq-sheet__step--next{ left:auto;right:18px; }
+
+/* con la ficha abierta, el asistente no debe taparle el botón de compra */
+.bq-looking .pitahaya-chat__launcher,
+.bq-looking .demo-corner-logo{ opacity:0;pointer-events:none;transition:opacity .3s ease; }
+
+/* ── 4. La tableta que vuela a la bolsa ────────────────────── */
+.bq-fly{
+  position:fixed;z-index:320;pointer-events:none;border-radius:12px;object-fit:cover;
+  box-shadow:0 18px 40px -14px rgba(0,0,0,.5);
+  will-change:transform,opacity;
+}
+.bag-btn.is-pop{ animation:bq-pop .55s var(--ease); }
+@keyframes bq-pop{ 0%{transform:none} 38%{transform:scale(1.18)} 100%{transform:none} }
+.bag-count.is-pop{ animation:bq-pop .5s .06s var(--ease); }
+
+.bq-toast{
+  position:fixed;z-index:310;left:50%;bottom:26px;
+  display:flex;align-items:center;gap:13px;
+  padding:11px 20px 11px 11px;border-radius:100px;
+  background:rgba(18,13,9,.94);backdrop-filter:blur(12px);
+  border:1px solid var(--hair);
+  transform:translate(-50%,26px);opacity:0;pointer-events:none;
+  transition:transform .6s var(--ease),opacity .5s ease;
+}
+.bq-toast.is-on{ transform:translate(-50%,0);opacity:1; }
+.bq-toast img{ width:34px;height:34px;border-radius:50%;object-fit:cover; }
+.bq-toast b{ font-family:var(--serif);font-weight:400;font-size:16px; }
+.bq-toast span{ display:block;font-size:9px;letter-spacing:2.2px;text-transform:uppercase;color:var(--copper2); }
+
+/* ── 5. Inmersión: envoltura, grano y titulares ────────────── */
+.bq-wrapper{
+  position:fixed;z-index:400;inset:0;display:grid;grid-template-rows:1fr 1fr;pointer-events:none;
+}
+.bq-wrapper__half{ background:var(--cacao);transform-origin:top; }
+.bq-wrapper__half:last-child{ transform-origin:bottom; }
+.bq-wrapper__half{ animation:bq-unwrap .95s .1s cubic-bezier(.76,0,.24,1) forwards; }
+@keyframes bq-unwrap{ from{transform:scaleY(1)} to{transform:scaleY(0)} }
+
+.bq-wrapper__seal{
+  position:absolute;inset:0;display:grid;place-items:center;opacity:0;
+}
+.bq-wrapper__seal b{
+  font-family:var(--serif);font-weight:300;font-size:clamp(26px,5vw,52px);
+  letter-spacing:.14em;text-indent:.14em;color:var(--ivory);
+}
+.bq-wrapper__seal i{
+  display:block;margin-top:12px;font-style:normal;
+  font-size:9px;letter-spacing:.4em;text-indent:.4em;text-transform:uppercase;color:var(--copper2);
+}
+.bq-wrapper.is-wrapping .bq-wrapper__half{ animation:bq-wrap .6s cubic-bezier(.76,0,.24,1) forwards; }
+@keyframes bq-wrap{ from{transform:scaleY(0)} to{transform:scaleY(1)} }
+.bq-wrapper.is-wrapping .bq-wrapper__seal{ animation:bq-seal .5s .2s ease forwards; }
+@keyframes bq-seal{ from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+.bq-grain{
+  position:fixed;z-index:200;inset:-140px;pointer-events:none;opacity:.038;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='170' height='170' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:bq-grain 880ms steps(6) infinite;
+}
+@keyframes bq-grain{
+  0%{transform:translate(0,0)} 20%{transform:translate(-38px,24px)} 40%{transform:translate(28px,-34px)}
+  60%{transform:translate(-22px,-20px)} 80%{transform:translate(34px,28px)} 100%{transform:translate(0,0)}
+}
+
+.bq-w{ display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em; }
+.bq-w > span{
+  display:inline-block;transform:translateY(112%);opacity:0;
+  transition:transform 1s cubic-bezier(.16,.78,.16,1),opacity .7s ease;
+  transition-delay:var(--d,0ms);
+}
+.bq-split.is-lit .bq-w > span{ transform:none;opacity:1; }
+
+/* ── 6. Cursor de sala ─────────────────────────────────────── */
+.bq-cursor{
+  position:fixed;z-index:290;top:0;left:0;width:12px;height:12px;margin:-6px 0 0 -6px;
+  border-radius:50%;background:var(--copper2);pointer-events:none;opacity:0;
+  display:grid;place-items:center;
+  transition:opacity .35s ease,width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background .4s ease;
+}
+.bq-cursor span{
+  font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--cacao);
+  opacity:0;transition:opacity .3s ease;white-space:nowrap;
+}
+.bq-cur-on .bq-cursor{ opacity:1; }
+.bq-cur-look .bq-cursor{ width:76px;height:76px;margin:-38px 0 0 -38px;background:var(--ivory); }
+.bq-cur-look .bq-cursor span{ opacity:1; }
+
+/* ── 7. Teléfono ───────────────────────────────────────────── */
+@media (max-width:1020px){
+  .bq-grid{ grid-template-columns:repeat(2,1fr); }
+  .bq-sheet{ grid-template-columns:1fr;grid-template-rows:minmax(0,44vh) minmax(0,1fr); }
+  .bq-sheet__media img{ height:100%; }
+}
+@media (max-width:640px){
+  .bq-floor{ padding:44px 0 56px; }
+  .bq-floor__head{ margin-bottom:28px; }
+  .bq-grid{ grid-template-columns:1fr;gap:14px; }
+
+  /* en el teléfono la ficha se lee de un vistazo: foto a la izquierda */
+  .bq-card{ flex-direction:row;align-items:center;gap:16px;padding:14px;border-radius:18px; }
+  .bq-card__num,.bq-card__flag{ display:none; }
+  .bq-card__stage{ flex:0 0 108px;width:108px;margin:0;padding:0; }
+  .bq-card__stage::after{ display:none; }
+  .bq-card__stage img{ border-radius:12px; }
+  .bq-card__col{ flex:1;min-width:0;display:flex;flex-direction:column;gap:0; }
+  .bq-card__name{ font-size:20px;margin-bottom:3px; }
+  .bq-card__meta{ margin-bottom:9px;font-size:8.5px;letter-spacing:1.8px; }
+  .bq-card__notes{ display:none; }
+  .bq-meter{ margin-bottom:11px;max-width:96px; }
+  .bq-card__foot{ padding-top:0;border-top:0;justify-content:flex-start;gap:18px; }
+  .bq-card__price{ font-size:22px; }
+  /* toda la tarjeta abre la ficha: que se note que es tocable */
+  .bq-card{ cursor:pointer;-webkit-tap-highlight-color:transparent; }
+  .bq-card:active{ transform:scale(.985); }
+  .bq-look{ display:none; }
+  .bq-add{ width:44px;height:44px;margin-left:auto; }
+
+  .bq-sheet__body{ padding:24px 22px 108px; }
+  .bq-sheet__name{ font-size:34px; }
+  .bq-sheet__copy{ font-size:15px;margin-bottom:22px; }
+  .bq-spec{ margin-bottom:0; }
+  .bq-sheet__step{ display:none; }
+  .bq-sheet__close{ top:14px;right:14px;width:44px;height:44px; }
+
+  /* barra de compra fija: el precio y el botón siempre al alcance */
+  .bq-sheet__buy{
+    position:fixed;z-index:3;left:0;right:0;bottom:0;
+    margin:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+    gap:12px;background:rgba(244,239,230,.96);backdrop-filter:blur(14px);
+    border-top:1px solid var(--plinth-hair);
+  }
+  .bq-sheet__price{ font-size:28px; }
+  .bq-sheet__cta{ min-height:50px;min-width:0; }
+
+  .bq-toast{ left:12px;right:12px;bottom:14px;transform:translateY(22px);width:auto; }
+  .bq-toast.is-on{ transform:none; }
+}
+/* ── 8. Densidad en el teléfono ────────────────────────────── */
+@media (max-width:860px){
+  /* .section-head seguía en dos columnas hasta en un teléfono: el titular
+     serif y su bajada se montaban uno encima del otro. */
+  .section-head{ grid-template-columns:1fr!important;align-items:start;gap:16px; }
+  .section-head .lead{ margin:0;max-width:52ch; }
+  .next-grid{ grid-template-columns:1fr!important; }
+}
+
+@media (max-width:640px){
+  /* clamp(84px,14vh,168px) deja 114 px arriba y abajo en un móvil:
+     demasiado aire para una tienda que quiere vender rápido */
+  .section{ padding:54px 0; }
+  .page-head{ padding-top:96px;padding-bottom:22px; }
+
+  /* Sin números y sin párrafos. En un teléfono la elaboración se dice
+     con seis palabras, no con seis fichas técnicas. */
+  .process-track{ grid-template-columns:1fr!important;margin-top:22px;gap:0;border:0; }
+  .process-step{
+    min-height:0;justify-content:center;gap:0;
+    padding:15px 0;border-bottom:1px solid var(--hair);
+    background:none!important;
+  }
+  .process-step:last-child{ border-bottom:0; }
+  .process-step::after{ display:none; }
+  .process-step i,.process-step span{ display:none; }
+  .process-step b{
+    font-size:22px;font-weight:300;letter-spacing:.2px;
+    color:var(--ivory);
+  }
+
+  /* el ritual, igual de callado */
+  .ritual-steps{ grid-template-columns:1fr!important;gap:0;margin-top:22px;text-align:left; }
+  .ritual-step{ padding:15px 0;border-bottom:1px solid var(--hair); }
+  .ritual-step:last-child{ border-bottom:0; }
+  .ritual-step i,.ritual-step p,.ritual-step .ln{ display:none; }
+  .ritual-step b{ display:block;font-size:22px;font-weight:300;color:var(--ivory); }
+
+  /* el perfil sensorial era una tabla con numeración: 01 nombre ROL.
+     En el teléfono se convierte en cinco fichas que se deslizan. */
+  .notes{
+    display:flex!important;gap:8px;border:0;padding-bottom:2px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .notes::-webkit-scrollbar{ display:none; }
+  .note-btn{
+    display:block!important;flex:0 0 auto;scroll-snap-align:start;
+    padding:13px 20px;border:1px solid var(--hair);border-radius:100px;
+    background:transparent!important;
+  }
+  .note-btn i,.note-btn u{ display:none; }
+  .note-btn b{ font-size:18px;white-space:nowrap; }
+  .note-btn.is-active{ border-color:var(--copper);background:rgba(176,122,74,.16)!important; }
+
+  /* el panel reservaba 260 px fijos: en el móvil eso es medio vacío */
+  .note-panel{ margin-top:24px;min-height:0!important;justify-content:flex-start; }
+  .note-panel h3{ font-size:26px;margin-bottom:10px; }
+  .note-meter{ margin-top:16px; }
+
+  /* las regiones tenían el mismo formato de tabla numerada */
+  .region-list{
+    display:flex;gap:8px;border:0;padding-bottom:2px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  }
+  .region-list::-webkit-scrollbar{ display:none; }
+  .region-btn{
+    display:block!important;width:auto!important;flex:0 0 auto;scroll-snap-align:start;
+    padding:13px 20px!important;border:1px solid var(--hair);border-radius:100px;
+    background:none!important;
+  }
+  .region-btn i,.region-btn u{ display:none; }
+  .region-btn b{ font-size:18px;white-space:nowrap; }
+  .region-btn.is-active{ border-color:var(--copper);background:rgba(176,122,74,.16)!important; }
+  .region-panel{ min-height:0!important;border:0;padding:22px 0 0; }
+  .region-panel h3{ font-size:28px; }
+  .region-panel p{ font-size:14px;line-height:1.7;margin-top:16px; }
+
+  .flagship-grid,.flavour-grid{ gap:22px;align-items:start; }
+  .region-grid{ gap:20px; }
+  .flavour-grid{ margin-top:26px; }
+
+  /* superficies táctiles cómodas */
+  .site-nav .nav-link{ min-height:48px; }
+  .btn,.bag-btn{ min-height:48px; }
+}
+@media (max-width:400px){
+  .section{ padding:46px 0; }
+  .bq-card__stage{ flex-basis:92px;width:92px; }
+  .bq-card__name{ font-size:18px; }
+}
+
+@media (hover:none),(pointer:coarse){ .bq-cursor{ display:none; } }
+
+@media (prefers-reduced-motion:reduce){
+  .bq-wrapper,.bq-grain,.bq-cursor,.bq-fly{ display:none!important; }
+  .bq-card{ opacity:1!important;transform:none!important; }
+  .bq-meter span{ transform:scaleX(1)!important; }
+  .bq-w > span{ transform:none!important;opacity:1!important; }
+  .bq-sheet__in > *{ opacity:1!important;transform:none!important; }
+  .bq-sheet,.bq-sheet__media img{ transition:none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   EL DIAL · elegir chocolate por intensidad
+   Una sola pantalla. Se arrastra de 58% a 92% y todo cambia con
+   el gesto: la tableta, el número, las notas, el precio y hasta
+   el color de la sala, que se oscurece con el cacao.
+   ═══════════════════════════════════════════════════════════ */
+.bq-dial{
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:clamp(56px,8vh,104px) 0 clamp(44px,6vh,80px);
+  background:var(--dial-bg,#0a0705);
+  color:var(--dial-ink,#f2ece1);
+  transition:background .9s var(--ease),color .9s var(--ease);
+  touch-action:pan-y;
+}
+.bq-dial__in{
+  width:min(1180px,calc(100% - 9vw));margin:0 auto;
+  display:grid;grid-template-columns:1.02fr .98fr;
+  gap:clamp(30px,5vw,72px);align-items:center;
+}
+
+.bq-dial__eyebrow{
+  grid-column:1/-1;margin:0 0 clamp(20px,3vh,38px);
+  font-size:9.5px;letter-spacing:3.6px;text-transform:uppercase;
+  color:var(--dial-ink,#f2ece1);opacity:.72;
+}
+
+/* la tableta: seis capas apiladas, sólo una visible */
+.bq-dial__stage{ position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden; }
+.bq-dial__stage img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transform:scale(1.1);
+  transition:opacity .8s var(--ease),transform 1.5s var(--ease);
+}
+.bq-dial__stage img.is-on{ opacity:1;transform:scale(1); }
+
+.bq-dial__pct{
+  display:flex;align-items:baseline;gap:6px;margin:0 0 clamp(10px,1.6vh,20px);
+  font-family:var(--serif);font-weight:300;line-height:1;
+  font-size:clamp(76px,13vw,168px);letter-spacing:-.045em;
+}
+.bq-dial__pct sup{ font-size:.26em;line-height:1;letter-spacing:0;top:-.1em;position:relative; }
+.bq-dial__name{
+  font-family:var(--serif);font-weight:300;margin:0 0 10px;
+  font-size:clamp(26px,3.4vw,44px);line-height:1.04;letter-spacing:-.4px;
+}
+.bq-dial__notes{
+  margin:0 0 clamp(24px,4vh,40px);font-size:14px;line-height:1.65;
+  color:var(--dial-dim,rgba(242,236,225,.62));max-width:34ch;min-height:2.7em;
+}
+
+/* la regla: 58 ── ● ─────── 92 */
+.bq-dial__scale{ position:relative;padding:22px 0 30px;cursor:grab;user-select:none; }
+.bq-dial__scale:active{ cursor:grabbing; }
+.bq-dial__rail{
+  position:relative;height:1px;margin-inline:14px;
+  background:var(--dial-hair,rgba(242,236,225,.22));
+}
+.bq-dial__fill{
+  position:absolute;top:0;left:0;width:100%;height:1px;
+  background:var(--dial-accent,#d3a074);
+  transform-origin:left;transform:scaleX(var(--p,0));
+  transition:transform .55s var(--ease);
+}
+.bq-dial__tick{
+  position:absolute;top:-4px;width:1px;height:9px;
+  background:var(--dial-hair,rgba(242,236,225,.3));
+  transform:translateX(-50%);
+}
+.bq-dial__knob{
+  position:absolute;top:50%;left:0;
+  width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;
+  background:var(--dial-accent,#d3a074);
+  box-shadow:0 0 0 0 rgba(211,160,116,.28);
+  transition:left .55s var(--ease),box-shadow .5s ease;
+}
+.bq-dial__scale:hover .bq-dial__knob,
+.bq-dial__scale:focus-within .bq-dial__knob{ box-shadow:0 0 0 10px rgba(211,160,116,.16); }
+.bq-dial__ends{
+  display:flex;justify-content:space-between;margin-top:16px;
+  font-size:9.5px;letter-spacing:2.4px;color:var(--dial-faint,rgba(242,236,225,.4));
+}
+
+.bq-dial__buy{ display:flex;align-items:center;gap:18px;flex-wrap:wrap; }
+.bq-dial__price{ font-family:var(--serif);font-size:clamp(28px,3.4vw,40px);line-height:1; }
+.bq-dial__cta{
+  flex:1;min-width:180px;min-height:54px;padding:0 26px;border:0;border-radius:100px;
+  background:var(--dial-ink,#f2ece1);color:var(--dial-bg,#0a0705);
+  font-family:var(--sans);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;
+  transition:background .8s var(--ease),color .8s var(--ease),transform .5s var(--ease);
+}
+.bq-dial__cta:hover{ transform:translateY(-2px); }
+.bq-dial__cta.is-done{ background:var(--moss);color:#f2ece1; }
+
+@media (max-width:860px){
+  .bq-dial{ padding:40px 0 34px; }
+  .bq-dial__in{ grid-template-columns:1fr;gap:22px; }
+  .bq-dial__eyebrow{ margin-bottom:16px; }
+  .bq-dial__stage{ aspect-ratio:5/4;border-radius:14px; }
+  .bq-dial__pct{ font-size:clamp(64px,20vw,92px);margin-bottom:2px; }
+  .bq-dial__name{ font-size:26px; }
+  .bq-dial__notes{ font-size:13.5px;margin-bottom:20px;min-height:0; }
+  .bq-dial__scale{ padding:26px 0 24px; }
+  .bq-dial__knob{ width:32px;height:32px;margin:-16px 0 0 -16px; }
+  .bq-dial__rail{ margin-inline:17px; }
+  .bq-dial__cta{ min-height:52px;min-width:0; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .bq-dial,.bq-dial__stage img,.bq-dial__fill,.bq-dial__knob,.bq-dial__cta{ transition:none; }
+}
+
+/* el salto al contenido también es un control: 44 px de alto */
+.skip-link:focus,.skip-link:focus-visible{ min-height:44px;display:inline-flex;align-items:center; }
