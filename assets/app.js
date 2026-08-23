@@ -491,13 +491,13 @@
       label: "Presencia elegante",
       body: "Te conviene empezar con una web clara, rápida y confiable: lo suficiente para que tu negocio deje de verse improvisado y pueda recibir contactos.",
       mobileBody: "Web clara para verte profesional y recibir contactos.",
-      href: "https://011ca3-jj.myshopify.com/products/starter-website",
+      href: "contacto.html",
       en: {
         name: "Basic Plan",
         label: "Elegant presence",
         body: "Best to start with a clear, fast, trustworthy site: enough so your business stops looking improvised and can start receiving leads.",
         mobileBody: "Clean site so you look pro and start getting leads.",
-        href: "https://011ca3-jj.myshopify.com/products/starter-website"
+        href: "contacto.html"
       }
     },
     sales: {
@@ -505,13 +505,13 @@
       label: "Ruta de venta completa",
       body: "Es la mejor opción si quieres explicar servicios, resolver dudas, mostrar proceso y convertir visitas en conversaciones con más intención.",
       mobileBody: "Para explicar servicios, resolver dudas y convertir visitas.",
-      href: "https://011ca3-jj.myshopify.com/products/business-website",
+      href: "contacto.html",
       en: {
         name: "Business Plan",
         label: "Full sales route",
         body: "The best choice if you want to explain services, kill doubts, show process, and turn visits into intentional conversations.",
         mobileBody: "Explain services, kill doubts, convert visits.",
-        href: "https://011ca3-jj.myshopify.com/products/business-website"
+        href: "contacto.html"
       }
     },
     premium: {
@@ -519,13 +519,13 @@
       label: "Experiencia de alta percepción",
       body: "Ideal si tu marca compite por valor, lujo o diferenciación. La web necesita sentirse más editorial, más personalizada y más memorable.",
       mobileBody: "Para marcas que necesitan verse high-end y memorables.",
-      href: "https://011ca3-jj.myshopify.com/products/premium-website",
+      href: "contacto.html",
       en: {
         name: "Premium Plan",
         label: "High-perception experience",
         body: "Ideal if your brand competes on value, luxury, or differentiation. The site needs to feel more editorial, more custom, and more memorable.",
         mobileBody: "For brands that need to look high-end and memorable.",
-        href: "https://011ca3-jj.myshopify.com/products/premium-website"
+        href: "contacto.html"
       }
     }
   };
@@ -928,9 +928,8 @@
     const href = link.getAttribute("href") || "";
     if (href.includes("wa.me") || href.includes("whatsapp")) {
       window.track("WhatsApp Click");
-    } else if (href.includes("myshopify.com")) {
-      const plan = (href.split("/products/")[1] || "").split(/[/?#]/)[0] || "unknown";
-      window.track("Plan Checkout Click", { plan });
+    } else if (href.includes("contacto.html") || href.includes("contact.html")) {
+      window.track("Plan Contact Click");
     }
   });
 })();

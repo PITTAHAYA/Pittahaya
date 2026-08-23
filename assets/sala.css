@@ -36,6 +36,8 @@
 
 /* ── El compás: en qué acto vamos ──────────────────────────── */
 .sala__compas{ display:flex;gap:9px;align-items:center; }
+/* sin botón de volver el pie era una banda vacía */
+.sala__pie:empty,.sala__pie:has(> [hidden]:only-child){ display:none; }
 .sala__compas i{
   width:26px;height:2px;border-radius:2px;background:rgba(255,255,255,.16);
   transition:background .5s ease,width .5s cubic-bezier(.16,.7,.2,1);
@@ -49,27 +51,56 @@
 }
 
 /* ── El acto ───────────────────────────────────────────────── */
-.sala__acto{ display:grid;align-content:center;gap:clamp(18px,2.4vw,30px);padding:clamp(24px,4vh,52px) 0; }
+.sala__acto{
+  position:relative;
+  display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  align-items:center;gap:clamp(26px,4vw,64px);
+  padding:clamp(24px,4vh,52px) 0;
+}
+/* el veredicto y el compás de espera ocupan el escenario entero:
+   metidos en la columna de las preguntas quedaban en 320 px */
+.sala__acto--ancho{ grid-template-columns:1fr; }
+
+/* el numeral del acto, enorme y al fondo: da profundidad y sitúa */
+.sala__acto::before{
+  content:attr(data-romano);
+  position:absolute;z-index:-1;top:50%;right:-.06em;
+  transform:translateY(-52%);
+  font-family:var(--serif,"Fraunces",Georgia,serif);
+  font-size:min(38vh,300px);line-height:.8;font-weight:400;
+  color:rgba(255,255,255,.028);letter-spacing:-.06em;
+  pointer-events:none;
+}
 
 .sala__preg{
   margin:0;font-family:var(--serif,"Fraunces",Georgia,serif);
-  font-weight:400;font-size:clamp(27px,4.4vw,54px);line-height:1.04;
-  letter-spacing:-.8px;max-width:16ch;
+  font-weight:400;font-size:clamp(27px,3.9vw,52px);line-height:1.02;
+  letter-spacing:-1px;max-width:14ch;
 }
 .sala__preg em{ font-style:italic;color:var(--pk-magenta,#e83487); }
 
 /* las respuestas son paneles grandes, no botones pequeños */
-.sala__ops{ display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
+.sala__ops{ display:grid;gap:10px; }
 .sala__op{
   position:relative;overflow:hidden;isolation:isolate;
-  display:flex;flex-direction:column;justify-content:flex-end;gap:7px;
-  min-height:clamp(128px,17vh,168px);
-  padding:20px 18px;
-  border:1px solid rgba(255,255,255,.12);border-radius:18px;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  gap:4px 18px;
+  min-height:clamp(74px,10vh,96px);
+  padding:16px 20px;
+  border:1px solid rgba(255,255,255,.12);border-radius:16px;
   background:rgba(255,255,255,.022);
   color:inherit;text-align:left;cursor:pointer;font-family:inherit;
-  transition:transform .34s cubic-bezier(.16,.7,.2,1),border-color .34s ease;
+  transition:transform .3s cubic-bezier(.16,.7,.2,1),border-color .3s ease;
 }
+/* la flecha aparece cuando la fila está lista para elegirse */
+.sala__op::after{
+  content:"→";grid-column:3;grid-row:1/3;
+  font-size:17px;color:rgba(255,255,255,.28);
+  transform:translateX(-6px);opacity:0;
+  transition:transform .34s cubic-bezier(.16,.7,.2,1),opacity .3s ease,color .3s ease;
+}
+.sala__op:hover::after,.sala__op:focus-visible::after{ opacity:1;transform:none;color:#fff; }
+.sala__op[aria-pressed="true"]::after{ opacity:1;transform:none;color:var(--pk-lima,#c6ff6a); }
 .sala__op::before{
   content:"";position:absolute;z-index:-1;inset:0;
   background:linear-gradient(150deg,rgba(232,52,135,.22),rgba(198,255,106,.12));
@@ -82,17 +113,26 @@
 .sala__op[aria-pressed="true"]::before{ opacity:1;transform:translateY(0); }
 
 .sala__op b{
+  grid-column:2;grid-row:1;
   font-family:var(--serif,"Fraunces",Georgia,serif);
-  font-weight:400;font-size:clamp(18px,2.1vw,25px);line-height:1.12;letter-spacing:-.2px;
+  font-weight:400;font-size:clamp(19px,1.9vw,25px);line-height:1.1;letter-spacing:-.3px;
 }
-.sala__op span{ font-size:12.5px;line-height:1.5;color:rgba(255,255,255,.58); }
+.sala__op span{
+  grid-column:2;grid-row:2;
+  font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.55);
+}
+/* la tecla que la elige: se puede responder sin soltar el teclado */
 .sala__op i{
-  position:absolute;top:16px;right:18px;font-style:normal;
-  font-family:var(--mono,"JetBrains Mono",monospace);
-  font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,.28);
-  transition:color .34s ease;
+  grid-column:1;grid-row:1/3;
+  display:grid;place-items:center;
+  width:30px;height:30px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.16);
+  font-style:normal;font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:11px;color:rgba(255,255,255,.5);
+  transition:color .3s ease,border-color .3s ease,background .3s ease;
 }
-.sala__op[aria-pressed="true"] i{ color:var(--pk-lima,#c6ff6a); }
+.sala__op:hover i{ color:#fff;border-color:rgba(255,255,255,.4); }
+.sala__op[aria-pressed="true"] i{ color:#150a10;background:var(--pk-lima,#c6ff6a);border-color:transparent; }
 
 /* el acto entra desde el fondo y sale hacia el frente */
 .sala__acto{ transition:opacity .4s ease,transform .55s cubic-bezier(.16,.7,.2,1); }
@@ -103,7 +143,7 @@
 /* pequeño y a la derecha: en 64 px de alto se leía como una banda
    vacía debajo de las opciones */
 .sala__plano{
-  display:flex;align-items:flex-end;gap:4px;height:30px;margin-left:auto;
+  display:flex;align-items:flex-end;gap:4px;height:22px;margin-left:auto;
 }
 .sala__plano b{
   width:9px;border-radius:3px 3px 0 0;
@@ -115,8 +155,43 @@
 }
 .sala__plano b.is-alza{ transform:scaleY(1); }
 
+/* ── El compás de espera: hay que dejar que caiga ──────────── */
+.sala__armando{
+  display:grid;place-items:center;gap:16px;
+  min-height:clamp(160px,26vh,240px);text-align:center;
+}
+.sala__armando p{
+  margin:0;font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+.sala__pulso{ display:flex;gap:7px; }
+.sala__pulso i{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--pk-lima,#c6ff6a);
+  animation:sala-pulso 1s ease-in-out infinite;
+}
+.sala__pulso i:nth-child(2){ animation-delay:.14s; }
+.sala__pulso i:nth-child(3){ animation-delay:.28s; }
+@keyframes sala-pulso{
+  0%,100%{ transform:scale(.55);opacity:.34 }
+  50%    { transform:scale(1);opacity:1 }
+}
+
 /* ── El veredicto ──────────────────────────────────────────── */
-.sala__fin{ display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,4vw,56px);align-items:center; }
+.sala__fin{
+  position:relative;
+  display:grid;grid-template-columns:1.25fr .75fr;
+  gap:clamp(24px,4vw,56px);align-items:center;
+  padding:clamp(22px,3vw,40px);
+  border:1px solid rgba(198,255,106,.22);border-radius:20px;
+  background:linear-gradient(140deg,rgba(198,255,106,.05),rgba(232,52,135,.04));
+  animation:sala-placa .8s cubic-bezier(.16,.78,.16,1) both;
+}
+@keyframes sala-placa{
+  from{ opacity:0;transform:translateY(16px) scale(.985);filter:blur(3px); }
+  to  { opacity:1;transform:none;filter:none; }
+}
 .sala__sello{
   font-family:var(--mono,"JetBrains Mono",monospace);
   font-size:9px;letter-spacing:.24em;text-transform:uppercase;
@@ -176,7 +251,8 @@
 /* ── El pie: rehacer / comparar ────────────────────────────── */
 .sala__pie{ display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center; }
 .sala__volver{
-  background:none;border:0;cursor:pointer;padding:10px 0;
+  background:none;border:0;cursor:pointer;
+  min-height:44px;display:inline-flex;align-items:center;padding:0;
   font-family:var(--mono,"JetBrains Mono",monospace);
   font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
   color:rgba(255,255,255,.42);
@@ -252,19 +328,21 @@
 @media (max-width:860px){
   .sala{ border-radius:20px;padding:18px 0 20px;gap:12px; }
   .sala__wrap{ width:calc(100% - 36px); }
-  .sala__acto{ padding:22px 0;gap:16px; }
+  .sala__acto{ padding:14px 0 6px;gap:16px; }
   .sala__preg{ font-size:clamp(25px,7.4vw,34px);max-width:100%; }
 
-  /* tres paneles en columna no caben: se deslizan en una fila */
-  .sala__ops{
-    display:flex;grid-template-columns:none;gap:10px;
-    margin-inline:-18px;padding:2px 18px;
-    overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:18px;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  /* Elegir exige comparar: las tres opciones tienen que verse a la
+     vez. Deslizarlas escondía dos de tres. */
+  .sala__acto{ grid-template-columns:1fr;gap:18px;padding:14px 0 6px; }
+  .sala__acto::before{ font-size:150px;top:-6px;right:-.04em;transform:none;opacity:.7; }
+  .sala__ops{ display:grid;gap:8px; }
+  .sala__op{
+    min-height:70px;padding:13px 15px;gap:2px 13px;border-radius:14px;
   }
-  .sala__ops::-webkit-scrollbar{ display:none; }
-  /* con snap centrado el navegador arrancaba enganchado en la segunda */
-  .sala__op{ flex:0 0 min(220px,68vw);scroll-snap-align:start;min-height:132px; }
+  .sala__op b{ font-size:18px; }
+  .sala__op span{ font-size:12px; }
+  .sala__op i{ width:26px;height:26px;font-size:10px;border-radius:8px; }
+  .sala__op::after{ font-size:15px;opacity:.4;transform:none; }
 
   /* el tiempo es el remate, no un apéndice tras los botones */
   .sala__fin{ grid-template-columns:1fr;gap:16px; }
@@ -281,7 +359,7 @@
   .sala__linea{ font-size:14.5px;margin-bottom:18px; }
   .sala__cta{ width:100%;justify-content:center; }
   .sala__leve{ width:100%; }
-  .sala__plano{ height:26px; }
+  .sala__plano{ height:20px; }
 }
 
 @media (prefers-reduced-motion:reduce){

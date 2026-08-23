@@ -109,13 +109,17 @@
   sala.setAttribute("aria-label", t("Elegir plan", "Choose a plan"));
   sala.innerHTML =
     '<div class="sala__aire" aria-hidden="true"></div>' +
-    '<div class="sala__wrap"><div class="sala__compas" aria-hidden="true">' +
-      '<i></i><i></i><i></i><span class="sala__paso" data-paso></span>' +
+    '<div class="sala__wrap"><div class="sala__compas">' +
+      '<i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>' +
+      '<span class="sala__paso" data-paso></span>' +
+      '<div class="sala__plano" data-plano aria-hidden="true">' +
+        '<b style="--h:26%;--sd:0ms"></b><b style="--h:52%;--sd:90ms"></b>' +
+        '<b style="--h:76%;--sd:180ms"></b><b style="--h:100%;--sd:270ms"></b>' +
+      '</div>' +
     '</div></div>' +
     '<div class="sala__wrap"><div class="sala__acto" data-acto aria-live="polite"></div></div>' +
     '<div class="sala__wrap"><div class="sala__pie">' +
       '<button class="sala__volver" type="button" data-volver hidden>← ' + t("Cambiar respuesta", "Change answer") + '</button>' +
-      '<div class="sala__plano" data-plano aria-hidden="true"><b style="--h:22%;--sd:0ms"></b><b style="--h:46%;--sd:90ms"></b><b style="--h:70%;--sd:180ms"></b><b style="--h:100%;--sd:270ms"></b></div>' +
     '</div></div>';
 
   var primera = vitrinas[0];
@@ -238,13 +242,19 @@
     volver.hidden = enActo === 0;
   }
 
+  var ROMANOS = ["I", "II", "III"];
+
   function pintarActo() {
     var a = ACTOS[enActo];
     acto.textContent = "";
+    acto.classList.remove("sala__acto--ancho");
+    acto.setAttribute("data-romano", ROMANOS[enActo] || "");
 
+    var izq = el("div");
     var h = el("h2", "sala__preg");
     h.innerHTML = a.p;
-    acto.appendChild(h);
+    izq.appendChild(h);
+    acto.appendChild(izq);
 
     var ops = el("div", "sala__ops");
     a.o.forEach(function (o, i) {
@@ -252,7 +262,8 @@
       b.type = "button";
       b.setAttribute("data-v", String(o.v));
       b.setAttribute("aria-pressed", String(respuestas[a.id] === o.v));
-      b.appendChild(el("i", "", String(i + 1).padStart(2, "0")));
+      /* el número es la tecla que la elige, no un adorno */
+      b.appendChild(el("i", "", String(i + 1)));
       b.appendChild(el("b", "", o.b));
       b.appendChild(el("span", "", o.s));
       ops.appendChild(b);
@@ -265,8 +276,24 @@
     marcarCompas();
   }
 
+  function armando(luego) {
+    acto.removeAttribute("data-romano");
+    acto.classList.add("sala__acto--ancho");
+    acto.textContent = "";
+    var caja = el("div", "sala__armando");
+    caja.appendChild(el("p", "", t("Armando tu plan", "Building your plan")));
+    var pulso = el("div", "sala__pulso");
+    pulso.innerHTML = "<i></i><i></i><i></i>";
+    caja.appendChild(pulso);
+    acto.appendChild(caja);
+    levantar(4);
+    window.setTimeout(luego, 950);
+  }
+
   function pintarFin() {
     var pl = FIN[decidir(respuestas)];
+    acto.removeAttribute("data-romano");
+    acto.classList.add("sala__acto--ancho");
     acto.textContent = "";
 
     var caja = el("div", "sala__fin");
@@ -286,7 +313,7 @@
 
     var actos = el("div", "sala__actos");
     var ir = el("a", "sala__cta");
-    ir.href = "contacto.html";
+    ir.href = t("contacto.html", "contact.html");
     ir.appendChild(el("span", "", t("Empezar mi proyecto", "Start my project")));
     ir.appendChild(el("i", "", "→"));
     actos.appendChild(ir);
@@ -327,7 +354,9 @@
       enActo += delta;
       if (enActo < 0) enActo = 0;
       if (enActo > ACTOS.length) enActo = ACTOS.length;
-      enActo <= ACTOS.length - 1 ? pintarActo() : pintarFin();
+      if (enActo <= ACTOS.length - 1) pintarActo();
+      else if (delta > 0) { marcarCompas(); armando(pintarFin); }
+      else pintarFin();
       sala.classList.remove("is-yendo", "is-viniendo");
       sala.classList.add(delta > 0 ? "is-viniendo" : "is-yendo");
       requestAnimationFrame(function () {
@@ -346,6 +375,22 @@
       o.setAttribute("aria-pressed", String(o === op));
     });
     window.setTimeout(function () { ir(1); }, 220);
+  });
+
+  /* Se puede responder sin soltar el teclado: 1, 2 o 3 elige;
+     la flecha izquierda corrige la anterior. */
+  doc.addEventListener("keydown", function (e) {
+    if (hoja.classList.contains("is-open")) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var dentro = sala.getBoundingClientRect();
+    if (dentro.bottom < 0 || dentro.top > window.innerHeight) return;
+
+    if (e.key === "ArrowLeft" && enActo > 0) { ir(-1); e.preventDefault(); return; }
+    if (enActo > ACTOS.length - 1) return;
+    var n = parseInt(e.key, 10);
+    if (!(n >= 1 && n <= 3)) return;
+    var op = sala.querySelectorAll(".sala__op")[n - 1];
+    if (op) { op.click(); e.preventDefault(); }
   });
 
   pintarActo();
