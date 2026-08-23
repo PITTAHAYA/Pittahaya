@@ -272,25 +272,35 @@
 .bq-looking .demo-corner-logo{ opacity:0;pointer-events:none;transition:opacity .3s ease; }
 
 /* ── La revelación del cacao ────────────────────────────────
-   La foto no se toca: el velo del fondo queda como estaba.
-   La legibilidad sale del propio texto — un halo ajustado a las
-   letras, no una capa sobre la mazorca. */
-.reveal-lines p{
-  opacity:.42;                                  /* .18 era invisible */
-  max-width:18ch;margin-inline:auto;
-  text-shadow:
-     0 0 1px rgba(10,7,5,.95),
-     0 1px 2px rgba(10,7,5,.95),
-    -1px 0 2px rgba(10,7,5,.8),
-     1px 0 2px rgba(10,7,5,.8),
-     0 0 12px rgba(10,7,5,.9),
-     0 0 26px rgba(10,7,5,.75);
+   El texto estaba centrado encima de la mazorca: blanco sobre la
+   pulpa blanca. Ninguna casa de lujo escribe sobre el sujeto.
+   La foto no se toca; las palabras bajan a la piedra oscura del
+   tercio inferior, alineadas a la izquierda, como un pie de foto
+   editorial. El contraste lo da el encuadre, no un velo. */
+.reveal-media{ place-items:end start; }
+.reveal-lines{
+  text-align:left;
+  padding:0 0 clamp(38px,7vh,84px) clamp(28px,6vw,88px);
+  gap:clamp(4px,1vh,10px);
+  max-width:min(30ch,72%);
 }
-.reveal-lines p.is-lit{ opacity:1; }
-.reveal-lines p em{ color:#eec49a; }            /* el cobre oscuro se perdía */
+.reveal-lines p{
+  font-size:clamp(19px,2.3vw,31px);
+  line-height:1.28;
+  letter-spacing:.1px;
+  opacity:.34;
+  transform:translateY(10px);
+}
+.reveal-lines p.is-lit{ opacity:1;transform:none; }
+.reveal-lines p em{ color:#e8bd8e; }
 
 @media (max-width:640px){
-  .reveal-lines p{ font-size:clamp(22px,6.4vw,30px);max-width:15ch; }
+  .reveal-media{ min-height:78svh; }
+  .reveal-lines{
+    padding:0 22px clamp(30px,5vh,52px);
+    max-width:100%;
+  }
+  .reveal-lines p{ font-size:20px;line-height:1.32; }
 }
 
 /* ── 4. La tableta que vuela a la bolsa ────────────────────── */
