@@ -508,9 +508,102 @@ main,.section,.container{background-image:none!important}
    la propuesta se lea de un vistazo. El eslogan, el héroe, los
    servicios y el CTA se mantienen siempre.
    ═══════════════════════════════════════════════════════════ */
+/* Pares de copy: la versión larga es para escritorio, la corta para
+   el pulgar. Sin JS — solo se intercambia cuál está visible. */
+.solo-movil{display:none}
+
 @media (max-width: 760px){
   .movil-oculto{display:none !important}
+  .solo-escritorio{display:none}
+  .solo-movil{display:inline}
+
   /* en las tarjetas "qué hacemos", el título y la frase venden;
      las viñetas de detalle se guardan para escritorio */
   .oficio ul{display:none}
+
+  /* ── HÉROE: que la promesa y el botón entren en una pantalla ──
+     El padding de escritorio dejaba ~140 px de negro muerto bajo la
+     cabecera y empujaba el CTA fuera de la vista. */
+  .casa-heroe{
+    min-height:auto;
+    padding:92px var(--margen) 56px;
+  }
+  .casa-disp{font-size:clamp(34px,8.6vw,44px);line-height:1.06;max-width:100%}
+  .casa-disp--promesa{font-size:clamp(33px,8.4vw,42px);line-height:1.04}
+  .casa-disp-pill{margin-bottom:18px;font-size:9.5px;padding:7px 13px}
+  .casa-heroe .plomo{margin-top:18px;font-size:16px;line-height:1.5}
+  .casa-heroe-pie{margin-top:24px;gap:10px}
+  .casa-heroe-nota{margin-top:16px;font-size:9.5px;letter-spacing:.1em}
+
+  /* fichas de servicio: más pequeñas, fluyen en 2–3 filas en vez de 4 */
+  .casa-entrega{margin-top:18px;gap:7px}
+  .casa-entrega li{font-size:10px;padding:8px 12px;letter-spacing:.06em}
+
+  /* ── RITMO VERTICAL: menos aire, menos scroll ── */
+  .casa-tramo{padding:56px 0}
+  /* el remate en diagonal (regla + "O perdiendo clientes") es
+     intencional: solo se le quita aire, no se toca la composición */
+  .casa-manif{padding:64px 0}
+  .casa-manif blockquote{font-size:clamp(30px,8.8vw,40px)}
+  .casa-manif-reves{font-size:16px;margin-top:16px}
+  .casa-tramo-cab .plomo{font-size:16px;line-height:1.5}
+  .casa-t1{font-size:clamp(29px,7.6vw,38px)}
+  .casa-cierre{padding:64px 0}
+
+  /* marquesina: más ítems a la vista, menos hueco */
+  .casa-marq{padding:13px 0}
+  .casa-marq span{font-size:10px;padding:0 15px;gap:15px;letter-spacing:.18em}
+
+  /* ── VITRINA: la pieza destacada manda ── */
+  .casa-vitrina{margin-top:34px;gap:12px}
+  .vitrina-mayor{min-height:400px}
+  .vitrina-nombre{font-size:34px}
+  .vitrina-linea{font-size:14px}
+  /* filas más altas: dedo cómodo y lectura de un vistazo */
+  .vitrina-fila{padding:17px 18px}
+  .vitrina-fila:hover{padding-left:18px}
+  .vf-n{font-size:19px}
+  .vitrina-todo{padding-block:17px}
+
+  /* cifras y tarjetas: aire justo */
+  .casa-cifras div{padding:26px 18px}
+  .oficio{padding:24px 20px}
+  .oficio p{font-size:15px;line-height:1.55}
+
+  /* ── TOQUE: nada por debajo de 44 px de alto útil ── */
+  .footer-links a,
+  .pie-in a{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .footer-legal a,
+  .legal-links a{
+    display:inline-block;
+    padding-block:12px;
+  }
+  .btn2,.boton{min-height:48px}
+  .hamburger{min-width:44px;min-height:44px}
+}
+
+/* Teléfonos estrechos: apurar aún más el titular para que no
+   se coma la pantalla. */
+@media (max-width: 380px){
+  .casa-disp,.casa-disp--promesa{font-size:31px}
+  .casa-heroe{padding-top:86px}
+
+  /* La capa de unificación de arriba fija padding y tracking de los
+     botones con !important; en la barra fija eso hacía que los dos
+     botones no cupieran y desbordaran la pantalla. Aquí se afinan. */
+  .mobile-cta-bar .diag-btn{
+    font-size:11px !important;
+    letter-spacing:.04em !important;
+    padding:13px 12px !important;
+    min-width:0;
+  }
+  .mobile-cta-bar .wa-btn{
+    font-size:12px;
+    padding:12px !important;
+    gap:6px;
+  }
 }

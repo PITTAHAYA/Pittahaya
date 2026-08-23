@@ -622,7 +622,7 @@
       id: "geography",
       phrases: ["trabajan fuera de ecuador", "solo en quito", "estan en guayaquil", "donde estan ubicados", "donde estan", "donde quedan", "cual es su ubicacion", "de donde son", "pueden atender a mexico", "latinoamerica", "do you work outside ecuador", "are you only in quito", "where are you located", "where are you based", "what is your location", "can you work with other countries", "do you work internationally", "are you in canada", "estan en canada", "trabajan desde canada", "do you work worldwide", "atienden a todo el mundo"],
       keywords: ["ecuador", "quito", "guayaquil", "canada", "canadá", "toronto", "internacional", "latinoamerica", "mexico", "colombia", "peru", "chile", "españa", "international", "country", "abroad", "usa", "spain", "worldwide", "mundo"],
-      text: "Pittahaya tiene base en Canadá y raíz ecuatoriana, y trabaja con clientes en todo el mundo. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega se hacen por medios digitales, sin importar dónde estés.",
+      text: "Pittahaya tiene raíz ecuatoriana y trabaja con clientes en Ecuador y en todo el mundo. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega se hacen por medios digitales, sin importar dónde estés.",
       en: { text: "Pittahaya is based in Canada, with Ecuadorian roots, and works with clients worldwide. The process is 100% remote: diagnostic, design, revisions and delivery all happen digitally, no matter where you are." },
       actions: act.contact
     },
