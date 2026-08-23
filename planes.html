@@ -34,6 +34,8 @@
   <link rel="stylesheet" href="assets/styles.css?v=m35" />
   <link rel="stylesheet" href="assets/casa.css?v=13" />
   <link rel="stylesheet" href="assets/carrete.css?v=1" />
+  <link rel="stylesheet" href="assets/vivo.css?v=1" />
+  <link rel="stylesheet" href="assets/selector.css?v=1" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
@@ -118,7 +120,7 @@
       </div>
 
       <div class="pricing">
-        <div class="card price hover-lift reveal">
+        <div id="plan-basico" class="card price hover-lift reveal">
           <div class="card-inner">
             <div class="tag"><strong>Plan Básico</strong> • Presencia elegante</div>
             <h3>Para empezar con autoridad</h3>
@@ -141,7 +143,7 @@
           </div>
         </div>
 
-        <div class="card price featured hover-lift reveal" style="transition-delay:.06s">
+        <div id="plan-negocio" class="card price featured hover-lift reveal" style="transition-delay:.06s">
           <div class="card-inner">
             <div class="tag"><strong>Plan Negocio</strong> • Recomendado</div>
             <h3>Para convertir más clientes</h3>
@@ -165,7 +167,7 @@
           </div>
         </div>
 
-        <div class="card price hover-lift reveal" style="transition-delay:.12s">
+        <div id="plan-premium" class="card price hover-lift reveal" style="transition-delay:.12s">
           <div class="card-inner">
             <div class="tag"><strong>Plan Premium</strong> • Experiencia total</div>
             <h3>Para una marca de alta gama</h3>
@@ -198,7 +200,7 @@
       <p class="section-lead reveal" style="margin:0 0 24px; max-width:64ch;">Suma inteligencia artificial a tu negocio: chatbots y agentes que responden, agendan y venden por ti las 24 horas. Estos planes se pueden contratar solos o combinar con cualquier plan de web. <a href="automatizacion.html" style="color:rgba(196,239,150,.95); text-decoration:underline;">Ver cómo funciona la IA →</a></p>
 
       <div class="pricing">
-        <div class="card price price-ai hover-lift reveal">
+        <div id="plan-chatbot" class="card price price-ai hover-lift reveal">
           <div class="card-inner">
             <div class="tag"><strong>Chatbot Inteligente</strong> • Atención 24/7</div>
             <h3>Tu primera línea de atención, automática</h3>
@@ -220,7 +222,7 @@
           </div>
         </div>
 
-        <div class="card price price-ai featured hover-lift reveal" style="transition-delay:.06s">
+        <div id="plan-asistente" class="card price price-ai featured hover-lift reveal" style="transition-delay:.06s">
           <div class="card-inner">
             <div class="tag"><strong>Asistente de Ventas</strong> • Recomendado</div>
             <h3>Un asistente que vende y agenda por ti</h3>
@@ -243,7 +245,7 @@
           </div>
         </div>
 
-        <div class="card price price-ai hover-lift reveal" style="transition-delay:.12s">
+        <div id="plan-sistema" class="card price price-ai hover-lift reveal" style="transition-delay:.12s">
           <div class="card-inner">
             <div class="tag"><strong>Sistema Completo</strong> • Automatización total</div>
             <h3>Tu operación, funcionando sola</h3>
@@ -274,7 +276,7 @@
         <div class="founding-glow" aria-hidden="true"></div>
         <span class="founding-badge"><span class="founding-dot"></span> Cupos limitados</span>
         <h2 class="founding-title">Buscamos a nuestros primeros <em>clientes fundadores</em></h2>
-        <p class="founding-lead">Estamos abriendo un número reducido de proyectos a un precio especial de lanzamiento. A cambio, nos ayudas con un testimonio honesto y nos dejas mostrar tu proyecto como caso de estudio. Tú ganas una web premium con atención total; nosotros, nuestros primeros casos reales.</p>
+        <p data-corto="Abrimos pocos proyectos a precio de lanzamiento. A cambio, un testimonio honesto y tu proyecto como caso de estudio." class="founding-lead">Estamos abriendo un número reducido de proyectos a un precio especial de lanzamiento. A cambio, nos ayudas con un testimonio honesto y nos dejas mostrar tu proyecto como caso de estudio. Tú ganas una web premium con atención total; nosotros, nuestros primeros casos reales.</p>
         <ul class="founding-perks">
           <li><b>Precio fundador</b> — tarifa especial por ser de los primeros</li>
           <li><b>Atención prioritaria</b> — pocos proyectos, foco total en el tuyo</li>
@@ -337,5 +339,7 @@
 <script src="assets/chatbot.js?v=v18" defer></script>
 <script src="assets/casa.js?v=5" defer></script>
 <script src="assets/carrete.js?v=1" defer></script>
+<script src="assets/vivo.js?v=1" defer></script>
+<script src="assets/selector.js?v=1" defer></script>
 </body>
 </html>

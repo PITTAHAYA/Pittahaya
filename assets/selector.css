@@ -1,0 +1,213 @@
+/* ═══════════════════════════════════════════════════════════
+   Pittahaya · El selector de plan
+   Tres preguntas y la respuesta se arma sola. La pregunta que
+   trae el cliente no es "cuánto cuesta" sino "cuál necesito":
+   esto la contesta delante de él, en movimiento.
+   ═══════════════════════════════════════════════════════════ */
+
+.sel{
+  position:relative;isolation:isolate;overflow:hidden;
+  margin:clamp(26px,4vw,44px) 0 clamp(30px,4vw,48px);
+  padding:clamp(26px,3.4vw,46px) clamp(20px,3vw,44px);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:24px;
+  background:
+    radial-gradient(120% 140% at 12% -20%, rgba(232,52,135,.09), transparent 58%),
+    radial-gradient(110% 130% at 92% 120%, rgba(198,255,106,.07), transparent 60%),
+    rgba(255,255,255,.018);
+}
+
+/* el halo sigue al puntero: la tarjeta reacciona antes de tocarla */
+.sel::before{
+  content:"";position:absolute;z-index:0;inset:-40%;pointer-events:none;
+  background:radial-gradient(340px 340px at var(--mx,50%) var(--my,0%),
+             rgba(232,52,135,.13), transparent 66%);
+  opacity:0;transition:opacity .6s ease;
+}
+.sel:hover::before{ opacity:1; }
+.sel > *{ position:relative;z-index:1; }
+
+.sel__head{ margin-bottom:clamp(20px,2.6vw,32px); }
+.sel__kicker{
+  display:inline-block;margin:0 0 10px;
+  font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--pk-lima,#c6ff6a);
+}
+.sel__title{
+  margin:0;font-family:var(--serif,"Fraunces",Georgia,serif);
+  font-weight:400;font-size:clamp(24px,3.2vw,40px);line-height:1.08;
+  letter-spacing:-.4px;
+}
+.sel__title em{ font-style:italic;color:var(--pk-magenta,#e83487); }
+
+/* ── Las preguntas ─────────────────────────────────────────── */
+.sel__q{ margin-bottom:clamp(16px,2vw,24px); }
+.sel__q > p{
+  margin:0 0 10px;font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.42);
+}
+.sel__opts{ display:flex;flex-wrap:wrap;gap:8px; }
+.sel__opt{
+  position:relative;overflow:hidden;
+  min-height:46px;padding:12px 18px;
+  border:1px solid rgba(255,255,255,.14);border-radius:100px;
+  background:transparent;color:rgba(255,255,255,.72);
+  font-family:inherit;font-size:13.5px;line-height:1;
+  cursor:pointer;
+  transition:color .22s ease,border-color .22s ease,transform .22s cubic-bezier(.16,.7,.2,1);
+}
+/* el relleno crece desde el centro en lugar de encenderse de golpe */
+.sel__opt::before{
+  content:"";position:absolute;z-index:-1;inset:0;border-radius:inherit;
+  background:linear-gradient(120deg,var(--pk-magenta,#e83487),var(--pk-lima,#c6ff6a));
+  transform:scale(.2);opacity:0;
+  transition:transform .42s cubic-bezier(.16,.7,.2,1),opacity .3s ease;
+}
+.sel__opt:hover{ color:#fff;border-color:rgba(255,255,255,.34);transform:translateY(-1px); }
+.sel__opt[aria-pressed="true"]{ color:#150a10;border-color:transparent;font-weight:600; }
+.sel__opt[aria-pressed="true"]::before{ transform:scale(1);opacity:1; }
+
+/* ── El veredicto ──────────────────────────────────────────── */
+.sel__out{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(20px,3vw,40px);
+  align-items:center;
+  margin-top:clamp(22px,3vw,34px);padding-top:clamp(22px,3vw,32px);
+  border-top:1px solid rgba(255,255,255,.09);
+}
+
+.sel__plan{
+  font-family:var(--serif,"Fraunces",Georgia,serif);
+  font-weight:400;font-size:clamp(26px,3.6vw,44px);line-height:1.04;
+  letter-spacing:-.6px;margin:0 0 8px;
+}
+.sel__why{
+  margin:0 0 18px;font-size:14px;line-height:1.6;
+  color:rgba(255,255,255,.62);max-width:40ch;min-height:2.6em;
+}
+/* el texto no salta: se desliza al cambiar de veredicto */
+.sel__plan,.sel__why,.sel__price{
+  transition:opacity .3s ease,transform .42s cubic-bezier(.16,.7,.2,1);
+}
+.sel.is-morphing .sel__plan,
+.sel.is-morphing .sel__why,
+.sel.is-morphing .sel__price{ opacity:0;transform:translateY(9px); }
+
+.sel__incluye{ display:grid;gap:7px;margin:0;padding:0;list-style:none; }
+.sel__incluye li{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.78);
+  opacity:0;transform:translateX(-8px);
+  transition:opacity .45s ease var(--sd,0ms),transform .5s cubic-bezier(.16,.7,.2,1) var(--sd,0ms);
+}
+.sel__incluye li.is-in{ opacity:1;transform:none; }
+.sel__incluye li::before{
+  content:"";flex:none;width:5px;height:5px;margin-top:8px;border-radius:50%;
+  background:var(--pk-lima,#c6ff6a);
+}
+
+.sel__side{ text-align:right; }
+.sel__price{
+  display:block;font-family:var(--serif,"Fraunces",Georgia,serif);
+  font-weight:400;font-size:clamp(34px,5vw,64px);line-height:1;
+  letter-spacing:-2px;font-variant-numeric:tabular-nums;
+}
+.sel__price sup{
+  font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:.2em;top:-1.9em;left:.12em;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.48);
+}
+.sel__nota{
+  display:block;margin-top:8px;
+  font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+}
+.sel__go{
+  display:inline-flex;align-items:center;gap:10px;
+  min-height:50px;margin-top:18px;padding:0 24px;border-radius:100px;
+  background:#f7f2ea;color:#150a10;border:0;
+  font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;
+  transition:transform .24s cubic-bezier(.16,.7,.2,1),background .24s ease;
+}
+.sel__go:hover{ transform:translateY(-2px);background:#fff; }
+.sel__go i{ font-style:normal;transition:transform .3s cubic-bezier(.16,.7,.2,1); }
+.sel__go:hover i{ transform:translateX(5px); }
+
+/* la tarjeta recomendada se enciende abajo */
+.card.price.is-elegida{
+  border-color:rgba(232,52,135,.5)!important;
+  box-shadow:0 0 0 1px rgba(232,52,135,.25),0 30px 70px -40px rgba(232,52,135,.55);
+}
+.card.price{ transition:border-color .5s ease,box-shadow .5s ease,opacity .5s ease; }
+.pricing.is-decidido .card.price:not(.is-elegida){ opacity:.5; }
+
+/* ── Las tarjetas plegadas ─────────────────────────────────── */
+.plan-abre{
+  display:none;width:100%;min-height:46px;margin:14px 0 0;
+  padding:0 16px;border:1px solid rgba(255,255,255,.16);border-radius:100px;
+  background:none;color:rgba(255,255,255,.8);cursor:pointer;
+  font-family:var(--mono,"JetBrains Mono",monospace);
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  align-items:center;justify-content:center;gap:10px;
+  transition:border-color .24s ease,color .24s ease;
+}
+.plan-abre:hover{ border-color:rgba(255,255,255,.36);color:#fff; }
+.plan-abre i{
+  width:7px;height:7px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px);
+  transition:transform .34s cubic-bezier(.16,.7,.2,1);
+}
+.is-abierta .plan-abre i{ transform:rotate(-135deg) translate(-3px,-3px); }
+
+/* ── Teléfono ──────────────────────────────────────────────── */
+@media (max-width:860px){
+  /* el detalle se abre a pedido: cada tarjeta pasa de 861 px a ~250 */
+  .plan-abre{ display:flex; }
+  .plan-detalle{
+    display:grid;grid-template-rows:0fr;overflow:hidden;
+    transition:grid-template-rows .5s cubic-bezier(.16,.7,.2,1);
+  }
+  .plan-detalle > *{ min-height:0; }
+  .plan-features{ margin:0!important; }
+  .is-abierta .plan-detalle{ grid-template-rows:1fr; }
+  .is-abierta .plan-features{ margin:14px 0 0!important; }
+}
+
+@media (max-width:760px){
+  .sel{ padding:20px 0 20px 16px;border-radius:20px;margin:18px 0 22px; }
+  .sel__head{ margin-bottom:16px;padding-right:16px; }
+  .sel__q{ margin-bottom:14px; }
+  .sel__q > p{ padding-right:16px; }
+  .sel__out{ margin-top:18px;padding-top:18px;padding-right:16px; }
+
+  /* las tres opciones en una sola línea que se desliza: envueltas
+     ocupaban dos filas por pregunta, 160 px de más */
+  .sel__opts{
+    flex-wrap:nowrap;overflow-x:auto;padding:2px 16px 2px 0;
+    scroll-snap-type:x proximity;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .sel__opts::-webkit-scrollbar{ display:none; }
+  .sel__opt{ flex:0 0 auto;scroll-snap-align:start;white-space:nowrap; }
+  .sel__out{ grid-template-columns:1fr;gap:20px;text-align:left; }
+  .sel__side{ text-align:left;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px; }
+  /* en el teléfono la unidad va al lado, no en volado: con top:-1.9em
+     se montaba sobre el numeral */
+  .sel__price{ font-size:52px;display:inline-flex;align-items:baseline;gap:8px; }
+  .sel__price sup{ position:static;font-size:11px;top:auto;left:auto; }
+  .sel__nota{ margin-top:0;align-self:baseline; }
+  .sel__go{ width:100%;justify-content:center;margin-top:6px; }
+  .sel__opt{ font-size:13px;padding:12px 15px; }
+  .sel__why{ min-height:0;margin-bottom:14px; }
+  .pricing.is-decidido .card.price:not(.is-elegida){ opacity:.62; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .sel::before,.sel__opt::before{ transition:none; }
+  .sel__incluye li{ opacity:1!important;transform:none!important;transition:none; }
+  .sel__plan,.sel__why,.sel__price{ transition:none; }
+}

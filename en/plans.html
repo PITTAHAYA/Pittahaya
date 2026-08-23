@@ -35,6 +35,8 @@
   <link rel="stylesheet" href="../assets/styles.css?v=m35" />
   <link rel="stylesheet" href="../assets/casa.css?v=13" />
   <link rel="stylesheet" href="../assets/carrete.css?v=1" />
+  <link rel="stylesheet" href="../assets/vivo.css?v=1" />
+  <link rel="stylesheet" href="../assets/selector.css?v=1" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
@@ -116,7 +118,7 @@
       </div>
 
       <div class="pricing">
-        <div class="card price hover-lift reveal">
+        <div id="plan-basico" class="card price hover-lift reveal">
           <div class="card-inner">
             <div class="tag"><strong>Basic Plan</strong> • Elegant presence</div>
             <h3>Start with authority</h3>
@@ -139,7 +141,7 @@
           </div>
         </div>
 
-        <div class="card price featured hover-lift reveal" style="transition-delay:.06s">
+        <div id="plan-negocio" class="card price featured hover-lift reveal" style="transition-delay:.06s">
           <div class="card-inner">
             <div class="tag"><strong>Business Plan</strong> • Recommended</div>
             <h3>Convert more clients</h3>
@@ -163,7 +165,7 @@
           </div>
         </div>
 
-        <div class="card price hover-lift reveal" style="transition-delay:.12s">
+        <div id="plan-premium" class="card price hover-lift reveal" style="transition-delay:.12s">
           <div class="card-inner">
             <div class="tag"><strong>Premium Plan</strong> • Full experience</div>
             <h3>For a high-end brand</h3>
@@ -196,7 +198,7 @@
       <p class="section-lead reveal" style="margin:0 0 24px; max-width:64ch;">Add artificial intelligence to your business: chatbots and agents that answer, book, and sell for you 24/7. These plans can be purchased on their own or combined with any web plan. <a href="automation.html" style="color:rgba(196,239,150,.95); text-decoration:underline;">See how the AI works →</a></p>
 
       <div class="pricing">
-        <div class="card price price-ai hover-lift reveal">
+        <div id="plan-chatbot" class="card price price-ai hover-lift reveal">
           <div class="card-inner">
             <div class="tag"><strong>Smart Chatbot</strong> • 24/7 support</div>
             <h3>Your first line of support, automated</h3>
@@ -218,7 +220,7 @@
           </div>
         </div>
 
-        <div class="card price price-ai featured hover-lift reveal" style="transition-delay:.06s">
+        <div id="plan-asistente" class="card price price-ai featured hover-lift reveal" style="transition-delay:.06s">
           <div class="card-inner">
             <div class="tag"><strong>Sales Assistant</strong> • Recommended</div>
             <h3>An assistant that sells and books for you</h3>
@@ -241,7 +243,7 @@
           </div>
         </div>
 
-        <div class="card price price-ai hover-lift reveal" style="transition-delay:.12s">
+        <div id="plan-sistema" class="card price price-ai hover-lift reveal" style="transition-delay:.12s">
           <div class="card-inner">
             <div class="tag"><strong>Full System</strong> • Total automation</div>
             <h3>Your operation, running on its own</h3>
@@ -272,7 +274,7 @@
         <div class="founding-glow" aria-hidden="true"></div>
         <span class="founding-badge"><span class="founding-dot"></span> Limited spots</span>
         <h2 class="founding-title">We're looking for our first <em>founding clients</em></h2>
-        <p class="founding-lead">We're opening a small number of projects at a special launch rate. In exchange, you help us with an honest testimonial and let us feature your project as a case study. You get premium work with full attention; we get our first real cases.</p>
+        <p data-corto="We open a few projects at launch pricing. In return, an honest testimonial and your project as a case study." class="founding-lead">We're opening a small number of projects at a special launch rate. In exchange, you help us with an honest testimonial and let us feature your project as a case study. You get premium work with full attention; we get our first real cases.</p>
         <ul class="founding-perks">
           <li><b>Founder pricing</b> — special rate for being among the first</li>
           <li><b>Priority attention</b> — few projects, full focus on yours</li>
@@ -335,5 +337,7 @@
 <script src="../assets/chatbot.js?v=v18" defer></script>
 <script src="../assets/casa.js?v=7" defer></script>
 <script src="../assets/carrete.js?v=1" defer></script>
+<script src="../assets/vivo.js?v=1" defer></script>
+<script src="../assets/selector.js?v=1" defer></script>
 </body>
 </html>

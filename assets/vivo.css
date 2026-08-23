@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════════════════════════
+   Pittahaya · Vivo
+   Movimiento con oficio: nada de fade-in genérico. Cada gesto
+   dice algo — la palabra sube desde su renglón, la foto se
+   descubre con un barrido, el botón se llena desde el dedo.
+   Todo en transform/opacity/clip-path, un solo rAF compartido.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Titulares: la palabra sube desde su renglón ────────── */
+.vv-w{ display:inline-block;overflow:hidden;vertical-align:bottom;
+       padding-bottom:.1em;margin-bottom:-.1em; }
+.vv-w > span{
+  display:inline-block;
+  transform:translateY(108%) rotate(1.6deg);
+  opacity:0;
+  transition:transform 1s cubic-bezier(.16,.78,.16,1),opacity .62s ease;
+  transition-delay:var(--d,0ms);
+}
+.vv-split.is-vivo .vv-w > span{ transform:none;opacity:1; }
+
+/* ── 2. Imágenes: se descubren, no aparecen ────────────────── */
+.vv-foto{ overflow:hidden; }
+.vv-foto > img,.vv-foto > video{
+  clip-path:inset(0 0 100% 0);
+  transform:scale(1.12);
+  transition:clip-path 1.15s cubic-bezier(.72,0,.16,1),
+             transform 1.5s cubic-bezier(.16,.7,.2,1);
+}
+.vv-foto.is-vivo > img,.vv-foto.is-vivo > video{
+  clip-path:inset(0 0 0 0);
+  transform:scale(1);
+}
+
+/* ── 3. Bloques: entran desde su lado, no desde abajo ──────── */
+.vv-in{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s ease var(--d,0ms),
+             transform .95s cubic-bezier(.16,.78,.16,1) var(--d,0ms);
+}
+.vv-in.is-vivo{ opacity:1;transform:none; }
+
+/* ── 4. Botones: el relleno nace donde está el dedo ────────── */
+.btn,.btn2,.boton,.sel__go,.diag-btn{
+  position:relative;overflow:hidden;isolation:isolate;
+  transform:translate3d(var(--bx,0px),var(--by,0px),0);
+  transition:transform .42s cubic-bezier(.16,.7,.2,1);
+}
+.btn::after,.btn2::after,.boton::after{
+  content:"";position:absolute;z-index:-1;
+  top:var(--py,50%);left:var(--px,50%);
+  width:0;height:0;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);
+  transform:translate(-50%,-50%);
+  transition:width .55s cubic-bezier(.16,.7,.2,1),height .55s cubic-bezier(.16,.7,.2,1);
+  pointer-events:none;
+}
+.btn:hover::after,.btn2:hover::after,.boton:hover::after{ width:320px;height:320px; }
+.vv-iman{ transition:transform .1s linear; }
+
+/* ── 5. Enlaces: el subrayado se dibuja ────────────────────── */
+.vv-sub{ position:relative;text-decoration:none; }
+.vv-sub::after{
+  content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;
+  background:currentColor;
+  transform:scaleX(0);transform-origin:right;
+  transition:transform .42s cubic-bezier(.16,.7,.2,1);
+}
+.vv-sub:hover::after,.vv-sub:focus-visible::after{ transform:scaleX(1);transform-origin:left; }
+
+/* ── 6. El filete que mide la sección ──────────────────────── */
+.vv-hilo{
+  position:absolute;left:0;top:0;width:1px;height:100%;
+  background:linear-gradient(var(--pk-magenta,#e83487),var(--pk-lima,#c6ff6a));
+  transform:scaleY(var(--p,0));transform-origin:top;
+  opacity:.5;pointer-events:none;
+}
+
+/* ── 7. Los numerales fantasma se leen sin ser ruido ───────── */
+.crt-card::before{ color:rgba(255,255,255,.05)!important; }
+.crt-card:hover::before,.crt-card:focus-within::before,
+.crt-card.is-foco::before{ color:rgba(255,255,255,.1)!important; }
+
+/* el paso numerado del proceso adopta el mismo criterio editorial */
+.ps-num{
+  width:auto!important;height:auto!important;
+  border-radius:0!important;background:none!important;box-shadow:none!important;
+  font-family:var(--serif,"Fraunces",Georgia,serif)!important;
+  font-weight:400!important;font-size:38px!important;line-height:1!important;
+  color:rgba(232,52,135,.42)!important;
+  margin-bottom:6px!important;
+  transition:color .4s ease,transform .5s cubic-bezier(.16,.7,.2,1);
+}
+.process-strip li:hover .ps-num{ color:rgba(232,52,135,.8)!important;transform:translateY(-3px); }
+
+@media (max-width:760px){
+  .vv-foto > img,.vv-foto > video{ transform:scale(1.06); }
+  .btn:hover::after,.btn2:hover::after,.boton:hover::after{ width:0;height:0; }
+  .ps-num{ font-size:32px!important; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .vv-w > span,.vv-in{ transform:none!important;opacity:1!important;transition:none!important; }
+  .vv-foto > img,.vv-foto > video{ clip-path:none!important;transform:none!important;transition:none!important; }
+  .btn,.btn2,.boton,.sel__go,.diag-btn{ transform:none!important; }
+  .vv-hilo{ display:none; }
+}

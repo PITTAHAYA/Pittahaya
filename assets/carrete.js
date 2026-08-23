@@ -17,10 +17,11 @@
     { rejilla: ".ai-serv",      tarjeta: ".ai-card",        acento: "rgba(150,230,160,.5)" },
     { rejilla: ".ai-uses",      tarjeta: ".ai-use",         acento: "rgba(150,230,160,.5)" },
     { rejilla: ".casa-oficios", tarjeta: ".oficio",         acento: "rgba(198,255,106,.5)" },
-    /* los planes se quedan en vertical: son una comparación y sus
-       tarjetas miden 861 px — en un carrete habría que hacer scroll
-       vertical dentro de uno horizontal. */
-    { rejilla: ".bridge-map",   tarjeta: ".bridge-node",    acento: "rgba(210,177,118,.55)" }
+    /* los planes entran al carrete ahora que su detalle se pliega:
+       antes cada tarjeta medía 861 px y no cabía. */
+    { rejilla: ".pricing",      tarjeta: ".card.price",     acento: "rgba(232,52,135,.5)" },
+    { rejilla: ".bridge-map",   tarjeta: ".bridge-node",    acento: "rgba(210,177,118,.55)" },
+    { rejilla: ".process-strip",tarjeta: "li",              acento: "rgba(232,52,135,.5)" }
   ];
 
   var carretes = [];
