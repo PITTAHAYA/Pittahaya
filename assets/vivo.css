@@ -76,11 +76,6 @@
   opacity:.5;pointer-events:none;
 }
 
-/* ── 7. Los numerales fantasma se leen sin ser ruido ───────── */
-.crt-card::before{ color:rgba(255,255,255,.05)!important; }
-.crt-card:hover::before,.crt-card:focus-within::before,
-.crt-card.is-foco::before{ color:rgba(255,255,255,.1)!important; }
-
 @media (max-width:760px){
   .vv-foto > img,.vv-foto > video{ transform:scale(1.06); }
   .btn:hover::after,.btn2:hover::after,.boton:hover::after{ width:0;height:0; }

@@ -36,26 +36,11 @@
       rejilla.classList.add("crt-rail");
       rejilla.style.setProperty("--crt-acento", def.acento);
 
-      /* Un solo número por tarjeta.
-         · Si la tarjeta lleva una cápsula que sólo contiene el número
-           (.ps-num, .icon, .n…), esa se retira y manda el fantasma:
-           es el estilo editorial de la casa.
-         · Si el número va dentro de una frase ("01 · activa"), esa
-           frase se queda y el fantasma no se pone: duplicarlo era
-           justo lo que se veía mal. */
-      var SOLO_NUMERO = ".ps-num, .icon, .n, .num, .step-n, .sector-number";
-
-      Array.prototype.forEach.call(tarjetas, function (t, i) {
+      /* Sin numeración. Enumerar cada tarjeta de cada rejilla hacía
+         que el sitio pareciera una hoja de cálculo: el orden ya lo
+         dice la posición. */
+      Array.prototype.forEach.call(tarjetas, function (t) {
         t.classList.add("crt-card");
-        if (def.sinNumero || t.getAttribute("data-crt-n")) return;
-
-        var capsula = t.querySelector(SOLO_NUMERO);
-        if (capsula && /^\s*\d{1,2}\s*$/.test(capsula.textContent)) capsula.remove();
-
-        var suelto = (t.textContent || "").replace(/\s+/g, " ");
-        if (/(^|[^\d])\d{1,2}\s*[·.\-–—)]/.test(suelto)) return;   // ya numerada en la copia
-
-        t.setAttribute("data-crt-n", String(i + 1).padStart(2, "0"));
       });
 
       var barra = doc.createElement("div");

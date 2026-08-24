@@ -16,26 +16,7 @@
                box-shadow .3s cubic-bezier(.16,.7,.2,1);
   }
 
-  /* la filigrana: el índice enorme al fondo, revelado al pasar.
-     Con z-index:-1 quedaba detrás del fondo opaco de la tarjeta y no
-     se veía: va en 0 y el contenido sube a 1. */
   .crt-card > *{ position:relative;z-index:1; }
-  /* casa.css apaga .card::before/::after con !important para matar el
-     halo magenta heredado; hay que reclamarlos para el carrete. */
-  .crt-card::before{
-    content:attr(data-crt-n)!important;opacity:1!important;
-    position:absolute;z-index:0;top:-.3em;right:.04em;
-    font-family:var(--serif,"Playfair Display",Georgia,serif);
-    font-size:clamp(96px,11vw,170px);line-height:1;font-weight:300;
-    color:rgba(255,255,255,.028);
-    transform:translateY(14px);
-    transition:transform .7s cubic-bezier(.16,.7,.2,1),color .5s ease;
-    pointer-events:none;
-  }
-  .crt-card:hover::before,.crt-card:focus-within::before{
-    transform:translateY(0);
-    color:rgba(255,255,255,.055);
-  }
 
   /* el barrido de luz cruza la tarjeta una sola vez */
   .crt-card::after{
@@ -88,19 +69,6 @@
     will-change:transform,opacity;
   }
   .crt-card.is-foco{ border-color:var(--crt-acento,rgba(255,255,255,.28)); }
-
-  /* el índice pasa a filigrana dentro de la tarjeta */
-  .crt-card[data-crt-n]::before{
-    content:attr(data-crt-n)!important;opacity:1!important;
-    position:absolute;z-index:0;top:10px;right:14px;
-    font-family:var(--serif,"Playfair Display",Georgia,serif);
-    font-size:46px;line-height:1;font-weight:300;letter-spacing:-2px;
-    color:rgba(255,255,255,.05);
-    transform:translateY(calc((1 - var(--k,0)) * 7px));
-    transition:color .4s ease,transform .4s cubic-bezier(.16,.7,.2,1);
-    pointer-events:none;
-  }
-  .crt-card.is-foco[data-crt-n]::before{ color:var(--crt-filigrana,rgba(255,255,255,.11)); }
 
   /* el párrafo sólo aparece cuando la tarjeta está en foco:
      así no se ven seis bloques de texto a la vez */

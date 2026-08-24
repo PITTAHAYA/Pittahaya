@@ -333,7 +333,7 @@ img { display: block; max-width: 100%; }
 .sector::after { position: absolute; z-index: -1; inset: 0; background: linear-gradient(0deg, rgba(11, 13, 16, 0.94), rgba(11, 13, 16, 0.12) 58%, rgba(11, 13, 16, 0.38)); content: ""; }
 .sector-inner {
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   width: 100%;
   align-items: end;
   gap: 24px;
@@ -923,8 +923,8 @@ img { display: block; max-width: 100%; }
   .hero-inner { padding-inline: 22px; }
   .hero-lower { gap: 20px; }
   .sector { min-height: 72svh; }
-  .sector-inner { grid-template-columns: 36px 1fr; }
-  .sector-tag { grid-column: 2; text-align: left; }
+  .sector-inner { grid-template-columns: 1fr; }
+  .sector-tag { grid-column: 1; text-align: left; }
   .sector-signal { width: 180px; height: 180px; }
   .bridge-map, .presence-route { grid-template-columns: 1fr 1fr; row-gap: 34px; }
   .bridge-map::before, .bridge-map::after, .presence-route::before, .presence-route::after { display: none; }

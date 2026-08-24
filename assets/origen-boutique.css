@@ -526,7 +526,7 @@
   .ritual-steps{ grid-template-columns:1fr!important;gap:0;margin-top:22px;text-align:left; }
   .ritual-step{ padding:15px 0;border-bottom:1px solid var(--hair); }
   .ritual-step:last-child{ border-bottom:0; }
-  .ritual-step i,.ritual-step p,.ritual-step .ln{ display:none; }
+  .ritual-step p,.ritual-step .ln{ display:none; }
   .ritual-step b{ display:block;font-size:22px;font-weight:300;color:var(--ivory); }
 
   /* el perfil sensorial era una tabla con numeración: 01 nombre ROL.
@@ -542,7 +542,7 @@
     padding:13px 20px;border:1px solid var(--hair);border-radius:100px;
     background:transparent!important;
   }
-  .note-btn i,.note-btn u{ display:none; }
+  .note-btn u{ display:none; }
   .note-btn b{ font-size:18px;white-space:nowrap; }
   .note-btn.is-active{ border-color:var(--copper);background:rgba(176,122,74,.16)!important; }
 
@@ -563,7 +563,7 @@
     padding:13px 20px!important;border:1px solid var(--hair);border-radius:100px;
     background:none!important;
   }
-  .region-btn i,.region-btn u{ display:none; }
+  .region-btn u{ display:none; }
   .region-btn b{ font-size:18px;white-space:nowrap; }
   .region-btn.is-active{ border-color:var(--copper);background:rgba(176,122,74,.16)!important; }
   .region-panel{ min-height:0!important;border:0;padding:22px 0 0; }

@@ -132,7 +132,7 @@ body.nav-open .nav-toggle i::after{transform:rotate(-45deg);top:0}
 .flavour::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at var(--fx,50%) var(--fy,40%),rgba(176,122,74,.16),transparent 70%);transition:background 1s var(--ease),opacity .9s var(--ease);pointer-events:none}
 .flavour-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,72px);align-items:center;margin-top:clamp(34px,5vh,58px);position:relative;z-index:2}
 .notes{display:grid;gap:2px;border:1px solid var(--hair)}
-.note-btn{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:20px 22px;background:transparent;border:0;color:var(--dim);text-align:left;transition:background .5s var(--ease),color .5s var(--ease)}
+.note-btn{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:20px 22px;background:transparent;border:0;color:var(--dim);text-align:left;transition:background .5s var(--ease),color .5s var(--ease)}
 .note-btn i{font-style:normal;font-size:9.5px;letter-spacing:1.6px;color:var(--copper2)}
 .note-btn b{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2.1vw,27px);letter-spacing:.2px}
 .note-btn u{text-decoration:none;font-size:9.5px;letter-spacing:1.6px;color:var(--faint);text-transform:uppercase}
@@ -244,7 +244,7 @@ body.nav-open .nav-toggle i::after{transform:rotate(-45deg);top:0}
 .regions{background:var(--cacao2);border-top:1px solid var(--hair)}
 .region-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(26px,5vw,70px);margin-top:clamp(32px,5vh,56px);align-items:start}
 .region-list{border-top:1px solid var(--hair)}
-.region-btn{width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:14px;padding:19px 4px;background:none;border:0;border-bottom:1px solid var(--hair);color:var(--dim);text-align:left;transition:padding .5s var(--ease),color .5s var(--ease),background .5s var(--ease)}
+.region-btn{width:100%;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:14px;padding:19px 4px;background:none;border:0;border-bottom:1px solid var(--hair);color:var(--dim);text-align:left;transition:padding .5s var(--ease),color .5s var(--ease),background .5s var(--ease)}
 .region-btn i{font-style:normal;font-size:9.5px;color:var(--copper2);letter-spacing:1.4px}
 .region-btn b{font-family:var(--serif);font-weight:400;font-size:clamp(19px,2.2vw,27px)}
 .region-btn u{text-decoration:none;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint)}
