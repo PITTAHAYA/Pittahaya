@@ -139,7 +139,8 @@
   background:var(--pk-lima,#c6ff6a);box-shadow:0 0 10px rgba(198,255,106,.55);
 }
 
-.pt__cta{
+.pt__cta{ display:none; }
+.pt__puerta.is-abierta > .pt__cta{
   display:inline-flex;align-items:center;justify-content:center;gap:11px;
   width:100%;min-height:54px;margin-top:22px;padding:0 24px;
   border:0;border-radius:100px;background:#f7f2ea;color:#150a10;
@@ -285,28 +286,38 @@
   }
   .pt__filas.hay-abierta .pt__puerta:not(.is-abierta) .pt__senal{ opacity:.22; }
 
-  /* la puerta abierta, por dentro. El botón se queda pegado abajo:
-     con la lista larga quedaba cortado fuera de la caja. */
+  /* La puerta abierta se parte en dos: la cabecera se queda quieta y
+     sólo rueda la lista. Antes rodaba todo y el titular necesitaba un
+     velo negro detrás para no confundirse con lo que pasaba debajo:
+     ese relieve es justo lo que sobraba. */
   .pt__puerta.is-abierta{
-    display:flex;flex-direction:column;
-    overflow-y:auto;scrollbar-width:none;
-    padding-bottom:0;
+    display:flex;flex-direction:column;overflow:hidden;padding-bottom:16px;
   }
-  .pt__puerta.is-abierta::-webkit-scrollbar{ display:none; }
-  .pt__puerta.is-abierta .pt__dentro > div{ padding-bottom:4px; }
-  .pt__cta{
-    position:sticky;bottom:0;
-    margin-top:16px;margin-bottom:14px;
-  }
-  /* el degradado avisa de que hay más lista debajo */
-  .pt__puerta.is-abierta .pt__dentro{ position:relative; }
   .pt__puerta.is-abierta .pt__marca,
-  .pt__puerta.is-abierta .pt__nombre{
-    position:sticky;top:0;z-index:2;
-    background:linear-gradient(var(--velo,rgba(11,6,10,.94)) 72%,transparent);
+  .pt__puerta.is-abierta .pt__nombre,
+  .pt__puerta.is-abierta .pt__frase,
+  .pt__puerta.is-abierta .pt__pie{ flex:none; }
+
+  .pt__puerta.is-abierta .pt__dentro{
+    display:flex;flex-direction:column;
+    flex:1 1 auto;min-height:0;
+    overflow-y:auto;overscroll-behavior-y:contain;
+    scrollbar-width:none;
+    /* la lista se desvanece por los dos bordes: se ve que hay más */
+    -webkit-mask-image:linear-gradient(transparent 0,#000 14px,#000 calc(100% - 18px),transparent);
+    mask-image:linear-gradient(transparent 0,#000 14px,#000 calc(100% - 18px),transparent);
   }
+  .pt__puerta.is-abierta .pt__dentro::-webkit-scrollbar{ display:none; }
+  /* el envoltorio conserva su altura natural para que ruede el padre;
+     si se encoge, no hay nada que desplazar y el botón se sale */
+  .pt__puerta.is-abierta .pt__dentro > div{
+    display:flex;flex-direction:column;flex:0 0 auto;min-height:0;
+  }
+  .pt__puerta.is-abierta > .pt__cta{ flex:none; }
+
+  .pt__cta{ margin-top:16px;margin-bottom:2px; }
   .pt__marca{ margin-bottom:8px;font-size:8.5px; }
-  .pt__nombre{ font-size:29px;margin-bottom:8px;padding-bottom:4px; }
+  .pt__nombre{ font-size:29px;margin-bottom:8px; }
   .pt__frase{ font-size:14px;margin-bottom:14px;max-width:100%; }
   .pt__pie{ margin-top:auto;padding-top:12px; }
   .pt__cifra{ font-size:26px; }

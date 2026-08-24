@@ -157,12 +157,13 @@
 
     var cta = el("a", "pt__cta");
     cta.href = CONTACTO;
-    cta.appendChild(el("span", "", t("Quiero el ", "I want the ") + p.nombre));
+    cta.appendChild(el("span", "", t("Quiero este plan", "I want this plan")));
     cta.appendChild(el("i", "", "→"));
-    caja.appendChild(cta);
-
+    cta.setAttribute("aria-label", t("Quiero el ", "I want the ") + p.nombre);
     dentro.appendChild(caja);
     puerta.appendChild(dentro);
+    /* fuera de la zona que rueda: el botón de compra siempre a la vista */
+    puerta.appendChild(cta);
 
     filas.appendChild(puerta);
   });
