@@ -9,6 +9,12 @@
 (function () {
   "use strict";
 
+  /* Quien pide menos movimiento no debería recibir un vídeo que gira
+     con el scroll ni cifras que trepan solas. El arrastre se queda:
+     ese lo inicia la persona. */
+  var quieto = window.matchMedia
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   /* premium framing — inject Bugatti-style corner brackets into [data-framed] media */
   Array.prototype.forEach.call(document.querySelectorAll("[data-framed]"), function (el) {
     ["tl", "tr", "bl", "br"].forEach(function (c) {
@@ -137,8 +143,10 @@
       var p = Math.max(0, Math.min(1, 1 - (r.top + r.height / 2) / innerHeight));
       seekTo(p * dur);
     };
-    addEventListener("scroll", onScrollTT, { passive: true, capture: true });
-    onScrollTT();
+    if (!quieto) {
+      addEventListener("scroll", onScrollTT, { passive: true, capture: true });
+      onScrollTT();
+    }
   }
 
   /* expand — the car photo opens from a contained card to full-bleed as you scroll */
@@ -152,8 +160,13 @@
       em.style.setProperty("--ew", (70 + e * 30) + "vw");
       em.style.setProperty("--er", (18 * (1 - e)) + "px");
     };
-    addEventListener("scroll", onEx, { passive: true, capture: true });
-    onEx();
+    if (quieto) {
+      em.style.setProperty("--ew", "100vw");
+      em.style.setProperty("--er", "0px");
+    } else {
+      addEventListener("scroll", onEx, { passive: true, capture: true });
+      onEx();
+    }
   }
 
   /* spec counters — count up when scrolled into view */
@@ -167,6 +180,7 @@
     var run = function (el) {
       var to = parseFloat(el.getAttribute("data-count"));
       var dec = (el.getAttribute("data-dec") | 0);
+      if (quieto) { el.textContent = fmt(to, dec); return; }
       var t0 = 0, dur = 1400;
       var step = function (t) {
         if (!t0) t0 = t;
