@@ -209,5 +209,13 @@
     dialog.addEventListener("cancel", function () {
       document.documentElement.style.overflow = "";
     });
+    /* Escape cierra siempre. Con showModal lo hace el navegador solo, pero
+       en el camino de respaldo —cuando no existe showModal y la ficha se
+       abre con el atributo open— no lo cerraba nadie. */
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape" && event.key !== "Esc") return;
+      if (!dialog.hasAttribute("open")) return;
+      closeProperty();
+    });
   }
 })();
