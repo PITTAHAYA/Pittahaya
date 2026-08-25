@@ -528,9 +528,11 @@
         addBoxBtn.disabled = false;
       } else {
         var remaining = capacity - n;
+        /* con la caja vacía no se elige nada "más": aún no hay nada */
+        var mas = n > 0;
         statusEl.textContent = isEnglish
-          ? "Select " + remaining + " more " + (remaining === 1 ? "bar" : "bars") + " to complete the box."
-          : "Seleccione " + remaining + " " + (remaining === 1 ? "barra más" : "barras más") + " para completar la caja.";
+          ? "Select " + remaining + (mas ? " more " : " ") + (remaining === 1 ? "bar" : "bars") + " to complete the box."
+          : "Seleccione " + remaining + " " + (remaining === 1 ? "barra" : "barras") + (mas ? " más" : "") + " para completar la caja.";
         addBoxBtn.disabled = true;
       }
     }

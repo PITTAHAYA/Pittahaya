@@ -55,6 +55,7 @@ img { display: block; max-width: 100%; }
   transition: transform 0.25s ease;
 }
 .skip-link:focus { transform: translateY(0); }
+.skip-link { display: inline-flex; align-items: center; min-height: 44px; }
 .serif { font-family: "Cormorant Garamond", Georgia, serif; }
 .mono { font-family: "JetBrains Mono", monospace; }
 .wrap { width: var(--wrap); margin-inline: auto; }
@@ -117,6 +118,10 @@ img { display: block; max-width: 100%; }
 .brand {
   position: relative;
   z-index: 2;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 44px;
   color: var(--ink);
   font: 400 22px/1 "Cormorant Garamond", Georgia, serif;
   letter-spacing: 0.38em;

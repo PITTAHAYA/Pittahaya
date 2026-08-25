@@ -74,7 +74,7 @@ em.ice{font-style:normal;color:var(--ice)}
   border-bottom:1px solid transparent;transition:border-color .5s var(--ease),background .5s var(--ease);
 }
 .hdr.is-stuck{border-bottom-color:var(--line);background:rgba(4,6,10,.9)}
-.brand{display:flex;align-items:center;gap:11px;flex:none}
+.brand{display:flex;align-items:center;min-height:44px;gap:11px;flex:none}
 .brand .mark{
   width:26px;height:26px;border-radius:50%;position:relative;flex:none;
   border:1px solid var(--line-2);
