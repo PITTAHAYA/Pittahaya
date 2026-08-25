@@ -250,7 +250,7 @@ em.ice{font-style:normal;color:var(--ice)}
 .tracker-legend span{display:flex;align-items:center;gap:6px}
 .tracker-legend i{width:7px;height:7px;border-radius:50%;display:block}
 .tracker-side{background:var(--deep);padding:22px 22px 26px;display:flex;flex-direction:column;gap:20px}
-.tracker-side h3{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:500}
+.tracker-side h2,.tracker-side h3{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);font-weight:500}
 .sat-id{font-family:var(--mono);font-size:20px;letter-spacing:-.01em;color:var(--ice)}
 .sat-state{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
   display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;

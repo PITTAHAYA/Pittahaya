@@ -18,15 +18,16 @@
   <meta property="og:title" content="Demo · AURELIA Private Estates | Pittahaya" />
   <meta property="og:description" content="Singular residences. Private representation. A collection built on discernment, not volume." />
   <meta property="og:url" content="https://www.pittahaya.com/en/demo-highend.html" />
+  <link rel="canonical" href="https://www.pittahaya.com/en/demo-highend.html" />
+  <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-highend.html" />
+  <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-highend.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-highend.html" />
   <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
-  <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-highend.html" />
-  <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-highend.html" />
-  <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-highend.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
@@ -129,7 +130,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .futureCard:hover .futureMeta p{opacity:1;transform:none}
 .futureFooter{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:clamp(18px,2.2vw,28px) 2px 3px}
 .futureFooter p{margin:0;max-width:54ch;color:rgba(250,248,243,.5);font-size:11px;line-height:1.7}
-.futureFooter a{flex:0 0 auto;color:var(--ivory);font-size:8px;letter-spacing:2.7px;text-transform:uppercase;border-bottom:1px solid var(--bronze);padding:8px 0;transition:color .4s ease}
+.futureFooter a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;color:var(--ivory);font-size:9px;letter-spacing:2.7px;text-transform:uppercase;box-shadow:inset 0 -1px 0 var(--bronze);padding:0;transition:color .4s ease}
 .futureFooter a:hover{color:var(--bronze2)}
 .worldSwipe{display:none}
 
@@ -141,7 +142,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .access .h2{color:var(--ivory);max-width:17ch;margin:0 auto}
 .access .h2 em{color:var(--bronze2)}
 .access p{margin:26px auto 38px;max-width:46ch;color:rgba(250,248,243,.72);font-size:15px;line-height:1.9}
-.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 34px;border:1px solid rgba(250,248,243,.4);border-radius:1px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ivory);transition:background .6s var(--ease),color .6s var(--ease),border-color .6s var(--ease)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:15px 34px;border:1px solid rgba(250,248,243,.4);border-radius:1px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ivory);transition:background .6s var(--ease),color .6s var(--ease),border-color .6s var(--ease)}
 .btn:hover{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
 .btn.ink{border-color:rgba(20,17,13,.3);color:var(--ink)}
 .btn.ink:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
@@ -151,13 +152,13 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   background:rgba(247,244,238,.82);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--hair);
   opacity:0;transform:translateY(-100%);transition:opacity .7s var(--ease),transform .7s var(--ease);pointer-events:none}
 .site.on{opacity:1;transform:none;pointer-events:auto}
-.brand{display:grid;gap:3px;font-family:"Cormorant Garamond",serif;font-weight:400;font-size:19px;letter-spacing:7px;color:var(--ink)}
+.brand{display:grid;align-content:center;min-height:44px;gap:3px;font-family:"Cormorant Garamond",serif;font-weight:400;font-size:19px;letter-spacing:7px;color:var(--ink)}
 .brand small{font-family:"Inter";font-size:6.5px;letter-spacing:3.3px;text-transform:uppercase;color:var(--faint)}
 .siteR{display:flex;align-items:center;gap:clamp(14px,2.2vw,32px)}
 .siteR a.lnk{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--dim);transition:color .4s ease}
 .siteR a.lnk:hover{color:var(--ink)}
 .siteR a.lnk.is-current{color:var(--ink)}
-.siteR .btn{padding:12px 22px}
+.siteR .btn{min-height:46px;padding:12px 22px}
 
 /* progress rail (page) */
 .progress{position:fixed;top:0;left:0;right:0;height:1px;z-index:80;transform-origin:left;transform:scaleX(0);background:var(--bronze);opacity:0;transition:opacity .6s ease}
@@ -169,8 +170,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .foot .fbrand{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:22px;letter-spacing:8px;color:var(--ivory)}
 .foot .fbrand span{display:block;font-family:"Inter";font-weight:200;font-size:9px;letter-spacing:3.4px;color:rgba(250,248,243,.42);margin-top:10px}
 .fcols{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-.fcols h4{font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.38);margin:0 0 14px;font-weight:400}
-.fcols a{display:block;padding:6px 0;color:rgba(250,248,243,.66);font-size:13px;transition:color .3s ease}
+.fcols h3{font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.38);margin:0 0 14px;font-weight:400}
+.fcols a{display:flex;align-items:center;min-height:44px;padding:3px 0;color:rgba(250,248,243,.66);font-size:13px;transition:color .3s ease}
 .fcols a:hover{color:var(--bronze2)}
 .fbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;margin-top:clamp(40px,6vh,60px);padding-top:22px;border-top:1px solid rgba(250,248,243,.1);font-size:10.5px;letter-spacing:.6px;color:rgba(250,248,243,.4)}
 .fbar b{color:rgba(250,248,243,.78);font-weight:400}
@@ -188,7 +189,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .collectionIntro{display:grid;grid-template-columns:1.05fr .75fr;gap:clamp(34px,8vw,130px);align-items:end}
 .collectionIntro p{margin:0;color:rgba(250,248,243,.58);font-size:15px;line-height:1.9;max-width:48ch}
 .filters{display:flex;flex-wrap:wrap;gap:9px;margin:clamp(36px,6vh,62px) 0 28px}
-.filter{appearance:none;border:1px solid rgba(250,248,243,.2);background:transparent;color:rgba(250,248,243,.62);padding:11px 17px;font:400 9px/1 "Inter";letter-spacing:2.2px;text-transform:uppercase;cursor:pointer;transition:.4s var(--ease)}
+.filter{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid rgba(250,248,243,.2);background:transparent;color:rgba(250,248,243,.62);padding:0 18px;font:400 9px/1 "Inter";letter-spacing:2.2px;text-transform:uppercase;cursor:pointer;transition:.4s var(--ease)}
 .filter:hover,.filter.is-active{color:#12100d;background:var(--ivory);border-color:var(--ivory)}
 .propertyGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,2vw,28px);align-items:start}
 .propertyCard{grid-column:span 6;position:relative;min-height:0;aspect-ratio:16/10;overflow:hidden;background:#29241d;isolation:isolate}
@@ -299,8 +300,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     .thBar,.thHint,.thRail,.thCap{display:none}
     .site{opacity:1;transform:none;pointer-events:auto}
   </style></noscript>
-  <link rel="canonical" href="https://www.pittahaya.com/en/demo-highend.html" />
-  <link rel="manifest" href="../site.webmanifest" />
+<link rel="manifest" href="../site.webmanifest" />
 </head>
 <body>
 
@@ -481,10 +481,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
       <a class="btn" href="#acceso" style="border-color:rgba(250,248,243,.32)">Private inquiry →</a>
     </div>
     <div class="fcols">
-      <div><h4>Collection</h4><a href="#coleccion">All properties</a><a href="#espacios">Upcoming destinations</a><a href="#espacios">Early access</a><a href="#acceso">Inquiry</a></div>
-      <div><h4>Representation</h4><a href="#representacion">Private presentation</a><a href="#coleccion">Curated collection</a><a href="#acceso">By-appointment access</a><a href="contact.html">Propose a property</a></div>
-      <div><h4>Markets</h4><a href="#coleccion">Coast</a><a href="#coleccion">Mountains</a><a href="#coleccion">Singular landscapes</a><a href="#coleccion">International selection</a></div>
-      <div><h4>AURELIA</h4><a href="#representacion">Philosophy</a><a href="#acceso">Private inquiry</a><a href="contact.html">Contact</a><a href="portfolio.html">More demos</a></div>
+      <div><h3>Collection</h3><a href="#coleccion">All properties</a><a href="#espacios">Upcoming destinations</a><a href="#espacios">Early access</a><a href="#acceso">Inquiry</a></div>
+      <div><h3>Representation</h3><a href="#representacion">Private presentation</a><a href="#coleccion">Curated collection</a><a href="#acceso">By-appointment access</a><a href="contact.html">Propose a property</a></div>
+      <div><h3>Markets</h3><a href="#coleccion">Coast</a><a href="#coleccion">Mountains</a><a href="#coleccion">Singular landscapes</a><a href="#coleccion">International selection</a></div>
+      <div><h3>AURELIA</h3><a href="#representacion">Philosophy</a><a href="#acceso">Private inquiry</a><a href="contact.html">Contact</a><a href="portfolio.html">More demos</a></div>
     </div>
     <div class="fbar">
       <span>© <span data-year></span> AURELIA · Private Estates</span>

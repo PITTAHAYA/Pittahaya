@@ -340,7 +340,7 @@ img { display: block; max-width: 100%; }
   padding: clamp(32px, 5vw, 68px);
 }
 .sector-number { color: var(--bronze-light); font: 400 10px/1 "JetBrains Mono", monospace; letter-spacing: 0.2em; }
-.sector h3 { margin: 0 0 11px; font: 300 clamp(40px, 5.2vw, 72px)/0.94 "Cormorant Garamond", Georgia, serif; }
+.sector h2, .sector h3 { margin: 0 0 11px; font: 300 clamp(40px, 5.2vw, 72px)/0.94 "Cormorant Garamond", Georgia, serif; }
 .sector p { max-width: 52ch; margin: 0; color: var(--dim); font-size: 14px; line-height: 1.75; }
 .sector-tag { color: var(--faint); font: 400 8.5px/1.5 "JetBrains Mono", monospace; letter-spacing: 0.21em; text-align: right; text-transform: uppercase; }
 .sector-signal { position: absolute; z-index: 1; top: 11%; right: 6%; width: min(24vw, 290px); height: min(24vw, 290px); pointer-events: none; opacity: 0.52; }

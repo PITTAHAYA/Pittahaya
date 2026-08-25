@@ -18,15 +18,16 @@
   <meta property="og:title" content="Demo · VELOCE Série Uno | Pittahaya" />
   <meta property="og:description" content="A limited-edition hyper-GT. Fifty units. Reserve your chassis." />
   <meta property="og:url" content="https://www.pittahaya.com/en/demo-landing.html" />
+  <link rel="canonical" href="https://www.pittahaya.com/en/demo-landing.html" />
+  <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-landing.html" />
+  <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-landing.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-landing.html" />
   <meta property="og:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.pittahaya.com/assets/pittahaya-og-minimal.png" />
-  <link rel="alternate" hreflang="es" href="https://www.pittahaya.com/demo-landing.html" />
-  <link rel="alternate" hreflang="en" href="https://www.pittahaya.com/en/demo-landing.html" />
-  <link rel="alternate" hreflang="x-default" href="https://www.pittahaya.com/demo-landing.html" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
@@ -44,10 +45,10 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:60;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--sig),var(--sig2));transition:background .6s ease}
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,4vw,44px);background:linear-gradient(180deg,rgba(8,8,10,.7),rgba(8,8,10,0));backdrop-filter:blur(4px)}
-.brand{font-weight:700;font-size:19px;letter-spacing:5px}
+.brand{display:inline-flex;align-items:center;min-height:44px;font-weight:700;font-size:19px;letter-spacing:5px}
 .brand i{font-style:normal;color:var(--sig);transition:color .6s ease}
 .navR{display:flex;align-items:center;gap:12px}
-.navR a.lnk{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint);transition:color .4s ease}
+.navR a.lnk{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint);transition:color .4s ease}
 .navR a.lnk:hover{color:var(--bone)}
 .pill{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:11px 22px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.3px;background:linear-gradient(120deg,var(--sig2),var(--sig));color:#241503;transition:transform .25s ease,box-shadow .25s ease;box-shadow:0 12px 34px rgba(230,178,92,.25)}
 .pill:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(230,178,92,.4)}
@@ -116,7 +117,7 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 .framed .cnr.br{bottom:14px;right:14px;border-left:0;border-top:0}
 .mediaLabel{position:absolute;top:18px;left:22px;z-index:5;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(244,240,231,.72)}
 .capCard{position:absolute;left:26px;bottom:26px;z-index:5;max-width:min(320px,72%);padding:16px 18px;border:1px solid var(--line);border-radius:10px;background:rgba(9,9,13,.46);backdrop-filter:blur(12px)}
-.capCard h4{margin:0 0 7px;font-size:14px;font-weight:700;letter-spacing:.2px}
+.capCard h3{margin:0 0 7px;font-size:14px;font-weight:700;letter-spacing:.2px}
 .capCard p{margin:0;font-family:"JetBrains Mono",monospace;font-size:10px;line-height:1.65;letter-spacing:.3px;color:var(--dim)}
 @media (max-width:760px){.capCard{display:none}.mediaLabel{font-size:8px;top:14px;left:16px}.partsHint{right:16px;bottom:14px;font-size:8px}.framed .cnr{width:12px;height:12px;top:10px;left:10px}.framed .cnr.tr,.framed .cnr.br{right:10px;left:auto}.framed .cnr.bl,.framed .cnr.br{bottom:10px;top:auto}}
 .chapter .shot img{width:100%;height:auto;display:block;transition:transform 1.6s cubic-bezier(.16,.7,.2,1)}
@@ -191,8 +192,8 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 .footTop .big{font-weight:700;font-size:clamp(30px,4vw,52px);letter-spacing:-1.5px;max-width:14ch;line-height:1.02}
 .footTop .big em{font-style:normal;color:var(--sig)}
 .footCols{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-.footCols h4{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint);margin:0 0 16px;font-weight:500}
-.footCols a{display:block;padding:7px 0;color:var(--dim);font-size:14px;transition:color .3s ease}
+.footCols h3{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint);margin:0 0 16px;font-weight:500}
+.footCols a{display:flex;align-items:center;min-height:44px;padding:4px 0;color:var(--dim);font-size:14px;transition:color .3s ease}
 .footCols a:hover{color:var(--sig)}
 .footBar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;margin-top:54px;padding-top:24px;border-top:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1.4px;color:var(--faint)}
 .footBar a:hover{color:var(--sig)}
@@ -206,8 +207,7 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important}[data-reveal]{opacity:1;transform:none}.hero video{display:none}}
   </style>
 <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important}.reserveBar{display:none}</style></noscript>
-  <link rel="canonical" href="https://www.pittahaya.com/en/demo-landing.html" />
-  <link rel="manifest" href="../site.webmanifest" />
+<link rel="manifest" href="../site.webmanifest" />
 </head>
 <body>
 
@@ -305,7 +305,7 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
       <img src="../assets/veloce/exploded-poster.jpg" alt="Full exploded view of the Veloce Série Uno — carbon monocoque, dual motors, battery, and wheels" loading="lazy">
       <span class="mediaLabel">Full exploded view</span>
       <div class="capCard">
-        <h4>Every component, real.</h4>
+        <h3>Every component, real.</h3>
         <p>Carbon monocoque, dual motors, structural battery — 1,340 hp laid bare before you.</p>
       </div>
     </div>
@@ -391,10 +391,10 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
       <a class="pill" href="#reservar" style="align-self:flex-end">Reserve my chassis →</a>
     </div>
     <div class="footCols">
-      <div><h4>The car</h4><a href="#silueta">Silhouette</a><a href="#poder">Performance</a><a href="#poder">Specifications</a><a href="#silueta">Light signature</a></div>
-      <div><h4>Ownership</h4><a href="#reservar">Reserve</a><a href="contact.html">Bespoke atelier</a><a href="contact.html">Delivery</a><a href="contact.html">Care &amp; warranty</a></div>
-      <div><h4>Ateliers</h4><a href="contact.html">Milan</a><a href="contact.html">Dubai</a><a href="contact.html">Los Angeles</a><a href="contact.html">Singapore</a></div>
-      <div><h4>House</h4><a href="contact.html">The marque</a><a href="contact.html">Press</a><a href="contact.html">Contact</a><a href="portfolio.html">More demos</a></div>
+      <div><h3>The car</h3><a href="#silueta">Silhouette</a><a href="#poder">Performance</a><a href="#poder">Specifications</a><a href="#silueta">Light signature</a></div>
+      <div><h3>Ownership</h3><a href="#reservar">Reserve</a><a href="contact.html">Bespoke atelier</a><a href="contact.html">Delivery</a><a href="contact.html">Care &amp; warranty</a></div>
+      <div><h3>Ateliers</h3><a href="contact.html">Milan</a><a href="contact.html">Dubai</a><a href="contact.html">Los Angeles</a><a href="contact.html">Singapore</a></div>
+      <div><h3>House</h3><a href="contact.html">The marque</a><a href="contact.html">Press</a><a href="contact.html">Contact</a><a href="portfolio.html">More demos</a></div>
     </div>
     <div class="footBar">
       <span>© <span data-year></span> VELOCE · Série Uno</span>

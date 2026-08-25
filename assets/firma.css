@@ -89,7 +89,7 @@ em.cursiva{font-style:italic}
   transition:background .5s var(--ease),border-color .5s var(--ease);
 }
 .barra.fija{background:rgba(8,7,10,.95);border-bottom-color:var(--linea)}
-.firma{display:flex;align-items:center;gap:11px}
+.firma{display:flex;align-items:center;min-height:44px;gap:11px}
 .firma img{width:28px;height:28px}
 .firma b{font-family:var(--serif);font-size:18px;font-weight:400}
 .firma span{font-family:var(--mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--marfil-3)}
@@ -101,7 +101,7 @@ em.cursiva{font-style:italic}
 
 /* — interruptor de rayos X — */
 .xray-sw{
-  display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;
+  display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 16px 8px 12px;
   border:1px solid var(--linea-2);border-radius:999px;
   font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--marfil-2);transition:all .4s var(--ease);white-space:nowrap;
@@ -404,7 +404,9 @@ body.xray .xray-aviso{opacity:1;transform:none}
 .pie{border-top:1px solid var(--linea);padding:34px 0 44px}
 .pie-in{display:flex;flex-wrap:wrap;gap:18px;align-items:center;
   font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--marfil-3)}
-.pie-in nav{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
+.pie-in nav{display:flex;gap:8px 18px;margin-left:auto;flex-wrap:wrap;align-items:center}
+/* el pie se toca con el pulgar: 16 px de alto no bastaban */
+.pie-in nav a{display:inline-flex;align-items:center;min-height:44px}
 .pie-in a:hover{color:var(--fruta-viva)}
 
 @media (max-width:600px){.heroe-pie .boton,.cierre-bot .boton{width:100%;justify-content:center}}

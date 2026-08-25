@@ -197,10 +197,10 @@
         if (!meta) return;
 
         var items = [
-          ["Sector", normaliseValue(company.sector, t("Clasificacion reservada", "Reserved classification"))],
-          [t("Region", "Region"), normaliseValue(company.region || company.country, t("Jurisdiccion reservada", "Reserved jurisdiction"))],
-          [t("Entrada", "Entry"), normaliseValue(company.acquisitionYear, t("Bajo validacion", "Pending validation"))],
-          [t("Tesis", "Thesis"), normaliseValue(company.assetType, t("Funcion esencial", "Essential function"))]
+          [t("Sector", "Sector"), normaliseValue(company.sector, t("Clasificación reservada", "Reserved classification"))],
+          [t("Región", "Region"), normaliseValue(company.region || company.country, t("Jurisdicción reservada", "Reserved jurisdiction"))],
+          [t("Entrada", "Entry"), normaliseValue(company.acquisitionYear, t("Bajo validación", "Pending validation"))],
+          [t("Tesis", "Thesis"), normaliseValue(company.assetType, t("Función esencial", "Essential function"))]
         ];
 
         meta.replaceChildren();
@@ -222,10 +222,10 @@
 
         var fields = disclosure.querySelectorAll("div");
         var values = [
-          normaliseValue(company.sector, t("Clasificacion operativa", "Operating classification")),
-          normaliseValue(company.region || company.country, t("Jurisdiccion", "Jurisdiction")),
-          normaliseValue(company.acquisitionYear, t("Ano de entrada", "Entry year")),
-          normaliseValue(company.assetType, t("Funcion esencial", "Essential function"))
+          normaliseValue(company.sector, t("Clasificación operativa", "Operating classification")),
+          normaliseValue(company.region || company.country, t("Jurisdicción", "Jurisdiction")),
+          normaliseValue(company.acquisitionYear, t("Año de entrada", "Entry year")),
+          normaliseValue(company.assetType, t("Función esencial", "Essential function"))
         ];
 
         fields.forEach(function (field, fieldIndex) {
@@ -238,7 +238,7 @@
           note.textContent = normaliseValue(
             company.description,
             t(
-              "Detalle operativo disponible despues de la validacion institucional.",
+              "Detalle operativo disponible después de la validación institucional.",
               "Operating detail available after institutional validation."
             )
           );
