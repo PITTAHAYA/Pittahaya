@@ -3,4 +3,9 @@ Allow: /
 Disallow: /crm/
 Disallow: /api/
 
+# Páginas de campaña: viven sólo dentro de los anuncios.
+# No se enlazan desde el sitio y no deben aparecer en buscadores.
+Disallow: /oferta.html
+Disallow: /en/offer.html
+
 Sitemap: https://www.pittahaya.com/sitemap.xml
