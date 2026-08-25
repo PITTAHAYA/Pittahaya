@@ -72,8 +72,14 @@
     var cimg = cfg.querySelector("[data-config-img]");
     swatches.forEach(function (s) {
       s.addEventListener("click", function () {
-        swatches.forEach(function (x) { x.classList.remove("on"); });
+        swatches.forEach(function (x) {
+          x.classList.remove("on");
+          /* la firma elegida se veía sólo por el color: quien usa lector
+             de pantalla no tenía forma de saber cuál está puesta */
+          x.setAttribute("aria-pressed", "false");
+        });
         s.classList.add("on");
+        s.setAttribute("aria-pressed", "true");
         document.documentElement.style.setProperty("--sig", s.getAttribute("data-sig"));
         document.documentElement.style.setProperty("--sig2", s.getAttribute("data-sig2") || s.getAttribute("data-sig"));
         if (nameEl) nameEl.textContent = s.getAttribute("data-name") || "";
