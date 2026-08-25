@@ -4,13 +4,15 @@
   --graphite: #171a20;
   --ink: #ebe7df;
   --dim: rgba(235, 231, 223, 0.64);
-  --faint: rgba(235, 231, 223, 0.38);
+  --faint: rgba(235, 231, 223, 0.54);
   --hair: rgba(235, 231, 223, 0.14);
   --paper: #f3efe7;
   --paper-ink: #15171b;
   --paper-dim: rgba(21, 23, 27, 0.62);
   --paper-hair: rgba(21, 23, 27, 0.14);
   --bronze: #ad8248;
+  /* el bronce de marca sobre papel daba 3.02:1; este da 5.01:1 */
+  --bronze-ink: #845f2d;
   --bronze-light: #d2b176;
   --ease: cubic-bezier(0.16, 0.7, 0.2, 1);
   --wrap: min(1360px, calc(100% - 9vw));
@@ -282,7 +284,7 @@ img { display: block; max-width: 100%; }
 
 /* Thesis and time */
 .thesis { background: var(--paper); color: var(--paper-ink); text-align: center; }
-.thesis .eyebrow { color: var(--bronze); }
+.thesis .eyebrow { color: var(--bronze-ink); }
 .thesis .display { max-width: 20ch; margin: 20px auto 0; }
 .thesis .display em { color: var(--bronze); }
 .thesis .lead { margin: 30px auto 0; color: var(--paper-dim); }
@@ -831,7 +833,7 @@ img { display: block; max-width: 100%; }
 .philosophy-spine b { font: 300 20px/1 "Cormorant Garamond", Georgia, serif; }
 .philosophy-intro { align-self: center; }
 .philosophy-kicker { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 40px; padding: 13px 0; border-block: 1px solid rgba(23, 24, 26, 0.18); color: #77746e; font: 400 7.5px/1 "JetBrains Mono", monospace; letter-spacing: 0.2em; text-transform: uppercase; }
-.philosophy .eyebrow { color: #9a7440; }
+.philosophy .eyebrow { color: var(--bronze-ink); }
 .philosophy .display { max-width: 9ch; margin-top: 22px; color: #151619; font-size: clamp(48px, 5.6vw, 80px); }
 .philosophy .display em { color: #9a7440; }
 .philosophy-lede { max-width: 42ch; margin-top: 28px; color: #62615d; font: 300 clamp(14px, 1.2vw, 16px)/1.85 "Inter", sans-serif; }

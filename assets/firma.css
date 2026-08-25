@@ -17,7 +17,8 @@
   --linea-2:rgba(244,239,230,.22);
   --marfil:#f4efe6;
   --marfil-2:rgba(244,239,230,.62);
-  --marfil-3:rgba(244,239,230,.34);
+  /* medido sobre --tinta: a .34 daba 2.80:1, por debajo del mínimo legible */
+  --marfil-3:rgba(244,239,230,.52);
   /* — acentos — */
   --fruta:#e0357b;
   --fruta-viva:#ff5c9c;
