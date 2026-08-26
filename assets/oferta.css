@@ -92,6 +92,21 @@ a{ color:inherit; }
 }
 .of__ig:hover{ transform:translateY(-2px); box-shadow:0 22px 56px -18px rgba(238,42,123,1); }
 .of__ig svg{ width:17px; height:17px; flex:none; }
+.of__ig.is-copiado{ background:linear-gradient(115deg,#9fce3a,#6fae2a); color:#12160a; }
+/* la nota va pegada al botón: si no se avisa, copiar a escondidas
+   parece un truco raro en vez de una ayuda */
+/* un punto verde en vez de emoji: los emoji cambian de forma en
+   cada teléfono y aquí sólo aportaban ruido */
+.of__nota{
+  margin:-10px 0 20px; display:flex; align-items:center; gap:9px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--marfil-3);
+}
+.of__nota::before{
+  content:""; flex:none; width:5px; height:5px; border-radius:50%;
+  background:var(--lima);
+}
+.of__cierre .of__nota{ justify-content:center; }
 .of__btn2:hover{ border-color:var(--marfil); }
 .of__wa i,.of__btn2 i,.of__ig i{ font-style:normal; transition:transform .3s var(--ease); }
 .of__wa:hover i,.of__btn2:hover i,.of__ig:hover i{ transform:translateX(4px); }

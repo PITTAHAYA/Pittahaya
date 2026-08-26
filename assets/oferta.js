@@ -95,6 +95,39 @@
     }
   }
 
+  /* ── El mensaje que Instagram no deja rellenar ──────────
+     WhatsApp acepta ?text= en el enlace; Instagram no tiene
+     equivalente. Lo más cerca que se puede llegar es dejar el
+     texto en el portapapeles antes de saltar a la app, y
+     avisarlo en el propio botón para que no parezca magia. */
+  Array.prototype.forEach.call(doc.querySelectorAll("[data-copiar]"), function (a) {
+    var etiqueta = a.querySelector("[data-copiar-txt]");
+    if (!etiqueta) return;
+    var original = etiqueta.textContent;
+    var reloj = null;
+
+    a.addEventListener("click", function () {
+      var texto = a.getAttribute("data-copiar");
+      /* Nunca se bloquea el enlace: si copiar falla, la app abre igual
+         y la persona escribe lo que quiera. */
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(texto).then(avisar, function () {});
+        }
+      } catch (e) { /* sin portapapeles: se sigue de largo */ }
+    });
+
+    function avisar() {
+      etiqueta.textContent = a.getAttribute("data-copiado") || "Mensaje copiado";
+      a.classList.add("is-copiado");
+      if (reloj) clearTimeout(reloj);
+      reloj = setTimeout(function () {
+        etiqueta.textContent = original;
+        a.classList.remove("is-copiado");
+      }, 2600);
+    }
+  });
+
   /* ── Conversiones ───────────────────────────────────────
      El sitio ya trae window.track(); aquí sólo se nombra
      desde dónde salió el clic, para saber qué parte vende. */
