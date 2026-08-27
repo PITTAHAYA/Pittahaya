@@ -31,6 +31,10 @@ body.of{
 img,video{ max-width:100%; display:block; }
 a{ color:inherit; }
 :focus-visible{ outline:2px solid var(--lima); outline-offset:3px; border-radius:3px; }
+/* Sin esto, [hidden] no esconde nada: cualquier clase con display:flex
+   o inline-flex le gana a la hoja del navegador, y lo que creíamos
+   oculto se seguía viendo. */
+[hidden]{ display:none !important; }
 
 .of__env{ width:var(--env); margin-inline:auto; }
 .of h1,.of h2,.of h3{ margin:0; font-weight:400; letter-spacing:-.02em; }

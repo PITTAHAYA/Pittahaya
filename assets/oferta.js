@@ -95,6 +95,56 @@
     }
   }
 
+  /* ── Dentro del navegador de Instagram el DM no abre ────
+     Quien toca el anuncio en Instagram no llega en Safari ni en
+     Chrome: llega en el navegador que Instagram lleva dentro.
+     Desde ahí un enlace ig.me no salta a la app —Instagram ya es
+     la app— y se abre como página web, que pide iniciar sesión.
+     Desde Facebook sí funciona, porque es otra app y el sistema
+     hace el traspaso. Así que aquí el botón de DM se cambia por
+     uno que sí funcione dentro de un navegador incrustado. */
+  var ua = navigator.userAgent || "";
+  var dentroDeInstagram = /Instagram/i.test(ua);
+
+  if (dentroDeInstagram) {
+    doc.documentElement.setAttribute("data-en-instagram", "");
+
+    Array.prototype.forEach.call(doc.querySelectorAll("[data-ig-dentro]"), function (a) {
+      var modo = a.getAttribute("data-ig-dentro");
+
+      if (modo === "ocultar") {
+        a.hidden = true;
+        return;
+      }
+
+      if (modo === "cambiar") {
+        var destino = a.getAttribute("data-ig-href");
+        var rotulo = a.getAttribute("data-ig-txt");
+        if (destino) {
+          a.setAttribute("href", destino);
+          a.removeAttribute("target");
+          a.removeAttribute("rel");
+        }
+        /* deja de ser un enlace a Instagram: fuera el glifo, fuera
+           el mensaje al portapapeles y fuera el degradado de la marca */
+        a.removeAttribute("data-copiar");
+        var glifo = a.querySelector("svg");
+        if (glifo) glifo.remove();
+        var txt = a.querySelector("[data-copiar-txt]");
+        if (txt && rotulo) txt.textContent = rotulo;
+        a.classList.remove("of__ig");
+        a.classList.add("of__wa");
+        var conv = a.getAttribute("data-conv");
+        if (conv) a.setAttribute("data-conv", conv.replace(/Instagram/i, "Form"));
+      }
+    });
+
+    /* la nota del portapapeles sólo tenía sentido con el botón de DM */
+    Array.prototype.forEach.call(doc.querySelectorAll(".of__nota"), function (n) {
+      n.hidden = true;
+    });
+  }
+
   /* ── El mensaje que Instagram no deja rellenar ──────────
      WhatsApp acepta ?text= en el enlace; Instagram no tiene
      equivalente. Lo más cerca que se puede llegar es dejar el
