@@ -3187,7 +3187,33 @@ html.js main > .section:first-child .reveal{
   .v2-eyebrow .v2-avail i{ animation:none; }
 }
 
-/* ── Icono social de Instagram en el pie ─────────────────── */
+/* ── Redes en el pie ─────────────────────────────────────────
+   Antes había un solo icono de Instagram pegado al aviso de
+   copyright. Ahora es una fila propia, con área táctil de 44 px
+   por icono: en el móvil un enlace de 19 px no se acierta. */
+.footer-redes{
+  display:flex; align-items:center; gap:2px;
+  margin:12px 0 0; padding:0; list-style:none;
+}
+.footer-redes a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:50%;
+  color:rgba(244,239,230,.62); text-decoration:none;
+  transition:color .35s ease, background .35s ease, transform .35s cubic-bezier(.19,1,.22,1);
+}
+.footer-redes a:hover,
+.footer-redes a:focus-visible{
+  color:#f4efe6; background:rgba(244,239,230,.08); transform:translateY(-2px);
+}
+/* cada red se enciende con su propio color al pasar por encima */
+.footer-redes a[data-red="instagram"]:hover{ color:#ff5c9c; }
+.footer-redes a[data-red="facebook"]:hover{ color:#4a8cff; }
+.footer-redes a[data-red="whatsapp"]:hover{ color:#4ad168; }
+.footer-redes a[data-red="correo"]:hover{ color:#d9c3a0; }
+.footer-redes svg{ display:block; width:19px; height:19px; }
+
+/* el icono suelto de antes sigue existiendo por si alguna
+   plantilla vieja lo usa todavía */
 .footer-ig{
   display:inline-flex; align-items:center; justify-content:center;
   margin-left:4px; vertical-align:middle;
