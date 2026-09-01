@@ -316,9 +316,39 @@ a{ color:inherit; }
 .pr__redes a:hover{ color:var(--marfil); background:rgba(244,239,230,.08); }
 .pr__redes svg{ width:19px; height:19px; }
 .pr__legal{
-  padding:0 0 34px; font-family:var(--mono);
+  padding:0; font-family:var(--mono);
   font-size:9.5px; letter-spacing:.08em; color:var(--marfil-3);
 }
+
+/* ── El WhatsApp que acompaña ─────────────────────────────
+   Va con la persona todo el recorrido: cuanto menos tenga que
+   buscar el botón, más probable es que escriba. Se esconde al
+   llegar al cierre, para no repetir el mismo botón dos veces
+   en la misma pantalla. */
+.pr__fijo{
+  position:fixed; z-index:90;
+  right:max(16px, env(safe-area-inset-right));
+  bottom:calc(16px + env(safe-area-inset-bottom));
+  display:inline-flex; align-items:center; gap:11px;
+  min-height:54px; padding:0 22px; border-radius:100px;
+  background:linear-gradient(120deg,var(--fruta-viva),var(--fruta));
+  color:#150a10; text-decoration:none; font-weight:600;
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  box-shadow:0 18px 46px -16px rgba(224,53,123,.9), 0 0 0 1px rgba(255,255,255,.1) inset;
+  opacity:0; transform:translateY(20px) scale(.94); pointer-events:none;
+  transition:opacity .5s ease, transform .55s var(--muelle);
+}
+.pr__fijo.is-visible{ opacity:1; transform:none; pointer-events:auto; }
+.pr__fijo svg{ width:20px; height:20px; flex:none; }
+.pr__fijo:hover{ transform:translateY(-2px); }
+/* en pantallas estrechas el rótulo estorba: se queda el glifo */
+@media (max-width:400px){
+  .pr__fijo{ padding:0; width:58px; height:58px; justify-content:center; }
+  .pr__fijo span{ display:none; }
+  .pr__fijo svg{ width:26px; height:26px; }
+}
+/* que la barra no se coma el final de la página */
+.pr__legal{ padding-bottom:calc(88px + env(safe-area-inset-bottom)); }
 
 /* ── Entradas al hacer scroll ─────────────────────────────── */
 /* Sin guion no se esconde nada: más vale una página sin
@@ -340,5 +370,7 @@ a{ color:inherit; }
   .pr__cupo i,.pr__abrir i,.pr__pista i{ animation:none!important; }
   .pr__cara{ transition:none!important; }
   .pr__wa,.pr__oro,.pr__ghost{ transition:none!important; }
+  .pr__fijo{ transition:opacity .2s linear!important; transform:none!important; }
+  .pr__fijo.is-visible{ transform:none!important; }
   .pr__hilo{ display:none; }
 }

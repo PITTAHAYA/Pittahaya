@@ -132,6 +132,35 @@
     pintar();
   }
 
+  /* ── El WhatsApp que acompaña ───────────────────────────
+     Aparece en cuanto el sello se abre y se queda ahí hasta el
+     final: cuanto menos tenga que buscar el botón, más probable
+     es que escriba. En el cierre convive con el botón grande sin
+     estorbar, porque en el teléfono es sólo un círculo en la
+     esquina. */
+  var fijo = doc.querySelector("[data-fijo]");
+  if (fijo) {
+    var mostrarFijo = function () {
+      fijo.classList.add("is-visible");
+    };
+    if (!sello) {
+      mostrarFijo();
+    } else if (sello.classList.contains("se-fue")) {
+      mostrarFijo();
+    } else {
+      /* el sello se abre solo a los 2.6 s; el botón entra justo detrás */
+      var espera = window.setInterval(function () {
+        if (!sello.classList.contains("se-fue")) return;
+        window.clearInterval(espera);
+        mostrarFijo();
+      }, 200);
+      window.setTimeout(function () {
+        window.clearInterval(espera);
+        mostrarFijo();
+      }, 8000);
+    }
+  }
+
   /* ── Las fichas del problema se voltean ─────────────────── */
   Array.prototype.forEach.call(doc.querySelectorAll("[data-ficha]"), function (f) {
     f.addEventListener("click", function () {
