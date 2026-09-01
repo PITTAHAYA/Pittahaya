@@ -1,0 +1,344 @@
+/* ═══════════════════════════════════════════════════════════
+   Pittahaya · Presentación (tarjeta con QR)
+   Se abre en el teléfono, delante del cliente o justo después
+   de la visita. Ya vio su demo: aquí no hay que presentarse,
+   hay que rematar. Poca letra, todo se desliza, cada gesto
+   dice algo.
+   ═══════════════════════════════════════════════════════════ */
+
+.pr{
+  --negro:#08070a; --tinta:#0d0b11; --carbon:#17141d;
+  --marfil:#f4efe6;
+  --marfil-2:rgba(244,239,230,.74);
+  --marfil-3:rgba(244,239,230,.54);   /* 5.3:1 sobre --negro */
+  --linea:rgba(244,239,230,.12);
+  --linea-2:rgba(244,239,230,.26);
+  --fruta:#e0357b; --fruta-viva:#ff5c9c;
+  --lima:#9fce3a; --lima-viva:#c6ff6a;
+  --champan:#d9c3a0;
+  --serif:"Fraunces",Georgia,serif;
+  --sans:"Space Grotesk",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --ease:cubic-bezier(.19,1,.22,1);
+  --muelle:cubic-bezier(.34,1.56,.64,1);
+  --env:min(1120px,calc(100% - 9vw));
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body.pr{
+  margin:0; background:var(--negro); color:var(--marfil);
+  font-family:var(--sans); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img,svg{ max-width:100%; display:block; }
+a{ color:inherit; }
+[hidden]{ display:none !important; }
+:focus-visible{ outline:2px solid var(--lima-viva); outline-offset:3px; border-radius:4px; }
+.pr__env{ width:var(--env); margin-inline:auto; }
+.pr h1,.pr h2,.pr h3{ margin:0; font-weight:400; letter-spacing:-.02em; }
+.solo-lectores{
+  position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+}
+
+/* ── El sello: lo primero que ven al escanear ─────────────── */
+/* El sello lo enciende el guion. Sin JavaScript no aparece: si
+   apareciera, nadie podría quitarlo y taparía la página delante
+   del cliente. */
+.pr__sello{ display:none; }
+.js-vivo .pr__sello{
+  position:fixed; inset:0; z-index:120;
+  display:grid; place-items:center; text-align:center;
+  background:var(--negro); padding:32px;
+  transition:opacity .6s ease, visibility .6s;
+}
+.js-vivo .pr__sello.se-fue{ opacity:0; visibility:hidden; pointer-events:none; }
+.pr__sello-in{ display:grid; justify-items:center; gap:20px; }
+.pr__marca-sello{
+  width:52px; height:52px;
+  opacity:0; transform:scale(.6);
+  animation:pr-marca .9s var(--muelle) .1s forwards;
+}
+@keyframes pr-marca{ to{ opacity:1; transform:none; } }
+/* el anillo que se dibuja alrededor del logo mientras carga */
+.pr__anillo{ position:absolute; width:92px; height:92px; pointer-events:none; }
+.pr__anillo circle{
+  fill:none; stroke:var(--lima); stroke-width:1.5; opacity:.85;
+  stroke-dasharray:276; stroke-dashoffset:276;
+  animation:pr-anillo 1.5s var(--ease) .25s forwards;
+}
+@keyframes pr-anillo{ to{ stroke-dashoffset:0; } }
+.pr__gracias{
+  margin:0; font-family:var(--serif); font-size:clamp(26px,7vw,40px);
+  line-height:1.1; opacity:0; transform:translateY(14px);
+  animation:pr-sube .8s var(--ease) .55s forwards;
+}
+.pr__para{
+  margin:0; font-family:var(--mono); font-size:clamp(11px,3.2vw,13px);
+  letter-spacing:.2em; text-transform:uppercase; color:var(--lima-viva);
+  opacity:0; transform:translateY(10px);
+  animation:pr-sube .8s var(--ease) .85s forwards;
+}
+@keyframes pr-sube{ to{ opacity:1; transform:none; } }
+.pr__abrir{
+  margin-top:6px; min-height:44px; padding:0 22px;
+  display:inline-flex; align-items:center; gap:10px;
+  background:none; border:1px solid var(--linea-2); border-radius:100px;
+  color:var(--marfil-2); font-family:var(--mono); font-size:10px;
+  letter-spacing:.2em; text-transform:uppercase; cursor:pointer;
+  opacity:0; animation:pr-sube .8s var(--ease) 1.2s forwards;
+  transition:border-color .3s ease, color .3s ease;
+}
+.pr__abrir:hover{ border-color:var(--marfil); color:var(--marfil); }
+.pr__abrir i{ font-style:normal; animation:pr-baja 1.8s ease-in-out infinite; }
+@keyframes pr-baja{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(4px) } }
+
+/* ── Barra de avance del relato ───────────────────────────── */
+.pr__hilo{
+  position:fixed; top:0; left:0; right:0; height:2px; z-index:100;
+  background:linear-gradient(90deg,var(--fruta-viva),var(--lima-viva));
+  transform:scaleX(var(--p,0)); transform-origin:left;
+}
+
+/* ── Capítulos ────────────────────────────────────────────── */
+.pr__cap{ padding:clamp(56px,12vh,110px) 0; position:relative; }
+.pr__cap + .pr__cap{ border-top:1px solid var(--linea); }
+.pr__rotulo{
+  display:inline-flex; align-items:center; gap:10px; margin:0 0 16px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--lima-viva);
+}
+.pr__rotulo::before{ content:""; width:24px; height:1px; background:var(--lima); }
+.pr__h{
+  font-family:var(--serif); font-size:clamp(30px,7.4vw,58px);
+  line-height:1.04; max-width:16ch;
+}
+.pr__h em{ font-style:italic; color:var(--fruta-viva); }
+.pr__h .champan{ color:var(--champan); font-style:italic; }
+.pr__pie-cap{ margin:22px 0 0; color:var(--marfil-2); font-size:15.5px; max-width:38ch; }
+
+/* ── Rieles: lo largo se desliza, no se baja ──────────────── */
+.pr__riel{
+  display:grid; grid-auto-flow:column; grid-auto-columns:78%;
+  gap:12px; overflow-x:auto; overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory; scrollbar-width:none;
+  margin-inline:calc(50% - 50vw); padding:26px 4.5vw 10px;
+}
+.pr__riel::-webkit-scrollbar{ display:none; }
+@media (min-width:680px){ .pr__riel{ grid-auto-columns:44%; } }
+@media (min-width:1080px){
+  /* En escritorio deja de sangrar a los bordes y se alinea con los
+     titulares: si no, las fichas pegan al filo de la pantalla y el
+     texto empieza con margen. */
+  .pr__riel{ grid-auto-columns:minmax(0,1fr); overflow:visible;
+             width:var(--env); margin-inline:auto; padding-inline:0; }
+}
+.pr__pista{
+  display:flex; align-items:center; gap:9px; margin:14px 0 0;
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--marfil-3);
+}
+.pr__pista i{ font-style:normal; animation:pr-vaiven 2.4s ease-in-out infinite; }
+@keyframes pr-vaiven{ 0%,100%{ transform:translateX(0) } 50%{ transform:translateX(6px) } }
+@media (min-width:1080px){ .pr__pista{ display:none; } }
+
+/* ── La ficha del problema: se voltea al tocarla ──────────── */
+.pr__ficha{
+  position:relative; scroll-snap-align:center;
+  min-height:270px; perspective:1200px;
+  background:none; border:0; padding:0; margin:0;
+  font-family:inherit; color:inherit; text-align:left; cursor:pointer;
+  width:100%;
+}
+.pr__cara{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  padding:26px 24px; border:1px solid var(--linea); border-radius:18px;
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  transition:transform .7s var(--ease);
+}
+.pr__cara--frente{
+  background:linear-gradient(160deg,var(--tono,rgba(224,53,123,.16)),transparent 68%),var(--tinta);
+}
+.pr__cara--dorso{
+  transform:rotateY(180deg);
+  background:linear-gradient(160deg,rgba(159,206,58,.2),transparent 66%),var(--carbon);
+  border-color:rgba(159,206,58,.36);
+}
+.pr__ficha[aria-pressed="true"] .pr__cara--frente{ transform:rotateY(-180deg); }
+.pr__ficha[aria-pressed="true"] .pr__cara--dorso{ transform:rotateY(0); }
+.pr__ficha-tit{
+  font-family:var(--serif); font-size:clamp(23px,5.4vw,29px);
+  line-height:1.08; margin:0 0 12px;
+}
+.pr__ficha p{ margin:0; color:var(--marfil-2); font-size:14.5px; line-height:1.55; }
+.pr__voltea{
+  margin-top:auto; padding-top:16px;
+  display:flex; align-items:center; gap:9px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--marfil-3);
+}
+.pr__cara--dorso .pr__voltea{ color:var(--lima-viva); }
+.pr__num{
+  font-family:var(--serif); font-size:44px; line-height:1;
+  color:var(--fruta-viva); margin:0 0 10px;
+}
+.pr__cara--dorso .pr__num{ color:var(--lima-viva); }
+
+/* ── Lo que cambia: tarjetas simples ──────────────────────── */
+.pr__gana{
+  scroll-snap-align:center; display:flex; flex-direction:column;
+  padding:26px 24px; border-radius:18px; border:1px solid var(--linea);
+  background:rgba(244,239,230,.024); min-height:210px;
+}
+.pr__gana-ico{
+  width:40px; height:40px; margin-bottom:18px; color:var(--lima-viva);
+}
+.pr__gana h3{ font-family:var(--serif); font-size:24px; line-height:1.1; margin:0 0 8px; }
+.pr__gana p{ margin:0; color:var(--marfil-2); font-size:14.5px; }
+
+/* ── La IA: conversación que se escribe sola ──────────────── */
+.pr__chat{
+  display:grid; gap:10px; margin-top:26px;
+  padding:22px 20px; border-radius:18px;
+  border:1px solid var(--linea); background:var(--tinta);
+}
+.pr__burb{
+  padding:13px 16px; border-radius:15px; font-size:14.5px; line-height:1.5;
+  max-width:86%;
+}
+.js-vivo .pr__burb{ opacity:0; transform:translateY(10px) scale(.97); }
+.pr__chat.is-vivo .pr__burb{ animation:pr-burb .55s var(--muelle) forwards; }
+.pr__burb--cli{
+  justify-self:start; border-bottom-left-radius:5px;
+  background:rgba(244,239,230,.07); border:1px solid var(--linea);
+}
+.pr__burb--bot{
+  justify-self:end; border-bottom-right-radius:5px;
+  background:linear-gradient(135deg,rgba(159,206,58,.22),rgba(159,206,58,.07));
+  border:1px solid rgba(159,206,58,.34);
+}
+.pr__chat.is-vivo .pr__burb:nth-child(1){ animation-delay:.15s }
+.pr__chat.is-vivo .pr__burb:nth-child(2){ animation-delay:.9s }
+.pr__chat.is-vivo .pr__burb:nth-child(3){ animation-delay:1.7s }
+.pr__chat.is-vivo .pr__burb:nth-child(4){ animation-delay:2.5s }
+@keyframes pr-burb{ to{ opacity:1; transform:none; } }
+.pr__hora{
+  display:block; margin-top:5px; font-family:var(--mono);
+  font-size:9px; letter-spacing:.1em; color:var(--marfil-3);
+}
+.pr__reloj{
+  display:inline-flex; align-items:center; gap:8px; margin-top:16px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--marfil-3);
+}
+.pr__reloj b{ color:var(--lima-viva); font-weight:500; }
+
+/* ── Tu demo: el momento que cierra la venta ──────────────── */
+.pr__demo{
+  position:relative; overflow:hidden;
+  padding:clamp(28px,6vw,52px); border-radius:22px;
+  border:1px solid rgba(217,195,160,.4);
+  background:
+    radial-gradient(80% 110% at 90% 0%, rgba(217,195,160,.18), transparent 62%),
+    radial-gradient(70% 90% at 4% 100%, rgba(224,53,123,.14), transparent 64%),
+    var(--tinta);
+}
+.pr__demo-tit{ font-family:var(--serif); font-size:clamp(27px,6.4vw,42px); line-height:1.06; margin:0 0 12px; }
+.pr__demo p{ margin:0 0 26px; color:var(--marfil-2); font-size:15.5px; max-width:36ch; }
+
+/* ── Botones ──────────────────────────────────────────────── */
+.pr__wa,.pr__ghost,.pr__oro{
+  display:inline-flex; align-items:center; justify-content:center; gap:11px;
+  min-height:56px; padding:0 26px; border-radius:100px; border:0;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; text-decoration:none; cursor:pointer;
+  transition:transform .3s var(--ease), box-shadow .3s ease, border-color .3s ease;
+}
+.pr__wa{
+  background:linear-gradient(120deg,var(--fruta-viva),var(--fruta));
+  color:#150a10; font-weight:600;
+  box-shadow:0 16px 44px -18px rgba(224,53,123,.85);
+}
+.pr__oro{
+  background:linear-gradient(120deg,#f0dcb4,var(--champan));
+  color:#1d1509; font-weight:600;
+  box-shadow:0 16px 44px -18px rgba(217,195,160,.7);
+}
+.pr__ghost{ background:transparent; color:var(--marfil); border:1px solid var(--linea-2); }
+.pr__wa:hover,.pr__oro:hover{ transform:translateY(-2px); }
+.pr__ghost:hover{ border-color:var(--marfil); }
+.pr__wa i,.pr__oro i,.pr__ghost i{ font-style:normal; transition:transform .3s var(--ease); }
+.pr__wa:hover i,.pr__oro:hover i,.pr__ghost:hover i{ transform:translateX(4px); }
+.pr__acciones{ display:flex; flex-wrap:wrap; gap:12px; }
+
+/* ── Cierre ───────────────────────────────────────────────── */
+.pr__cierre{ text-align:center; padding:clamp(56px,11vh,120px) 0 clamp(40px,7vh,70px); }
+.pr__cierre .pr__h{ margin-inline:auto; max-width:18ch; }
+.pr__cierre .pr__pie-cap{ margin-inline:auto; }
+.pr__cierre .pr__acciones{ justify-content:center; margin-top:30px; }
+.pr__cupo{
+  display:inline-flex; align-items:center; gap:9px; margin:0 auto 20px;
+  padding:7px 15px 7px 11px; border-radius:100px;
+  border:1px solid rgba(224,53,123,.42); background:rgba(224,53,123,.1);
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--marfil-2);
+}
+.pr__cupo i{
+  width:7px; height:7px; border-radius:50%; background:var(--fruta-viva); flex:none;
+  animation:pr-latido 2.4s ease-out infinite;
+}
+@keyframes pr-latido{
+  0%{ box-shadow:0 0 0 0 rgba(255,92,156,.5) }
+  70%{ box-shadow:0 0 0 11px rgba(255,92,156,0) }
+  100%{ box-shadow:0 0 0 0 rgba(255,92,156,0) }
+}
+.pr__salida{
+  border-top:1px solid var(--linea); padding:24px 0 14px;
+  display:flex; flex-wrap:wrap; gap:12px 20px;
+  align-items:center; justify-content:space-between;
+}
+.pr__salida p{ margin:0; font-size:13.5px; color:var(--marfil-3); }
+.pr__salida a{
+  display:inline-flex; align-items:center; gap:9px; min-height:44px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--marfil-2); text-decoration:none;
+  border-bottom:1px solid var(--linea-2);
+  transition:color .3s ease, border-color .3s ease;
+}
+.pr__salida a:hover{ color:var(--marfil); border-color:var(--marfil); }
+.pr__redes{ display:flex; gap:2px; margin:0; padding:0; list-style:none; }
+.pr__redes a{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:50%; border:0;
+  color:var(--marfil-3); transition:color .3s ease, background .3s ease;
+}
+.pr__redes a:hover{ color:var(--marfil); background:rgba(244,239,230,.08); }
+.pr__redes svg{ width:19px; height:19px; }
+.pr__legal{
+  padding:0 0 34px; font-family:var(--mono);
+  font-size:9.5px; letter-spacing:.08em; color:var(--marfil-3);
+}
+
+/* ── Entradas al hacer scroll ─────────────────────────────── */
+/* Sin guion no se esconde nada: más vale una página sin
+   animación que una página en blanco frente a un cliente. */
+.js-vivo .pr-rev{
+  opacity:0; transform:translateY(24px);
+  transition:opacity .75s ease var(--d,0ms),
+             transform .9s var(--ease) var(--d,0ms);
+}
+.js-vivo .pr-rev.is-vivo{ opacity:1; transform:none; }
+
+/* ── Menos movimiento para quien lo pide ──────────────────── */
+@media (prefers-reduced-motion:reduce){
+  .pr-rev{ opacity:1!important; transform:none!important; transition:none!important; }
+  .pr__marca-sello,.pr__gracias,.pr__para,.pr__abrir{ opacity:1!important; transform:none!important; animation:none!important; }
+  .pr__anillo circle{ stroke-dashoffset:0!important; animation:none!important; }
+  .pr__burb{ opacity:1!important; transform:none!important; }
+  .pr__chat.is-vivo .pr__burb{ animation:none!important; }
+  .pr__cupo i,.pr__abrir i,.pr__pista i{ animation:none!important; }
+  .pr__cara{ transition:none!important; }
+  .pr__wa,.pr__oro,.pr__ghost{ transition:none!important; }
+  .pr__hilo{ display:none; }
+}

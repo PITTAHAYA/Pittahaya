@@ -14,7 +14,7 @@
       ]
     },
     {
-      "source": "/(oferta\\.html|en/offer\\.html)",
+      "source": "/(oferta\\.html|en/offer\\.html|presentacion\\.html)",
       "headers": [
         {
           "key": "X-Robots-Tag",

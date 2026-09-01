@@ -7,5 +7,6 @@ Disallow: /api/
 # No se enlazan desde el sitio y no deben aparecer en buscadores.
 Disallow: /oferta.html
 Disallow: /en/offer.html
+Disallow: /presentacion.html
 
 Sitemap: https://www.pittahaya.com/sitemap.xml
