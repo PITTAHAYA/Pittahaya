@@ -662,6 +662,95 @@ async function updateSettings(req, res) {
   return res.status(200).json({ success: true, country: cfg[country] });
 }
 
+// ── Facturas (respaldo contable, guardadas) ──────────────────
+const DOC_TYPES = ['factura', 'recibo'];
+
+// Número secuencial por país (EC-000001 / CA-000001), guardado en settings.
+async function nextInvoiceNumber(country) {
+  const cc = country === 'ca' ? 'CA' : 'EC';
+  const key = 'invoice_counters';
+  let counters = { ec: 0, ca: 0 };
+  try {
+    const { data } = await supabase.from('crm_settings').select('value').eq('key', key).single();
+    if (data && data.value) counters = { ...counters, ...data.value };
+  } catch (e) { /* sin contador todavía */ }
+  counters[country] = (Number(counters[country]) || 0) + 1;
+  await supabase.from('crm_settings').upsert(
+    { key, value: counters, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+  return `${cc}-${String(counters[country]).padStart(6, '0')}`;
+}
+
+async function createInvoice(req, res) {
+  const b = req.body || {};
+  const country = normCountry(b.country);
+  const cfg = COUNTRIES[country];
+
+  // Ítems: [{desc, qty, price}] — recalculamos montos en el servidor.
+  const rawItems = Array.isArray(b.items) ? b.items.slice(0, 50) : [];
+  const items = rawItems.map(it => ({
+    desc:  sanitize(it && it.desc, 300) || '',
+    qty:   Math.max(0, Number(it && it.qty)   || 0),
+    price: Math.max(0, Number(it && it.price) || 0)
+  })).filter(it => it.desc || it.qty || it.price);
+  if (!items.length) return res.status(400).json({ error: 'La factura necesita al menos una línea.' });
+
+  const subtotal = items.reduce((s, it) => s + it.qty * it.price, 0);
+  let taxRate = Number(b.tax_rate);
+  if (!Number.isFinite(taxRate) || taxRate < 0 || taxRate > 1) taxRate = 0;
+  const taxAmount = subtotal * taxRate;
+  const total = subtotal + taxAmount;
+
+  const base = {
+    lead_id:        b.lead_id || null,
+    country,
+    currency:       cfg.currency,
+    doc_type:       DOC_TYPES.includes(b.doc_type) ? b.doc_type : 'factura',
+    client_name:    sanitize(b.client_name, 200) || '',
+    client_company: sanitize(b.client_company, 200) || '',
+    client_email:   sanitize(b.client_email, 200) || '',
+    client_phone:   sanitize(b.client_phone, 60) || '',
+    items,
+    subtotal:   toMoney(subtotal),
+    tax_name:   cfg.taxName,
+    tax_rate:   Math.round(taxRate * 10000) / 10000,
+    tax_amount: toMoney(taxAmount),
+    total:      toMoney(total),
+    amount_paid: toMoney(b.amount_paid),
+    notes:      sanitize(b.notes, 1000) || '',
+    issue_date: (b.issue_date && /^\d{4}-\d{2}-\d{2}$/.test(b.issue_date)) ? b.issue_date : new Date().toISOString().slice(0, 10),
+    status:     ['draft', 'issued', 'paid', 'void'].includes(b.status) ? b.status : 'issued'
+  };
+
+  // Inserta con número secuencial; reintenta una vez si choca el unique.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const number = await nextInvoiceNumber(country);
+    const { data, error } = await supabase.from('invoices').insert({ ...base, number }).select().single();
+    if (!error) return res.status(201).json({ invoice: data });
+    if (String(error.code) === '23505' && attempt === 0) continue; // número duplicado → reintenta
+    if (isSchemaError(error)) return res.status(500).json({ error: 'Falta correr la migración de facturas en Supabase.' });
+    return res.status(500).json({ error: error.message });
+  }
+  return res.status(500).json({ error: 'No se pudo asignar número de factura.' });
+}
+
+async function getInvoices(req, res) {
+  let q = supabase.from('invoices').select('*').order('issue_date', { ascending: false }).limit(500);
+  if (req.query.lead_id) q = q.eq('lead_id', req.query.lead_id);
+  if (req.query.country && COUNTRY_CODES.includes(req.query.country)) q = q.eq('country', req.query.country);
+  const { data, error } = await q;
+  if (error) {
+    if (isSchemaError(error)) return res.status(200).json({ invoices: [] });
+    return res.status(500).json({ error: error.message });
+  }
+  return res.status(200).json({ invoices: data || [] });
+}
+
+async function getInvoice(req, res, id) {
+  const { data, error } = await supabase.from('invoices').select('*').eq('id', id).single();
+  if (error) return res.status(404).json({ error: 'Factura no encontrada' });
+  return res.status(200).json({ invoice: data });
+}
+
 async function getMetrics(req, res) {
   const now = new Date();
   const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -833,6 +922,10 @@ module.exports = async function handler(req, res) {
     // GET/PATCH settings fiscales (activar impuesto por país)
     if (req.method === 'GET'   && action === 'settings') return getSettings(req, res);
     if (req.method === 'PATCH' && action === 'settings') return updateSettings(req, res);
+    // Facturas
+    if (req.method === 'GET'  && action === 'invoices') return getInvoices(req, res);
+    if (req.method === 'GET'  && action === 'invoice' && id) return getInvoice(req, res, id);
+    if (req.method === 'POST' && action === 'invoice') return createInvoice(req, res);
     // GET /api/crm?action=export
     if (req.method === 'GET' && action === 'export') return exportCSV(req, res);
     // GET /api/crm?action=leads

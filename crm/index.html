@@ -816,6 +816,31 @@
     </div>
   </div>
 
+  <!-- ── Facturas emitidas ── -->
+  <div class="finance-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Facturas emitidas</h2>
+        <p class="page-subtitle">Cada factura o recibo guardado, con su número secuencial por país. Haz clic para verla o imprimirla.</p>
+      </div>
+      <select id="invCountryFilter" onchange="loadInvoices()" style="background:var(--onyx-2);border:1px solid var(--border);color:#e0e0e0;padding:9px 12px;border-radius:5px;font-family:inherit;font-size:13px">
+        <option value="">Todos los países</option>
+        <option value="ec">🇪🇨 Ecuador</option>
+        <option value="ca">🇨🇦 Canadá</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>N.º</th><th>Cliente</th><th>Tipo</th><th>Fecha</th><th style="text-align:right">Total</th><th style="text-align:right">Pagado</th><th></th></tr>
+        </thead>
+        <tbody id="invoicesBody">
+          <tr><td colspan="7"><div class="loading"><div class="loading-spinner"></div>Cargando facturas…</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- ── Rentabilidad (P&L) ── -->
   <div class="finance-section">
     <div class="finance-head">
@@ -1142,7 +1167,39 @@ function paymentLabel(p) {
 }
 
 async function refreshAll() {
-  await Promise.all([loadMetrics(), loadFiscal(), loadFiscalPeriod(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+  await Promise.all([loadMetrics(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+}
+
+// ── Facturas emitidas ─────────────────────────────────────────
+const DOC_LABEL = { factura: 'Factura', recibo: 'Recibo' };
+async function loadInvoices() {
+  const body = document.getElementById('invoicesBody');
+  if (!body) return;
+  try {
+    const params = { action: 'invoices' };
+    const c = document.getElementById('invCountryFilter')?.value;
+    if (c) params.country = c;
+    const { invoices } = await api(params);
+    const rows = invoices || [];
+    if (!rows.length) {
+      body.innerHTML = '<tr><td colspan="7"><div class="empty">Aún no hay facturas guardadas. Genera una desde la ficha de un cliente.</div></td></tr>';
+      return;
+    }
+    body.innerHTML = rows.map(inv => {
+      const bal = Math.max(0, (Number(inv.total) || 0) - (Number(inv.amount_paid) || 0));
+      return `<tr>
+        <td><a href="/crm/invoice.html?invoice=${inv.id}" class="action-link" style="font-weight:600">${flag(inv.country)} ${esc(inv.number || '—')}</a></td>
+        <td>${esc(inv.client_name) || '—'}${inv.client_company ? `<div class="lead-email">${esc(inv.client_company)}</div>` : ''}</td>
+        <td>${DOC_LABEL[inv.doc_type] || 'Factura'}</td>
+        <td class="date-cell">${(inv.issue_date || '').slice(0, 10)}</td>
+        <td style="text-align:right">${moneyC(inv.total, inv.country)}</td>
+        <td style="text-align:right;color:${bal <= 0.001 ? '#34d399' : '#fbbf24'}">${bal <= 0.001 ? '✓ ' + money(inv.amount_paid) : money(inv.amount_paid)}</td>
+        <td style="white-space:nowrap"><a href="/crm/invoice.html?invoice=${inv.id}" class="action-link">Ver →</a></td>
+      </tr>`;
+    }).join('');
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="7"><div class="empty">No se pudo cargar facturas: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
+  }
 }
 
 // ── Radar fiscal (por país) ───────────────────────────────────

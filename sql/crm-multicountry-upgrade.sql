@@ -44,3 +44,36 @@ create table if not exists public.crm_settings (
 );
 alter table public.crm_settings enable row level security;  -- solo la service key del CRM entra
 
+-- ── Facturas guardadas (respaldo contable) ──────────────────
+-- Cada factura/recibo emitido queda guardado con número secuencial por
+-- país, la moneda y el impuesto correctos, y una copia de los datos del
+-- cliente (por si el lead cambia después). Es el respaldo que pide el
+-- contador — no una hoja que se regenera cada vez.
+create table if not exists public.invoices (
+  id             uuid primary key default gen_random_uuid(),
+  number         text unique,                      -- EC-000001 / CA-000001
+  lead_id        uuid references public.leads(id) on delete set null,
+  country        text default 'ec',                -- 'ec' | 'ca'
+  currency       text default 'USD',
+  doc_type       text default 'factura',           -- factura | recibo
+  client_name    text,
+  client_company text,
+  client_email   text,
+  client_phone   text,
+  items          jsonb        default '[]',         -- [{desc, qty, price}]
+  subtotal       numeric(12,2) default 0,
+  tax_name       text default 'IVA',
+  tax_rate       numeric(6,4) default 0,            -- 0.15 = 15%
+  tax_amount     numeric(12,2) default 0,
+  total          numeric(12,2) default 0,
+  amount_paid    numeric(12,2) default 0,
+  notes          text,
+  issue_date     date default current_date,
+  status         text default 'issued',            -- draft | issued | paid | void
+  created_at     timestamptz default now()
+);
+create index if not exists invoices_lead_idx    on public.invoices (lead_id);
+create index if not exists invoices_country_idx on public.invoices (country);
+create index if not exists invoices_date_idx    on public.invoices (issue_date desc);
+alter table public.invoices enable row level security;
+
