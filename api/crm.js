@@ -65,8 +65,46 @@ function sanitize(str, maxLen = 500) {
   return String(str).trim().slice(0, maxLen);
 }
 
+// ── Países / config fiscal ───────────────────────────────────
+// Pittahaya factura desde dos países. Cada uno tiene su moneda, su
+// umbral de "pequeño proveedor" (bajo el cual NO hay que registrarse
+// ni declarar impuesto de venta) y su tasa de impuesto para cuando se
+// cruce ese umbral. Cambiar aquí = cambia en todo el CRM.
+//   ec = Ecuador · ca = Canadá
+const COUNTRIES = {
+  ec: { code: 'ec', name: 'Ecuador', flag: '🇪🇨', currency: 'USD', taxName: 'IVA',     taxRate: 0.15, threshold: 20000, registered: false },
+  ca: { code: 'ca', name: 'Canadá',  flag: '🇨🇦', currency: 'CAD', taxName: 'GST/HST', taxRate: 0.05, threshold: 30000, registered: false }
+};
+const COUNTRY_CODES = Object.keys(COUNTRIES);
+const normCountry   = (c) => COUNTRY_CODES.includes(String(c || '').toLowerCase()) ? String(c).toLowerCase() : 'ec';
+const currencyFor   = (c) => COUNTRIES[normCountry(c)].currency;
+
+// Lee la configuración fiscal guardada (si registró IVA/GST y desde cuándo)
+// y la fusiona sobre los valores por defecto. Degrada sin error si la tabla
+// crm_settings aún no está migrada → todos como pequeño proveedor.
+const FISCAL_KEY = 'fiscal_config';
+async function loadFiscalConfig() {
+  const cfg = {};
+  COUNTRY_CODES.forEach(c => {
+    cfg[c] = { registered: COUNTRIES[c].registered, registeredAt: null, taxRate: COUNTRIES[c].taxRate };
+  });
+  try {
+    const { data, error } = await supabase.from('crm_settings').select('value').eq('key', FISCAL_KEY).single();
+    if (error) throw error;
+    const saved = (data && data.value) || {};
+    COUNTRY_CODES.forEach(c => {
+      if (saved[c]) {
+        cfg[c].registered   = !!saved[c].registered;
+        cfg[c].registeredAt = saved[c].registeredAt || null;
+        if (Number.isFinite(Number(saved[c].taxRate))) cfg[c].taxRate = Number(saved[c].taxRate);
+      }
+    });
+  } catch (e) { /* sin tabla de settings todavía → defaults */ }
+  return cfg;
+}
+
 // ── Finance / progress helpers ───────────────────────────────
-const FINANCE_FIELDS    = ['deal_value', 'amount_paid', 'currency', 'payment_status', 'project_stage', 'next_followup'];
+const FINANCE_FIELDS    = ['deal_value', 'amount_paid', 'currency', 'payment_status', 'project_stage', 'next_followup', 'country', 'tax_amount', 'withholding'];
 const PAYMENT_STATUSES  = ['unpaid', 'deposit', 'partial', 'paid'];
 const PROJECT_STAGES    = ['', 'diagnosis', 'design', 'review', 'launch', 'delivered'];
 const toMoney = (v) => {
@@ -82,14 +120,21 @@ const isSchemaError = (err) => {
          m.includes('column') || m.includes('schema cache') || m.includes('does not exist');
 };
 // Build the finance fields from a request body, validated.
-const financeFromBody = (b) => ({
-  deal_value:     toMoney(b.deal_value),
-  amount_paid:    toMoney(b.amount_paid),
-  currency:       (sanitize(b.currency, 8) || 'USD').toUpperCase().slice(0, 8),
-  payment_status: PAYMENT_STATUSES.includes(b.payment_status) ? b.payment_status : 'unpaid',
-  project_stage:  PROJECT_STAGES.includes(b.project_stage) ? b.project_stage : '',
-  next_followup:  (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null
-});
+// La moneda se deriva del país (Ecuador→USD, Canadá→CAD) para no mezclar.
+const financeFromBody = (b) => {
+  const country = normCountry(b.country);
+  return {
+    deal_value:     toMoney(b.deal_value),
+    amount_paid:    toMoney(b.amount_paid),
+    country,
+    currency:       currencyFor(country),
+    tax_amount:     toMoney(b.tax_amount),
+    withholding:    toMoney(b.withholding),
+    payment_status: PAYMENT_STATUSES.includes(b.payment_status) ? b.payment_status : 'unpaid',
+    project_stage:  PROJECT_STAGES.includes(b.project_stage) ? b.project_stage : '',
+    next_followup:  (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null
+  };
+};
 
 // Neutralize PostgREST filter metacharacters before interpolating a
 // user-supplied value into an `.or(...)` filter string. Commas, parens,
@@ -109,7 +154,7 @@ function sanitizeFilterValue(str, maxLen = 120) {
 const ALLOWED_SORT_COLS = new Set(['created_at', 'updated_at', 'name', 'email', 'status', 'priority', 'company', 'service', 'source_page']);
 
 async function getLeads(req, res) {
-  const { status, priority, service, source_page, search, sort = 'created_at', order = 'desc', limit = 50, offset = 0 } = req.query;
+  const { status, priority, service, source_page, country, search, sort = 'created_at', order = 'desc', limit = 50, offset = 0 } = req.query;
 
   const safeSort = ALLOWED_SORT_COLS.has(sort) ? sort : 'created_at';
   const safeOrder = order === 'asc' ? 'asc' : 'desc';
@@ -117,6 +162,7 @@ async function getLeads(req, res) {
   let query = supabase.from('leads').select('*', { count: 'exact' });
 
   if (status)      query = query.eq('status', status);
+  if (country && COUNTRY_CODES.includes(country)) query = query.eq('country', country);
   if (priority)    query = query.eq('priority', priority);
   if (service)     query = query.ilike('service', `%${service}%`);
   if (source_page) query = query.ilike('source_page', `%${source_page}%`);
@@ -201,6 +247,10 @@ async function updateLead(req, res, id) {
   if (b.project_stage  !== undefined && PROJECT_STAGES.includes(b.project_stage))    updates.project_stage  = b.project_stage;
   if (b.next_followup  !== undefined) updates.next_followup = (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null;
   if (b.social !== undefined) updates.social = sanitize(b.social, 400) || '';
+  // País → fija también la moneda para no mezclar CAD y USD.
+  if (b.country      !== undefined) { updates.country = normCountry(b.country); updates.currency = currencyFor(b.country); }
+  if (b.tax_amount   !== undefined) updates.tax_amount  = toMoney(b.tax_amount);
+  if (b.withholding  !== undefined) updates.withholding = toMoney(b.withholding);
 
   if (!Object.keys(updates).length) return res.status(400).json({ error: 'Nada que actualizar' });
 
@@ -279,6 +329,7 @@ async function getExpenses(req, res) {
     const end = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1)).toISOString().slice(0, 10);
     q = q.gte('expense_date', start).lt('expense_date', end);
   }
+  if (req.query.country && COUNTRY_CODES.includes(req.query.country)) q = q.eq('country', req.query.country);
   const { data, error } = await q;
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ expenses: data || [] });
@@ -290,16 +341,25 @@ async function createExpense(req, res) {
   const amount = toMoney(b.amount);
   if (!label) return res.status(400).json({ error: 'La descripción es obligatoria' });
   if (!(amount > 0)) return res.status(400).json({ error: 'El monto debe ser mayor a 0' });
+  const country = normCountry(b.country);
   const expense = {
     label,
     amount,
     category:  EXPENSE_CATEGORIES.includes(b.category) ? b.category : 'otros',
     cost_type: COST_TYPES.includes(b.cost_type) ? b.cost_type : 'operating',
-    currency:  (sanitize(b.currency, 8) || 'USD').toUpperCase().slice(0, 8),
+    country,
+    currency:  currencyFor(country),
+    tax_amount: toMoney(b.tax_amount),
     expense_date: (b.expense_date && /^\d{4}-\d{2}-\d{2}$/.test(b.expense_date)) ? b.expense_date : new Date().toISOString().slice(0, 10),
     recurring: !!b.recurring
   };
-  const { data, error } = await supabase.from('expenses').insert(expense).select().single();
+  let { data, error } = await supabase.from('expenses').insert(expense).select().single();
+  // Si las columnas nuevas aún no están migradas, inserta lo esencial.
+  if (error && isSchemaError(error)) {
+    const core = { ...expense };
+    ['country', 'tax_amount'].forEach(f => delete core[f]);
+    ({ data, error } = await supabase.from('expenses').insert(core).select().single());
+  }
   if (error) return res.status(500).json({ error: error.message });
   return res.status(201).json({ expense: data });
 }
@@ -313,8 +373,15 @@ async function updateExpense(req, res, id) {
   if (b.cost_type !== undefined && COST_TYPES.includes(b.cost_type)) updates.cost_type = b.cost_type;
   if (b.expense_date !== undefined && /^\d{4}-\d{2}-\d{2}$/.test(b.expense_date)) updates.expense_date = b.expense_date;
   if (b.recurring !== undefined) updates.recurring = !!b.recurring;
+  if (b.country !== undefined) { updates.country = normCountry(b.country); updates.currency = currencyFor(b.country); }
+  if (b.tax_amount !== undefined) updates.tax_amount = toMoney(b.tax_amount);
   if (!Object.keys(updates).length) return res.status(400).json({ error: 'Nada que actualizar' });
-  const { error } = await supabase.from('expenses').update(updates).eq('id', id);
+  let { error } = await supabase.from('expenses').update(updates).eq('id', id);
+  if (error && isSchemaError(error)) {
+    const core = { ...updates };
+    ['country', 'tax_amount'].forEach(f => delete core[f]);
+    if (Object.keys(core).length) ({ error } = await supabase.from('expenses').update(core).eq('id', id));
+  }
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
 }
@@ -405,6 +472,194 @@ async function getMonthly(req, res) {
     };
   });
   return res.status(200).json({ months });
+}
+
+// ── Radar fiscal (por país) ──────────────────────────────────
+// El reporte que le facilita la vida al contador: por cada país, cuánto
+// se cobró (año y rolling 12 meses), impuesto cobrado vs pagado, y qué
+// tan cerca está del umbral de "pequeño proveedor" donde toca registrarse.
+async function getFiscal(req, res) {
+  const now = new Date();
+  const yearStart = `${now.getUTCFullYear()}-01-01`;
+  const rolling12 = new Date(Date.UTC(now.getUTCFullYear() - 1, now.getUTCMonth(), now.getUTCDate())).toISOString();
+  const fcfg = await loadFiscalConfig();
+
+  // Base por país desde el config.
+  const acc = {};
+  COUNTRY_CODES.forEach(c => {
+    acc[c] = {
+      ...COUNTRIES[c],
+      registered: fcfg[c].registered, taxRate: fcfg[c].taxRate, registeredAt: fcfg[c].registeredAt,
+      revenueCollected: 0, rolling12Revenue: 0, yearRevenue: 0,
+      taxCollected: 0, withholding: 0, taxPaid: 0, taxNet: 0,
+      expenses: 0, profit: 0, deals: 0, wonDeals: 0
+    };
+  });
+
+  // ── Ventas (leads) ──
+  try {
+    let { data, error } = await supabase.from('leads')
+      .select('amount_paid, tax_amount, withholding, status, country, updated_at');
+    if (error && isSchemaError(error)) {
+      // Columnas nuevas sin migrar: cae todo a Ecuador por defecto.
+      ({ data } = await supabase.from('leads').select('amount_paid, status, updated_at'));
+    } else if (error) { throw error; }
+    (data || []).forEach(r => {
+      const c = acc[normCountry(r.country)] ? normCountry(r.country) : 'ec';
+      const ap = Number(r.amount_paid) || 0;
+      const A = acc[c];
+      A.revenueCollected += ap;
+      A.taxCollected += Number(r.tax_amount) || 0;
+      A.withholding  += Number(r.withholding) || 0;
+      if (ap > 0) A.deals++;
+      if (r.status === 'won') A.wonDeals++;
+      const u = String(r.updated_at || '');
+      if (u >= yearStart) A.yearRevenue += ap;
+      if (u >= rolling12) A.rolling12Revenue += ap;
+    });
+  } catch (e) { /* sin datos de ventas */ }
+
+  // ── Gastos ──
+  try {
+    let { data, error } = await supabase.from('expenses').select('amount, tax_amount, country');
+    if (error && isSchemaError(error)) {
+      ({ data } = await supabase.from('expenses').select('amount'));
+    } else if (error) { throw error; }
+    (data || []).forEach(e => {
+      const c = acc[normCountry(e.country)] ? normCountry(e.country) : 'ec';
+      acc[c].expenses += Number(e.amount) || 0;
+      acc[c].taxPaid  += Number(e.tax_amount) || 0;
+    });
+  } catch (e) { /* sin gastos */ }
+
+  // ── Derivados + estado del umbral ──
+  const round2 = (n) => Math.round((Number(n) || 0) * 100) / 100;
+  const countries = COUNTRY_CODES.map(c => {
+    const A = acc[c];
+    const roll = round2(A.rolling12Revenue);
+    const pct  = A.threshold > 0 ? Math.round(roll / A.threshold * 100) : 0;
+    const remaining = Math.max(0, round2(A.threshold - roll));
+    const zone = pct >= 100 ? 'over' : pct >= 70 ? 'warning' : 'safe';
+    return {
+      code: A.code, name: A.name, flag: A.flag, currency: A.currency,
+      taxName: A.taxName, taxRate: A.taxRate, registered: A.registered,
+      threshold: A.threshold,
+      revenueCollected: round2(A.revenueCollected),
+      yearRevenue:      round2(A.yearRevenue),
+      rolling12Revenue: roll,
+      thresholdPct: pct,
+      thresholdRemaining: remaining,
+      zone,
+      taxCollected: round2(A.taxCollected),
+      withholding:  round2(A.withholding),
+      taxPaid:      round2(A.taxPaid),
+      taxNet:       round2(A.taxCollected - A.taxPaid),
+      expenses:     round2(A.expenses),
+      profit:       round2(A.revenueCollected - A.expenses),
+      deals: A.deals, wonDeals: A.wonDeals
+    };
+  });
+
+  return res.status(200).json({ countries, generatedAt: now.toISOString() });
+}
+
+// ── Reporte fiscal por período (mes / trimestre / año) ───────
+// El "descarga y declara": para un país y un rango de fechas, cuánto
+// entró, cuánto impuesto se cobró y se pagó, y el NETO a declarar.
+async function getFiscalPeriod(req, res) {
+  const country = normCountry(req.query.country);
+  const DATE = /^\d{4}-\d{2}-\d{2}$/;
+  const start = DATE.test(req.query.start) ? req.query.start : `${new Date().getUTCFullYear()}-01-01`;
+  const end   = DATE.test(req.query.end)   ? req.query.end   : new Date().toISOString().slice(0, 10);
+  const fcfg  = await loadFiscalConfig();
+  const cfg   = COUNTRIES[country];
+  const round2 = (n) => Math.round((Number(n) || 0) * 100) / 100;
+
+  const r = {
+    country, name: cfg.name, flag: cfg.flag, currency: cfg.currency, taxName: cfg.taxName,
+    taxRate: fcfg[country].taxRate, registered: fcfg[country].registered,
+    start, end,
+    revenue: 0, taxCollected: 0, withholding: 0,
+    taxPaid: 0, expenses: 0, directCosts: 0, operatingCosts: 0,
+    netTax: 0, profit: 0, invoices: 0
+  };
+
+  // Ingresos (por updated_at, igual convención que el resto del CRM).
+  try {
+    let { data, error } = await supabase.from('leads')
+      .select('amount_paid, tax_amount, withholding, country, updated_at')
+      .gte('updated_at', start + 'T00:00:00Z').lt('updated_at', end + 'T23:59:59Z');
+    if (error && isSchemaError(error)) {
+      ({ data } = await supabase.from('leads').select('amount_paid, updated_at')
+        .gte('updated_at', start + 'T00:00:00Z').lt('updated_at', end + 'T23:59:59Z'));
+    } else if (error) { throw error; }
+    (data || []).forEach(l => {
+      if (normCountry(l.country) !== country) return;
+      const ap = Number(l.amount_paid) || 0;
+      if (ap > 0) r.invoices++;
+      r.revenue      += ap;
+      r.taxCollected += Number(l.tax_amount) || 0;
+      r.withholding  += Number(l.withholding) || 0;
+    });
+  } catch (e) { /* sin ventas */ }
+
+  // Gastos (por expense_date).
+  try {
+    let { data, error } = await supabase.from('expenses')
+      .select('amount, tax_amount, cost_type, country, expense_date')
+      .gte('expense_date', start).lte('expense_date', end);
+    if (error && isSchemaError(error)) {
+      ({ data } = await supabase.from('expenses').select('amount, cost_type, expense_date')
+        .gte('expense_date', start).lte('expense_date', end));
+    } else if (error) { throw error; }
+    (data || []).forEach(e => {
+      if (normCountry(e.country) !== country) return;
+      const amt = Number(e.amount) || 0;
+      r.expenses += amt;
+      r.taxPaid  += Number(e.tax_amount) || 0;
+      if (e.cost_type === 'direct') r.directCosts += amt; else r.operatingCosts += amt;
+    });
+  } catch (e) { /* sin gastos */ }
+
+  r.netTax = r.taxCollected - r.taxPaid;
+  r.profit = r.revenue - r.expenses;
+  ['revenue','taxCollected','withholding','taxPaid','expenses','directCosts','operatingCosts','netTax','profit']
+    .forEach(k => r[k] = round2(r[k]));
+  return res.status(200).json(r);
+}
+
+// ── Settings fiscales (activar/desactivar impuesto por país) ──
+async function getSettings(req, res) {
+  const cfg = await loadFiscalConfig();
+  const countries = COUNTRY_CODES.map(c => ({
+    code: c, name: COUNTRIES[c].name, flag: COUNTRIES[c].flag,
+    currency: COUNTRIES[c].currency, taxName: COUNTRIES[c].taxName,
+    threshold: COUNTRIES[c].threshold,
+    registered: cfg[c].registered, registeredAt: cfg[c].registeredAt, taxRate: cfg[c].taxRate
+  }));
+  return res.status(200).json({ countries });
+}
+
+async function updateSettings(req, res) {
+  const b = req.body || {};
+  const country = normCountry(b.country);
+  const cfg = await loadFiscalConfig();
+  if (b.registered !== undefined) {
+    cfg[country].registered = !!b.registered;
+    cfg[country].registeredAt = b.registered
+      ? (/^\d{4}-\d{2}-\d{2}$/.test(b.registeredAt) ? b.registeredAt : new Date().toISOString().slice(0, 10))
+      : null;
+  }
+  if (b.taxRate !== undefined) {
+    const t = Number(b.taxRate);
+    if (Number.isFinite(t) && t >= 0 && t <= 1) cfg[country].taxRate = Math.round(t * 10000) / 10000;
+  }
+  const value = {};
+  COUNTRY_CODES.forEach(c => { value[c] = cfg[c]; });
+  const { error } = await supabase.from('crm_settings')
+    .upsert({ key: FISCAL_KEY, value, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true, country: cfg[country] });
 }
 
 async function getMetrics(req, res) {
@@ -531,14 +786,13 @@ async function getMetrics(req, res) {
 }
 
 async function exportCSV(req, res) {
-  const { data, error } = await supabase
-    .from('leads')
-    .select('*')
-    .order('created_at', { ascending: false });
+  let q = supabase.from('leads').select('*').order('created_at', { ascending: false });
+  if (req.query.country && COUNTRY_CODES.includes(req.query.country)) q = q.eq('country', req.query.country);
+  const { data, error } = await q;
 
   if (error) return res.status(500).json({ error: error.message });
 
-  const headers = ['id','created_at','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','social','deal_value','amount_paid','currency','payment_status','project_stage','next_followup','utm_source','utm_medium','utm_campaign'];
+  const headers = ['id','created_at','country','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','social','deal_value','amount_paid','tax_amount','withholding','currency','payment_status','project_stage','next_followup','utm_source','utm_medium','utm_campaign'];
   const escape = (v) => {
     if (v == null) return '';
     const s = String(v).replace(/"/g, '""');
@@ -572,6 +826,13 @@ module.exports = async function handler(req, res) {
   try {
     // GET /api/crm?action=metrics
     if (req.method === 'GET' && action === 'metrics') return getMetrics(req, res);
+    // GET /api/crm?action=fiscal  → radar fiscal por país
+    if (req.method === 'GET' && action === 'fiscal') return getFiscal(req, res);
+    // GET /api/crm?action=fiscal-period&country=ec&start=..&end=..
+    if (req.method === 'GET' && action === 'fiscal-period') return getFiscalPeriod(req, res);
+    // GET/PATCH settings fiscales (activar impuesto por país)
+    if (req.method === 'GET'   && action === 'settings') return getSettings(req, res);
+    if (req.method === 'PATCH' && action === 'settings') return updateSettings(req, res);
     // GET /api/crm?action=export
     if (req.method === 'GET' && action === 'export') return exportCSV(req, res);
     // GET /api/crm?action=leads

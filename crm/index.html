@@ -558,6 +558,54 @@
   .kan-card .kc-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
   .kan-card .kc-val { font-size: 11px; color: var(--gold-light); }
   .kan-card select { background: var(--onyx-4); border: 1px solid var(--border); color: var(--ash-light); font-size: 10px; padding: 3px 4px; border-radius: 2px; max-width: 110px; }
+
+  /* ── Radar fiscal ── */
+  .fiscal-section { margin-top: 26px; }
+  .fiscal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 14px; }
+  .fiscal-card { background: linear-gradient(160deg, var(--onyx-2), var(--onyx-3)); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; position: relative; overflow: hidden; }
+  .fiscal-card.zone-warning { border-color: rgba(251,191,36,.4); }
+  .fiscal-card.zone-over    { border-color: rgba(248,113,113,.45); }
+  .fc-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+  .fc-flag { font-size: 22px; }
+  .fc-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #efe9dd; display: inline-flex; align-items: center; gap: 9px; }
+  .fc-badge { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; border: 1px solid var(--border); color: var(--ash-light); white-space: nowrap; }
+  .fc-badge.small { color: #34d399; border-color: rgba(52,211,153,.4); }
+  .fc-badge.registered { color: var(--gold-light); border-color: rgba(201,148,58,.5); }
+  .fc-big { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 600; color: #fff; line-height: 1.05; margin-top: 8px; }
+  .fc-big small { font-size: 13px; color: var(--ash); font-family: 'Montserrat', sans-serif; }
+  .fc-sub { font-size: 11.5px; color: var(--ash); margin-top: 2px; }
+  .fc-track { height: 12px; background: var(--onyx-4); border-radius: 7px; overflow: hidden; margin: 14px 0 7px; position: relative; }
+  .fc-fill { height: 100%; border-radius: 7px; transition: width .5s ease; }
+  .fc-fill.safe    { background: linear-gradient(90deg,#2f9e6e,#34d399); }
+  .fc-fill.warning { background: linear-gradient(90deg,#d99a1e,#fbbf24); }
+  .fc-fill.over    { background: linear-gradient(90deg,#c0392b,#f87171); }
+  .fc-threshline { display: flex; justify-content: space-between; font-size: 11px; color: var(--ash); }
+  .fc-threshline b { color: #e0e0e0; }
+  .fc-msg { font-size: 12px; margin-top: 10px; padding: 9px 11px; border-radius: 6px; line-height: 1.45; }
+  .fc-msg.safe    { background: rgba(52,211,153,.08);  color: #8ee6bf; border: 1px solid rgba(52,211,153,.18); }
+  .fc-msg.warning { background: rgba(251,191,36,.08);  color: #f3d27a; border: 1px solid rgba(251,191,36,.2); }
+  .fc-msg.over    { background: rgba(248,113,113,.1);   color: #f6a6a6; border: 1px solid rgba(248,113,113,.25); }
+  .fc-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .fc-stat span { display: block; font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ash); margin-bottom: 3px; }
+  .fc-stat b { font-size: 14px; color: #e5e5e5; font-weight: 600; }
+  .fc-actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .fc-actions .btn { font-size: 11px; padding: 7px 11px; }
+  .fc-toggle { font-size: 11px; padding: 7px 11px; border-radius: 5px; border: 1px solid var(--border); background: var(--onyx-3); color: var(--ash-light); cursor: pointer; font-family: inherit; }
+  .fc-toggle:hover { border-color: var(--gold); color: var(--gold-light); }
+  .fc-toggle.on { border-color: rgba(201,148,58,.5); color: var(--gold-light); }
+
+  /* ── Reporte fiscal por período ── */
+  .fp-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 14px 0; }
+  .fp-controls select { background: var(--onyx-2); border: 1px solid var(--border); color: #e0e0e0; padding: 9px 12px; border-radius: 5px; font-family: inherit; font-size: 13px; cursor: pointer; }
+  .fp-report { margin-top: 6px; }
+  .fp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .fp-cell { background: var(--onyx-2); border: 1px solid var(--border); border-radius: 7px; padding: 14px 16px; }
+  .fp-cell span { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ash); margin-bottom: 6px; }
+  .fp-cell b { font-size: 20px; color: #efe9dd; font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  .fp-cell.net { border-color: rgba(201,148,58,.4); background: linear-gradient(160deg, rgba(201,148,58,.08), var(--onyx-2)); }
+  .fp-cell.net b { color: var(--gold-light); }
+  .fp-cell.pos b { color: #34d399; } .fp-cell.neg b { color: #f87171; }
+  .fp-note { font-size: 11.5px; color: var(--ash); margin-top: 12px; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -624,6 +672,48 @@
     <div class="metric-card metric-money"><div class="metric-label">Ingresos cobrados</div><div class="metric-value" id="m-revenue">—</div><div class="metric-sub" id="m-revenue-month">—</div></div>
     <div class="metric-card metric-money"><div class="metric-label">Pipeline (potencial)</div><div class="metric-value" id="m-pipeline">—</div><div class="metric-sub">Valor de leads abiertos</div></div>
     <div class="metric-card metric-money"><div class="metric-label">Por cobrar</div><div class="metric-value" id="m-outstanding">—</div><div class="metric-sub">De clientes ganados</div></div>
+  </div>
+
+  <!-- ── Radar Fiscal (por país — para el contador) ── -->
+  <div class="fiscal-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Radar fiscal</h2>
+        <p class="page-subtitle">Cuánto llevas cobrado en cada país y a qué distancia estás del umbral donde el contador te obliga a registrarte y declarar impuestos.</p>
+      </div>
+    </div>
+    <div class="fiscal-grid" id="fiscalGrid">
+      <div class="loading"><div class="loading-spinner"></div>Cargando radar fiscal…</div>
+    </div>
+  </div>
+
+  <!-- ── Reporte fiscal por período (descarga y declara) ── -->
+  <div class="fiscal-section">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title">Reporte fiscal por período</h2>
+        <p class="page-subtitle">Elige país y período: el CRM calcula el neto a declarar. Descárgalo y pásaselo al contador.</p>
+      </div>
+    </div>
+    <div class="fp-controls">
+      <select id="fp-country" onchange="loadFiscalPeriod()">
+        <option value="ec">🇪🇨 Ecuador · USD</option>
+        <option value="ca">🇨🇦 Canadá · CAD</option>
+      </select>
+      <select id="fp-type" onchange="buildPeriodOptions()">
+        <option value="month">Mensual</option>
+        <option value="quarter">Trimestral</option>
+        <option value="year">Anual</option>
+      </select>
+      <select id="fp-period" onchange="loadFiscalPeriod()"></select>
+      <button class="btn btn-primary" onclick="exportFiscalPeriod()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Descargar reporte
+      </button>
+    </div>
+    <div class="fp-report" id="fpReport">
+      <div class="loading"><div class="loading-spinner"></div>Cargando reporte…</div>
+    </div>
   </div>
 
   <!-- Charts -->
@@ -760,6 +850,10 @@
     <div class="exp-form">
       <input type="text" id="exp-label" placeholder="Descripción (ej. Figma, hosting, publicidad)">
       <input type="number" id="exp-amount" min="0" step="any" placeholder="Monto $">
+      <select id="exp-country" title="País">
+        <option value="ec">🇪🇨 Ecuador · USD</option>
+        <option value="ca">🇨🇦 Canadá · CAD</option>
+      </select>
       <select id="exp-category" title="Categoría">
         <option value="software">Software</option>
         <option value="marketing">Marketing</option>
@@ -876,8 +970,17 @@
         </label>
       </div>
       <div class="nl-row">
-        <label class="nl-field">Valor del trato ($)<input type="number" id="nl-deal" min="0" step="any" placeholder="0"></label>
-        <label class="nl-field">Pagado ($)<input type="number" id="nl-paid" min="0" step="any" placeholder="0"></label>
+        <label class="nl-field">País <em style="text-transform:none;letter-spacing:normal;color:var(--ash)">(define la moneda)</em>
+          <select id="nl-country" onchange="syncLeadCurrency()">
+            <option value="ec">🇪🇨 Ecuador · USD</option>
+            <option value="ca">🇨🇦 Canadá · CAD</option>
+          </select>
+        </label>
+        <label class="nl-field">Impuesto cobrado <em style="text-transform:none;letter-spacing:normal;color:var(--ash)">(IVA/GST — 0 si eres pequeño proveedor)</em><input type="number" id="nl-tax" min="0" step="any" placeholder="0"></label>
+      </div>
+      <div class="nl-row">
+        <label class="nl-field">Valor del trato (<span id="nl-cur-deal">USD</span>)<input type="number" id="nl-deal" min="0" step="any" placeholder="0"></label>
+        <label class="nl-field">Pagado (<span id="nl-cur-paid">USD</span>)<input type="number" id="nl-paid" min="0" step="any" placeholder="0"></label>
       </div>
       <div class="nl-row">
         <label class="nl-field">Estado de pago
@@ -943,6 +1046,7 @@ async function init() {
   const dateInput  = document.getElementById('exp-date');
   if (monthInput) monthInput.value = today.slice(0, 7);
   if (dateInput)  dateInput.value  = today;
+  buildPeriodOptions();   // llena el selector de períodos del reporte fiscal
   await refreshAll();
 }
 
@@ -971,6 +1075,12 @@ function openAddLead() {
   setTimeout(() => document.getElementById('nl-name').focus(), 50);
 }
 function closeAddLead() { document.getElementById('leadModal').hidden = true; }
+// La moneda sigue al país (Ecuador→USD, Canadá→CAD) para no mezclar.
+function syncLeadCurrency() {
+  const cur = document.getElementById('nl-country').value === 'ca' ? 'CAD' : 'USD';
+  document.getElementById('nl-cur-deal').textContent = cur;
+  document.getElementById('nl-cur-paid').textContent = cur;
+}
 async function saveNewLead() {
   const err = document.getElementById('nl-error');
   err.hidden = true;
@@ -991,12 +1101,14 @@ async function saveNewLead() {
       message:        val('nl-message'),
       priority:       document.getElementById('nl-priority').value,
       status:         document.getElementById('nl-status').value,
+      country:        document.getElementById('nl-country').value,
       deal_value:     document.getElementById('nl-deal').value,
       amount_paid:    document.getElementById('nl-paid').value,
+      tax_amount:     document.getElementById('nl-tax').value,
       payment_status: document.getElementById('nl-payment').value,
       project_stage:  document.getElementById('nl-stage').value
     });
-    ['nl-name','nl-email','nl-phone','nl-company','nl-message','nl-deal','nl-paid'].forEach(id => document.getElementById(id).value = '');
+    ['nl-name','nl-email','nl-phone','nl-company','nl-message','nl-deal','nl-paid','nl-tax'].forEach(id => document.getElementById(id).value = '');
     closeAddLead();
     await refreshAll();
   } catch (e) {
@@ -1015,6 +1127,14 @@ function money(n) {
 function stageLabel(s) {
   return ({ diagnosis:'Diagnóstico', design:'Diseño', review:'Revisión', launch:'Publicación', delivered:'Entregado' })[s] || '<span style="color:var(--ash)">—</span>';
 }
+const COUNTRY_FLAG = { ec: '🇪🇨', ca: '🇨🇦' };
+const COUNTRY_CUR  = { ec: 'USD', ca: 'CAD' };
+// Formatea con la moneda del país (para no confundir USD con CAD).
+function moneyC(n, country) {
+  const cur = COUNTRY_CUR[country] || 'USD';
+  return money(n) + ' <span style="color:var(--ash);font-size:.82em">' + cur + '</span>';
+}
+function flag(country) { return COUNTRY_FLAG[country] || '🇪🇨'; }
 function paymentLabel(p) {
   const map = { unpaid:'Sin pagar', deposit:'Anticipo', partial:'Parcial', paid:'✓ Pagado' };
   const color = { paid:'#34d399', partial:'#fbbf24', deposit:'#60a5fa', unpaid:'var(--ash)' }[p] || 'var(--ash)';
@@ -1022,7 +1142,180 @@ function paymentLabel(p) {
 }
 
 async function refreshAll() {
-  await Promise.all([loadMetrics(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+  await Promise.all([loadMetrics(), loadFiscal(), loadFiscalPeriod(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+}
+
+// ── Radar fiscal (por país) ───────────────────────────────────
+async function loadFiscal() {
+  const grid = document.getElementById('fiscalGrid');
+  if (!grid) return;
+  try {
+    const { countries } = await api({ action: 'fiscal' });
+    const rows = countries || [];
+    if (!rows.length) { grid.innerHTML = '<div class="empty">Sin datos fiscales todavía.</div>'; return; }
+    grid.innerHTML = rows.map(c => {
+      const pct = Math.min(100, c.thresholdPct || 0);
+      const zone = c.zone || 'safe';
+      const msg = zone === 'over'
+        ? `Cruzaste el umbral de <b>${money(c.threshold)} ${c.currency}</b>. Toca registrarse para ${c.taxName} y empezar a declarar — avisa a tu contador.`
+        : zone === 'warning'
+          ? `Te faltan <b>${money(c.thresholdRemaining)} ${c.currency}</b> para el umbral de ${money(c.threshold)}. Ve preparando el registro de ${c.taxName}.`
+          : `Vas holgado: pequeño proveedor. Te quedan <b>${money(c.thresholdRemaining)} ${c.currency}</b> antes de tener que registrarte para ${c.taxName}.`;
+      const badge = c.registered
+        ? `<span class="fc-badge registered">Registrado ${c.taxName}</span>`
+        : `<span class="fc-badge small">Pequeño proveedor</span>`;
+      return `<div class="fiscal-card zone-${zone}">
+        <div class="fc-head">
+          <span class="fc-name"><span class="fc-flag">${c.flag}</span>${esc(c.name)}</span>
+          ${badge}
+        </div>
+        <div class="fc-big">${money(c.rolling12Revenue)} <small>${c.currency} · últimos 12 meses</small></div>
+        <div class="fc-sub">Este año: ${money(c.yearRevenue)} ${c.currency} · Cobrado total: ${money(c.revenueCollected)} ${c.currency}</div>
+        <div class="fc-track"><div class="fc-fill ${zone}" style="width:${pct}%"></div></div>
+        <div class="fc-threshline"><span>${c.thresholdPct}% del umbral</span><span>Umbral: <b>${money(c.threshold)} ${c.currency}</b></span></div>
+        <div class="fc-msg ${zone}">${msg}</div>
+        <div class="fc-stats">
+          <div class="fc-stat"><span>${esc(c.taxName)} cobrado</span><b>${money(c.taxCollected)}</b></div>
+          <div class="fc-stat"><span>${esc(c.taxName)} pagado</span><b>${money(c.taxPaid)}</b></div>
+          <div class="fc-stat"><span>Utilidad</span><b style="color:${c.profit>=0?'#34d399':'#f87171'}">${money(c.profit)}</b></div>
+        </div>
+        <div class="fc-actions">
+          <button class="btn" onclick="exportFiscal('${c.code}')">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Export ${c.flag} para contador
+          </button>
+          <button class="fc-toggle ${c.registered ? 'on' : ''}" onclick="toggleTax('${c.code}', ${!c.registered}, '${esc(c.taxName)}')">
+            ${c.registered ? `✓ ${esc(c.taxName)} activo` : `Activar ${esc(c.taxName)}`}
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    grid.innerHTML = `<div class="empty">No se pudo cargar el radar fiscal: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+  }
+}
+
+async function exportFiscal(country) {
+  const url = `${API_BASE}?action=export&country=${encodeURIComponent(country)}`;
+  const res = await fetch(url, { headers: { 'Authorization': `Bearer ${authToken}` } });
+  if (!res.ok) { alert('Error al exportar'); return; }
+  const blob = await res.blob();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `pittahaya-${country}-contador-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// Activar / desactivar cobro de impuesto (IVA / GST-HST) para un país.
+async function toggleTax(country, turnOn, taxName) {
+  const verb = turnOn ? 'ACTIVAR' : 'desactivar';
+  if (!confirm(`¿${verb} el cobro de ${taxName} para ${flag(country)}? Esto marca que ya te registraste y el CRM empezará a tratarlo como declarable.`)) return;
+  try {
+    await api({ action: 'settings' }, 'PATCH', { country, registered: turnOn });
+    await loadFiscal();
+  } catch (e) { alert('No se pudo actualizar: ' + (e.message || e)); }
+}
+
+// ── Reporte fiscal por período ────────────────────────────────
+const MONTH_ES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function pad2(n){ return String(n).padStart(2,'0'); }
+function lastDayOfMonth(y, mIdx){ return new Date(Date.UTC(y, mIdx + 1, 0)).getUTCDate(); }
+
+function buildPeriodOptions() {
+  const type = document.getElementById('fp-type').value;
+  const sel = document.getElementById('fp-period');
+  const now = new Date();
+  const y = now.getUTCFullYear(), mIdx = now.getUTCMonth();
+  let opts = [];
+  if (type === 'month') {
+    for (let i = 0; i < 12; i++) {
+      const d = new Date(Date.UTC(y, mIdx - i, 1));
+      const yy = d.getUTCFullYear(), mm = d.getUTCMonth();
+      opts.push({ label: `${MONTH_ES[mm]} ${yy}`, start: `${yy}-${pad2(mm+1)}-01`, end: `${yy}-${pad2(mm+1)}-${pad2(lastDayOfMonth(yy,mm))}` });
+    }
+  } else if (type === 'quarter') {
+    for (const yr of [y, y-1]) {
+      for (let q = 4; q >= 1; q--) {
+        const sm = (q-1)*3, em = sm+2;
+        opts.push({ label: `Q${q} ${yr}`, start: `${yr}-${pad2(sm+1)}-01`, end: `${yr}-${pad2(em+1)}-${pad2(lastDayOfMonth(yr,em))}` });
+      }
+    }
+  } else {
+    for (const yr of [y, y-1, y-2]) opts.push({ label: `${yr}`, start: `${yr}-01-01`, end: `${yr}-12-31` });
+  }
+  sel.innerHTML = opts.map((o,i) => `<option value="${i}" data-start="${o.start}" data-end="${o.end}">${o.label}</option>`).join('');
+  loadFiscalPeriod();
+}
+
+function currentPeriod() {
+  const sel = document.getElementById('fp-period');
+  const opt = sel.options[sel.selectedIndex];
+  if (!opt) return null;
+  return { start: opt.dataset.start, end: opt.dataset.end, label: opt.textContent };
+}
+
+let lastPeriodReport = null;
+async function loadFiscalPeriod() {
+  const el = document.getElementById('fpReport');
+  if (!el) return;
+  const country = document.getElementById('fp-country').value;
+  const p = currentPeriod();
+  if (!p) return;
+  el.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Calculando…</div>';
+  try {
+    const r = await api({ action: 'fiscal-period', country, start: p.start, end: p.end });
+    lastPeriodReport = { ...r, label: p.label };
+    const cur = r.currency;
+    const netCls = r.registered ? 'net' : '';
+    el.innerHTML = `
+      <div class="fp-grid">
+        <div class="fp-cell"><span>Ingreso cobrado</span><b>${money(r.revenue)} <small style="font-size:.6em;color:var(--ash)">${cur}</small></b></div>
+        <div class="fp-cell"><span>${esc(r.taxName)} cobrado</span><b>${money(r.taxCollected)}</b></div>
+        <div class="fp-cell"><span>${esc(r.taxName)} pagado</span><b>${money(r.taxPaid)}</b></div>
+        <div class="fp-cell ${netCls}"><span>Neto a declarar</span><b>${money(r.netTax)}</b></div>
+        <div class="fp-cell"><span>Gastos</span><b>${money(r.expenses)}</b></div>
+        <div class="fp-cell ${r.profit>=0?'pos':'neg'}"><span>Utilidad</span><b>${money(r.profit)}</b></div>
+      </div>
+      <p class="fp-note">${r.flag} <b>${esc(r.name)}</b> · ${esc(p.label)} (${p.start} → ${p.end}) · ${r.invoices} venta(s) con cobro.
+      ${r.registered
+        ? `Registrado para ${esc(r.taxName)}: el neto de arriba es lo que declaras.`
+        : `Pequeño proveedor: aún no cobras ${esc(r.taxName)} (por eso va en 0). Cuando te registres, actívalo en el Radar fiscal y este reporte empieza a calcular el impuesto.`}
+      ${r.withholding ? ` Retenciones en el período: <b>${money(r.withholding)}</b>.` : ''}</p>`;
+  } catch (e) {
+    el.innerHTML = `<div class="empty">No se pudo calcular: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+  }
+}
+
+function exportFiscalPeriod() {
+  const r = lastPeriodReport;
+  if (!r) { alert('Primero elige un período.'); return; }
+  const rows = [
+    ['Reporte fiscal Pittahaya'],
+    ['País', `${r.name} (${r.country.toUpperCase()})`],
+    ['Moneda', r.currency],
+    ['Período', `${r.label}`],
+    ['Desde', r.start], ['Hasta', r.end],
+    ['Registrado ' + r.taxName, r.registered ? 'Sí' : 'No (pequeño proveedor)'],
+    [],
+    ['Concepto', `Monto (${r.currency})`],
+    ['Ingreso cobrado', r.revenue],
+    [`${r.taxName} cobrado`, r.taxCollected],
+    [`${r.taxName} pagado (crédito)`, r.taxPaid],
+    ['Neto a declarar', r.netTax],
+    ['Retenciones', r.withholding],
+    ['Gastos totales', r.expenses],
+    ['Costos directos', r.directCosts],
+    ['Gastos operativos', r.operatingCosts],
+    ['Utilidad', r.profit],
+    ['Ventas con cobro', r.invoices],
+  ];
+  const esccsv = (v) => { const s = String(v ?? ''); return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; };
+  const csv = '﻿' + rows.map(row => row.map(esccsv).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `reporte-fiscal-${r.country}-${r.start}_${r.end}.csv`;
+  a.click();
 }
 
 // ── Expenses & P&L ────────────────────────────────────────────
@@ -1040,22 +1333,26 @@ async function loadExpenses() {
     const { expenses } = await api(params);
     const rows = expenses || [];
     expensesData = rows;
-    let total = 0, direct = 0, oper = 0;
+    const byC = { ec: { total:0, direct:0, oper:0 }, ca: { total:0, direct:0, oper:0 } };
     body.innerHTML = rows.map(e => {
-      const amt = Number(e.amount) || 0; total += amt;
-      if (e.cost_type === 'direct') direct += amt; else oper += amt;
+      const amt = Number(e.amount) || 0;
+      const c = byC[e.country] ? e.country : 'ec';
+      byC[c].total += amt;
+      if (e.cost_type === 'direct') byC[c].direct += amt; else byC[c].oper += amt;
       return `<tr>
-        <td>${esc(e.label)}${e.recurring ? ' <span style="color:var(--ash);font-size:10px">(recurrente)</span>' : ''}</td>
+        <td>${flag(e.country)} ${esc(e.label)}${e.recurring ? ' <span style="color:var(--ash);font-size:10px">(recurrente)</span>' : ''}</td>
         <td>${EXP_CAT[e.category] || 'Otros'}</td>
         <td>${e.cost_type === 'direct' ? 'Costo directo' : 'Operativo'}</td>
-        <td style="text-align:right">${money(amt)}</td>
+        <td style="text-align:right">${moneyC(amt, c)}</td>
         <td class="date-cell">${(e.expense_date || '').slice(0, 10)}</td>
         <td style="white-space:nowrap"><button class="exp-edit" title="Editar" onclick="editExpense('${e.id}')">✎</button> <button class="exp-del" title="Eliminar" onclick="deleteExpense('${e.id}')">✕</button></td>
       </tr>`;
     }).join('') || '<tr><td colspan="6"><div class="empty">Sin gastos en este período.</div></td></tr>';
-    totals.innerHTML = `<span class="et">Total: <b>${money(total)}</b></span>
-      <span class="et">Costos directos: <b>${money(direct)}</b></span>
-      <span class="et">Operativos: <b>${money(oper)}</b></span>`;
+    totals.innerHTML = ['ec', 'ca'].filter(c => byC[c].total).map(c =>
+      `<span class="et">${flag(c)} Total (${COUNTRY_CUR[c]}): <b>${money(byC[c].total)}</b></span>
+       <span class="et">Directos: <b>${money(byC[c].direct)}</b></span>
+       <span class="et">Operativos: <b>${money(byC[c].oper)}</b></span>`
+    ).join(' &nbsp;·&nbsp; ') || '<span class="et">Sin gastos</span>';
   } catch (e) {
     body.innerHTML = `<tr><td colspan="6"><div class="empty">No se pudo cargar gastos: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
   }
@@ -1067,6 +1364,7 @@ function editExpense(id) {
   editingExpenseId = e.id;
   document.getElementById('exp-label').value = e.label || '';
   document.getElementById('exp-amount').value = e.amount != null ? e.amount : '';
+  document.getElementById('exp-country').value = e.country || 'ec';
   document.getElementById('exp-category').value = e.category || 'otros';
   document.getElementById('exp-type').value = e.cost_type || 'operating';
   document.getElementById('exp-recurring').checked = !!e.recurring;
@@ -1095,6 +1393,7 @@ async function addExpense() {
   }
   const payload = {
     label, amount,
+    country:      document.getElementById('exp-country').value,
     category:     document.getElementById('exp-category').value,
     cost_type:    document.getElementById('exp-type').value,
     expense_date: document.getElementById('exp-date').value,
@@ -1189,25 +1488,28 @@ async function loadFinance() {
   try {
     const { leads } = await api({ action: 'leads', limit: 500, offset: 0, sort: 'created_at', order: 'desc' });
     const rows = leads || [];
-    let tDeal = 0, tPaid = 0, tPend = 0;
+    const byC = { ec: { deal:0, paid:0, pend:0 }, ca: { deal:0, paid:0, pend:0 } };
     body.innerHTML = rows.map(l => {
       const dv = Number(l.deal_value) || 0, ap = Number(l.amount_paid) || 0, pend = Math.max(0, dv - ap);
-      tDeal += dv; tPaid += ap; tPend += pend;
+      const c = byC[l.country] ? l.country : 'ec';
+      byC[c].deal += dv; byC[c].paid += ap; byC[c].pend += pend;
       return `<tr>
-        <td><a href="/crm/lead.html?id=${l.id}" class="action-link" style="font-weight:600">${esc(l.name)}</a><div class="lead-email">${esc(l.email)}</div></td>
+        <td><a href="/crm/lead.html?id=${l.id}" class="action-link" style="font-weight:600">${flag(l.country)} ${esc(l.name)}</a><div class="lead-email">${esc(l.email)}</div></td>
         <td>${esc(l.service) || '—'}</td>
         <td><span class="badge badge-${l.status}">${statusLabel(l.status)}</span></td>
         <td>${stageLabel(l.project_stage)}</td>
-        <td style="text-align:right">${dv ? money(dv) : '—'}</td>
-        <td style="text-align:right;color:#34d399">${ap ? money(ap) : '—'}</td>
-        <td style="text-align:right;${pend > 0 ? 'color:#fbbf24' : 'color:var(--ash)'}">${pend ? money(pend) : '—'}</td>
+        <td style="text-align:right">${dv ? moneyC(dv, l.country) : '—'}</td>
+        <td style="text-align:right;color:#34d399">${ap ? moneyC(ap, l.country) : '—'}</td>
+        <td style="text-align:right;${pend > 0 ? 'color:#fbbf24' : 'color:var(--ash)'}">${pend ? moneyC(pend, l.country) : '—'}</td>
         <td>${paymentLabel(l.payment_status)}</td>
       </tr>`;
     }).join('') || '<tr><td colspan="8"><div class="empty">Aún no hay datos financieros.</div></td></tr>';
-    totals.innerHTML = `
-      <div class="ft-card"><span>Valor total</span><b>${money(tDeal)}</b></div>
-      <div class="ft-card"><span>Cobrado</span><b style="color:#34d399">${money(tPaid)}</b></div>
-      <div class="ft-card"><span>Por cobrar</span><b style="color:#fbbf24">${money(tPend)}</b></div>`;
+    // Totales SEPARADOS por país — nunca se mezcla USD con CAD.
+    totals.innerHTML = ['ec', 'ca'].filter(c => byC[c].deal || byC[c].paid).map(c => `
+      <div class="ft-card"><span>${flag(c)} Valor total (${COUNTRY_CUR[c]})</span><b>${money(byC[c].deal)}</b></div>
+      <div class="ft-card"><span>${flag(c)} Cobrado</span><b style="color:#34d399">${money(byC[c].paid)}</b></div>
+      <div class="ft-card"><span>${flag(c)} Por cobrar</span><b style="color:#fbbf24">${money(byC[c].pend)}</b></div>`
+    ).join('') || '<div class="ft-card"><span>Sin datos</span><b>—</b></div>';
   } catch (e) {
     body.innerHTML = `<tr><td colspan="8"><div class="empty">No se pudo cargar finanzas: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
   }
