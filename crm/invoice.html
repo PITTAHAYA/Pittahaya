@@ -115,6 +115,42 @@ async function api(params, method = 'GET', body = null) {
   if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
+// Idioma del documento: las facturas de Canadá salen en inglés.
+const I18N = {
+  es: {
+    invoice:'FACTURA', receipt:'RECIBO', from:'De', billTo:'Facturar a',
+    desc:'Descripción', qty:'Cant.', price:'Precio', total:'Total', addLine:'+ Agregar línea',
+    notes:'Notas / condiciones',
+    notesDefault:'Gracias por confiar en Pittahaya. Pago por transferencia o el medio acordado. Cualquier consulta, escríbenos a jfmcorp@jfmcorporation.com.',
+    subtotal:'Subtotal', paid:'Pagado', balanceDue:'Saldo pendiente', paidMark:'Pagado ✓',
+    number:'N.º', date:'Fecha', metaLine:(flag)=>`País ${flag} · Moneda`,
+    countryName:'Ecuador', tagline:'Diseño web premium & automatización con IA',
+    assignOnSave:'(se asigna al guardar)',
+    smallSupplier:(flag,country,tax)=>`${flag} Pittahaya es pequeño proveedor en ${country}: no se cobra ${tax} en este documento.`,
+    smallSaved:(flag,tax)=>`${flag} Documento sin ${tax} (pequeño proveedor).`,
+    footer:'Pittahaya · pittahaya.com · Documento generado desde el CRM',
+    savedAs:'✓ Guardada como', saveBtn:'💾 Guardar factura', saving:'Guardando…', savedBtn:'💾 Guardada',
+    saveFail:'No se pudo guardar: '
+  },
+  en: {
+    invoice:'INVOICE', receipt:'RECEIPT', from:'From', billTo:'Bill to',
+    desc:'Description', qty:'Qty', price:'Price', total:'Total', addLine:'+ Add line',
+    notes:'Notes / terms',
+    notesDefault:'Thank you for choosing Pittahaya. Payment by bank transfer or the agreed method. Questions? Email us at jfmcorp@jfmcorporation.com.',
+    subtotal:'Subtotal', paid:'Paid', balanceDue:'Balance due', paidMark:'Paid ✓',
+    number:'No.', date:'Date', metaLine:(flag)=>`Country ${flag} · Currency`,
+    countryName:'Canada', tagline:'Premium web design & AI automation',
+    assignOnSave:'(assigned on save)',
+    smallSupplier:(flag,country,tax)=>`${flag} Pittahaya is a small supplier in ${country}: no ${tax} is charged on this document.`,
+    smallSaved:(flag,tax)=>`${flag} Document without ${tax} (small supplier).`,
+    footer:'Pittahaya · pittahaya.com · Generated from the CRM',
+    savedAs:'✓ Saved as', saveBtn:'💾 Save invoice', saving:'Saving…', savedBtn:'💾 Saved',
+    saveFail:'Could not save: '
+  }
+};
+let L = I18N.es;   // etiquetas del idioma de la factura actual
+const labelsFor = (country) => country === 'ca' ? I18N.en : I18N.es;
+
 // Config del país del cliente (moneda, nombre del impuesto, si está registrado).
 function countryCfg(country) {
   const fromServer = (fiscalCfg || []).find(c => c.code === country);
@@ -162,13 +198,16 @@ async function init() {
 function render() {
   const today = new Date().toISOString().slice(0,10);
   invCountry = (lead.country === 'ca') ? 'ca' : 'ec';
+  L = labelsFor(invCountry);
   const cfg  = countryCfg(invCountry);
   const cur  = cfg.currency;
   const taxPct = cfg.registered ? Math.round(cfg.taxRate * 10000) / 100 : 0;
-  const service = lead.service || 'Diseño web premium';
+  const service = lead.service || (invCountry === 'ca' ? 'Premium web design' : 'Diseño web premium');
   const deal = Number(lead.deal_value) || 0;
   const paid = Number(lead.amount_paid) || 0;
   const flag = invCountry === 'ca' ? '🇨🇦' : '🇪🇨';
+  const saveBtn = document.getElementById('saveBtn'); if (saveBtn) saveBtn.textContent = L.saveBtn;
+  document.getElementById('docType').value = 'FACTURA';
 
   document.getElementById('invoice').innerHTML = `
     <div class="inv-top">
@@ -176,54 +215,54 @@ function render() {
         <img src="/assets/pitahaya-logo.png" alt="Pittahaya">
         <div>
           <div class="bn">Pittahaya</div>
-          <div class="bs">Diseño web premium &amp; automatización con IA</div>
+          <div class="bs">${esc(L.tagline)}</div>
         </div>
       </div>
       <div class="inv-doc">
-        <h1 id="docTitle">FACTURA</h1>
+        <h1 id="docTitle">${L.invoice}</h1>
         <div class="inv-meta">
-          N.º <input id="invNum" value="" placeholder="(se asigna al guardar)" readonly style="width:170px;color:var(--muted)"><br>
-          Fecha <input id="invDate" type="date" value="${today}"><br>
-          País ${flag} · Moneda <input id="invCur" value="${esc(cur)}" style="width:60px" readonly>
+          ${L.number} <input id="invNum" value="" placeholder="${esc(L.assignOnSave)}" readonly style="width:170px;color:var(--muted)"><br>
+          ${L.date} <input id="invDate" type="date" value="${today}"><br>
+          ${L.metaLine(flag)} <input id="invCur" value="${esc(cur)}" style="width:60px" readonly>
         </div>
       </div>
     </div>
 
     <div class="inv-parties">
       <div class="inv-party">
-        <h4>De</h4>
+        <h4>${L.from}</h4>
         <div class="pl" contenteditable="true"><strong>Pittahaya</strong><br>jfmcorp@jfmcorporation.com<br>www.pittahaya.com</div>
       </div>
       <div class="inv-party">
-        <h4>Facturar a</h4>
+        <h4>${L.billTo}</h4>
         <div class="pl" contenteditable="true"><strong>${esc(lead.name)}</strong>${lead.company ? '<br>'+esc(lead.company) : ''}<br>${esc(lead.email)}${lead.phone ? '<br>'+esc(lead.phone) : ''}</div>
       </div>
     </div>
 
     <table class="items">
       <thead>
-        <tr><th style="width:55%">Descripción</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">Total</th><th></th></tr>
+        <tr><th style="width:55%">${L.desc}</th><th class="num">${L.qty}</th><th class="num">${L.price}</th><th class="num">${L.total}</th><th></th></tr>
       </thead>
       <tbody id="itemsBody"></tbody>
     </table>
-    <button class="add-line" onclick="addItem()">+ Agregar línea</button>
+    <button class="add-line" onclick="addItem()">${L.addLine}</button>
 
     <div class="inv-bottom">
       <div class="inv-notes">
-        <h4>Notas / condiciones</h4>
-        <div contenteditable="true">Gracias por confiar en Pittahaya. Pago por transferencia o el medio acordado. Cualquier consulta, escríbenos a jfmcorp@jfmcorporation.com.</div>
+        <h4>${L.notes}</h4>
+        <div contenteditable="true">${esc(L.notesDefault)}</div>
       </div>
       <div class="inv-totals">
-        <div class="tt-row muted"><span>Subtotal</span><span id="ttSubtotal">$0.00</span></div>
+        <div class="tt-row muted"><span>${L.subtotal}</span><span id="ttSubtotal">$0.00</span></div>
         <div class="tt-row muted"><span>${esc(cfg.taxName)} (<input id="ttTaxPct" type="number" min="0" step="any" value="${taxPct}" style="width:46px" oninput="recompute()">%)</span><span id="ttTax">$0.00</span></div>
-        <div class="tt-row tt-total"><span>Total</span><span id="ttTotal">$0.00</span></div>
-        <div class="tt-row muted"><span>Pagado</span><span>$<input id="ttPaid" type="number" min="0" step="any" value="${paid}" oninput="recompute()"></span></div>
-        <div class="tt-row"><span id="balLabel">Saldo pendiente</span><span class="tt-balance" id="ttBalance">$0.00</span></div>
+        <div class="tt-row tt-total"><span>${L.total}</span><span id="ttTotal">$0.00</span></div>
+        <div class="tt-row muted"><span>${L.paid}</span><span>$<input id="ttPaid" type="number" min="0" step="any" value="${paid}" oninput="recompute()"></span></div>
+        <div class="tt-row"><span id="balLabel">${L.balanceDue}</span><span class="tt-balance" id="ttBalance">$0.00</span></div>
       </div>
     </div>
 
-    ${!cfg.registered ? `<div class="inv-foot" style="color:var(--muted);border-top:none;margin-top:8px;padding-top:0">${flag} Pittahaya es pequeño proveedor en ${invCountry === 'ca' ? 'Canadá' : 'Ecuador'}: no se cobra ${esc(cfg.taxName)} en este documento.</div>` : ''}
-    <div class="inv-foot">Pittahaya · pittahaya.com · Documento generado desde el CRM</div>
+    ${!cfg.registered ? `<div class="inv-foot" style="color:var(--muted);border-top:none;margin-top:8px;padding-top:0">${L.smallSupplier(flag, L.countryName, esc(cfg.taxName))}</div>` : ''}
+    <div class="inv-foot">${esc(L.footer)}</div>
   `;
 
   // First line item prefilled from the deal.
@@ -267,14 +306,14 @@ function recompute() {
   const bal = document.getElementById('ttBalance');
   bal.textContent = money(Math.max(0, balance));
   const label = document.getElementById('balLabel');
-  if (balance <= 0.001) { bal.classList.add('paid'); label.textContent = 'Pagado ✓'; }
-  else { bal.classList.remove('paid'); label.textContent = 'Saldo pendiente'; }
+  if (balance <= 0.001) { bal.classList.add('paid'); label.textContent = L.paidMark; }
+  else { bal.classList.remove('paid'); label.textContent = L.balanceDue; }
 }
 
 function setDocType() {
   const v = document.getElementById('docType').value;
   const t = document.getElementById('docTitle');
-  if (t) t.textContent = v;
+  if (t) t.textContent = (v === 'RECIBO') ? L.receipt : L.invoice;
   document.title = 'Pittahaya CRM · ' + (v === 'RECIBO' ? 'Recibo' : 'Factura');
 }
 
@@ -283,7 +322,7 @@ async function saveInvoice() {
   if (!lead) return;
   const btn = document.getElementById('saveBtn');
   const status = document.getElementById('saveStatus');
-  btn.disabled = true; btn.textContent = 'Guardando…';
+  btn.disabled = true; btn.textContent = L.saving;
   try {
     const notesEl = document.querySelector('.inv-notes [contenteditable]');
     const payload = {
@@ -300,15 +339,15 @@ async function saveInvoice() {
     const { invoice } = await api({ action: 'invoice' }, 'POST', payload);
     const numEl = document.getElementById('invNum');
     numEl.value = invoice.number; numEl.style.color = 'var(--ink)';
-    status.textContent = '✓ Guardada como ' + invoice.number;
+    status.textContent = L.savedAs + ' ' + invoice.number;
     status.style.color = '#15803d';
     invoiceId = invoice.id;
     history.replaceState(null, '', '/crm/invoice.html?invoice=' + invoice.id);
-    btn.textContent = '💾 Guardada';
+    btn.textContent = L.savedBtn;
   } catch (e) {
-    status.textContent = 'No se pudo guardar: ' + String(e.message || e).slice(0, 120);
+    status.textContent = L.saveFail + String(e.message || e).slice(0, 120);
     status.style.color = '#b91c1c';
-    btn.disabled = false; btn.textContent = '💾 Guardar factura';
+    btn.disabled = false; btn.textContent = L.saveBtn;
   }
 }
 
@@ -316,13 +355,14 @@ async function saveInvoice() {
 function renderSaved() {
   const inv = savedInvoice;
   invCountry = inv.country === 'ca' ? 'ca' : 'ec';
+  L = labelsFor(invCountry);
   const flag = invCountry === 'ca' ? '🇨🇦' : '🇪🇨';
   const cur = inv.currency || countryCfg(invCountry).currency;
   const items = Array.isArray(inv.items) ? inv.items : [];
   const isReceipt = inv.doc_type === 'recibo';
   document.getElementById('docType').value = isReceipt ? 'RECIBO' : 'FACTURA';
   document.getElementById('saveBtn').style.display = 'none';
-  document.getElementById('saveStatus').textContent = '✓ Guardada';
+  document.getElementById('saveStatus').textContent = L.savedBtn;
   document.getElementById('saveStatus').style.color = '#15803d';
   document.title = 'Pittahaya CRM · ' + (inv.number || 'Factura');
   const balance = Math.max(0, (Number(inv.total) || 0) - (Number(inv.amount_paid) || 0));
@@ -331,37 +371,37 @@ function renderSaved() {
     <div class="inv-top">
       <div class="inv-brand">
         <img src="/assets/pitahaya-logo.png" alt="Pittahaya">
-        <div><div class="bn">Pittahaya</div><div class="bs">Diseño web premium &amp; automatización con IA</div></div>
+        <div><div class="bn">Pittahaya</div><div class="bs">${esc(L.tagline)}</div></div>
       </div>
       <div class="inv-doc">
-        <h1 id="docTitle">${isReceipt ? 'RECIBO' : 'FACTURA'}</h1>
+        <h1 id="docTitle">${isReceipt ? L.receipt : L.invoice}</h1>
         <div class="inv-meta">
-          N.º <strong>${esc(inv.number)}</strong><br>
-          Fecha ${esc((inv.issue_date || '').slice(0,10))}<br>
-          País ${flag} · Moneda ${esc(cur)}
+          ${L.number} <strong>${esc(inv.number)}</strong><br>
+          ${L.date} ${esc((inv.issue_date || '').slice(0,10))}<br>
+          ${L.metaLine(flag)} ${esc(cur)}
         </div>
       </div>
     </div>
     <div class="inv-parties">
-      <div class="inv-party"><h4>De</h4><div class="pl"><strong>Pittahaya</strong><br>jfmcorp@jfmcorporation.com<br>www.pittahaya.com</div></div>
-      <div class="inv-party"><h4>Facturar a</h4><div class="pl"><strong>${esc(inv.client_name)}</strong>${inv.client_company ? '<br>'+esc(inv.client_company) : ''}<br>${esc(inv.client_email)}${inv.client_phone ? '<br>'+esc(inv.client_phone) : ''}</div></div>
+      <div class="inv-party"><h4>${L.from}</h4><div class="pl"><strong>Pittahaya</strong><br>jfmcorp@jfmcorporation.com<br>www.pittahaya.com</div></div>
+      <div class="inv-party"><h4>${L.billTo}</h4><div class="pl"><strong>${esc(inv.client_name)}</strong>${inv.client_company ? '<br>'+esc(inv.client_company) : ''}<br>${esc(inv.client_email)}${inv.client_phone ? '<br>'+esc(inv.client_phone) : ''}</div></div>
     </div>
     <table class="items">
-      <thead><tr><th style="width:55%">Descripción</th><th class="num">Cant.</th><th class="num">Precio</th><th class="num">Total</th></tr></thead>
+      <thead><tr><th style="width:55%">${L.desc}</th><th class="num">${L.qty}</th><th class="num">${L.price}</th><th class="num">${L.total}</th></tr></thead>
       <tbody>${items.map(it => `<tr><td>${esc(it.desc)}</td><td class="num">${Number(it.qty)||0}</td><td class="num">${money(it.price)}</td><td class="num">${money((Number(it.qty)||0)*(Number(it.price)||0))}</td></tr>`).join('')}</tbody>
     </table>
     <div class="inv-bottom">
-      <div class="inv-notes"><h4>Notas / condiciones</h4><div>${esc(inv.notes) || 'Gracias por confiar en Pittahaya.'}</div></div>
+      <div class="inv-notes"><h4>${L.notes}</h4><div>${esc(inv.notes) || esc(L.notesDefault)}</div></div>
       <div class="inv-totals">
-        <div class="tt-row muted"><span>Subtotal</span><span>${money(inv.subtotal)}</span></div>
+        <div class="tt-row muted"><span>${L.subtotal}</span><span>${money(inv.subtotal)}</span></div>
         <div class="tt-row muted"><span>${esc(inv.tax_name)} (${taxPctLabel}%)</span><span>${money(inv.tax_amount)}</span></div>
-        <div class="tt-row tt-total"><span>Total</span><span>${money(inv.total)}</span></div>
-        <div class="tt-row muted"><span>Pagado</span><span>${money(inv.amount_paid)}</span></div>
-        <div class="tt-row"><span>${balance <= 0.001 ? 'Pagado ✓' : 'Saldo pendiente'}</span><span class="tt-balance ${balance <= 0.001 ? 'paid' : ''}">${money(balance)}</span></div>
+        <div class="tt-row tt-total"><span>${L.total}</span><span>${money(inv.total)}</span></div>
+        <div class="tt-row muted"><span>${L.paid}</span><span>${money(inv.amount_paid)}</span></div>
+        <div class="tt-row"><span>${balance <= 0.001 ? L.paidMark : L.balanceDue}</span><span class="tt-balance ${balance <= 0.001 ? 'paid' : ''}">${money(balance)}</span></div>
       </div>
     </div>
-    ${(Number(inv.tax_amount) || 0) === 0 ? `<div class="inv-foot" style="color:var(--muted);border-top:none;margin-top:8px;padding-top:0">${flag} Documento sin ${esc(inv.tax_name)} (pequeño proveedor).</div>` : ''}
-    <div class="inv-foot">Pittahaya · pittahaya.com · Documento generado desde el CRM</div>
+    ${(Number(inv.tax_amount) || 0) === 0 ? `<div class="inv-foot" style="color:var(--muted);border-top:none;margin-top:8px;padding-top:0">${L.smallSaved(flag, esc(inv.tax_name))}</div>` : ''}
+    <div class="inv-foot">${esc(L.footer)}</div>
   `;
 }
 

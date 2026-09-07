@@ -606,6 +606,13 @@
   .fp-cell.net b { color: var(--gold-light); }
   .fp-cell.pos b { color: #34d399; } .fp-cell.neg b { color: #f87171; }
   .fp-note { font-size: 11.5px; color: var(--ash); margin-top: 12px; line-height: 1.5; }
+
+  /* ── P&L por país ── */
+  .pnl-country { margin-bottom: 16px; }
+  .pnl-country-head { font-size: 12px; letter-spacing: .04em; color: var(--gold-light); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .pnl-country-head .pc-cur { color: var(--ash); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+  .metric-money .metric-value .mm-line { font-size: .5em; line-height: 1.4; font-family: 'Montserrat', sans-serif; font-weight: 500; }
+  .metric-money .metric-value .mm-line .mm-cur { color: var(--ash); font-size: .8em; }
 </style>
 </head>
 <body>
@@ -849,12 +856,8 @@
         <p class="page-subtitle">Ingresos menos gastos = tu utilidad bruta y neta.</p>
       </div>
     </div>
-    <div class="pnl-grid" id="pnlGrid">
-      <div class="pnl-card"><span>Ingresos cobrados</span><b id="p-revenue">—</b></div>
-      <div class="pnl-card"><span>Costos directos</span><b id="p-direct">—</b></div>
-      <div class="pnl-card pnl-strong"><span>Utilidad bruta</span><b id="p-gross">—</b></div>
-      <div class="pnl-card"><span>Gastos operativos</span><b id="p-operating">—</b></div>
-      <div class="pnl-card pnl-net"><span>Utilidad neta</span><b id="p-net">—</b></div>
+    <div id="pnlByCountry">
+      <div class="loading"><div class="loading-spinner"></div>Cargando rentabilidad…</div>
     </div>
   </div>
 
@@ -1209,6 +1212,8 @@ async function loadFiscal() {
   try {
     const { countries } = await api({ action: 'fiscal' });
     const rows = countries || [];
+    renderMoneyCards(rows);
+    renderCountryPnl(rows);
     if (!rows.length) { grid.innerHTML = '<div class="empty">Sin datos fiscales todavía.</div>'; return; }
     grid.innerHTML = rows.map(c => {
       const pct = Math.min(100, c.thresholdPct || 0);
@@ -1250,6 +1255,40 @@ async function loadFiscal() {
   } catch (e) {
     grid.innerHTML = `<div class="empty">No se pudo cargar el radar fiscal: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
   }
+}
+
+// Tarjetas de dinero por país (sin mezclar monedas).
+function perCountryMoney(rows, key) {
+  const active = rows.filter(c => Number(c[key]));
+  if (!active.length) return '<span style="color:var(--ash)">—</span>';
+  return active.map(c => `<div class="mm-line">${c.flag} ${money(c[key])} <span class="mm-cur">${c.currency}</span></div>`).join('');
+}
+function renderMoneyCards(rows) {
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  set('m-revenue', perCountryMoney(rows, 'revenueCollected'));
+  const monthStr = rows.filter(c => Number(c.revenueThisMonth)).map(c => `${c.flag} ${money(c.revenueThisMonth)}`).join(' · ');
+  set('m-revenue-month', 'Este mes: ' + (monthStr || '—'));
+  set('m-pipeline', perCountryMoney(rows, 'pipelineValue'));
+  set('m-outstanding', perCountryMoney(rows, 'outstanding'));
+}
+
+// Rentabilidad (P&L) por país — cada uno en su moneda.
+function renderCountryPnl(rows) {
+  const el = document.getElementById('pnlByCountry');
+  if (!el) return;
+  const active = rows.filter(c => Number(c.revenueCollected) || Number(c.expenses));
+  if (!active.length) { el.innerHTML = '<div class="empty">Aún no hay datos de rentabilidad.</div>'; return; }
+  el.innerHTML = active.map(c => `
+    <div class="pnl-country">
+      <div class="pnl-country-head">${c.flag} ${esc(c.name)} <span class="pc-cur">${c.currency}</span></div>
+      <div class="pnl-grid">
+        <div class="pnl-card"><span>Ingresos cobrados</span><b>${money(c.revenueCollected)}</b></div>
+        <div class="pnl-card"><span>Costos directos</span><b>${money(c.directCosts)}</b></div>
+        <div class="pnl-card pnl-strong"><span>Utilidad bruta</span><b>${money(c.grossProfit)}</b></div>
+        <div class="pnl-card"><span>Gastos operativos</span><b>${money(c.operatingCosts)}</b></div>
+        <div class="pnl-card pnl-net"><span>Utilidad neta</span><b style="color:${c.netProfit>=0?'':'#f87171'}">${money(c.netProfit)}</b></div>
+      </div>
+    </div>`).join('');
 }
 
 async function exportFiscal(country) {
@@ -1582,19 +1621,9 @@ async function loadMetrics() {
     document.getElementById('m-conv').textContent  = (d.conversionRate || 0) + '%';
     document.getElementById('m-service').textContent = d.topService ? `Más pedido: ${d.topService}` : '';
 
-    const f = d.finance || {};
-    document.getElementById('m-revenue').textContent       = money(f.revenueCollected);
-    document.getElementById('m-revenue-month').textContent = 'Este mes: ' + money(f.revenueThisMonth);
-    document.getElementById('m-pipeline').textContent      = money(f.pipelineValue);
-    document.getElementById('m-outstanding').textContent   = money(f.outstanding);
-
+    // Las tarjetas de dinero y el P&L se llenan por país desde loadFiscal
+    // (para no mezclar USD con CAD). Aquí solo el gráfico de categorías.
     const p = d.pnl || {};
-    document.getElementById('p-revenue').textContent   = money(p.revenue);
-    document.getElementById('p-direct').textContent    = money(p.directCosts);
-    document.getElementById('p-gross').textContent     = money(p.grossProfit);
-    document.getElementById('p-operating').textContent = money(p.operatingCosts);
-    document.getElementById('p-net').textContent       = money(p.netProfit);
-
     renderBarChart('chartService', d.serviceCounts, '#c9943a');
     renderBarChart('chartStatus',  d.statusCounts,  '#6366f1');
     renderCategoryChart(p.byCategory);

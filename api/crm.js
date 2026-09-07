@@ -482,6 +482,7 @@ async function getFiscal(req, res) {
   const now = new Date();
   const yearStart = `${now.getUTCFullYear()}-01-01`;
   const rolling12 = new Date(Date.UTC(now.getUTCFullYear() - 1, now.getUTCMonth(), now.getUTCDate())).toISOString();
+  const monthAgo  = new Date(now - 30 * 24 * 60 * 60 * 1000).toISOString();
   const fcfg = await loadFiscalConfig();
 
   // Base por país desde el config.
@@ -490,45 +491,51 @@ async function getFiscal(req, res) {
     acc[c] = {
       ...COUNTRIES[c],
       registered: fcfg[c].registered, taxRate: fcfg[c].taxRate, registeredAt: fcfg[c].registeredAt,
-      revenueCollected: 0, rolling12Revenue: 0, yearRevenue: 0,
+      revenueCollected: 0, rolling12Revenue: 0, yearRevenue: 0, revenueThisMonth: 0,
+      pipelineValue: 0, outstanding: 0, wonRevenue: 0,
       taxCollected: 0, withholding: 0, taxPaid: 0, taxNet: 0,
-      expenses: 0, profit: 0, deals: 0, wonDeals: 0
+      expenses: 0, directCosts: 0, operatingCosts: 0, profit: 0, deals: 0, wonDeals: 0
     };
   });
 
   // ── Ventas (leads) ──
   try {
     let { data, error } = await supabase.from('leads')
-      .select('amount_paid, tax_amount, withholding, status, country, updated_at');
+      .select('deal_value, amount_paid, tax_amount, withholding, status, country, updated_at');
     if (error && isSchemaError(error)) {
       // Columnas nuevas sin migrar: cae todo a Ecuador por defecto.
-      ({ data } = await supabase.from('leads').select('amount_paid, status, updated_at'));
+      ({ data } = await supabase.from('leads').select('deal_value, amount_paid, status, updated_at'));
     } else if (error) { throw error; }
     (data || []).forEach(r => {
       const c = acc[normCountry(r.country)] ? normCountry(r.country) : 'ec';
       const ap = Number(r.amount_paid) || 0;
+      const dv = Number(r.deal_value) || 0;
       const A = acc[c];
       A.revenueCollected += ap;
       A.taxCollected += Number(r.tax_amount) || 0;
       A.withholding  += Number(r.withholding) || 0;
       if (ap > 0) A.deals++;
-      if (r.status === 'won') A.wonDeals++;
+      if (r.status === 'won') { A.wonDeals++; A.wonRevenue += dv; A.outstanding += Math.max(0, dv - ap); }
+      else if (r.status !== 'lost') { A.pipelineValue += dv; }
       const u = String(r.updated_at || '');
       if (u >= yearStart) A.yearRevenue += ap;
       if (u >= rolling12) A.rolling12Revenue += ap;
+      if (u >= monthAgo)  A.revenueThisMonth += ap;
     });
   } catch (e) { /* sin datos de ventas */ }
 
   // ── Gastos ──
   try {
-    let { data, error } = await supabase.from('expenses').select('amount, tax_amount, country');
+    let { data, error } = await supabase.from('expenses').select('amount, tax_amount, cost_type, country');
     if (error && isSchemaError(error)) {
-      ({ data } = await supabase.from('expenses').select('amount'));
+      ({ data } = await supabase.from('expenses').select('amount, cost_type'));
     } else if (error) { throw error; }
     (data || []).forEach(e => {
       const c = acc[normCountry(e.country)] ? normCountry(e.country) : 'ec';
-      acc[c].expenses += Number(e.amount) || 0;
+      const amt = Number(e.amount) || 0;
+      acc[c].expenses += amt;
       acc[c].taxPaid  += Number(e.tax_amount) || 0;
+      if (e.cost_type === 'direct') acc[c].directCosts += amt; else acc[c].operatingCosts += amt;
     });
   } catch (e) { /* sin gastos */ }
 
@@ -540,6 +547,8 @@ async function getFiscal(req, res) {
     const pct  = A.threshold > 0 ? Math.round(roll / A.threshold * 100) : 0;
     const remaining = Math.max(0, round2(A.threshold - roll));
     const zone = pct >= 100 ? 'over' : pct >= 70 ? 'warning' : 'safe';
+    const grossProfit = A.revenueCollected - A.directCosts;
+    const netProfit   = grossProfit - A.operatingCosts;
     return {
       code: A.code, name: A.name, flag: A.flag, currency: A.currency,
       taxName: A.taxName, taxRate: A.taxRate, registered: A.registered,
@@ -547,6 +556,9 @@ async function getFiscal(req, res) {
       revenueCollected: round2(A.revenueCollected),
       yearRevenue:      round2(A.yearRevenue),
       rolling12Revenue: roll,
+      revenueThisMonth: round2(A.revenueThisMonth),
+      pipelineValue:    round2(A.pipelineValue),
+      outstanding:      round2(A.outstanding),
       thresholdPct: pct,
       thresholdRemaining: remaining,
       zone,
@@ -555,6 +567,10 @@ async function getFiscal(req, res) {
       taxPaid:      round2(A.taxPaid),
       taxNet:       round2(A.taxCollected - A.taxPaid),
       expenses:     round2(A.expenses),
+      directCosts:    round2(A.directCosts),
+      operatingCosts: round2(A.operatingCosts),
+      grossProfit:  round2(grossProfit),
+      netProfit:    round2(netProfit),
       profit:       round2(A.revenueCollected - A.expenses),
       deals: A.deals, wonDeals: A.wonDeals
     };
