@@ -116,7 +116,7 @@ async function loadFiscalConfig() {
 }
 
 // ── Finance / progress helpers ───────────────────────────────
-const FINANCE_FIELDS    = ['deal_value', 'amount_paid', 'currency', 'payment_status', 'project_stage', 'next_followup', 'country', 'tax_amount', 'withholding'];
+const FINANCE_FIELDS    = ['deal_value', 'amount_paid', 'currency', 'payment_status', 'project_stage', 'next_followup', 'country', 'tax_amount', 'withholding', 'payment_due'];
 const PAYMENT_STATUSES  = ['unpaid', 'deposit', 'partial', 'paid'];
 const PROJECT_STAGES    = ['', 'diagnosis', 'design', 'review', 'launch', 'delivered'];
 const toMoney = (v) => {
@@ -144,7 +144,8 @@ const financeFromBody = (b) => {
     withholding:    toMoney(b.withholding),
     payment_status: PAYMENT_STATUSES.includes(b.payment_status) ? b.payment_status : 'unpaid',
     project_stage:  PROJECT_STAGES.includes(b.project_stage) ? b.project_stage : '',
-    next_followup:  (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null
+    next_followup:  (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null,
+    payment_due:    (b.payment_due && /^\d{4}-\d{2}-\d{2}$/.test(b.payment_due)) ? b.payment_due : null
   };
 };
 
@@ -264,6 +265,7 @@ async function updateLead(req, res, id) {
   if (b.country      !== undefined) { updates.country = normCountry(b.country); updates.currency = currencyFor(b.country); }
   if (b.tax_amount   !== undefined) updates.tax_amount  = toMoney(b.tax_amount);
   if (b.withholding  !== undefined) updates.withholding = toMoney(b.withholding);
+  if (b.payment_due  !== undefined) updates.payment_due = (b.payment_due && /^\d{4}-\d{2}-\d{2}$/.test(b.payment_due)) ? b.payment_due : null;
 
   if (!Object.keys(updates).length) return res.status(400).json({ error: 'Nada que actualizar' });
 
@@ -784,6 +786,56 @@ async function getInvoice(req, res, id) {
   return res.status(200).json({ invoice: data });
 }
 
+// ── Cobros y seguimientos (recordatorios) ────────────────────
+// Dos listas accionables: saldos por cobrar (con días de atraso vs. la fecha
+// de vencimiento) y seguimientos cuya fecha ya llegó. Respeta el país del rol.
+function daysDiff(fromISO, toISO) {
+  const a = new Date(fromISO + 'T00:00:00Z'), b = new Date(toISO + 'T00:00:00Z');
+  return Math.round((b - a) / 86400000);
+}
+async function getReminders(req, res) {
+  const today = new Date().toISOString().slice(0, 10);
+  const cols = 'id,name,email,company,phone,service,country,currency,deal_value,amount_paid,payment_status,status,next_followup,payment_due,updated_at';
+  let q = supabase.from('leads').select(cols);
+  const scope = req.crmScope || (COUNTRY_CODES.includes(req.query.country) ? req.query.country : null);
+  if (scope) q = q.eq('country', scope);
+
+  let { data, error } = await q;
+  if (error && isSchemaError(error)) {
+    // Sin las columnas nuevas: usa lo básico y no filtra por país.
+    ({ data } = await supabase.from('leads').select('id,name,email,company,phone,service,deal_value,amount_paid,payment_status,status,next_followup,updated_at'));
+  } else if (error) { return res.status(500).json({ error: error.message }); }
+
+  const receivables = [], followups = [];
+  (data || []).forEach(l => {
+    if (l.status === 'lost') return;
+    const country = normCountry(l.country);
+    const dv = Number(l.deal_value) || 0, ap = Number(l.amount_paid) || 0;
+    const pending = Math.round((dv - ap) * 100) / 100;
+    if (pending > 0.001 && l.payment_status !== 'paid') {
+      const due = (l.payment_due && /^\d{4}-\d{2}/.test(l.payment_due)) ? String(l.payment_due).slice(0, 10) : null;
+      receivables.push({
+        id: l.id, name: l.name, company: l.company, email: l.email, phone: l.phone,
+        service: l.service, country, currency: currencyFor(country),
+        deal_value: dv, amount_paid: ap, pending, payment_status: l.payment_status,
+        payment_due: due,
+        overdueDays: due && due < today ? daysDiff(due, today) : 0,
+        agingDays: l.updated_at ? Math.max(0, daysDiff(String(l.updated_at).slice(0, 10), today)) : 0
+      });
+    }
+    const nf = (l.next_followup && /^\d{4}-\d{2}-\d{2}/.test(l.next_followup)) ? String(l.next_followup).slice(0, 10) : null;
+    if (nf && nf <= today && l.status !== 'won') {
+      followups.push({
+        id: l.id, name: l.name, company: l.company, service: l.service,
+        country, next_followup: nf, overdueDays: daysDiff(nf, today), status: l.status
+      });
+    }
+  });
+  receivables.sort((a, b) => (b.overdueDays - a.overdueDays) || (b.pending - a.pending));
+  followups.sort((a, b) => a.next_followup < b.next_followup ? -1 : 1);
+  return res.status(200).json({ today, receivables, followups });
+}
+
 async function getMetrics(req, res) {
   const now = new Date();
   const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -957,7 +1009,7 @@ module.exports = async function handler(req, res) {
   if (auth.role === 'accountant') {
     if (req.method !== 'GET') return res.status(403).json({ error: 'Acceso de solo lectura.' });
     req.query.country = auth.country;        // fuerza el país en todo endpoint que lo use
-    const allowed = ['fiscal', 'fiscal-period', 'invoices', 'invoice', 'export', 'leads', 'expenses', 'lead'];
+    const allowed = ['fiscal', 'fiscal-period', 'reminders', 'invoices', 'invoice', 'export', 'leads', 'expenses', 'lead'];
     if (!allowed.includes(action)) return res.status(403).json({ error: 'No disponible para este rol.' });
   }
 
@@ -968,6 +1020,8 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'fiscal') return getFiscal(req, res);
     // GET /api/crm?action=fiscal-period&country=ec&start=..&end=..
     if (req.method === 'GET' && action === 'fiscal-period') return getFiscalPeriod(req, res);
+    // GET /api/crm?action=reminders → cobros y seguimientos
+    if (req.method === 'GET' && action === 'reminders') return getReminders(req, res);
     // GET/PATCH settings fiscales (activar impuesto por país)
     if (req.method === 'GET'   && action === 'settings') return getSettings(req, res);
     if (req.method === 'PATCH' && action === 'settings') return updateSettings(req, res);

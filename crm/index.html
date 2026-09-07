@@ -613,6 +613,34 @@
   .pnl-country-head .pc-cur { color: var(--ash); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
   .metric-money .metric-value .mm-line { font-size: .5em; line-height: 1.4; font-family: 'Montserrat', sans-serif; font-weight: 500; }
   .metric-money .metric-value .mm-line .mm-cur { color: var(--ash); font-size: .8em; }
+
+  /* ── Cobros y seguimientos ── */
+  .rem-section { margin-top: 26px; }
+  .rem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 820px) { .rem-grid { grid-template-columns: 1fr; } }
+  .rem-head { display: flex; align-items: center; gap: 10px; }
+  .rem-count { font-size: 11px; color: var(--gold-light); border: 1px solid rgba(201,148,58,.4); border-radius: 20px; padding: 2px 9px; }
+  .rem-count.zero { color: var(--ash); border-color: var(--border); }
+  .rem-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .rem-item { background: var(--onyx-2); border: 1px solid var(--border); border-left: 3px solid var(--border); border-radius: 6px; padding: 12px 14px; }
+  .rem-item.overdue { border-left-color: #f87171; }
+  .rem-item.soon { border-left-color: #fbbf24; }
+  .rem-item-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .rem-name { font-size: 13px; font-weight: 600; color: #e8e8e8; text-decoration: none; }
+  .rem-name:hover { color: var(--gold-light); }
+  .rem-amt { font-size: 13px; color: var(--gold-light); white-space: nowrap; }
+  .rem-amt .rem-cur { color: var(--ash); font-size: .82em; }
+  .rem-sub { font-size: 11px; color: var(--ash); margin: 3px 0 8px; }
+  .rem-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 11px; margin-bottom: 9px; }
+  .rem-tag { padding: 2px 8px; border-radius: 4px; font-size: 10.5px; }
+  .rem-tag.late { background: rgba(248,113,113,.12); color: #f6a6a6; }
+  .rem-tag.due  { background: rgba(251,191,36,.12); color: #f3d27a; }
+  .rem-tag.none { background: var(--onyx-4); color: var(--ash); }
+  .rem-meta input[type=date] { background: var(--onyx-4); border: 1px solid var(--border); color: var(--ash-light); font-size: 10px; padding: 2px 5px; border-radius: 3px; font-family: inherit; }
+  .rem-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+  .rem-actions button { background: var(--onyx-3); border: 1px solid var(--border); color: var(--ash-light); border-radius: 4px; padding: 5px 9px; font-size: 11px; cursor: pointer; font-family: inherit; }
+  .rem-actions button:hover { border-color: var(--gold); color: var(--gold-light); }
+  .rem-actions button.pay:hover { border-color: #34d399; color: #34d399; }
 </style>
 </head>
 <body>
@@ -679,6 +707,22 @@
     <div class="metric-card metric-money"><div class="metric-label">Ingresos cobrados</div><div class="metric-value" id="m-revenue">—</div><div class="metric-sub" id="m-revenue-month">—</div></div>
     <div class="metric-card metric-money"><div class="metric-label">Pipeline (potencial)</div><div class="metric-value" id="m-pipeline">—</div><div class="metric-sub">Valor de leads abiertos</div></div>
     <div class="metric-card metric-money"><div class="metric-label">Por cobrar</div><div class="metric-value" id="m-outstanding">—</div><div class="metric-sub">De clientes ganados</div></div>
+  </div>
+
+  <!-- ── Cobros y seguimientos (recordatorios) ── -->
+  <div class="rem-section">
+    <div class="rem-grid">
+      <div class="rem-col">
+        <div class="rem-head"><h2 class="finance-title">Por cobrar</h2><span class="rem-count" id="rem-rec-count"></span></div>
+        <p class="page-subtitle">Saldos pendientes, los más atrasados primero.</p>
+        <div id="rem-receivables"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
+      </div>
+      <div class="rem-col">
+        <div class="rem-head"><h2 class="finance-title">Seguimientos</h2><span class="rem-count" id="rem-fu-count"></span></div>
+        <p class="page-subtitle">Clientes con seguimiento vencido o para hoy.</p>
+        <div id="rem-followups"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
+      </div>
+    </div>
   </div>
 
   <!-- ── Radar Fiscal (por país — para el contador) ── -->
@@ -1018,6 +1062,10 @@
           <select id="nl-stage"><option value="">—</option><option value="diagnosis">Diagnóstico</option><option value="design">Diseño</option><option value="review">Revisión</option><option value="launch">Publicación</option><option value="delivered">Entregado</option></select>
         </label>
       </div>
+      <div class="nl-row">
+        <label class="nl-field">Vence el cobro <em style="text-transform:none;letter-spacing:normal;color:var(--ash)">(opcional)</em><input type="date" id="nl-due"></label>
+        <label class="nl-field">Próximo seguimiento <em style="text-transform:none;letter-spacing:normal;color:var(--ash)">(opcional)</em><input type="date" id="nl-followup"></label>
+      </div>
       <label class="nl-field">Notas / mensaje<textarea id="nl-message" rows="3"></textarea></label>
       <p class="nl-error" id="nl-error" hidden></p>
     </div>
@@ -1139,9 +1187,11 @@ async function saveNewLead() {
       amount_paid:    document.getElementById('nl-paid').value,
       tax_amount:     document.getElementById('nl-tax').value,
       payment_status: document.getElementById('nl-payment').value,
-      project_stage:  document.getElementById('nl-stage').value
+      project_stage:  document.getElementById('nl-stage').value,
+      payment_due:    document.getElementById('nl-due').value,
+      next_followup:  document.getElementById('nl-followup').value
     });
-    ['nl-name','nl-email','nl-phone','nl-company','nl-message','nl-deal','nl-paid','nl-tax'].forEach(id => document.getElementById(id).value = '');
+    ['nl-name','nl-email','nl-phone','nl-company','nl-message','nl-deal','nl-paid','nl-tax','nl-due','nl-followup'].forEach(id => document.getElementById(id).value = '');
     closeAddLead();
     await refreshAll();
   } catch (e) {
@@ -1175,7 +1225,93 @@ function paymentLabel(p) {
 }
 
 async function refreshAll() {
-  await Promise.all([loadMetrics(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+  await Promise.all([loadMetrics(), loadReminders(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+}
+
+// ── Cobros y seguimientos ─────────────────────────────────────
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+function addDaysStr(days) { const d = new Date(); d.setUTCDate(d.getUTCDate() + days); return d.toISOString().slice(0, 10); }
+
+async function loadReminders() {
+  const recEl = document.getElementById('rem-receivables');
+  const fuEl  = document.getElementById('rem-followups');
+  if (!recEl || !fuEl) return;
+  try {
+    const { receivables, followups } = await api({ action: 'reminders' });
+    const rec = receivables || [], fu = followups || [];
+    // Contadores
+    const rc = document.getElementById('rem-rec-count'); rc.textContent = rec.length; rc.classList.toggle('zero', !rec.length);
+    const fc = document.getElementById('rem-fu-count'); fc.textContent = fu.length; fc.classList.toggle('zero', !fu.length);
+
+    recEl.innerHTML = rec.length ? '<div class="rem-list">' + rec.map(r => {
+      const late = r.overdueDays > 0;
+      const cls = late ? 'overdue' : (r.payment_due ? 'soon' : '');
+      const tag = late
+        ? `<span class="rem-tag late">Vencido hace ${r.overdueDays} d</span>`
+        : r.payment_due ? `<span class="rem-tag due">Vence ${r.payment_due}</span>`
+                        : `<span class="rem-tag none">Sin fecha · ${r.agingDays} d pendiente</span>`;
+      const payload = esc(JSON.stringify({ id: r.id, name: r.name, service: r.service, pending: r.pending, currency: r.currency, country: r.country }));
+      return `<div class="rem-item ${cls}">
+        <div class="rem-item-top"><a class="rem-name" href="/crm/lead.html?id=${r.id}">${flag(r.country)} ${esc(r.name)}</a><span class="rem-amt">${money(r.pending)} <span class="rem-cur">${r.currency}</span></span></div>
+        <div class="rem-sub">${esc(r.service) || '—'}${r.company ? ' · ' + esc(r.company) : ''}</div>
+        <div class="rem-meta">${tag}<label style="color:var(--ash)">Vence: <input type="date" value="${r.payment_due || ''}" onchange="setDue('${r.id}', this.value)"></label></div>
+        <div class="rem-actions">
+          <button class="pay" onclick="markLeadPaid('${r.id}', ${r.deal_value})">✓ Registrar pago</button>
+          <button onclick='copyReminder(${payload})'>📋 Copiar recordatorio</button>
+        </div>
+      </div>`;
+    }).join('') + '</div>' : '<div class="empty">Nada por cobrar. 🎉</div>';
+
+    fuEl.innerHTML = fu.length ? '<div class="rem-list">' + fu.map(f => {
+      const late = f.overdueDays > 0;
+      return `<div class="rem-item ${late ? 'overdue' : 'soon'}">
+        <div class="rem-item-top"><a class="rem-name" href="/crm/lead.html?id=${f.id}">${flag(f.country)} ${esc(f.name)}</a><span class="rem-tag ${late ? 'late' : 'due'}">${late ? 'Vencido hace ' + f.overdueDays + ' d' : 'Para hoy'}</span></div>
+        <div class="rem-sub">${esc(f.service) || '—'} · ${f.next_followup}</div>
+        <div class="rem-actions">
+          <button onclick="followupSnooze('${f.id}')">Posponer 7 días</button>
+          <button class="pay" onclick="followupDone('${f.id}')">✓ Hecho</button>
+        </div>
+      </div>`;
+    }).join('') + '</div>' : '<div class="empty">Sin seguimientos pendientes.</div>';
+  } catch (e) {
+    recEl.innerHTML = `<div class="empty">No se pudo cargar: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+    fuEl.innerHTML = '';
+  }
+}
+
+async function markLeadPaid(id, dealValue) {
+  if (!confirm('¿Registrar este cobro como PAGADO por completo?')) return;
+  try {
+    await api({ action: 'lead', id }, 'PATCH', { amount_paid: dealValue, payment_status: 'paid' });
+    await Promise.all([loadReminders(), loadMetrics(), loadFiscal(), loadFinance(), loadLeads()]);
+  } catch (e) { alert('Error: ' + (e.message || e)); }
+}
+async function setDue(id, value) {
+  try { await api({ action: 'lead', id }, 'PATCH', { payment_due: value }); await loadReminders(); }
+  catch (e) { alert('Error: ' + (e.message || e)); }
+}
+async function followupSnooze(id) {
+  try { await api({ action: 'lead', id }, 'PATCH', { next_followup: addDaysStr(7) }); await loadReminders(); }
+  catch (e) { alert('Error: ' + (e.message || e)); }
+}
+async function followupDone(id) {
+  try { await api({ action: 'lead', id }, 'PATCH', { next_followup: '' }); await loadReminders(); }
+  catch (e) { alert('Error: ' + (e.message || e)); }
+}
+
+// Recordatorio de cobro listo para pegar en WhatsApp/correo (según país).
+async function copyReminder(r) {
+  const isCA = r.country === 'ca';
+  const amount = money(r.pending) + ' ' + r.currency;
+  const msg = isCA
+    ? `Hi ${r.name}, just a friendly reminder about the outstanding balance of ${amount} for ${r.service || 'our work'} with Pittahaya. You can pay by bank transfer or the agreed method — let me know if you have any questions. Thank you!`
+    : `Hola ${r.name}, te recuerdo amablemente el saldo pendiente de ${amount} por ${r.service || 'nuestro trabajo'} con Pittahaya. Puedes pagar por transferencia o el medio acordado. Cualquier duda, con gusto te ayudo. ¡Gracias!`;
+  try {
+    await navigator.clipboard.writeText(msg);
+    alert('Recordatorio copiado. Pégalo en WhatsApp o correo.');
+  } catch (e) {
+    prompt('Copia este recordatorio:', msg);
+  }
 }
 
 // ── Facturas emitidas ─────────────────────────────────────────

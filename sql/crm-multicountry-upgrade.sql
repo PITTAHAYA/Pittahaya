@@ -22,9 +22,15 @@ alter table public.expenses
   add column if not exists country    text          default 'ec',    -- 'ec' | 'ca'
   add column if not exists tax_amount numeric(12,2) default 0;        -- impuesto pagado recuperable (IVA crédito / ITC)
 
+-- Fecha de vencimiento del cobro (para recordatorios de saldos pendientes).
+alter table public.leads
+  add column if not exists payment_due date;
+
 -- ── Índices para reportes por país ──────────────────────────
-create index if not exists leads_country_idx    on public.leads (country);
-create index if not exists expenses_country_idx on public.expenses (country);
+create index if not exists leads_country_idx      on public.leads (country);
+create index if not exists expenses_country_idx   on public.expenses (country);
+create index if not exists leads_payment_due_idx  on public.leads (payment_due);
+create index if not exists leads_next_followup_idx on public.leads (next_followup);
 
 -- ── Backfill: la moneda define el país en registros antiguos ──
 -- (USD → Ecuador por defecto; CAD → Canadá.) Ajusta a mano si hace falta.
