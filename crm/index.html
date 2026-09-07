@@ -641,6 +641,11 @@
   .rem-actions button { background: var(--onyx-3); border: 1px solid var(--border); color: var(--ash-light); border-radius: 4px; padding: 5px 9px; font-size: 11px; cursor: pointer; font-family: inherit; }
   .rem-actions button:hover { border-color: var(--gold); color: var(--gold-light); }
   .rem-actions button.pay:hover { border-color: #34d399; color: #34d399; }
+
+  /* ── Utilidad mensual por país ── */
+  #monthlyChart { flex-direction: column; align-items: stretch; min-height: 0; gap: 20px; }
+  .mc-country-head { font-size: 12px; letter-spacing: .04em; color: var(--gold-light); margin-bottom: 10px; }
+  .mc-country .bar-chart { min-height: 0; }
 </style>
 </head>
 <body>
@@ -1794,23 +1799,27 @@ async function loadMonthly() {
   const el = document.getElementById('monthlyChart');
   if (!el) return;
   try {
-    const { months } = await api({ action: 'monthly' });
-    const rows = months || [];
-    if (!rows.length) { el.innerHTML = '<div class="chart-empty">Aún no hay datos para mostrar.</div>'; return; }
-    const max = Math.max(1, ...rows.map(m => Math.max(Number(m.revenue) || 0, Number(m.expenses) || 0, Math.abs(Number(m.profit) || 0))));
-    el.innerHTML = rows.map(m => {
-      const rev = Number(m.revenue) || 0, exp = Number(m.expenses) || 0, prof = Number(m.profit) || 0;
-      const h = v => Math.max(2, Math.round(Math.abs(v) / max * 100));
-      const profColor = prof >= 0 ? '#c9a24a' : '#f87171';
-      return `<div class="mc-col" title="${esc(m.label || m.month)}\nIngresos: ${money(rev)}\nGastos: ${money(exp)}\nUtilidad: ${money(prof)}">
-        <div class="mc-bars">
-          <div class="mc-bar" style="height:${h(rev)}%;background:#34d399"></div>
-          <div class="mc-bar" style="height:${h(exp)}%;background:#f87171"></div>
-          <div class="mc-bar" style="height:${h(prof)}%;background:${profColor}"></div>
-        </div>
-        <div class="mc-val">${money(prof)}</div>
-        <div class="mc-label">${esc(m.label || m.month)}</div>
-      </div>`;
+    const { countries } = await api({ action: 'monthly' });
+    const active = (countries || []).filter(c => c.months.some(m => m.revenue || m.expenses));
+    if (!active.length) { el.innerHTML = '<div class="chart-empty">Aún no hay datos para mostrar.</div>'; return; }
+    el.innerHTML = active.map(c => {
+      const rows = c.months || [];
+      const max = Math.max(1, ...rows.map(m => Math.max(Number(m.revenue) || 0, Number(m.expenses) || 0, Math.abs(Number(m.profit) || 0))));
+      const bars = rows.map(m => {
+        const rev = Number(m.revenue) || 0, exp = Number(m.expenses) || 0, prof = Number(m.profit) || 0;
+        const h = v => Math.max(2, Math.round(Math.abs(v) / max * 100));
+        const profColor = prof >= 0 ? '#c9a24a' : '#f87171';
+        return `<div class="mc-col" title="${esc(m.label || m.month)}\nIngresos: ${money(rev)}\nGastos: ${money(exp)}\nUtilidad: ${money(prof)}">
+          <div class="mc-bars">
+            <div class="mc-bar" style="height:${h(rev)}%;background:#34d399"></div>
+            <div class="mc-bar" style="height:${h(exp)}%;background:#f87171"></div>
+            <div class="mc-bar" style="height:${h(prof)}%;background:${profColor}"></div>
+          </div>
+          <div class="mc-val">${money(prof)}</div>
+          <div class="mc-label">${esc(m.label || m.month)}</div>
+        </div>`;
+      }).join('');
+      return `<div class="mc-country"><div class="mc-country-head">${c.flag} ${esc(c.name)} <span style="color:var(--ash);font-size:10px">${c.currency}</span></div><div class="bar-chart" style="min-height:0">${bars}</div></div>`;
     }).join('');
   } catch (e) {
     el.innerHTML = `<div class="chart-empty">No se pudo cargar: ${esc(String(e.message || e)).slice(0, 100)}</div>`;

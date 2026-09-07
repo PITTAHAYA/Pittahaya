@@ -450,7 +450,7 @@ async function generateRecurring(req, res) {
   return res.status(200).json({ created: toInsert.length });
 }
 
-// Monthly P&L for the last 6 months (for the trend chart).
+// Monthly P&L for the last 6 months, split by country (for the trend charts).
 async function getMonthly(req, res) {
   const now = new Date();
   const keys = [];
@@ -458,35 +458,46 @@ async function getMonthly(req, res) {
     const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
     keys.push(`${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`);
   }
+  // acc[country][monthKey] = { revenue, expenses }
   const acc = {};
-  keys.forEach(k => acc[k] = { month: k, revenue: 0, expenses: 0, profit: 0 });
+  COUNTRY_CODES.forEach(c => { acc[c] = {}; keys.forEach(k => acc[c][k] = { revenue: 0, expenses: 0 }); });
+  const scope = req.crmScope; // el contador solo ve su país
+
   try {
-    const { data: leads } = await supabase.from('leads').select('amount_paid, updated_at');
-    (leads || []).forEach(l => {
+    let { data, error } = await supabase.from('leads').select('amount_paid, country, updated_at');
+    if (error && isSchemaError(error)) ({ data } = await supabase.from('leads').select('amount_paid, updated_at'));
+    (data || []).forEach(l => {
+      const c = acc[normCountry(l.country)] ? normCountry(l.country) : 'ec';
       const k = String(l.updated_at || '').slice(0, 7);
-      if (acc[k]) acc[k].revenue += Number(l.amount_paid) || 0;
+      if (acc[c][k]) acc[c][k].revenue += Number(l.amount_paid) || 0;
     });
-  } catch (e) { /* finance columns not migrated */ }
+  } catch (e) { /* sin datos */ }
   try {
-    const { data: exp } = await supabase.from('expenses').select('amount, expense_date');
-    (exp || []).forEach(e => {
+    let { data, error } = await supabase.from('expenses').select('amount, country, expense_date');
+    if (error && isSchemaError(error)) ({ data } = await supabase.from('expenses').select('amount, expense_date'));
+    (data || []).forEach(e => {
+      const c = acc[normCountry(e.country)] ? normCountry(e.country) : 'ec';
       const k = String(e.expense_date || '').slice(0, 7);
-      if (acc[k]) acc[k].expenses += Number(e.amount) || 0;
+      if (acc[c][k]) acc[c][k].expenses += Number(e.amount) || 0;
     });
-  } catch (e) { /* expenses table not migrated */ }
+  } catch (e) { /* sin datos */ }
+
   const MONTH_ES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  const months = keys.map(k => {
-    const d = acc[k];
-    const mi = Number(k.slice(5, 7)) - 1;
-    return {
-      month: k,
-      label: `${MONTH_ES[mi] || ''} ${k.slice(2, 4)}`,
-      revenue:  Math.round(d.revenue * 100) / 100,
-      expenses: Math.round(d.expenses * 100) / 100,
-      profit:   Math.round((d.revenue - d.expenses) * 100) / 100
-    };
-  });
-  return res.status(200).json({ months });
+  const codes = scope ? [scope] : COUNTRY_CODES;
+  const countries = codes.map(c => ({
+    code: c, name: COUNTRIES[c].name, flag: COUNTRIES[c].flag, currency: COUNTRIES[c].currency,
+    months: keys.map(k => {
+      const d = acc[c][k];
+      const mi = Number(k.slice(5, 7)) - 1;
+      return {
+        month: k, label: `${MONTH_ES[mi] || ''} ${k.slice(2, 4)}`,
+        revenue:  Math.round(d.revenue * 100) / 100,
+        expenses: Math.round(d.expenses * 100) / 100,
+        profit:   Math.round((d.revenue - d.expenses) * 100) / 100
+      };
+    })
+  }));
+  return res.status(200).json({ countries });
 }
 
 // ── Radar fiscal (por país) ──────────────────────────────────
