@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+  <meta name="copyright" content="© Pittahaya. Todos los derechos reservados." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Pittahaya · Portal del contador</title>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--gold:#c9943a;--gold-light:#e8c97a;--onyx:#0d0d0d;--onyx-2:#111;--onyx-3:#1a1a1a;--onyx-4:#222;--ash:#888;--ash-light:#bbb;--border:rgba(255,255,255,.07)}
+  body{font-family:'Montserrat',sans-serif;background:var(--onyx);color:#eee;min-height:100vh}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 28px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,13,13,.94);backdrop-filter:blur(8px);z-index:10;flex-wrap:wrap}
+  .brand{display:flex;flex-direction:column}
+  .brand .bn{font-family:'Cormorant Garamond',serif;font-size:22px;color:#efe9dd}
+  .brand .bs{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash)}
+  .topright{display:flex;align-items:center;gap:12px}
+  .country-pill{font-size:12px;color:var(--gold-light);border:1px solid rgba(201,148,58,.4);border-radius:20px;padding:6px 13px;display:inline-flex;gap:7px;align-items:center}
+  .btn{background:var(--onyx-3);border:1px solid var(--border);color:var(--ash-light);border-radius:5px;padding:8px 13px;font-size:12px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px}
+  .btn:hover{border-color:var(--gold);color:var(--gold-light)}
+  .btn-primary{background:linear-gradient(135deg,var(--gold),#e8c97a);color:#1a0f00;border-color:transparent}
+  select.btn{cursor:pointer}
+  main{max-width:1100px;margin:0 auto;padding:28px}
+  .sec{margin-bottom:34px}
+  .sec-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:#efe9dd}
+  .sec-sub{font-size:12.5px;color:var(--ash);margin-top:3px}
+  .loading,.empty{color:var(--ash);font-size:13px;padding:22px;text-align:center}
+  .spin{display:inline-block;width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:s .8s linear infinite;vertical-align:-2px;margin-right:8px}
+  @keyframes s{to{transform:rotate(360deg)}}
+
+  /* Radar */
+  .fcard{background:linear-gradient(160deg,var(--onyx-2),var(--onyx-3));border:1px solid var(--border);border-radius:8px;padding:20px 22px;margin-top:14px}
+  .fcard.zone-warning{border-color:rgba(251,191,36,.4)}.fcard.zone-over{border-color:rgba(248,113,113,.45)}
+  .fc-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .fc-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:#efe9dd;display:inline-flex;align-items:center;gap:9px}
+  .fc-badge{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;border:1px solid var(--border);color:var(--ash-light)}
+  .fc-badge.small{color:#34d399;border-color:rgba(52,211,153,.4)}.fc-badge.registered{color:var(--gold-light);border-color:rgba(201,148,58,.5)}
+  .fc-big{font-family:'Cormorant Garamond',serif;font-size:32px;color:#fff;margin-top:8px}
+  .fc-big small{font-size:13px;color:var(--ash);font-family:'Montserrat',sans-serif}
+  .fc-track{height:12px;background:var(--onyx-4);border-radius:7px;overflow:hidden;margin:14px 0 7px}
+  .fc-fill{height:100%;border-radius:7px}.fc-fill.safe{background:linear-gradient(90deg,#2f9e6e,#34d399)}.fc-fill.warning{background:linear-gradient(90deg,#d99a1e,#fbbf24)}.fc-fill.over{background:linear-gradient(90deg,#c0392b,#f87171)}
+  .fc-threshline{display:flex;justify-content:space-between;font-size:11px;color:var(--ash)}.fc-threshline b{color:#e0e0e0}
+  .fc-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+  .fc-stat span{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);margin-bottom:4px}.fc-stat b{font-size:15px;color:#e5e5e5}
+
+  /* Period */
+  .fp-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+  .fp-controls select{background:var(--onyx-2);border:1px solid var(--border);color:#e0e0e0;padding:9px 12px;border-radius:5px;font-family:inherit;font-size:13px}
+  .fp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .fp-cell{background:var(--onyx-2);border:1px solid var(--border);border-radius:7px;padding:14px 16px}
+  .fp-cell span{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);margin-bottom:6px}
+  .fp-cell b{font-size:20px;color:#efe9dd;font-family:'Cormorant Garamond',serif}
+  .fp-cell.net{border-color:rgba(201,148,58,.4);background:linear-gradient(160deg,rgba(201,148,58,.08),var(--onyx-2))}.fp-cell.net b{color:var(--gold-light)}
+  .fp-cell.pos b{color:#34d399}.fp-cell.neg b{color:#f87171}
+  .fp-note{font-size:11.5px;color:var(--ash);margin-top:12px;line-height:1.5}
+
+  /* P&L */
+  .pnl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+  .pnl-card{background:var(--onyx-2);border:1px solid var(--border);border-radius:7px;padding:14px 16px}
+  .pnl-card span{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ash);margin-bottom:6px}
+  .pnl-card b{font-size:19px;color:#efe9dd;font-family:'Cormorant Garamond',serif}
+  .pnl-strong{border-color:rgba(201,148,58,.3)}.pnl-strong b{color:var(--gold-light)}
+  .pnl-net{background:linear-gradient(160deg,rgba(52,211,153,.08),var(--onyx-2));border-color:rgba(52,211,153,.3)}.pnl-net b{color:#34d399}
+
+  /* Tables */
+  .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;margin-top:14px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);padding:12px 14px;border-bottom:1px solid var(--border);white-space:nowrap}
+  td{padding:12px 14px;border-bottom:1px solid var(--border);color:#ddd}
+  tr:last-child td{border-bottom:none}
+  a.lnk{color:var(--gold-light);text-decoration:none}a.lnk:hover{text-decoration:underline}
+  .muted{color:var(--ash)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="bn">Pittahaya</span><span class="bs" id="portalLabel">Portal del contador</span></div>
+  <div class="topright">
+    <span class="country-pill" id="countryPill">—</span>
+    <select class="btn" id="adminCountry" hidden onchange="switchCountry()"></select>
+    <button class="btn" id="logoutBtn" onclick="logout()">Salir</button>
+  </div>
+</div>
+
+<main>
+  <section class="sec">
+    <h2 class="sec-title" id="t-radar">Radar fiscal</h2>
+    <p class="sec-sub" id="s-radar">Cuánto se ha cobrado y a qué distancia está del umbral para registrarse.</p>
+    <div id="radar"><div class="loading"><span class="spin"></span>Cargando…</div></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-title" id="t-period">Reporte por período</h2>
+    <p class="sec-sub" id="s-period">Elige el período. Calcula el neto a declarar y se puede descargar.</p>
+    <div class="fp-controls">
+      <select id="fp-type" onchange="buildPeriodOptions()"></select>
+      <select id="fp-period" onchange="loadPeriod()"></select>
+      <button class="btn btn-primary" onclick="exportPeriod()" id="b-download">Descargar reporte</button>
+    </div>
+    <div id="period"><div class="loading"><span class="spin"></span>Cargando…</div></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-title" id="t-pnl">Rentabilidad</h2>
+    <p class="sec-sub" id="s-pnl">Ingresos menos gastos = utilidad bruta y neta.</p>
+    <div id="pnl" class="pnl-grid"><div class="loading"><span class="spin"></span>Cargando…</div></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-title" id="t-invoices">Facturas emitidas</h2>
+    <div class="table-wrap"><table>
+      <thead><tr id="inv-head"></tr></thead>
+      <tbody id="inv-body"><tr><td colspan="6"><div class="loading"><span class="spin"></span>Cargando…</div></td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-title" id="t-finance">Cobros por cliente</h2>
+    <div class="table-wrap"><table>
+      <thead><tr id="fin-head"></tr></thead>
+      <tbody id="fin-body"><tr><td colspan="5"><div class="loading"><span class="spin"></span>Cargando…</div></td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec-title" id="t-expenses">Gastos</h2>
+    <div class="table-wrap"><table>
+      <thead><tr id="exp-head"></tr></thead>
+      <tbody id="exp-body"><tr><td colspan="5"><div class="loading"><span class="spin"></span>Cargando…</div></td></tr></tbody>
+    </table></div>
+  </section>
+</main>
+
+<script>
+if (window.trustedTypes && window.trustedTypes.createPolicy) {
+  try { window.trustedTypes.createPolicy('default', { createHTML: v => v, createScript: v => v, createScriptURL: v => v }); } catch {}
+}
+const API_BASE = '/api/crm';
+let sb, authToken = null, role = null, country = 'ec';
+
+// Idioma del portal: Ecuador en español, Canadá en inglés.
+const T = {
+  ec: { es:true, portal:'Portal del contador', logout:'Salir', radar:'Radar fiscal', radarSub:'Cuánto se ha cobrado y a qué distancia está del umbral para registrarse.',
+    period:'Reporte por período', periodSub:'Elige el período. Calcula el neto a declarar y se puede descargar.', download:'Descargar reporte',
+    pnl:'Rentabilidad', pnlSub:'Ingresos menos gastos = utilidad bruta y neta.', invoices:'Facturas emitidas', finance:'Cobros por cliente', expenses:'Gastos',
+    types:['Mensual','Trimestral','Anual'], months:['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],
+    invHead:['N.º','Cliente','Tipo','Fecha','Total','Pagado'], finHead:['Cliente','Servicio','Valor','Pagado','Pendiente'], expHead:['Descripción','Categoría','Tipo','Monto','Fecha'],
+    docLabel:{factura:'Factura',recibo:'Recibo'}, expCat:{software:'Software',marketing:'Marketing',contratistas:'Contratistas',oficina:'Oficina',impuestos:'Impuestos',otros:'Otros'}, expType:{direct:'Costo directo',operating:'Operativo'},
+    last12:'últimos 12 meses', thisYear:'Este año', totalColl:'Cobrado total', ofThreshold:'% del umbral', threshold:'Umbral',
+    small:'Pequeño proveedor', registered:'Registrado', taxColl:'cobrado', taxPaid:'pagado', profit:'Utilidad',
+    fRevenue:'Ingreso cobrado', fNet:'Neto a declarar', fExpenses:'Gastos', pRevenue:'Ingresos cobrados', pDirect:'Costos directos', pGross:'Utilidad bruta', pOper:'Gastos operativos', pNet:'Utilidad neta',
+    loading:'Cargando…', noInv:'Aún no hay facturas.', noExp:'Sin gastos registrados.', noFin:'Aún no hay cobros.', view:'Ver', sales:'venta(s) con cobro',
+    regNote:c=>`Registrado para ${c}: el neto de arriba es lo que se declara.`, smallNote:c=>`Pequeño proveedor: aún no se cobra ${c} (por eso va en 0).` },
+  ca: { es:false, portal:'Accountant portal', logout:'Sign out', radar:'Tax radar', radarSub:'Revenue collected and how close it is to the registration threshold.',
+    period:'Report by period', periodSub:'Pick a period. It computes the net to remit and can be downloaded.', download:'Download report',
+    pnl:'Profit & loss', pnlSub:'Revenue minus expenses = gross and net profit.', invoices:'Issued invoices', finance:'Payments by client', expenses:'Expenses',
+    types:['Monthly','Quarterly','Yearly'], months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    invHead:['No.','Client','Type','Date','Total','Paid'], finHead:['Client','Service','Value','Paid','Pending'], expHead:['Description','Category','Type','Amount','Date'],
+    docLabel:{factura:'Invoice',recibo:'Receipt'}, expCat:{software:'Software',marketing:'Marketing',contratistas:'Contractors',oficina:'Office',impuestos:'Taxes',otros:'Other'}, expType:{direct:'Direct cost',operating:'Operating'},
+    last12:'last 12 months', thisYear:'This year', totalColl:'Total collected', ofThreshold:'% of threshold', threshold:'Threshold',
+    small:'Small supplier', registered:'Registered', taxColl:'collected', taxPaid:'paid', profit:'Profit',
+    fRevenue:'Revenue collected', fNet:'Net to remit', fExpenses:'Expenses', pRevenue:'Revenue collected', pDirect:'Direct costs', pGross:'Gross profit', pOper:'Operating costs', pNet:'Net profit',
+    loading:'Loading…', noInv:'No invoices yet.', noExp:'No expenses recorded.', noFin:'No payments yet.', view:'View', sales:'sale(s) with payment',
+    regNote:c=>`Registered for ${c}: the net above is what you remit.`, smallNote:c=>`Small supplier: no ${c} charged yet (that's why it's 0).` }
+};
+let L = T.ec;
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function money(n){ n=Number(n)||0; return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function pad2(n){ return String(n).padStart(2,'0'); }
+function lastDay(y,m){ return new Date(Date.UTC(y,m+1,0)).getUTCDate(); }
+
+async function loadCrmConfig(){
+  const res = await fetch('/api/crm-config', { headers:{ 'Accept':'application/json' } });
+  const c = await res.json().catch(()=>({}));
+  if (!res.ok || !c.supabaseUrl || !c.supabaseAnonKey) throw new Error(c.error || 'CRM no configurado.');
+  return c;
+}
+async function api(params){
+  const res = await fetch(API_BASE + '?' + new URLSearchParams(params), { headers:{ 'Authorization':`Bearer ${authToken}` } });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function init(){
+  const config = await loadCrmConfig();
+  sb = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+  const { data:{ session } } = await sb.auth.getSession();
+  if (!session) { window.location.href = '/crm/login.html'; return; }
+  authToken = session.access_token;
+  const me = await api({ action:'whoami' });
+  role = me.role;
+  if (role === 'accountant') {
+    country = me.country || 'ec';
+  } else {
+    // El dueño puede previsualizar el portal y cambiar de país.
+    country = 'ec';
+    const sel = document.getElementById('adminCountry');
+    sel.hidden = false;
+    sel.innerHTML = '<option value="ec">🇪🇨 Ecuador</option><option value="ca">🇨🇦 Canadá</option>';
+  }
+  applyLang();
+  await loadAll();
+}
+
+function applyLang(){
+  L = country === 'ca' ? T.ca : T.ec;
+  document.documentElement.lang = L.es ? 'es' : 'en';
+  const flag = country === 'ca' ? '🇨🇦' : '🇪🇨';
+  const cname = country === 'ca' ? (L.es?'Canadá':'Canada') : 'Ecuador';
+  document.getElementById('portalLabel').textContent = L.portal;
+  document.getElementById('countryPill').textContent = `${flag} ${cname} · ${country === 'ca' ? 'CAD' : 'USD'}`;
+  document.getElementById('logoutBtn').textContent = L.logout;
+  document.getElementById('t-radar').textContent = L.radar;   document.getElementById('s-radar').textContent = L.radarSub;
+  document.getElementById('t-period').textContent = L.period; document.getElementById('s-period').textContent = L.periodSub;
+  document.getElementById('b-download').textContent = L.download;
+  document.getElementById('t-pnl').textContent = L.pnl;       document.getElementById('s-pnl').textContent = L.pnlSub;
+  document.getElementById('t-invoices').textContent = L.invoices;
+  document.getElementById('t-finance').textContent = L.finance;
+  document.getElementById('t-expenses').textContent = L.expenses;
+  document.getElementById('fp-type').innerHTML = L.types.map((t,i)=>`<option value="${['month','quarter','year'][i]}">${t}</option>`).join('');
+  document.getElementById('inv-head').innerHTML = L.invHead.map((h,i)=>`<th${i>=4?' style="text-align:right"':''}>${h}</th>`).join('') + '<th></th>';
+  document.getElementById('fin-head').innerHTML = L.finHead.map((h,i)=>`<th${i>=2?' style="text-align:right"':''}>${h}</th>`).join('');
+  document.getElementById('exp-head').innerHTML = L.expHead.map((h,i)=>`<th${i===3?' style="text-align:right"':''}>${h}</th>`).join('');
+  buildPeriodOptions();
+}
+
+async function switchCountry(){
+  country = document.getElementById('adminCountry').value;
+  applyLang();
+  await loadAll();
+}
+
+async function loadAll(){ await Promise.all([loadRadar(), loadPeriod(), loadInvoices(), loadFinance(), loadExpenses()]); }
+
+async function logout(){ await sb.auth.signOut(); window.location.href = '/crm/login.html'; }
+
+// ── Radar + P&L ──
+async function loadRadar(){
+  const el = document.getElementById('radar'), pnl = document.getElementById('pnl');
+  try {
+    const { countries } = await api({ action:'fiscal', country });
+    const c = (countries||[])[0];
+    if (!c) { el.innerHTML = `<div class="empty">${L.loading}</div>`; return; }
+    const pct = Math.min(100, c.thresholdPct||0), zone = c.zone||'safe';
+    const badge = c.registered ? `<span class="fc-badge registered">${L.registered} ${esc(c.taxName)}</span>` : `<span class="fc-badge small">${L.small}</span>`;
+    el.innerHTML = `<div class="fcard zone-${zone}">
+      <div class="fc-head"><span class="fc-name">${c.flag} ${esc(c.name)}</span>${badge}</div>
+      <div class="fc-big">${money(c.rolling12Revenue)} <small>${c.currency} · ${L.last12}</small></div>
+      <div class="fc-track"><div class="fc-fill ${zone}" style="width:${pct}%"></div></div>
+      <div class="fc-threshline"><span>${c.thresholdPct}${L.ofThreshold}</span><span>${L.threshold}: <b>${money(c.threshold)} ${c.currency}</b></span></div>
+      <div class="fc-stats">
+        <div class="fc-stat"><span>${L.thisYear}</span><b>${money(c.yearRevenue)}</b></div>
+        <div class="fc-stat"><span>${L.totalColl}</span><b>${money(c.revenueCollected)}</b></div>
+        <div class="fc-stat"><span>${esc(c.taxName)} ${L.taxColl}</span><b>${money(c.taxCollected)}</b></div>
+        <div class="fc-stat"><span>${esc(c.taxName)} ${L.taxPaid}</span><b>${money(c.taxPaid)}</b></div>
+      </div></div>`;
+    pnl.innerHTML = `
+      <div class="pnl-card"><span>${L.pRevenue}</span><b>${money(c.revenueCollected)}</b></div>
+      <div class="pnl-card"><span>${L.pDirect}</span><b>${money(c.directCosts)}</b></div>
+      <div class="pnl-card pnl-strong"><span>${L.pGross}</span><b>${money(c.grossProfit)}</b></div>
+      <div class="pnl-card"><span>${L.pOper}</span><b>${money(c.operatingCosts)}</b></div>
+      <div class="pnl-card pnl-net"><span>${L.pNet}</span><b style="color:${c.netProfit>=0?'':'#f87171'}">${money(c.netProfit)}</b></div>`;
+  } catch(e){ el.innerHTML = `<div class="empty">${esc(String(e.message||e)).slice(0,120)}</div>`; }
+}
+
+// ── Reporte por período ──
+function buildPeriodOptions(){
+  const type = document.getElementById('fp-type').value || 'month';
+  const sel = document.getElementById('fp-period');
+  const now = new Date(); const y = now.getUTCFullYear(), mi = now.getUTCMonth();
+  let opts = [];
+  if (type === 'month') for (let i=0;i<12;i++){ const d=new Date(Date.UTC(y,mi-i,1)); const yy=d.getUTCFullYear(),mm=d.getUTCMonth(); opts.push({label:`${L.months[mm]} ${yy}`,start:`${yy}-${pad2(mm+1)}-01`,end:`${yy}-${pad2(mm+1)}-${pad2(lastDay(yy,mm))}`}); }
+  else if (type === 'quarter') for (const yr of [y,y-1]) for (let q=4;q>=1;q--){ const sm=(q-1)*3,em=sm+2; opts.push({label:`Q${q} ${yr}`,start:`${yr}-${pad2(sm+1)}-01`,end:`${yr}-${pad2(em+1)}-${pad2(lastDay(yr,em))}`}); }
+  else for (const yr of [y,y-1,y-2]) opts.push({label:`${yr}`,start:`${yr}-01-01`,end:`${yr}-12-31`});
+  sel.innerHTML = opts.map((o,i)=>`<option value="${i}" data-start="${o.start}" data-end="${o.end}">${o.label}</option>`).join('');
+  loadPeriod();
+}
+function curPeriod(){ const s=document.getElementById('fp-period'); const o=s.options[s.selectedIndex]; return o?{start:o.dataset.start,end:o.dataset.end,label:o.textContent}:null; }
+let lastReport = null;
+async function loadPeriod(){
+  const el = document.getElementById('period'); const p = curPeriod(); if (!p) return;
+  el.innerHTML = `<div class="loading"><span class="spin"></span>${L.loading}</div>`;
+  try {
+    const r = await api({ action:'fiscal-period', country, start:p.start, end:p.end });
+    lastReport = { ...r, label:p.label };
+    el.innerHTML = `<div class="fp-grid">
+      <div class="fp-cell"><span>${L.fRevenue}</span><b>${money(r.revenue)} <small style="font-size:.6em;color:var(--ash)">${r.currency}</small></b></div>
+      <div class="fp-cell"><span>${esc(r.taxName)} ${L.taxColl}</span><b>${money(r.taxCollected)}</b></div>
+      <div class="fp-cell"><span>${esc(r.taxName)} ${L.taxPaid}</span><b>${money(r.taxPaid)}</b></div>
+      <div class="fp-cell net"><span>${L.fNet}</span><b>${money(r.netTax)}</b></div>
+      <div class="fp-cell"><span>${L.fExpenses}</span><b>${money(r.expenses)}</b></div>
+      <div class="fp-cell ${r.profit>=0?'pos':'neg'}"><span>${L.profit}</span><b>${money(r.profit)}</b></div>
+    </div><p class="fp-note">${r.flag} <b>${esc(r.name)}</b> · ${esc(p.label)} (${p.start} → ${p.end}) · ${r.invoices} ${L.sales}. ${r.registered ? L.regNote(esc(r.taxName)) : L.smallNote(esc(r.taxName))}</p>`;
+  } catch(e){ el.innerHTML = `<div class="empty">${esc(String(e.message||e)).slice(0,120)}</div>`; }
+}
+function exportPeriod(){
+  const r = lastReport; if (!r) return;
+  const rows = [['Pittahaya — '+L.period],[L.finance,''],['País/Country',`${r.name} (${r.country.toUpperCase()})`],['Moneda/Currency',r.currency],['Período/Period',r.label],['Desde/From',r.start],['Hasta/To',r.end],[],
+    ['Concepto/Item',`Monto (${r.currency})`],[L.fRevenue,r.revenue],[`${r.taxName} ${L.taxColl}`,r.taxCollected],[`${r.taxName} ${L.taxPaid}`,r.taxPaid],[L.fNet,r.netTax],['Retenciones/Withholding',r.withholding],[L.fExpenses,r.expenses],[L.pDirect,r.directCosts],[L.pOper,r.operatingCosts],[L.profit,r.profit]];
+  const e = v => { const s=String(v??''); return /[",\n]/.test(s)?`"${s.replace(/"/g,'""')}"`:s; };
+  const csv = '﻿' + rows.map(r=>r.map(e).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download = `pittahaya-${r.country}-${r.start}_${r.end}.csv`; a.click();
+}
+
+// ── Facturas ──
+async function loadInvoices(){
+  const body = document.getElementById('inv-body');
+  try {
+    const { invoices } = await api({ action:'invoices', country });
+    const rows = invoices||[];
+    if (!rows.length) { body.innerHTML = `<tr><td colspan="7"><div class="empty">${L.noInv}</div></td></tr>`; return; }
+    body.innerHTML = rows.map(inv=>{
+      const bal = Math.max(0,(Number(inv.total)||0)-(Number(inv.amount_paid)||0));
+      return `<tr><td><a class="lnk" href="/crm/invoice.html?invoice=${inv.id}">${esc(inv.number||'—')}</a></td>
+        <td>${esc(inv.client_name)||'—'}${inv.client_company?`<div class="muted" style="font-size:11px">${esc(inv.client_company)}</div>`:''}</td>
+        <td>${L.docLabel[inv.doc_type]||L.docLabel.factura}</td>
+        <td class="muted">${(inv.issue_date||'').slice(0,10)}</td>
+        <td style="text-align:right">${money(inv.total)}</td>
+        <td style="text-align:right;color:${bal<=0.001?'#34d399':'#fbbf24'}">${money(inv.amount_paid)}</td>
+        <td style="text-align:right"><a class="lnk" href="/crm/invoice.html?invoice=${inv.id}">${L.view} →</a></td></tr>`;
+    }).join('');
+  } catch(e){ body.innerHTML = `<tr><td colspan="7"><div class="empty">${esc(String(e.message||e)).slice(0,120)}</div></td></tr>`; }
+}
+
+// ── Cobros por cliente ──
+async function loadFinance(){
+  const body = document.getElementById('fin-body');
+  try {
+    const { leads } = await api({ action:'leads', country, limit:500, offset:0, sort:'created_at', order:'desc' });
+    const rows = (leads||[]).filter(l=>Number(l.deal_value)||Number(l.amount_paid));
+    if (!rows.length) { body.innerHTML = `<tr><td colspan="5"><div class="empty">${L.noFin}</div></td></tr>`; return; }
+    body.innerHTML = rows.map(l=>{
+      const dv=Number(l.deal_value)||0, ap=Number(l.amount_paid)||0, pend=Math.max(0,dv-ap);
+      return `<tr><td>${esc(l.name)}<div class="muted" style="font-size:11px">${esc(l.email)}</div></td>
+        <td>${esc(l.service)||'—'}</td>
+        <td style="text-align:right">${dv?money(dv):'—'}</td>
+        <td style="text-align:right;color:#34d399">${ap?money(ap):'—'}</td>
+        <td style="text-align:right;color:${pend>0?'#fbbf24':'var(--ash)'}">${pend?money(pend):'—'}</td></tr>`;
+    }).join('');
+  } catch(e){ body.innerHTML = `<tr><td colspan="5"><div class="empty">${esc(String(e.message||e)).slice(0,120)}</div></td></tr>`; }
+}
+
+// ── Gastos ──
+async function loadExpenses(){
+  const body = document.getElementById('exp-body');
+  try {
+    const { expenses } = await api({ action:'expenses', country });
+    const rows = expenses||[];
+    if (!rows.length) { body.innerHTML = `<tr><td colspan="5"><div class="empty">${L.noExp}</div></td></tr>`; return; }
+    body.innerHTML = rows.map(e=>`<tr>
+      <td>${esc(e.label)}${e.recurring?` <span class="muted" style="font-size:10px">(${L.es?'recurrente':'recurring'})</span>`:''}</td>
+      <td>${L.expCat[e.category]||L.expCat.otros}</td>
+      <td>${L.expType[e.cost_type]||L.expType.operating}</td>
+      <td style="text-align:right">${money(e.amount)}</td>
+      <td class="muted">${(e.expense_date||'').slice(0,10)}</td></tr>`).join('');
+  } catch(e){ body.innerHTML = `<tr><td colspan="5"><div class="empty">${esc(String(e.message||e)).slice(0,120)}</div></td></tr>`; }
+}
+
+init().catch(e=>{ document.getElementById('radar').innerHTML = `<div class="empty">Error: ${esc(e.message||e)}</div>`; });
+</script>
+</body>
+</html>

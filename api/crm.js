@@ -48,16 +48,28 @@ function setBaseHeaders(req, res) {
 }
 
 // ── Auth guard ────────────────────────────────────────────────
+// Dos roles:
+//   admin      → acceso total (dueño). CRM_ADMIN_EMAILS
+//   accountant → SOLO LECTURA, limitado a un país. CRM_ACCOUNTANT_EC / _CA
+// Los correos del contador se crean en Supabase (Auth → Users) por el dueño.
+function accountantMap() {
+  const map = {};
+  (process.env.CRM_ACCOUNTANT_EC || '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean).forEach(e => map[e] = 'ec');
+  (process.env.CRM_ACCOUNTANT_CA || '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean).forEach(e => map[e] = 'ca');
+  return map;
+}
 async function requireAuth(req) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
   const token = authHeader.replace('Bearer ', '');
   const { data: { user }, error } = await supabase.auth.getUser(token);
   if (error || !user) return null;
-  // Only allow specific admin email(s)
   const adminEmails = (process.env.CRM_ADMIN_EMAILS || 'jfmcorp@jfmcorporation.com').split(',').map(e => e.trim());
-  if (!adminEmails.includes(user.email)) return null;
-  return user;
+  if (adminEmails.includes(user.email)) return { user, role: 'admin', country: null };
+  const accountants = accountantMap();
+  const scope = accountants[String(user.email || '').toLowerCase()];
+  if (scope) return { user, role: 'accountant', country: scope };
+  return null;
 }
 
 function sanitize(str, maxLen = 500) {
@@ -183,6 +195,7 @@ async function getLeads(req, res) {
 async function getLead(req, res, id) {
   const { data: lead, error } = await supabase.from('leads').select('*').eq('id', id).single();
   if (error) return res.status(404).json({ error: 'Lead no encontrado' });
+  if (req.crmScope && lead.country !== req.crmScope) return res.status(404).json({ error: 'Lead no encontrado' });
 
   const [{ data: notes }, { data: tasks }] = await Promise.all([
     supabase.from('lead_notes').select('*').eq('lead_id', id).order('created_at', { ascending: false }),
@@ -576,7 +589,9 @@ async function getFiscal(req, res) {
     };
   });
 
-  return res.status(200).json({ countries, generatedAt: now.toISOString() });
+  // El contador solo ve su país.
+  const scoped = req.crmScope ? countries.filter(c => c.code === req.crmScope) : countries;
+  return res.status(200).json({ countries: scoped, generatedAt: now.toISOString() });
 }
 
 // ── Reporte fiscal por período (mes / trimestre / año) ───────
@@ -764,6 +779,8 @@ async function getInvoices(req, res) {
 async function getInvoice(req, res, id) {
   const { data, error } = await supabase.from('invoices').select('*').eq('id', id).single();
   if (error) return res.status(404).json({ error: 'Factura no encontrada' });
+  // El contador solo ve facturas de su país.
+  if (req.crmScope && data.country !== req.crmScope) return res.status(404).json({ error: 'Factura no encontrada' });
   return res.status(200).json({ invoice: data });
 }
 
@@ -923,10 +940,26 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'CRM no configurado. Revisa SUPABASE_URL y SUPABASE_SERVICE_KEY en Vercel.' });
   }
 
-  const user = await requireAuth(req);
-  if (!user) return res.status(401).json({ error: 'No autorizado' });
+  const auth = await requireAuth(req);
+  if (!auth) return res.status(401).json({ error: 'No autorizado' });
+  const user = auth.user;
+  req.crmRole  = auth.role;
+  req.crmScope = auth.country;   // 'ec' | 'ca' para contador; null para admin
 
   const { action, id } = req.query;
+
+  // ¿Quién soy? — para que el login redirija al panel correcto.
+  if (req.method === 'GET' && action === 'whoami') {
+    return res.status(200).json({ email: user.email, role: auth.role, country: auth.country });
+  }
+
+  // El contador es SOLO LECTURA y limitado a su país.
+  if (auth.role === 'accountant') {
+    if (req.method !== 'GET') return res.status(403).json({ error: 'Acceso de solo lectura.' });
+    req.query.country = auth.country;        // fuerza el país en todo endpoint que lo use
+    const allowed = ['fiscal', 'fiscal-period', 'invoices', 'invoice', 'export', 'leads', 'expenses', 'lead'];
+    if (!allowed.includes(action)) return res.status(403).json({ error: 'No disponible para este rol.' });
+  }
 
   try {
     // GET /api/crm?action=metrics

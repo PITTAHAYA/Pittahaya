@@ -250,11 +250,23 @@
     const { createClient } = supabase;
     sb = createClient(config.supabaseUrl, config.supabaseAnonKey);
 
-    // If already logged in, redirect to dashboard
+    // If already logged in, redirect to the right panel for the role
     const { data: { session } } = await sb.auth.getSession();
-    if (session) window.location.href = '/crm/index.html';
+    if (session) { window.location.href = await landingFor(session.access_token); return; }
 
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
+  }
+
+  // El contador aterriza en su portal; el dueño, en el panel admin.
+  async function landingFor(token) {
+    try {
+      const res = await fetch('/api/crm?action=whoami', { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) {
+        const me = await res.json();
+        if (me.role === 'accountant') return '/crm/contador.html';
+      }
+    } catch (e) { /* ignora → panel por defecto */ }
+    return '/crm/index.html';
   }
 
   async function handleLogin(e) {
@@ -282,7 +294,7 @@
       return;
     }
 
-    window.location.href = '/crm/index.html';
+    window.location.href = await landingFor(data.session.access_token);
   }
 
   bootLogin().catch((error) => {
