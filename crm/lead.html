@@ -267,8 +267,31 @@ async function loadLead() {
     const data = await api({ action: 'lead', id: leadId });
     leadData = data;
     renderPage(data.lead, data.notes, data.tasks);
+    loadLeadInvoices();
   } catch(e) {
     document.getElementById('main').innerHTML = `<div class="loading">Error al cargar el lead. <a href="/crm/index.html" style="color:var(--gold)">Volver al dashboard</a></div>`;
+  }
+}
+
+async function loadLeadInvoices() {
+  const el = document.getElementById('leadInvoices');
+  if (!el) return;
+  const fmt = (n) => '$' + (Number(n) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const DOC = { factura: 'Factura', recibo: 'Recibo' };
+  try {
+    const { invoices } = await api({ action: 'invoices', lead_id: leadId });
+    const rows = invoices || [];
+    if (!rows.length) { el.innerHTML = '<div style="font-size:12px;color:var(--ash);padding:4px 0">Aún no hay facturas para este cliente.</div>'; return; }
+    el.innerHTML = rows.map(inv => {
+      const bal = Math.max(0, (Number(inv.total) || 0) - (Number(inv.amount_paid) || 0));
+      const flag = inv.country === 'ca' ? '🇨🇦' : '🇪🇨';
+      return `<a href="/crm/invoice.html?invoice=${inv.id}" style="display:flex;justify-content:space-between;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);text-decoration:none;color:#ddd;font-size:12.5px">
+        <span>${flag} <b style="color:var(--gold-light)">${esc(inv.number || '—')}</b> · ${DOC[inv.doc_type] || 'Factura'}<br><span style="color:var(--ash);font-size:11px">${(inv.issue_date||'').slice(0,10)}</span></span>
+        <span style="text-align:right;white-space:nowrap">${fmt(inv.total)} ${esc(inv.currency||'')}<br><span style="font-size:11px;color:${bal<=0.001?'#34d399':'#fbbf24'}">${bal<=0.001?'Pagada':'Saldo '+fmt(bal)}</span></span>
+      </a>`;
+    }).join('');
+  } catch (e) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--ash)">No se pudo cargar: ${esc(String(e.message||e)).slice(0,80)}</div>`;
   }
 }
 
@@ -416,8 +439,21 @@ function renderPage(lead, notes, tasks) {
               </select>
             </div>
             <div class="select-group">
-              <label>Moneda</label>
-              <input type="text" id="fCurrency" value="${esc(lead.currency || 'USD')}" maxlength="6">
+              <label>País (fija la moneda)</label>
+              <select id="fCountry">
+                <option value="ec" ${lead.country!=='ca'?'selected':''}>🇪🇨 Ecuador · USD</option>
+                <option value="ca" ${lead.country==='ca'?'selected':''}>🇨🇦 Canadá · CAD</option>
+              </select>
+            </div>
+          </div>
+          <div class="select-row" style="margin-top:12px">
+            <div class="select-group">
+              <label>Impuesto cobrado (IVA/GST)</label>
+              <input type="number" id="fTax" min="0" step="any" value="${lead.tax_amount != null ? lead.tax_amount : ''}" placeholder="0">
+            </div>
+            <div class="select-group">
+              <label>Retención</label>
+              <input type="number" id="fWithholding" min="0" step="any" value="${lead.withholding != null ? lead.withholding : ''}" placeholder="0">
             </div>
           </div>
           <div class="select-group" style="margin-top:12px">
@@ -431,11 +467,24 @@ function renderPage(lead, notes, tasks) {
               <option value="delivered"  ${lead.project_stage==='delivered'?'selected':''}>Entregado ✓</option>
             </select>
           </div>
-          <div class="select-group" style="margin-top:12px">
-            <label>Próximo seguimiento</label>
-            <input type="date" id="fFollowup" value="${(lead.next_followup || '').slice(0,10)}">
+          <div class="select-row" style="margin-top:12px">
+            <div class="select-group">
+              <label>Vence el cobro</label>
+              <input type="date" id="fDue" value="${(lead.payment_due || '').slice(0,10)}">
+            </div>
+            <div class="select-group">
+              <label>Próximo seguimiento</label>
+              <input type="date" id="fFollowup" value="${(lead.next_followup || '').slice(0,10)}">
+            </div>
           </div>
           <button class="save-btn" id="saveFinanceBtn" onclick="saveFinance()">Guardar finanzas</button>
+        </div>
+
+        <!-- Facturas de este cliente -->
+        <div class="card">
+          <div class="card-title">Facturas de este cliente</div>
+          <div id="leadInvoices"><div class="loading" style="padding:6px 0;font-size:12px;color:var(--ash)">Cargando…</div></div>
+          <a href="/crm/invoice.html?id=${lead.id}" class="save-btn" style="display:block;text-align:center;text-decoration:none;margin-top:12px">+ Generar factura / recibo</a>
         </div>
 
         <!-- Tasks -->
@@ -542,9 +591,12 @@ async function saveFinance() {
     await api({ action: 'lead', id: leadId }, 'PATCH', {
       deal_value:     document.getElementById('fDeal').value || 0,
       amount_paid:    document.getElementById('fPaid').value || 0,
-      currency:       document.getElementById('fCurrency').value || 'USD',
+      country:        document.getElementById('fCountry').value,
+      tax_amount:     document.getElementById('fTax').value || 0,
+      withholding:    document.getElementById('fWithholding').value || 0,
       payment_status: document.getElementById('fPayment').value,
       project_stage:  document.getElementById('fStage').value,
+      payment_due:    document.getElementById('fDue').value || '',
       next_followup:  document.getElementById('fFollowup').value || ''
     });
     toast('Finanzas actualizadas');
