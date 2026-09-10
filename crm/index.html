@@ -654,29 +654,30 @@
 <nav class="sidebar">
   <div class="sidebar-brand">
     <div class="sidebar-logo">Pittahaya</div>
-    <div class="sidebar-crm-label">CRM · Panel Admin</div>
+    <div class="sidebar-crm-label" data-i18n="crm_label">CRM · Panel Admin</div>
   </div>
   <div class="sidebar-nav">
-    <div class="nav-section-label" style="margin-top:8px;">Navegación</div>
+    <div class="nav-section-label" style="margin-top:8px;" data-i18n="nav_section">Navegación</div>
     <a href="/crm/index.html" class="nav-item active">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Dashboard
+      <span data-i18n="nav_dashboard">Dashboard</span>
     </a>
     <a href="#" class="nav-item" onclick="filterStatus('new'); return false;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
-      Nuevos leads
+      <span data-i18n="nav_new">Nuevos leads</span>
     </a>
     <a href="#" class="nav-item" onclick="filterStatus('hot'); return false;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z"/></svg>
-      Leads calientes
+      <span data-i18n="nav_hot">Leads calientes</span>
     </a>
     <a href="#" class="nav-item" onclick="filterStatus('won'); return false;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg>
-      Ganados
+      <span data-i18n="nav_won">Ganados</span>
     </a>
   </div>
   <div class="sidebar-footer">
-    <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    <button class="btn-logout" id="langBtn" onclick="toggleLang()" style="margin-bottom:8px" title="Español / English">EN</button>
+    <button class="btn-logout" onclick="logout()" data-i18n="logout">Cerrar sesión</button>
   </div>
 </nav>
 
@@ -684,47 +685,47 @@
 <main class="main">
   <div class="page-header">
     <div>
-      <h1 class="page-title">Dashboard</h1>
-      <p class="page-subtitle" id="lastUpdated">Cargando datos...</p>
+      <h1 class="page-title" data-i18n="dashboard">Dashboard</h1>
+      <p class="page-subtitle" id="lastUpdated" data-i18n="loading_data">Cargando datos...</p>
     </div>
     <div class="header-actions">
       <button class="btn btn-primary" onclick="openAddLead()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        Nuevo lead
+        <span data-i18n="btn_new_lead">Nuevo lead</span>
       </button>
       <button class="btn" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Exportar CSV
+        <span data-i18n="btn_export">Exportar CSV</span>
       </button>
       <button class="btn btn-primary" onclick="refreshAll()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-        Actualizar
+        <span data-i18n="btn_refresh">Actualizar</span>
       </button>
     </div>
   </div>
 
   <!-- Metrics -->
   <div class="metrics-grid" id="metricsGrid">
-    <div class="metric-card"><div class="metric-label">Total Leads</div><div class="metric-value" id="m-total">—</div></div>
-    <div class="metric-card"><div class="metric-label">Nuevos esta semana</div><div class="metric-value" id="m-week">—</div></div>
-    <div class="metric-card"><div class="metric-label">Leads calientes</div><div class="metric-value" id="m-hot">—</div><div class="metric-sub">Requieren acción</div></div>
-    <div class="metric-card"><div class="metric-label">Tasa de conversión</div><div class="metric-value" id="m-conv">—</div><div class="metric-sub" id="m-service">—</div></div>
-    <div class="metric-card metric-money"><div class="metric-label">Ingresos cobrados</div><div class="metric-value" id="m-revenue">—</div><div class="metric-sub" id="m-revenue-month">—</div></div>
-    <div class="metric-card metric-money"><div class="metric-label">Pipeline (potencial)</div><div class="metric-value" id="m-pipeline">—</div><div class="metric-sub">Valor de leads abiertos</div></div>
-    <div class="metric-card metric-money"><div class="metric-label">Por cobrar</div><div class="metric-value" id="m-outstanding">—</div><div class="metric-sub">De clientes ganados</div></div>
+    <div class="metric-card"><div class="metric-label" data-i18n="m_total">Total Leads</div><div class="metric-value" id="m-total">—</div></div>
+    <div class="metric-card"><div class="metric-label" data-i18n="m_week">Nuevos esta semana</div><div class="metric-value" id="m-week">—</div></div>
+    <div class="metric-card"><div class="metric-label" data-i18n="m_hot">Leads calientes</div><div class="metric-value" id="m-hot">—</div><div class="metric-sub" data-i18n="m_hot_sub">Requieren acción</div></div>
+    <div class="metric-card"><div class="metric-label" data-i18n="m_conv">Tasa de conversión</div><div class="metric-value" id="m-conv">—</div><div class="metric-sub" id="m-service">—</div></div>
+    <div class="metric-card metric-money"><div class="metric-label" data-i18n="m_revenue">Ingresos cobrados</div><div class="metric-value" id="m-revenue">—</div><div class="metric-sub" id="m-revenue-month">—</div></div>
+    <div class="metric-card metric-money"><div class="metric-label" data-i18n="m_pipeline">Pipeline (potencial)</div><div class="metric-value" id="m-pipeline">—</div><div class="metric-sub" data-i18n="m_pipeline_sub">Valor de leads abiertos</div></div>
+    <div class="metric-card metric-money"><div class="metric-label" data-i18n="m_outstanding">Por cobrar</div><div class="metric-value" id="m-outstanding">—</div><div class="metric-sub" data-i18n="m_outstanding_sub">De clientes ganados</div></div>
   </div>
 
   <!-- ── Cobros y seguimientos (recordatorios) ── -->
   <div class="rem-section">
     <div class="rem-grid">
       <div class="rem-col">
-        <div class="rem-head"><h2 class="finance-title">Por cobrar</h2><span class="rem-count" id="rem-rec-count"></span></div>
-        <p class="page-subtitle">Saldos pendientes, los más atrasados primero.</p>
+        <div class="rem-head"><h2 class="finance-title" data-i18n="rem_rec_title">Por cobrar</h2><span class="rem-count" id="rem-rec-count"></span></div>
+        <p class="page-subtitle" data-i18n="rem_rec_sub">Saldos pendientes, los más atrasados primero.</p>
         <div id="rem-receivables"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
       </div>
       <div class="rem-col">
-        <div class="rem-head"><h2 class="finance-title">Seguimientos</h2><span class="rem-count" id="rem-fu-count"></span></div>
-        <p class="page-subtitle">Clientes con seguimiento vencido o para hoy.</p>
+        <div class="rem-head"><h2 class="finance-title" data-i18n="rem_fu_title">Seguimientos</h2><span class="rem-count" id="rem-fu-count"></span></div>
+        <p class="page-subtitle" data-i18n="rem_fu_sub">Clientes con seguimiento vencido o para hoy.</p>
         <div id="rem-followups"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
       </div>
     </div>
@@ -734,8 +735,8 @@
   <div class="fiscal-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Radar fiscal</h2>
-        <p class="page-subtitle">Cuánto llevas cobrado en cada país y a qué distancia estás del umbral donde el contador te obliga a registrarte y declarar impuestos.</p>
+        <h2 class="finance-title" data-i18n="radar_title">Radar fiscal</h2>
+        <p class="page-subtitle" data-i18n="radar_sub">Cuánto llevas cobrado en cada país y a qué distancia estás del umbral donde el contador te obliga a registrarte y declarar impuestos.</p>
       </div>
     </div>
     <div class="fiscal-grid" id="fiscalGrid">
@@ -747,8 +748,8 @@
   <div class="fiscal-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Reporte fiscal por período</h2>
-        <p class="page-subtitle">Elige país y período: el CRM calcula el neto a declarar. Descárgalo y pásaselo al contador.</p>
+        <h2 class="finance-title" data-i18n="period_title">Reporte fiscal por período</h2>
+        <p class="page-subtitle" data-i18n="period_sub">Elige país y período: el CRM calcula el neto a declarar. Descárgalo y pásaselo al contador.</p>
       </div>
     </div>
     <div class="fp-controls">
@@ -764,7 +765,7 @@
       <select id="fp-period" onchange="loadFiscalPeriod()"></select>
       <button class="btn btn-primary" onclick="exportFiscalPeriod()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Descargar reporte
+        <span data-i18n="period_download">Descargar reporte</span>
       </button>
     </div>
     <div class="fp-report" id="fpReport">
@@ -775,11 +776,11 @@
   <!-- Charts -->
   <div class="charts-row">
     <div class="chart-card">
-      <div class="chart-title">Leads por servicio (30 días)</div>
+      <div class="chart-title" data-i18n="chart_service">Leads por servicio (30 días)</div>
       <div id="chartService"></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Leads por estado</div>
+      <div class="chart-title" data-i18n="chart_status">Leads por estado</div>
       <div id="chartStatus"></div>
     </div>
   </div>
@@ -788,25 +789,25 @@
   <div class="filters-bar">
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchInput" placeholder="Buscar por nombre, email, empresa..." oninput="debounceSearch()">
+      <input type="text" id="searchInput" data-i18n-ph="search_ph" placeholder="Buscar por nombre, email, empresa..." oninput="debounceSearch()">
     </div>
     <select id="filterStatus" onchange="loadLeads()">
-      <option value="">Todos los estados</option>
-      <option value="new">Nuevo</option>
-      <option value="contacted">Contactado</option>
-      <option value="qualified">Calificado</option>
-      <option value="proposal_sent">Propuesta enviada</option>
-      <option value="won">Ganado</option>
-      <option value="lost">Perdido</option>
+      <option value="" data-i18n="f_all_status">Todos los estados</option>
+      <option value="new" data-i18n="st_new">Nuevo</option>
+      <option value="contacted" data-i18n="st_contacted">Contactado</option>
+      <option value="qualified" data-i18n="st_qualified">Calificado</option>
+      <option value="proposal_sent" data-i18n="st_proposal">Propuesta enviada</option>
+      <option value="won" data-i18n="st_won">Ganado</option>
+      <option value="lost" data-i18n="st_lost">Perdido</option>
     </select>
     <select id="filterPriority" onchange="loadLeads()">
-      <option value="">Toda prioridad</option>
-      <option value="hot">🔥 Caliente</option>
-      <option value="warm">🌡️ Tibio</option>
-      <option value="cold">❄️ Frío</option>
+      <option value="" data-i18n="f_all_priority">Toda prioridad</option>
+      <option value="hot" data-i18n="pr_hot">🔥 Caliente</option>
+      <option value="warm" data-i18n="pr_warm">🌡️ Tibio</option>
+      <option value="cold" data-i18n="pr_cold">❄️ Frío</option>
     </select>
     <select id="filterService" onchange="loadLeads()">
-      <option value="">Todos los servicios</option>
+      <option value="" data-i18n="f_all_service">Todos los servicios</option>
       <option value="Landing page">Landing page</option>
       <option value="E-commerce">E-commerce</option>
       <option value="Sitio web">Sitio web</option>
@@ -820,13 +821,13 @@
     <table>
       <thead>
         <tr>
-          <th>Cliente</th>
-          <th>Empresa</th>
-          <th>Servicio</th>
-          <th>Estado</th>
-          <th>Prioridad</th>
-          <th>Fuente</th>
-          <th>Fecha</th>
+          <th data-i18n="th_client">Cliente</th>
+          <th data-i18n="th_company">Empresa</th>
+          <th data-i18n="th_service">Servicio</th>
+          <th data-i18n="th_status">Estado</th>
+          <th data-i18n="th_priority">Prioridad</th>
+          <th data-i18n="th_source">Fuente</th>
+          <th data-i18n="th_date">Fecha</th>
           <th></th>
         </tr>
       </thead>
@@ -837,8 +838,8 @@
     <div class="pagination">
       <span class="pagination-info" id="paginationInfo"></span>
       <div class="pagination-btns">
-        <button class="page-btn" id="prevBtn" onclick="prevPage()">← Anterior</button>
-        <button class="page-btn" id="nextBtn" onclick="nextPage()">Siguiente →</button>
+        <button class="page-btn" id="prevBtn" onclick="prevPage()" data-i18n="pg_prev">← Anterior</button>
+        <button class="page-btn" id="nextBtn" onclick="nextPage()" data-i18n="pg_next">Siguiente →</button>
       </div>
     </div>
   </div>
@@ -847,12 +848,12 @@
   <div class="finance-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Finanzas</h2>
-        <p class="page-subtitle">Resumen de ingresos, cobros pendientes y avance de cada proyecto.</p>
+        <h2 class="finance-title" data-i18n="finance_title">Finanzas</h2>
+        <p class="page-subtitle" data-i18n="finance_sub">Resumen de ingresos, cobros pendientes y avance de cada proyecto.</p>
       </div>
       <button class="btn" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Exportar finanzas (CSV)
+        <span data-i18n="finance_export">Exportar finanzas (CSV)</span>
       </button>
     </div>
     <div class="finance-totals" id="financeTotals"></div>
@@ -860,9 +861,9 @@
       <table>
         <thead>
           <tr>
-            <th>Cliente</th><th>Servicio</th><th>Estado</th><th>Etapa</th>
-            <th style="text-align:right">Valor</th><th style="text-align:right">Pagado</th>
-            <th style="text-align:right">Pendiente</th><th>Pago</th>
+            <th data-i18n="th_client">Cliente</th><th data-i18n="th_service">Servicio</th><th data-i18n="th_status">Estado</th><th data-i18n="th_stage">Etapa</th>
+            <th style="text-align:right" data-i18n="th_value">Valor</th><th style="text-align:right" data-i18n="th_paid">Pagado</th>
+            <th style="text-align:right" data-i18n="th_pending">Pendiente</th><th data-i18n="th_payment">Pago</th>
           </tr>
         </thead>
         <tbody id="financeBody">
@@ -876,11 +877,11 @@
   <div class="finance-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Facturas emitidas</h2>
-        <p class="page-subtitle">Cada factura o recibo guardado, con su número secuencial por país. Haz clic para verla o imprimirla.</p>
+        <h2 class="finance-title" data-i18n="invoices_title">Facturas emitidas</h2>
+        <p class="page-subtitle" data-i18n="invoices_sub">Cada factura o recibo guardado, con su número secuencial por país. Haz clic para verla o imprimirla.</p>
       </div>
       <select id="invCountryFilter" onchange="loadInvoices()" style="background:var(--onyx-2);border:1px solid var(--border);color:#e0e0e0;padding:9px 12px;border-radius:5px;font-family:inherit;font-size:13px">
-        <option value="">Todos los países</option>
+        <option value="" data-i18n="f_all_countries">Todos los países</option>
         <option value="ec">🇪🇨 Ecuador</option>
         <option value="ca">🇨🇦 Canadá</option>
       </select>
@@ -888,7 +889,7 @@
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>N.º</th><th>Cliente</th><th>Tipo</th><th>Fecha</th><th style="text-align:right">Total</th><th style="text-align:right">Pagado</th><th></th></tr>
+          <tr><th data-i18n="th_invnum">N.º</th><th data-i18n="th_client">Cliente</th><th data-i18n="th_invtype">Tipo</th><th data-i18n="th_date">Fecha</th><th style="text-align:right" data-i18n="th_invtotal">Total</th><th style="text-align:right" data-i18n="th_paid">Pagado</th><th></th></tr>
         </thead>
         <tbody id="invoicesBody">
           <tr><td colspan="7"><div class="loading"><div class="loading-spinner"></div>Cargando facturas…</div></td></tr>
@@ -901,8 +902,8 @@
   <div class="finance-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Rentabilidad</h2>
-        <p class="page-subtitle">Ingresos menos gastos = tu utilidad bruta y neta.</p>
+        <h2 class="finance-title" data-i18n="pnl_title">Rentabilidad</h2>
+        <p class="page-subtitle" data-i18n="pnl_sub">Ingresos menos gastos = tu utilidad bruta y neta.</p>
       </div>
     </div>
     <div id="pnlByCountry">
@@ -914,19 +915,19 @@
   <div class="finance-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Gastos</h2>
-        <p class="page-subtitle">Registra cada gasto del negocio. Los "costos directos" se restan del ingreso para la utilidad bruta.</p>
+        <h2 class="finance-title" data-i18n="expenses_title">Gastos</h2>
+        <p class="page-subtitle" data-i18n="expenses_sub">Registra cada gasto del negocio. Los "costos directos" se restan del ingreso para la utilidad bruta.</p>
       </div>
       <div class="exp-month">
-        <label style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ash)">Mes</label>
+        <label style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ash)" data-i18n="exp_month">Mes</label>
         <input type="month" id="expMonth" onchange="loadExpenses()">
-        <button class="btn btn-ghost" id="exp-gen-btn" onclick="generateRecurring()" title="Copiar tus gastos recurrentes a este mes">↻ Generar recurrentes</button>
+        <button class="btn btn-ghost" id="exp-gen-btn" onclick="generateRecurring()" title="Copiar tus gastos recurrentes a este mes" data-i18n="exp_gen">↻ Generar recurrentes</button>
       </div>
     </div>
 
     <div class="exp-form">
-      <input type="text" id="exp-label" placeholder="Descripción (ej. Figma, hosting, publicidad)">
-      <input type="number" id="exp-amount" min="0" step="any" placeholder="Monto $">
+      <input type="text" id="exp-label" data-i18n-ph="exp_label_ph" placeholder="Descripción (ej. Figma, hosting, publicidad)">
+      <input type="number" id="exp-amount" min="0" step="any" data-i18n-ph="exp_amount_ph" placeholder="Monto $">
       <select id="exp-country" title="País">
         <option value="ec">🇪🇨 Ecuador · USD</option>
         <option value="ca">🇨🇦 Canadá · CAD</option>
@@ -940,21 +941,21 @@
         <option value="otros">Otros</option>
       </select>
       <select id="exp-type" title="Tipo">
-        <option value="operating">Gasto operativo</option>
-        <option value="direct">Costo directo</option>
+        <option value="operating" data-i18n="exp_operating">Gasto operativo</option>
+        <option value="direct" data-i18n="exp_direct">Costo directo</option>
       </select>
       <input type="date" id="exp-date" title="Fecha">
-      <button class="btn btn-primary" id="exp-add-btn" onclick="addExpense()">+ Agregar gasto</button>
-      <button class="btn btn-ghost" id="exp-cancel-btn" onclick="cancelEditExpense()" hidden>Cancelar</button>
+      <button class="btn btn-primary" id="exp-add-btn" onclick="addExpense()" data-i18n="exp_add">+ Agregar gasto</button>
+      <button class="btn btn-ghost" id="exp-cancel-btn" onclick="cancelEditExpense()" hidden data-i18n="exp_cancel">Cancelar</button>
     </div>
-    <label class="exp-recurring"><input type="checkbox" id="exp-recurring"> Gasto recurrente (se repite cada mes — ej. hosting, suscripciones)</label>
+    <label class="exp-recurring"><input type="checkbox" id="exp-recurring"> <span data-i18n="exp_recurring">Gasto recurrente (se repite cada mes — ej. hosting, suscripciones)</span></label>
     <p class="nl-error" id="exp-error" hidden></p>
 
     <div class="exp-totals" id="expTotals"></div>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Descripción</th><th>Categoría</th><th>Tipo</th><th style="text-align:right">Monto</th><th>Fecha</th><th></th></tr>
+          <tr><th data-i18n="th_desc">Descripción</th><th data-i18n="th_category">Categoría</th><th data-i18n="th_type">Tipo</th><th style="text-align:right" data-i18n="th_amount">Monto</th><th data-i18n="th_date">Fecha</th><th></th></tr>
         </thead>
         <tbody id="expensesBody">
           <tr><td colspan="6"><div class="loading"><div class="loading-spinner"></div>Cargando gastos...</div></td></tr>
@@ -967,20 +968,20 @@
   <div class="finance-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Gráficos</h2>
-        <p class="page-subtitle">Visualiza tu desempeño financiero de un vistazo.</p>
+        <h2 class="finance-title" data-i18n="charts_title">Gráficos</h2>
+        <p class="page-subtitle" data-i18n="charts_sub">Visualiza tu desempeño financiero de un vistazo.</p>
       </div>
     </div>
     <div class="charts-grid">
       <div class="chart-card">
         <div class="chart-card__head">
-          <h3 class="chart-card__title">Utilidad mensual</h3>
-          <span class="chart-card__sub">Ingresos, gastos y utilidad — últimos 6 meses</span>
+          <h3 class="chart-card__title" data-i18n="mc_title">Utilidad mensual</h3>
+          <span class="chart-card__sub" data-i18n="mc_sub">Ingresos, gastos y utilidad — últimos 6 meses</span>
         </div>
         <div class="chart-legend">
-          <span class="cl-item"><i class="cl-dot" style="background:#34d399"></i>Ingresos</span>
-          <span class="cl-item"><i class="cl-dot" style="background:#f87171"></i>Gastos</span>
-          <span class="cl-item"><i class="cl-dot" style="background:#c9a24a"></i>Utilidad</span>
+          <span class="cl-item"><i class="cl-dot" style="background:#34d399"></i><span data-i18n="cl_revenue">Ingresos</span></span>
+          <span class="cl-item"><i class="cl-dot" style="background:#f87171"></i><span data-i18n="cl_expenses">Gastos</span></span>
+          <span class="cl-item"><i class="cl-dot" style="background:#c9a24a"></i><span data-i18n="cl_profit">Utilidad</span></span>
         </div>
         <div class="bar-chart" id="monthlyChart">
           <div class="loading"><div class="loading-spinner"></div>Cargando…</div>
@@ -988,8 +989,8 @@
       </div>
       <div class="chart-card">
         <div class="chart-card__head">
-          <h3 class="chart-card__title">Gastos por categoría</h3>
-          <span class="chart-card__sub">Distribución de tus gastos registrados</span>
+          <h3 class="chart-card__title" data-i18n="cc_title">Gastos por categoría</h3>
+          <span class="chart-card__sub" data-i18n="cc_sub">Distribución de tus gastos registrados</span>
         </div>
         <div class="cat-chart" id="categoryChart">
           <div class="loading"><div class="loading-spinner"></div>Cargando…</div>
@@ -1002,8 +1003,8 @@
   <div class="finance-section">
     <div class="finance-head">
       <div>
-        <h2 class="finance-title">Pipeline</h2>
-        <p class="page-subtitle">Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.</p>
+        <h2 class="finance-title" data-i18n="pipeline_title">Pipeline</h2>
+        <p class="page-subtitle" data-i18n="pipeline_sub">Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.</p>
       </div>
     </div>
     <div class="kanban" id="kanban">
@@ -1017,7 +1018,7 @@
   <div class="lead-modal__backdrop" onclick="closeAddLead()"></div>
   <div class="lead-modal__card" role="dialog" aria-modal="true" aria-label="Nuevo lead">
     <div class="lead-modal__head">
-      <h3>Nuevo lead</h3>
+      <h3 data-i18n="modal_title">Nuevo lead</h3>
       <button class="lead-modal__close" onclick="closeAddLead()" aria-label="Cerrar">✕</button>
     </div>
     <div class="lead-modal__body">
@@ -1075,8 +1076,8 @@
       <p class="nl-error" id="nl-error" hidden></p>
     </div>
     <div class="lead-modal__foot">
-      <button class="btn" onclick="closeAddLead()">Cancelar</button>
-      <button class="btn btn-primary" id="nl-save" onclick="saveNewLead()">Guardar lead</button>
+      <button class="btn" onclick="closeAddLead()" data-i18n="modal_cancel">Cancelar</button>
+      <button class="btn btn-primary" id="nl-save" onclick="saveNewLead()" data-i18n="modal_save">Guardar lead</button>
     </div>
   </div>
 </div>
@@ -1102,6 +1103,80 @@ let currentPage = 0;
 let totalLeads  = 0;
 let authToken   = null;
 let searchTimer = null;
+
+// ── i18n (español / inglés) — para demos a clientes ───────────
+let LANG = (() => { try { return localStorage.getItem('crm_lang') || 'es'; } catch { return 'es'; } })();
+const I18N = {
+  es: {
+    crm_label:'CRM · Panel Admin', nav_section:'Navegación', nav_dashboard:'Dashboard', nav_new:'Nuevos leads', nav_hot:'Leads calientes', nav_won:'Ganados', logout:'Cerrar sesión',
+    dashboard:'Dashboard', loading_data:'Cargando datos...', btn_new_lead:'Nuevo lead', btn_export:'Exportar CSV', btn_refresh:'Actualizar',
+    m_total:'Total Leads', m_week:'Nuevos esta semana', m_hot:'Leads calientes', m_hot_sub:'Requieren acción', m_conv:'Tasa de conversión',
+    m_revenue:'Ingresos cobrados', m_pipeline:'Pipeline (potencial)', m_pipeline_sub:'Valor de leads abiertos', m_outstanding:'Por cobrar', m_outstanding_sub:'De clientes ganados',
+    chart_service:'Leads por servicio (30 días)', chart_status:'Leads por estado',
+    search_ph:'Buscar por nombre, email, empresa...', f_all_status:'Todos los estados', f_all_priority:'Toda prioridad', f_all_service:'Todos los servicios', f_all_countries:'Todos los países',
+    st_new:'Nuevo', st_contacted:'Contactado', st_qualified:'Calificado', st_proposal:'Propuesta enviada', st_won:'Ganado', st_lost:'Perdido',
+    pr_hot:'🔥 Caliente', pr_warm:'🌡️ Tibio', pr_cold:'❄️ Frío',
+    th_client:'Cliente', th_company:'Empresa', th_service:'Servicio', th_status:'Estado', th_priority:'Prioridad', th_source:'Fuente', th_date:'Fecha',
+    pg_prev:'← Anterior', pg_next:'Siguiente →',
+    rem_rec_title:'Por cobrar', rem_rec_sub:'Saldos pendientes, los más atrasados primero.', rem_fu_title:'Seguimientos', rem_fu_sub:'Clientes con seguimiento vencido o para hoy.',
+    radar_title:'Radar fiscal', radar_sub:'Cuánto llevas cobrado en cada país y a qué distancia estás del umbral donde el contador te obliga a registrarte y declarar impuestos.',
+    period_title:'Reporte fiscal por período', period_sub:'Elige país y período: el CRM calcula el neto a declarar. Descárgalo y pásaselo al contador.', period_download:'Descargar reporte',
+    finance_title:'Finanzas', finance_sub:'Resumen de ingresos, cobros pendientes y avance de cada proyecto.', finance_export:'Exportar finanzas (CSV)',
+    invoices_title:'Facturas emitidas', invoices_sub:'Cada factura o recibo guardado, con su número secuencial por país. Haz clic para verla o imprimirla.',
+    pnl_title:'Rentabilidad', pnl_sub:'Ingresos menos gastos = tu utilidad bruta y neta.',
+    expenses_title:'Gastos', expenses_sub:'Registra cada gasto del negocio. Los "costos directos" se restan del ingreso para la utilidad bruta.',
+    charts_title:'Gráficos', charts_sub:'Visualiza tu desempeño financiero de un vistazo.',
+    mc_title:'Utilidad mensual', mc_sub:'Ingresos, gastos y utilidad — últimos 6 meses', cl_revenue:'Ingresos', cl_expenses:'Gastos', cl_profit:'Utilidad', cc_title:'Gastos por categoría', cc_sub:'Distribución de tus gastos registrados',
+    pipeline_title:'Pipeline', pipeline_sub:'Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.',
+     th_stage:'Etapa', th_value:'Valor', th_paid:'Pagado', th_pending:'Pendiente', th_payment:'Pago',
+    th_desc:'Descripción', th_category:'Categoría', th_type:'Tipo', th_amount:'Monto',
+    th_invnum:'N.º', th_invtype:'Tipo', th_invtotal:'Total',
+    exp_label_ph:'Descripción (ej. Figma, hosting, publicidad)', exp_amount_ph:'Monto $', exp_add:'+ Agregar gasto', exp_cancel:'Cancelar', exp_recurring:'Gasto recurrente (se repite cada mes — ej. hosting, suscripciones)', exp_gen:'↻ Generar recurrentes', exp_month:'Mes', exp_operating:'Gasto operativo', exp_direct:'Costo directo',
+    modal_title:'Nuevo lead', modal_save:'Guardar lead', modal_cancel:'Cancelar',
+    lang_btn:'EN'
+  },
+  en: {
+    crm_label:'CRM · Admin Panel', nav_section:'Navigation', nav_dashboard:'Dashboard', nav_new:'New leads', nav_hot:'Hot leads', nav_won:'Won', logout:'Sign out',
+    dashboard:'Dashboard', loading_data:'Loading data...', btn_new_lead:'New lead', btn_export:'Export CSV', btn_refresh:'Refresh',
+    m_total:'Total leads', m_week:'New this week', m_hot:'Hot leads', m_hot_sub:'Need action', m_conv:'Conversion rate',
+    m_revenue:'Revenue collected', m_pipeline:'Pipeline (potential)', m_pipeline_sub:'Value of open leads', m_outstanding:'Outstanding', m_outstanding_sub:'From won clients',
+    chart_service:'Leads by service (30 days)', chart_status:'Leads by status',
+    search_ph:'Search by name, email, company...', f_all_status:'All statuses', f_all_priority:'All priorities', f_all_service:'All services', f_all_countries:'All countries',
+    st_new:'New', st_contacted:'Contacted', st_qualified:'Qualified', st_proposal:'Proposal sent', st_won:'Won', st_lost:'Lost',
+    pr_hot:'🔥 Hot', pr_warm:'🌡️ Warm', pr_cold:'❄️ Cold',
+    th_client:'Client', th_company:'Company', th_service:'Service', th_status:'Status', th_priority:'Priority', th_source:'Source', th_date:'Date',
+    pg_prev:'← Previous', pg_next:'Next →',
+    rem_rec_title:'Receivables', rem_rec_sub:'Outstanding balances, most overdue first.', rem_fu_title:'Follow-ups', rem_fu_sub:'Clients with a follow-up due today or overdue.',
+    radar_title:'Tax radar', radar_sub:'How much you have collected in each country and how close you are to the threshold where you must register and file taxes.',
+    period_title:'Tax report by period', period_sub:'Pick a country and period: the CRM computes the net to remit. Download it and hand it to your accountant.', period_download:'Download report',
+    finance_title:'Finances', finance_sub:'Summary of revenue, pending payments and each project’s progress.', finance_export:'Export finances (CSV)',
+    invoices_title:'Issued invoices', invoices_sub:'Every saved invoice or receipt, with its sequential number per country. Click to view or print.',
+    pnl_title:'Profit & loss', pnl_sub:'Revenue minus expenses = your gross and net profit.',
+    expenses_title:'Expenses', expenses_sub:'Log every business expense. "Direct costs" are subtracted from revenue for gross profit.',
+    charts_title:'Charts', charts_sub:'See your financial performance at a glance.',
+    mc_title:'Monthly profit', mc_sub:'Revenue, expenses and profit — last 6 months', cl_revenue:'Revenue', cl_expenses:'Expenses', cl_profit:'Profit', cc_title:'Expenses by category', cc_sub:'Breakdown of your recorded expenses',
+    pipeline_title:'Pipeline', pipeline_sub:'Your sales funnel by stage. Change each lead’s status from its card.',
+     th_stage:'Stage', th_value:'Value', th_paid:'Paid', th_pending:'Pending', th_payment:'Payment',
+    th_desc:'Description', th_category:'Category', th_type:'Type', th_amount:'Amount',
+    th_invnum:'No.', th_invtype:'Type', th_invtotal:'Total',
+    exp_label_ph:'Description (e.g. Figma, hosting, ads)', exp_amount_ph:'Amount $', exp_add:'+ Add expense', exp_cancel:'Cancel', exp_recurring:'Recurring expense (repeats every month — e.g. hosting, subscriptions)', exp_gen:'↻ Generate recurring', exp_month:'Month', exp_operating:'Operating expense', exp_direct:'Direct cost',
+    modal_title:'New lead', modal_save:'Save lead', modal_cancel:'Cancel',
+    lang_btn:'ES'
+  }
+};
+function t(key) { return (I18N[LANG] && I18N[LANG][key]) || (I18N.es[key] || key); }
+function applyI18n() {
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.getAttribute('data-i18n'); if (I18N[LANG][k] !== undefined) el.textContent = I18N[LANG][k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.getAttribute('data-i18n-ph'); if (I18N[LANG][k] !== undefined) el.placeholder = I18N[LANG][k]; });
+  const lb = document.getElementById('langBtn'); if (lb) lb.textContent = I18N[LANG].lang_btn;
+}
+function toggleLang() {
+  LANG = LANG === 'es' ? 'en' : 'es';
+  try { localStorage.setItem('crm_lang', LANG); } catch {}
+  applyI18n();
+  refreshAll();   // re-render dynamic content in the new language
+}
 
 async function loadCrmConfig() {
   const res = await fetch('/api/crm-config', { headers: { 'Accept': 'application/json' } });
@@ -1132,6 +1207,7 @@ async function init() {
   const dateInput  = document.getElementById('exp-date');
   if (monthInput) monthInput.value = today.slice(0, 7);
   if (dateInput)  dateInput.value  = today;
+  applyI18n();            // idioma guardado (ES/EN)
   buildPeriodOptions();   // llena el selector de períodos del reporte fiscal
   await refreshAll();
 }
@@ -1213,7 +1289,9 @@ function money(n) {
   return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 function stageLabel(s) {
-  return ({ diagnosis:'Diagnóstico', design:'Diseño', review:'Revisión', launch:'Publicación', delivered:'Entregado' })[s] || '<span style="color:var(--ash)">—</span>';
+  const es = { diagnosis:'Diagnóstico', design:'Diseño', review:'Revisión', launch:'Publicación', delivered:'Entregado' };
+  const en = { diagnosis:'Diagnosis', design:'Design', review:'Review', launch:'Launch', delivered:'Delivered' };
+  return (LANG === 'en' ? en : es)[s] || '<span style="color:var(--ash)">—</span>';
 }
 const COUNTRY_FLAG = { ec: '🇪🇨', ca: '🇨🇦' };
 const COUNTRY_CUR  = { ec: 'USD', ca: 'CAD' };
@@ -1224,7 +1302,9 @@ function moneyC(n, country) {
 }
 function flag(country) { return COUNTRY_FLAG[country] || '🇪🇨'; }
 function paymentLabel(p) {
-  const map = { unpaid:'Sin pagar', deposit:'Anticipo', partial:'Parcial', paid:'✓ Pagado' };
+  const es = { unpaid:'Sin pagar', deposit:'Anticipo', partial:'Parcial', paid:'✓ Pagado' };
+  const en = { unpaid:'Unpaid', deposit:'Deposit', partial:'Partial', paid:'✓ Paid' };
+  const map = LANG === 'en' ? en : es;
   const color = { paid:'#34d399', partial:'#fbbf24', deposit:'#60a5fa', unpaid:'var(--ash)' }[p] || 'var(--ash)';
   return `<span style="color:${color}">${map[p] || '—'}</span>`;
 }
@@ -1248,36 +1328,37 @@ async function loadReminders() {
     const rc = document.getElementById('rem-rec-count'); rc.textContent = rec.length; rc.classList.toggle('zero', !rec.length);
     const fc = document.getElementById('rem-fu-count'); fc.textContent = fu.length; fc.classList.toggle('zero', !fu.length);
 
+    const en = LANG === 'en';
     recEl.innerHTML = rec.length ? '<div class="rem-list">' + rec.map(r => {
       const late = r.overdueDays > 0;
       const cls = late ? 'overdue' : (r.payment_due ? 'soon' : '');
       const tag = late
-        ? `<span class="rem-tag late">Vencido hace ${r.overdueDays} d</span>`
-        : r.payment_due ? `<span class="rem-tag due">Vence ${r.payment_due}</span>`
-                        : `<span class="rem-tag none">Sin fecha · ${r.agingDays} d pendiente</span>`;
+        ? `<span class="rem-tag late">${en?`Overdue ${r.overdueDays}d`:`Vencido hace ${r.overdueDays} d`}</span>`
+        : r.payment_due ? `<span class="rem-tag due">${en?'Due':'Vence'} ${r.payment_due}</span>`
+                        : `<span class="rem-tag none">${en?`No date · ${r.agingDays}d pending`:`Sin fecha · ${r.agingDays} d pendiente`}</span>`;
       const payload = esc(JSON.stringify({ id: r.id, name: r.name, service: r.service, pending: r.pending, currency: r.currency, country: r.country }));
       return `<div class="rem-item ${cls}">
         <div class="rem-item-top"><a class="rem-name" href="/crm/lead.html?id=${r.id}">${flag(r.country)} ${esc(r.name)}</a><span class="rem-amt">${money(r.pending)} <span class="rem-cur">${r.currency}</span></span></div>
         <div class="rem-sub">${esc(r.service) || '—'}${r.company ? ' · ' + esc(r.company) : ''}</div>
-        <div class="rem-meta">${tag}<label style="color:var(--ash)">Vence: <input type="date" value="${r.payment_due || ''}" onchange="setDue('${r.id}', this.value)"></label></div>
+        <div class="rem-meta">${tag}<label style="color:var(--ash)">${en?'Due':'Vence'}: <input type="date" value="${r.payment_due || ''}" onchange="setDue('${r.id}', this.value)"></label></div>
         <div class="rem-actions">
-          <button class="pay" onclick="markLeadPaid('${r.id}', ${r.deal_value})">✓ Registrar pago</button>
-          <button onclick='copyReminder(${payload})'>📋 Copiar recordatorio</button>
+          <button class="pay" onclick="markLeadPaid('${r.id}', ${r.deal_value})">${en?'✓ Mark paid':'✓ Registrar pago'}</button>
+          <button onclick='copyReminder(${payload})'>${en?'📋 Copy reminder':'📋 Copiar recordatorio'}</button>
         </div>
       </div>`;
-    }).join('') + '</div>' : '<div class="empty">Nada por cobrar. 🎉</div>';
+    }).join('') + '</div>' : `<div class="empty">${en?'Nothing to collect. 🎉':'Nada por cobrar. 🎉'}</div>`;
 
     fuEl.innerHTML = fu.length ? '<div class="rem-list">' + fu.map(f => {
       const late = f.overdueDays > 0;
       return `<div class="rem-item ${late ? 'overdue' : 'soon'}">
-        <div class="rem-item-top"><a class="rem-name" href="/crm/lead.html?id=${f.id}">${flag(f.country)} ${esc(f.name)}</a><span class="rem-tag ${late ? 'late' : 'due'}">${late ? 'Vencido hace ' + f.overdueDays + ' d' : 'Para hoy'}</span></div>
+        <div class="rem-item-top"><a class="rem-name" href="/crm/lead.html?id=${f.id}">${flag(f.country)} ${esc(f.name)}</a><span class="rem-tag ${late ? 'late' : 'due'}">${late ? (en?`Overdue ${f.overdueDays}d`:'Vencido hace ' + f.overdueDays + ' d') : (en?'Due today':'Para hoy')}</span></div>
         <div class="rem-sub">${esc(f.service) || '—'} · ${f.next_followup}</div>
         <div class="rem-actions">
-          <button onclick="followupSnooze('${f.id}')">Posponer 7 días</button>
-          <button class="pay" onclick="followupDone('${f.id}')">✓ Hecho</button>
+          <button onclick="followupSnooze('${f.id}')">${en?'Snooze 7 days':'Posponer 7 días'}</button>
+          <button class="pay" onclick="followupDone('${f.id}')">${en?'✓ Done':'✓ Hecho'}</button>
         </div>
       </div>`;
-    }).join('') + '</div>' : '<div class="empty">Sin seguimientos pendientes.</div>';
+    }).join('') + '</div>' : `<div class="empty">${en?'No pending follow-ups.':'Sin seguimientos pendientes.'}</div>`;
   } catch (e) {
     recEl.innerHTML = `<div class="empty">No se pudo cargar: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
     fuEl.innerHTML = '';
@@ -1320,7 +1401,7 @@ async function copyReminder(r) {
 }
 
 // ── Facturas emitidas ─────────────────────────────────────────
-const DOC_LABEL = { factura: 'Factura', recibo: 'Recibo' };
+function docLabel(t){ const es={factura:'Factura',recibo:'Recibo'}, en={factura:'Invoice',recibo:'Receipt'}; return (LANG==='en'?en:es)[t] || (LANG==='en'?'Invoice':'Factura'); }
 async function loadInvoices() {
   const body = document.getElementById('invoicesBody');
   if (!body) return;
@@ -1331,7 +1412,7 @@ async function loadInvoices() {
     const { invoices } = await api(params);
     const rows = invoices || [];
     if (!rows.length) {
-      body.innerHTML = '<tr><td colspan="7"><div class="empty">Aún no hay facturas guardadas. Genera una desde la ficha de un cliente.</div></td></tr>';
+      body.innerHTML = `<tr><td colspan="7"><div class="empty">${LANG==='en'?'No saved invoices yet. Create one from a client’s page.':'Aún no hay facturas guardadas. Genera una desde la ficha de un cliente.'}</div></td></tr>`;
       return;
     }
     body.innerHTML = rows.map(inv => {
@@ -1339,11 +1420,11 @@ async function loadInvoices() {
       return `<tr>
         <td><a href="/crm/invoice.html?invoice=${inv.id}" class="action-link" style="font-weight:600">${flag(inv.country)} ${esc(inv.number || '—')}</a></td>
         <td>${esc(inv.client_name) || '—'}${inv.client_company ? `<div class="lead-email">${esc(inv.client_company)}</div>` : ''}</td>
-        <td>${DOC_LABEL[inv.doc_type] || 'Factura'}</td>
+        <td>${docLabel(inv.doc_type)}</td>
         <td class="date-cell">${(inv.issue_date || '').slice(0, 10)}</td>
         <td style="text-align:right">${moneyC(inv.total, inv.country)}</td>
         <td style="text-align:right;color:${bal <= 0.001 ? '#34d399' : '#fbbf24'}">${bal <= 0.001 ? '✓ ' + money(inv.amount_paid) : money(inv.amount_paid)}</td>
-        <td style="white-space:nowrap"><a href="/crm/invoice.html?invoice=${inv.id}" class="action-link">Ver →</a></td>
+        <td style="white-space:nowrap"><a href="/crm/invoice.html?invoice=${inv.id}" class="action-link">${LANG==='en'?'View':'Ver'} →</a></td>
       </tr>`;
     }).join('');
   } catch (e) {
@@ -1360,46 +1441,47 @@ async function loadFiscal() {
     const rows = countries || [];
     renderMoneyCards(rows);
     renderCountryPnl(rows);
-    if (!rows.length) { grid.innerHTML = '<div class="empty">Sin datos fiscales todavía.</div>'; return; }
+    const en = LANG === 'en';
+    if (!rows.length) { grid.innerHTML = `<div class="empty">${en?'No fiscal data yet.':'Sin datos fiscales todavía.'}</div>`; return; }
     grid.innerHTML = rows.map(c => {
       const pct = Math.min(100, c.thresholdPct || 0);
       const zone = c.zone || 'safe';
       const msg = zone === 'over'
-        ? `Cruzaste el umbral de <b>${money(c.threshold)} ${c.currency}</b>. Toca registrarse para ${c.taxName} y empezar a declarar — avisa a tu contador.`
+        ? (en ? `You crossed the <b>${money(c.threshold)} ${c.currency}</b> threshold. Time to register for ${c.taxName} and start filing — let your accountant know.` : `Cruzaste el umbral de <b>${money(c.threshold)} ${c.currency}</b>. Toca registrarse para ${c.taxName} y empezar a declarar — avisa a tu contador.`)
         : zone === 'warning'
-          ? `Te faltan <b>${money(c.thresholdRemaining)} ${c.currency}</b> para el umbral de ${money(c.threshold)}. Ve preparando el registro de ${c.taxName}.`
-          : `Vas holgado: pequeño proveedor. Te quedan <b>${money(c.thresholdRemaining)} ${c.currency}</b> antes de tener que registrarte para ${c.taxName}.`;
+          ? (en ? `You're <b>${money(c.thresholdRemaining)} ${c.currency}</b> away from the ${money(c.threshold)} threshold. Start preparing your ${c.taxName} registration.` : `Te faltan <b>${money(c.thresholdRemaining)} ${c.currency}</b> para el umbral de ${money(c.threshold)}. Ve preparando el registro de ${c.taxName}.`)
+          : (en ? `Comfortable: small supplier. You have <b>${money(c.thresholdRemaining)} ${c.currency}</b> left before you must register for ${c.taxName}.` : `Vas holgado: pequeño proveedor. Te quedan <b>${money(c.thresholdRemaining)} ${c.currency}</b> antes de tener que registrarte para ${c.taxName}.`);
       const badge = c.registered
-        ? `<span class="fc-badge registered">Registrado ${c.taxName}</span>`
-        : `<span class="fc-badge small">Pequeño proveedor</span>`;
+        ? `<span class="fc-badge registered">${en?'Registered':'Registrado'} ${c.taxName}</span>`
+        : `<span class="fc-badge small">${en?'Small supplier':'Pequeño proveedor'}</span>`;
       return `<div class="fiscal-card zone-${zone}">
         <div class="fc-head">
           <span class="fc-name"><span class="fc-flag">${c.flag}</span>${esc(c.name)}</span>
           ${badge}
         </div>
-        <div class="fc-big">${money(c.rolling12Revenue)} <small>${c.currency} · últimos 12 meses</small></div>
-        <div class="fc-sub">Este año: ${money(c.yearRevenue)} ${c.currency} · Cobrado total: ${money(c.revenueCollected)} ${c.currency}</div>
+        <div class="fc-big">${money(c.rolling12Revenue)} <small>${c.currency} · ${en?'last 12 months':'últimos 12 meses'}</small></div>
+        <div class="fc-sub">${en?'This year':'Este año'}: ${money(c.yearRevenue)} ${c.currency} · ${en?'Total collected':'Cobrado total'}: ${money(c.revenueCollected)} ${c.currency}</div>
         <div class="fc-track"><div class="fc-fill ${zone}" style="width:${pct}%"></div></div>
-        <div class="fc-threshline"><span>${c.thresholdPct}% del umbral</span><span>Umbral: <b>${money(c.threshold)} ${c.currency}</b></span></div>
+        <div class="fc-threshline"><span>${c.thresholdPct}% ${en?'of threshold':'del umbral'}</span><span>${en?'Threshold':'Umbral'}: <b>${money(c.threshold)} ${c.currency}</b></span></div>
         <div class="fc-msg ${zone}">${msg}</div>
         <div class="fc-stats">
-          <div class="fc-stat"><span>${esc(c.taxName)} cobrado</span><b>${money(c.taxCollected)}</b></div>
-          <div class="fc-stat"><span>${esc(c.taxName)} pagado</span><b>${money(c.taxPaid)}</b></div>
-          <div class="fc-stat"><span>Utilidad</span><b style="color:${c.profit>=0?'#34d399':'#f87171'}">${money(c.profit)}</b></div>
+          <div class="fc-stat"><span>${esc(c.taxName)} ${en?'collected':'cobrado'}</span><b>${money(c.taxCollected)}</b></div>
+          <div class="fc-stat"><span>${esc(c.taxName)} ${en?'paid':'pagado'}</span><b>${money(c.taxPaid)}</b></div>
+          <div class="fc-stat"><span>${en?'Profit':'Utilidad'}</span><b style="color:${c.profit>=0?'#34d399':'#f87171'}">${money(c.profit)}</b></div>
         </div>
         <div class="fc-actions">
           <button class="btn" onclick="exportFiscal('${c.code}')">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            Export ${c.flag} para contador
+            ${en?'Export':'Export'} ${c.flag} ${en?'for accountant':'para contador'}
           </button>
           <button class="fc-toggle ${c.registered ? 'on' : ''}" onclick="toggleTax('${c.code}', ${!c.registered}, '${esc(c.taxName)}')">
-            ${c.registered ? `✓ ${esc(c.taxName)} activo` : `Activar ${esc(c.taxName)}`}
+            ${c.registered ? `✓ ${esc(c.taxName)} ${en?'active':'activo'}` : `${en?'Activate':'Activar'} ${esc(c.taxName)}`}
           </button>
         </div>
       </div>`;
     }).join('');
   } catch (e) {
-    grid.innerHTML = `<div class="empty">No se pudo cargar el radar fiscal: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+    grid.innerHTML = `<div class="empty">${LANG==='en'?'Could not load tax radar':'No se pudo cargar el radar fiscal'}: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
   }
 }
 
@@ -1422,17 +1504,19 @@ function renderMoneyCards(rows) {
 function renderCountryPnl(rows) {
   const el = document.getElementById('pnlByCountry');
   if (!el) return;
+  const en = LANG === 'en';
   const active = rows.filter(c => Number(c.revenueCollected) || Number(c.expenses));
-  if (!active.length) { el.innerHTML = '<div class="empty">Aún no hay datos de rentabilidad.</div>'; return; }
+  if (!active.length) { el.innerHTML = `<div class="empty">${en?'No profitability data yet.':'Aún no hay datos de rentabilidad.'}</div>`; return; }
+  const lb = { rev: en?'Revenue collected':'Ingresos cobrados', dir: en?'Direct costs':'Costos directos', gross: en?'Gross profit':'Utilidad bruta', oper: en?'Operating costs':'Gastos operativos', net: en?'Net profit':'Utilidad neta' };
   el.innerHTML = active.map(c => `
     <div class="pnl-country">
       <div class="pnl-country-head">${c.flag} ${esc(c.name)} <span class="pc-cur">${c.currency}</span></div>
       <div class="pnl-grid">
-        <div class="pnl-card"><span>Ingresos cobrados</span><b>${money(c.revenueCollected)}</b></div>
-        <div class="pnl-card"><span>Costos directos</span><b>${money(c.directCosts)}</b></div>
-        <div class="pnl-card pnl-strong"><span>Utilidad bruta</span><b>${money(c.grossProfit)}</b></div>
-        <div class="pnl-card"><span>Gastos operativos</span><b>${money(c.operatingCosts)}</b></div>
-        <div class="pnl-card pnl-net"><span>Utilidad neta</span><b style="color:${c.netProfit>=0?'':'#f87171'}">${money(c.netProfit)}</b></div>
+        <div class="pnl-card"><span>${lb.rev}</span><b>${money(c.revenueCollected)}</b></div>
+        <div class="pnl-card"><span>${lb.dir}</span><b>${money(c.directCosts)}</b></div>
+        <div class="pnl-card pnl-strong"><span>${lb.gross}</span><b>${money(c.grossProfit)}</b></div>
+        <div class="pnl-card"><span>${lb.oper}</span><b>${money(c.operatingCosts)}</b></div>
+        <div class="pnl-card pnl-net"><span>${lb.net}</span><b style="color:${c.netProfit>=0?'':'#f87171'}">${money(c.netProfit)}</b></div>
       </div>
     </div>`).join('');
 }
@@ -1460,6 +1544,8 @@ async function toggleTax(country, turnOn, taxName) {
 
 // ── Reporte fiscal por período ────────────────────────────────
 const MONTH_ES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const MONTH_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function monthName(mm){ return (LANG==='en'?MONTH_EN:MONTH_ES)[mm] || ''; }
 function pad2(n){ return String(n).padStart(2,'0'); }
 function lastDayOfMonth(y, mIdx){ return new Date(Date.UTC(y, mIdx + 1, 0)).getUTCDate(); }
 
@@ -1473,7 +1559,7 @@ function buildPeriodOptions() {
     for (let i = 0; i < 12; i++) {
       const d = new Date(Date.UTC(y, mIdx - i, 1));
       const yy = d.getUTCFullYear(), mm = d.getUTCMonth();
-      opts.push({ label: `${MONTH_ES[mm]} ${yy}`, start: `${yy}-${pad2(mm+1)}-01`, end: `${yy}-${pad2(mm+1)}-${pad2(lastDayOfMonth(yy,mm))}` });
+      opts.push({ label: `${monthName(mm)} ${yy}`, start: `${yy}-${pad2(mm+1)}-01`, end: `${yy}-${pad2(mm+1)}-${pad2(lastDayOfMonth(yy,mm))}` });
     }
   } else if (type === 'quarter') {
     for (const yr of [y, y-1]) {
@@ -1503,7 +1589,8 @@ async function loadFiscalPeriod() {
   const country = document.getElementById('fp-country').value;
   const p = currentPeriod();
   if (!p) return;
-  el.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Calculando…</div>';
+  const en = LANG === 'en';
+  el.innerHTML = `<div class="loading"><div class="loading-spinner"></div>${en?'Calculating…':'Calculando…'}</div>`;
   try {
     const r = await api({ action: 'fiscal-period', country, start: p.start, end: p.end });
     lastPeriodReport = { ...r, label: p.label };
@@ -1511,20 +1598,20 @@ async function loadFiscalPeriod() {
     const netCls = r.registered ? 'net' : '';
     el.innerHTML = `
       <div class="fp-grid">
-        <div class="fp-cell"><span>Ingreso cobrado</span><b>${money(r.revenue)} <small style="font-size:.6em;color:var(--ash)">${cur}</small></b></div>
-        <div class="fp-cell"><span>${esc(r.taxName)} cobrado</span><b>${money(r.taxCollected)}</b></div>
-        <div class="fp-cell"><span>${esc(r.taxName)} pagado</span><b>${money(r.taxPaid)}</b></div>
-        <div class="fp-cell ${netCls}"><span>Neto a declarar</span><b>${money(r.netTax)}</b></div>
-        <div class="fp-cell"><span>Gastos</span><b>${money(r.expenses)}</b></div>
-        <div class="fp-cell ${r.profit>=0?'pos':'neg'}"><span>Utilidad</span><b>${money(r.profit)}</b></div>
+        <div class="fp-cell"><span>${en?'Revenue collected':'Ingreso cobrado'}</span><b>${money(r.revenue)} <small style="font-size:.6em;color:var(--ash)">${cur}</small></b></div>
+        <div class="fp-cell"><span>${esc(r.taxName)} ${en?'collected':'cobrado'}</span><b>${money(r.taxCollected)}</b></div>
+        <div class="fp-cell"><span>${esc(r.taxName)} ${en?'paid':'pagado'}</span><b>${money(r.taxPaid)}</b></div>
+        <div class="fp-cell ${netCls}"><span>${en?'Net to remit':'Neto a declarar'}</span><b>${money(r.netTax)}</b></div>
+        <div class="fp-cell"><span>${en?'Expenses':'Gastos'}</span><b>${money(r.expenses)}</b></div>
+        <div class="fp-cell ${r.profit>=0?'pos':'neg'}"><span>${en?'Profit':'Utilidad'}</span><b>${money(r.profit)}</b></div>
       </div>
-      <p class="fp-note">${r.flag} <b>${esc(r.name)}</b> · ${esc(p.label)} (${p.start} → ${p.end}) · ${r.invoices} venta(s) con cobro.
+      <p class="fp-note">${r.flag} <b>${esc(r.name)}</b> · ${esc(p.label)} (${p.start} → ${p.end}) · ${r.invoices} ${en?'sale(s) with payment':'venta(s) con cobro'}.
       ${r.registered
-        ? `Registrado para ${esc(r.taxName)}: el neto de arriba es lo que declaras.`
-        : `Pequeño proveedor: aún no cobras ${esc(r.taxName)} (por eso va en 0). Cuando te registres, actívalo en el Radar fiscal y este reporte empieza a calcular el impuesto.`}
-      ${r.withholding ? ` Retenciones en el período: <b>${money(r.withholding)}</b>.` : ''}</p>`;
+        ? (en?`Registered for ${esc(r.taxName)}: the net above is what you remit.`:`Registrado para ${esc(r.taxName)}: el neto de arriba es lo que declaras.`)
+        : (en?`Small supplier: no ${esc(r.taxName)} charged yet (that's why it's 0). Once you register, activate it in the Tax radar and this report starts computing the tax.`:`Pequeño proveedor: aún no cobras ${esc(r.taxName)} (por eso va en 0). Cuando te registres, actívalo en el Radar fiscal y este reporte empieza a calcular el impuesto.`)}
+      ${r.withholding ? ` ${en?'Withholding in the period':'Retenciones en el período'}: <b>${money(r.withholding)}</b>.` : ''}</p>`;
   } catch (e) {
-    el.innerHTML = `<div class="empty">No se pudo calcular: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+    el.innerHTML = `<div class="empty">${en?'Could not calculate':'No se pudo calcular'}: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
   }
 }
 
@@ -1561,7 +1648,9 @@ function exportFiscalPeriod() {
 }
 
 // ── Expenses & P&L ────────────────────────────────────────────
-const EXP_CAT = { software:'Software', marketing:'Marketing', contratistas:'Contratistas', oficina:'Oficina', impuestos:'Impuestos', otros:'Otros' };
+const EXP_CAT_ES = { software:'Software', marketing:'Marketing', contratistas:'Contratistas', oficina:'Oficina', impuestos:'Impuestos', otros:'Otros' };
+const EXP_CAT_EN = { software:'Software', marketing:'Marketing', contratistas:'Contractors', oficina:'Office', impuestos:'Taxes', otros:'Other' };
+function catLabel(c){ return (LANG==='en'?EXP_CAT_EN:EXP_CAT_ES)[c] || (LANG==='en'?'Other':'Otros'); }
 let expensesData = [];
 let editingExpenseId = null;
 
@@ -1582,19 +1671,20 @@ async function loadExpenses() {
       byC[c].total += amt;
       if (e.cost_type === 'direct') byC[c].direct += amt; else byC[c].oper += amt;
       return `<tr>
-        <td>${flag(e.country)} ${esc(e.label)}${e.recurring ? ' <span style="color:var(--ash);font-size:10px">(recurrente)</span>' : ''}</td>
-        <td>${EXP_CAT[e.category] || 'Otros'}</td>
-        <td>${e.cost_type === 'direct' ? 'Costo directo' : 'Operativo'}</td>
+        <td>${flag(e.country)} ${esc(e.label)}${e.recurring ? ` <span style="color:var(--ash);font-size:10px">(${LANG==='en'?'recurring':'recurrente'})</span>` : ''}</td>
+        <td>${catLabel(e.category)}</td>
+        <td>${e.cost_type === 'direct' ? (LANG==='en'?'Direct cost':'Costo directo') : (LANG==='en'?'Operating':'Operativo')}</td>
         <td style="text-align:right">${moneyC(amt, c)}</td>
         <td class="date-cell">${(e.expense_date || '').slice(0, 10)}</td>
         <td style="white-space:nowrap"><button class="exp-edit" title="Editar" onclick="editExpense('${e.id}')">✎</button> <button class="exp-del" title="Eliminar" onclick="deleteExpense('${e.id}')">✕</button></td>
       </tr>`;
-    }).join('') || '<tr><td colspan="6"><div class="empty">Sin gastos en este período.</div></td></tr>';
+    }).join('') || `<tr><td colspan="6"><div class="empty">${LANG==='en'?'No expenses in this period.':'Sin gastos en este período.'}</div></td></tr>`;
+    const en = LANG === 'en';
     totals.innerHTML = ['ec', 'ca'].filter(c => byC[c].total).map(c =>
-      `<span class="et">${flag(c)} Total (${COUNTRY_CUR[c]}): <b>${money(byC[c].total)}</b></span>
-       <span class="et">Directos: <b>${money(byC[c].direct)}</b></span>
-       <span class="et">Operativos: <b>${money(byC[c].oper)}</b></span>`
-    ).join(' &nbsp;·&nbsp; ') || '<span class="et">Sin gastos</span>';
+      `<span class="et">${flag(c)} ${en?'Total':'Total'} (${COUNTRY_CUR[c]}): <b>${money(byC[c].total)}</b></span>
+       <span class="et">${en?'Direct':'Directos'}: <b>${money(byC[c].direct)}</b></span>
+       <span class="et">${en?'Operating':'Operativos'}: <b>${money(byC[c].oper)}</b></span>`
+    ).join(' &nbsp;·&nbsp; ') || `<span class="et">${en?'No expenses':'Sin gastos'}</span>`;
   } catch (e) {
     body.innerHTML = `<tr><td colspan="6"><div class="empty">No se pudo cargar gastos: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
   }
@@ -1702,18 +1792,18 @@ async function loadPipeline() {
           <div class="kc-sub">${esc(l.company) || esc(l.service) || '—'}</div>
           <div class="kc-foot">
             <span class="kc-val">${l.deal_value ? money(l.deal_value) : ''}</span>
-            <select onchange="moveLead('${l.id}', this.value)" title="Mover de etapa">
-              ${PIPE_STAGES.map(s => `<option value="${s.key}" ${s.key === st.key ? 'selected' : ''}>${s.label}</option>`).join('')}
+            <select onchange="moveLead('${l.id}', this.value)" title="${LANG==='en'?'Move stage':'Mover de etapa'}">
+              ${PIPE_STAGES.map(s => `<option value="${s.key}" ${s.key === st.key ? 'selected' : ''}>${statusLabel(s.key)}</option>`).join('')}
             </select>
           </div>
         </div>`).join('') || '<div style="font-size:11px;color:var(--ash);padding:6px 2px">—</div>';
       return `<div class="kan-col">
-        <div class="kan-col-head"><b>${st.label}</b><span>${items.length}${sum ? ' · ' + money(sum) : ''}</span></div>
+        <div class="kan-col-head"><b>${statusLabel(st.key)}</b><span>${items.length}${sum ? ' · ' + money(sum) : ''}</span></div>
         ${cards}
       </div>`;
     }).join('');
   } catch (e) {
-    board.innerHTML = `<div class="empty">No se pudo cargar el pipeline: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+    board.innerHTML = `<div class="empty">${LANG==='en'?'Could not load pipeline':'No se pudo cargar el pipeline'}: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
   }
 }
 async function moveLead(id, status) {
@@ -1745,13 +1835,14 @@ async function loadFinance() {
         <td style="text-align:right;${pend > 0 ? 'color:#fbbf24' : 'color:var(--ash)'}">${pend ? moneyC(pend, l.country) : '—'}</td>
         <td>${paymentLabel(l.payment_status)}</td>
       </tr>`;
-    }).join('') || '<tr><td colspan="8"><div class="empty">Aún no hay datos financieros.</div></td></tr>';
+    }).join('') || `<tr><td colspan="8"><div class="empty">${LANG==='en'?'No financial data yet.':'Aún no hay datos financieros.'}</div></td></tr>`;
     // Totales SEPARADOS por país — nunca se mezcla USD con CAD.
+    const en = LANG === 'en';
     totals.innerHTML = ['ec', 'ca'].filter(c => byC[c].deal || byC[c].paid).map(c => `
-      <div class="ft-card"><span>${flag(c)} Valor total (${COUNTRY_CUR[c]})</span><b>${money(byC[c].deal)}</b></div>
-      <div class="ft-card"><span>${flag(c)} Cobrado</span><b style="color:#34d399">${money(byC[c].paid)}</b></div>
-      <div class="ft-card"><span>${flag(c)} Por cobrar</span><b style="color:#fbbf24">${money(byC[c].pend)}</b></div>`
-    ).join('') || '<div class="ft-card"><span>Sin datos</span><b>—</b></div>';
+      <div class="ft-card"><span>${flag(c)} ${en?'Total value':'Valor total'} (${COUNTRY_CUR[c]})</span><b>${money(byC[c].deal)}</b></div>
+      <div class="ft-card"><span>${flag(c)} ${en?'Collected':'Cobrado'}</span><b style="color:#34d399">${money(byC[c].paid)}</b></div>
+      <div class="ft-card"><span>${flag(c)} ${en?'Outstanding':'Por cobrar'}</span><b style="color:#fbbf24">${money(byC[c].pend)}</b></div>`
+    ).join('') || `<div class="ft-card"><span>${en?'No data':'Sin datos'}</span><b>—</b></div>`;
   } catch (e) {
     body.innerHTML = `<tr><td colspan="8"><div class="empty">No se pudo cargar finanzas: ${esc(String(e.message || e)).slice(0, 120)}</div></td></tr>`;
   }
@@ -1765,7 +1856,7 @@ async function loadMetrics() {
     document.getElementById('m-week').textContent  = d.newThisWeek || 0;
     document.getElementById('m-hot').textContent   = d.hot || 0;
     document.getElementById('m-conv').textContent  = (d.conversionRate || 0) + '%';
-    document.getElementById('m-service').textContent = d.topService ? `Más pedido: ${d.topService}` : '';
+    document.getElementById('m-service').textContent = d.topService ? `${LANG==='en'?'Most requested':'Más pedido'}: ${d.topService}` : '';
 
     // Las tarjetas de dinero y el P&L se llenan por país desde loadFiscal
     // (para no mezclar USD con CAD). Aquí solo el gráfico de categorías.
@@ -1776,7 +1867,7 @@ async function loadMetrics() {
 
     const now = new Date();
     document.getElementById('lastUpdated').textContent =
-      `Actualizado: ${now.toLocaleTimeString('es-EC', {hour:'2-digit', minute:'2-digit'})}`;
+      `${LANG==='en'?'Updated':'Actualizado'}: ${now.toLocaleTimeString(LANG==='en'?'en-CA':'es-EC', {hour:'2-digit', minute:'2-digit'})}`;
   } catch(e) { console.error('Metrics error:', e); }
 }
 
@@ -1839,7 +1930,7 @@ function renderCategoryChart(byCategory) {
     const amt = Number(v) || 0;
     const pct = total ? Math.round(amt / total * 100) : 0;
     return `<div class="cat-row">
-      <div class="cat-top"><span class="cat-name"><i class="cl-dot" style="background:${COLORS[cat] || '#94a3b8'}"></i>${EXP_CAT[cat] || 'Otros'}</span><span class="cat-amt">${money(amt)} · ${pct}%</span></div>
+      <div class="cat-top"><span class="cat-name"><i class="cl-dot" style="background:${COLORS[cat] || '#94a3b8'}"></i>${catLabel(cat)}</span><span class="cat-amt">${money(amt)} · ${pct}%</span></div>
       <div class="cat-track"><div class="cat-fill" style="width:${pct}%;background:${COLORS[cat] || '#94a3b8'}"></div></div>
     </div>`;
   }).join('') + `<div class="cat-total">Total gastos: <b>${money(total)}</b></div>`;
@@ -1871,7 +1962,7 @@ async function loadLeads() {
     totalLeads = total;
 
     if (!leads || leads.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="8"><div class="empty">No se encontraron leads con los filtros seleccionados.</div></td></tr>';
+      tbody.innerHTML = `<tr><td colspan="8"><div class="empty">${LANG==='en'?'No leads match the selected filters.':'No se encontraron leads con los filtros seleccionados.'}</div></td></tr>`;
       updatePagination();
       return;
     }
@@ -1893,7 +1984,7 @@ async function loadLeads() {
         </td>
         <td class="date-cell" style="max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${esc(l.source_page) || ''}">${shortUrl(l.source_page)}</td>
         <td class="date-cell">${formatDate(l.created_at)}</td>
-        <td style="white-space:nowrap"><a href="/crm/lead.html?id=${l.id}" class="action-link">Ver →</a> <button class="exp-del" title="Eliminar lead" onclick="deleteLeadRow('${l.id}')">✕</button></td>
+        <td style="white-space:nowrap"><a href="/crm/lead.html?id=${l.id}" class="action-link">${LANG==='en'?'View':'Ver'} →</a> <button class="exp-del" title="Eliminar lead" onclick="deleteLeadRow('${l.id}')">✕</button></td>
       </tr>
     `).join('');
 
@@ -1907,8 +1998,8 @@ function updatePagination() {
   const start = currentPage * PAGE_SIZE + 1;
   const end   = Math.min((currentPage + 1) * PAGE_SIZE, totalLeads);
   document.getElementById('paginationInfo').textContent = totalLeads > 0
-    ? `Mostrando ${start}–${end} de ${totalLeads} leads`
-    : '0 resultados';
+    ? (LANG==='en'?`Showing ${start}–${end} of ${totalLeads} leads`:`Mostrando ${start}–${end} de ${totalLeads} leads`)
+    : (LANG==='en'?'0 results':'0 resultados');
   document.getElementById('prevBtn').disabled = currentPage === 0;
   document.getElementById('nextBtn').disabled = end >= totalLeads;
 }
@@ -1946,7 +2037,9 @@ function esc(s) {
 }
 
 function statusLabel(s) {
-  return { new:'Nuevo', contacted:'Contactado', qualified:'Calificado', proposal_sent:'Propuesta', won:'Ganado', lost:'Perdido' }[s] || s;
+  const es = { new:'Nuevo', contacted:'Contactado', qualified:'Calificado', proposal_sent:'Propuesta', won:'Ganado', lost:'Perdido' };
+  const en = { new:'New', contacted:'Contacted', qualified:'Qualified', proposal_sent:'Proposal', won:'Won', lost:'Lost' };
+  return (LANG === 'en' ? en : es)[s] || s;
 }
 
 function formatDate(iso) {
