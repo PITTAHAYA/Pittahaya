@@ -5,19 +5,28 @@
 // Place this file at: /api/crm.js in your Vercel project.
 // ============================================================
 
-const { createClient } = require('@supabase/supabase-js');
-
 const normalizeSupabaseUrl = (value) =>
   String(value || "")
     .trim()
     .replace(/\/+$/, "")
     .replace(/\/(?:rest|auth)\/v1$/, "");
 
-const supabaseUrl = normalizeSupabaseUrl(process.env.SUPABASE_URL);
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
-const supabase = supabaseUrl && supabaseServiceKey
-  ? createClient(supabaseUrl, supabaseServiceKey)
-  : null;
+// Inicialización a prueba de fallos: si el require o createClient revientan al
+// cargar el módulo (dependencia faltante, clave inválida, etc.), lo capturamos
+// para devolver un error legible en vez de que Vercel reporte un crash mudo
+// (FUNCTION_INVOCATION_FAILED) en TODAS las rutas.
+let supabase = null;
+let INIT_ERROR = null;
+try {
+  const { createClient } = require('@supabase/supabase-js');
+  const supabaseUrl = normalizeSupabaseUrl(process.env.SUPABASE_URL);
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  supabase = supabaseUrl && supabaseServiceKey
+    ? createClient(supabaseUrl, supabaseServiceKey)
+    : null;
+} catch (e) {
+  INIT_ERROR = e;
+}
 
 const securityHeaders = {
   'Cache-Control': 'no-store',
@@ -1142,6 +1151,9 @@ module.exports = async function handler(req, res) {
   setBaseHeaders(req, res);
 
   if (req.method === 'OPTIONS') return res.status(200).end();
+  if (INIT_ERROR) {
+    return res.status(500).json({ error: 'Init del CRM falló: ' + String(INIT_ERROR && INIT_ERROR.message || INIT_ERROR).slice(0, 300) });
+  }
   if (!supabase) {
     return res.status(500).json({ error: 'CRM no configurado. Revisa SUPABASE_URL y SUPABASE_SERVICE_KEY en Vercel.' });
   }
