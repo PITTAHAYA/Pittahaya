@@ -224,7 +224,7 @@ const sendAdminNotification = async (lead, leadId) => {
   if (!process.env.RESEND_API_KEY) return;
 
   const toEmail = process.env.LEAD_TO_EMAIL || "jfmcorp@jfmcorporation.com";
-  const fromEmail = process.env.LEAD_FROM_EMAIL || "Pittahaya <noreply@jfmcorporation.com>";
+  const fromEmail = process.env.LEAD_FROM_EMAIL || "Pittahaya <hola@jfmcorporation.com>";
   const crmUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://www.pittahaya.com"}/crm/lead.html?id=${encodeURIComponent(leadId || "")}`;
   const priorityLabel = { hot: "Hot", warm: "Warm", cold: "Cold" }[lead.priority] || "Cold";
 
@@ -301,7 +301,7 @@ const sendLeadConfirmation = async (lead) => {
   if (!process.env.RESEND_API_KEY) return;
   if (!isEmail(lead.email)) return;
 
-  const fromEmail = process.env.LEAD_FROM_EMAIL || "Pittahaya <noreply@jfmcorporation.com>";
+  const fromEmail = process.env.LEAD_FROM_EMAIL || "Pittahaya <hola@jfmcorporation.com>";
   const replyTo   = process.env.LEAD_TO_EMAIL || "jfmcorp@jfmcorporation.com";
   const inEn      = /\/en\//.test(lead.source_page || "");
   const firstName = (lead.name || "").trim().split(/\s+/)[0] || "";
