@@ -16,10 +16,10 @@ assets/backup-social/
 # NO debe excluir assets/casas/, que son imágenes del demo AURELIA.
 /casas/
 
-# Config y tooling que no debe servirse
-package.json
-package-lock.json
-node_modules/
+# IMPORTANTE: package.json y package-lock.json NO se excluyen — Vercel los
+# necesita para instalar dependencias (p. ej. @supabase/supabase-js). Sin ellos,
+# las funciones /api que usan supabase fallan con "Cannot find module".
+# (Vercel no publica estos archivos como estáticos, así que es seguro incluirlos.)
 .claude/
 social-posts/
 
