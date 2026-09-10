@@ -847,6 +847,149 @@ async function getReminders(req, res) {
   return res.status(200).json({ today, receivables, followups });
 }
 
+// ── Asistente de seguimiento (IA + automatización) ───────────
+// Genera, para un lead, la próxima mejor acción, una cadencia de seguimiento
+// y un mensaje listo para enviar. Usa un LLM real si hay LLM_API_KEY; si no,
+// un motor de reglas que produce el mismo resultado. Es la prueba viva de la
+// automatización con IA que vende Pittahaya.
+const STATUS_ES = { new:'nuevo', contacted:'contactado', qualified:'calificado', proposal_sent:'propuesta enviada', won:'ganado', lost:'perdido' };
+
+function buildFollowupContext(lead) {
+  const now = Date.now();
+  const days = (d) => d ? Math.max(0, Math.round((now - new Date(d).getTime()) / 86400000)) : null;
+  const dv = Number(lead.deal_value) || 0, ap = Number(lead.amount_paid) || 0;
+  return {
+    lang: lead.country === 'ca' ? 'en' : 'es',
+    firstName: String(lead.name || '').trim().split(/\s+/)[0] || (lead.country === 'ca' ? 'there' : 'hola'),
+    daysSinceCreated: days(lead.created_at),
+    daysSinceUpdated: days(lead.updated_at),
+    pending: Math.round((dv - ap) * 100) / 100,
+    dealValue: dv, currency: lead.currency || (lead.country === 'ca' ? 'CAD' : 'USD'),
+    service: lead.service || '', status: lead.status || 'new', stage: lead.project_stage || '',
+    paymentStatus: lead.payment_status || 'unpaid'
+  };
+}
+
+// Motor de reglas: elige la mejor jugada según el estado real del lead.
+function rulesFollowup(lead, ctx) {
+  const es = ctx.lang === 'es';
+  const money = (n) => '$' + (Number(n) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const svc = ctx.service || (es ? 'tu proyecto' : 'your project');
+  const N = ctx.firstName;
+  let urgency = 'medium', nextAction, reasoning, cadence = [];
+
+  if (lead.status === 'won' && ctx.pending > 0.01) {
+    urgency = 'high';
+    nextAction = es ? `Cobrar el saldo pendiente de ${money(ctx.pending)} ${ctx.currency}` : `Collect the outstanding ${money(ctx.pending)} ${ctx.currency}`;
+    reasoning = es ? `Cliente ganado con saldo por cobrar y ${ctx.daysSinceUpdated ?? 0} días sin movimiento.` : `Won client with a balance due and ${ctx.daysSinceUpdated ?? 0} days without movement.`;
+    cadence = [
+      { day: 0, channel: 'whatsapp', goal: es ? 'Recordatorio amable de pago' : 'Friendly payment reminder',
+        message: es ? `Hola ${N}, un recordatorio del saldo de ${money(ctx.pending)} ${ctx.currency} por ${svc}. ¿Te paso los datos de pago?` : `Hi ${N}, a quick reminder about the ${money(ctx.pending)} ${ctx.currency} balance for ${svc}. Want me to resend the payment details?` },
+      { day: 3, channel: 'email', goal: es ? 'Reenviar factura + datos' : 'Resend invoice + details',
+        message: es ? `Hola ${N}, te reenvío la factura con los datos de pago. Cualquier duda, con gusto te ayudo.` : `Hi ${N}, resending the invoice with payment details. Happy to help with any questions.` },
+      { day: 7, channel: 'call', goal: es ? 'Llamada breve de cierre' : 'Short closing call',
+        message: es ? `Llamar para confirmar fecha de pago.` : `Call to confirm a payment date.` }
+    ];
+  } else if (lead.status === 'proposal_sent') {
+    urgency = (ctx.daysSinceUpdated ?? 0) >= 3 ? 'high' : 'medium';
+    nextAction = es ? 'Dar seguimiento a la propuesta enviada' : 'Follow up on the sent proposal';
+    reasoning = es ? `Propuesta enviada hace ${ctx.daysSinceUpdated ?? 0} días sin respuesta.` : `Proposal sent ${ctx.daysSinceUpdated ?? 0} days ago with no reply.`;
+    cadence = [
+      { day: 0, channel: 'whatsapp', goal: es ? 'Confirmar que la recibió' : 'Confirm they received it',
+        message: es ? `Hola ${N}, ¿pudiste revisar la propuesta de ${svc}? Me encantaría resolver cualquier duda.` : `Hi ${N}, did you get a chance to review the ${svc} proposal? Happy to clear up any questions.` },
+      { day: 2, channel: 'email', goal: es ? 'Aportar valor / caso' : 'Add value / a case',
+        message: es ? `Hola ${N}, te comparto un ejemplo de un proyecto similar por si ayuda a decidir.` : `Hi ${N}, sharing a similar project example in case it helps you decide.` },
+      { day: 5, channel: 'whatsapp', goal: es ? 'Crear urgencia suave' : 'Gentle urgency',
+        message: es ? `Hola ${N}, sigo con un cupo disponible esta semana para arrancar ${svc}. ¿Avanzamos?` : `Hi ${N}, I still have a slot this week to start ${svc}. Shall we move forward?` }
+    ];
+  } else if (lead.status === 'new' || lead.status === 'contacted' || lead.status === 'qualified') {
+    urgency = (ctx.daysSinceCreated ?? 0) >= 2 ? 'high' : 'medium';
+    nextAction = es ? 'Primer contacto rápido y personal' : 'Fast, personal first touch';
+    reasoning = es ? `Lead ${STATUS_ES[lead.status]} de hace ${ctx.daysSinceCreated ?? 0} días — la velocidad de respuesta define la conversión.` : `${lead.status} lead from ${ctx.daysSinceCreated ?? 0} days ago — response speed drives conversion.`;
+    cadence = [
+      { day: 0, channel: 'whatsapp', goal: es ? 'Romper el hielo' : 'Break the ice',
+        message: es ? `Hola ${N}, soy de Pittahaya. Vi tu interés en ${svc}. ¿Cuál es el objetivo principal que buscas?` : `Hi ${N}, this is Pittahaya. I saw your interest in ${svc}. What's the main goal you're after?` },
+      { day: 1, channel: 'email', goal: es ? 'Enviar diagnóstico/propuesta' : 'Send diagnosis/proposal',
+        message: es ? `Hola ${N}, te preparé un diagnóstico rápido para ${svc}. ¿Te va una llamada de 15 min?` : `Hi ${N}, I put together a quick diagnosis for ${svc}. Up for a 15-min call?` },
+      { day: 4, channel: 'whatsapp', goal: es ? 'Reintento con prueba social' : 'Retry with social proof',
+        message: es ? `Hola ${N}, te dejo un caso de un cliente parecido. ¿Lo vemos juntos?` : `Hi ${N}, here's a case from a similar client. Want to go through it together?` }
+    ];
+  } else {
+    urgency = 'low';
+    nextAction = es ? 'Reactivar o pedir testimonio' : 'Re-engage or ask for a testimonial';
+    reasoning = es ? 'Sin acción urgente pendiente; buen momento para nutrir la relación.' : 'No urgent action pending; a good moment to nurture the relationship.';
+    cadence = [
+      { day: 0, channel: 'email', goal: es ? 'Reconectar con valor' : 'Reconnect with value',
+        message: es ? `Hola ${N}, ¿cómo va todo con ${svc}? Si necesitas una mejora o mantenimiento, aquí estoy.` : `Hi ${N}, how's everything going with ${svc}? If you need an upgrade or maintenance, I'm here.` }
+    ];
+  }
+  return { source: 'rules', language: ctx.lang, urgency, nextAction, reasoning, cadence, draftMessage: cadence[0] ? cadence[0].message : '' };
+}
+
+// Llama a un LLM real (Anthropic u OpenAI) si hay clave. Devuelve null si falla.
+async function llmFollowup(lead, ctx) {
+  const key = process.env.LLM_API_KEY;
+  if (!key) return null;
+  const isAnthropic = key.startsWith('sk-ant');
+  const sys = `You are the follow-up strategist for Pittahaya, a premium web design & AI automation studio. Given a sales lead, return ONLY minified JSON (no markdown) with this exact shape:
+{"urgency":"high|medium|low","nextAction":"one line","reasoning":"one line","cadence":[{"day":0,"channel":"whatsapp|email|call","goal":"short","message":"ready-to-send text"}],"draftMessage":"the day-0 message"}
+Write every "message" and text in ${ctx.lang === 'en' ? 'ENGLISH' : 'SPANISH (tuteo, Ecuador)'}. Keep messages warm, concise, no emojis as structure. 2-4 cadence steps.`;
+  const user = `Lead: name=${lead.name}; firstName=${ctx.firstName}; service=${ctx.service}; status=${ctx.status}; stage=${ctx.stage}; payment=${ctx.paymentStatus}; dealValue=${ctx.dealValue} ${ctx.currency}; pendingBalance=${ctx.pending}; daysSinceCreated=${ctx.daysSinceCreated}; daysSinceUpdated=${ctx.daysSinceUpdated}; country=${lead.country}. Produce the follow-up plan.`;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    let text;
+    if (isAnthropic) {
+      const r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST', signal: ctrl.signal,
+        headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 900, system: sys, messages: [{ role: 'user', content: user }] })
+      });
+      if (!r.ok) throw new Error('anthropic ' + r.status);
+      const j = await r.json();
+      text = (j.content || []).map(b => b.text || '').join('');
+    } else {
+      const r = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST', signal: ctrl.signal,
+        headers: { 'content-type': 'application/json', 'authorization': 'Bearer ' + key },
+        body: JSON.stringify({ model: 'gpt-4o-mini', temperature: 0.5, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: sys }, { role: 'user', content: user }] })
+      });
+      if (!r.ok) throw new Error('openai ' + r.status);
+      const j = await r.json();
+      text = j.choices?.[0]?.message?.content || '';
+    }
+    const jsonStr = text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1);
+    const parsed = JSON.parse(jsonStr);
+    if (!parsed || !Array.isArray(parsed.cadence)) return null;
+    return {
+      source: 'ai', language: ctx.lang,
+      urgency: ['high', 'medium', 'low'].includes(parsed.urgency) ? parsed.urgency : 'medium',
+      nextAction: String(parsed.nextAction || '').slice(0, 300),
+      reasoning: String(parsed.reasoning || '').slice(0, 500),
+      cadence: parsed.cadence.slice(0, 5).map(s => ({
+        day: Number(s.day) || 0,
+        channel: ['whatsapp', 'email', 'call'].includes(s.channel) ? s.channel : 'email',
+        goal: String(s.goal || '').slice(0, 120),
+        message: String(s.message || '').slice(0, 800)
+      })),
+      draftMessage: String(parsed.draftMessage || (parsed.cadence[0] && parsed.cadence[0].message) || '').slice(0, 800)
+    };
+  } catch (e) {
+    return null; // cae al motor de reglas
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function getAiFollowup(req, res, id) {
+  const { data: lead, error } = await supabase.from('leads').select('*').eq('id', id).single();
+  if (error || !lead) return res.status(404).json({ error: 'Lead no encontrado' });
+  const ctx = buildFollowupContext(lead);
+  const ai = await llmFollowup(lead, ctx);
+  const plan = ai || rulesFollowup(lead, ctx);
+  return res.status(200).json({ plan, aiEnabled: !!process.env.LLM_API_KEY });
+}
+
 async function getMetrics(req, res) {
   const now = new Date();
   const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000).toISOString();
@@ -1033,6 +1176,8 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'fiscal-period') return getFiscalPeriod(req, res);
     // GET /api/crm?action=reminders → cobros y seguimientos
     if (req.method === 'GET' && action === 'reminders') return getReminders(req, res);
+    // GET /api/crm?action=ai-followup&id=uuid → asistente de seguimiento
+    if (req.method === 'GET' && action === 'ai-followup' && id) return getAiFollowup(req, res, id);
     // GET/PATCH settings fiscales (activar impuesto por país)
     if (req.method === 'GET'   && action === 'settings') return getSettings(req, res);
     if (req.method === 'PATCH' && action === 'settings') return updateSettings(req, res);

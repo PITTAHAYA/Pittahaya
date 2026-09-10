@@ -295,6 +295,72 @@ async function loadLeadInvoices() {
   }
 }
 
+// ── Asistente de seguimiento (IA + automatización) ──
+let followupPlan = null;
+const CHANNEL = { whatsapp: '💬 WhatsApp', email: '✉️ Email', call: '📞 Llamada' };
+function fdate(days) { const d = new Date(); d.setDate(d.getDate() + (Number(days) || 0)); return d.toISOString().slice(0, 10); }
+
+async function generateFollowup() {
+  const btn = document.getElementById('aiGenBtn');
+  btn.disabled = true; btn.textContent = 'Analizando…';
+  try {
+    const { plan, aiEnabled } = await api({ action: 'ai-followup', id: leadId });
+    followupPlan = plan;
+    const badge = document.getElementById('aiBadge');
+    if (plan.source === 'ai') { badge.textContent = 'IA activa'; badge.style.color = '#8ee6bf'; badge.style.borderColor = 'rgba(52,211,153,.4)'; }
+    else { badge.textContent = aiEnabled ? 'Automático' : 'Automático · sin clave IA'; badge.style.color = 'var(--gold-light)'; badge.style.borderColor = 'rgba(201,148,58,.4)'; }
+    renderFollowup(plan);
+  } catch (e) {
+    toast('No se pudo generar: ' + (e.message || e), true);
+    btn.disabled = false; btn.textContent = '✨ Generar plan de seguimiento';
+  }
+}
+
+function renderFollowup(plan) {
+  const en = plan.language === 'en';
+  const uColor = { high: '#f87171', medium: '#fbbf24', low: '#34d399' }[plan.urgency] || '#fbbf24';
+  const uLabel = { high: en?'High':'Alta', medium: en?'Medium':'Media', low: en?'Low':'Baja' }[plan.urgency];
+  const steps = (plan.cadence || []).map((s, i) => `
+    <div style="border:1px solid var(--border);border-radius:6px;padding:10px 12px;margin-bottom:8px;background:var(--onyx-2,#111)">
+      <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--gold-light);margin-bottom:4px">
+        <span>${en?'Day':'Día'} ${s.day} · ${CHANNEL[s.channel]||s.channel}</span><span style="color:var(--ash)">${esc(s.goal)}</span>
+      </div>
+      <div style="font-size:12.5px;color:#ddd;line-height:1.5">${esc(s.message)}</div>
+      <button class="btn" style="margin-top:8px;font-size:11px;padding:5px 9px" onclick='copyMsg(${JSON.stringify(s.message)})'>📋 ${en?'Copy':'Copiar'}</button>
+    </div>`).join('');
+  document.getElementById('aiBody').innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:${uColor};border:1px solid ${uColor}55;border-radius:20px;padding:2px 9px">${en?'Urgency':'Urgencia'}: ${uLabel}</span>
+    </div>
+    <div style="font-size:14px;color:#efe9dd;font-weight:600;margin-bottom:4px">${esc(plan.nextAction)}</div>
+    <div style="font-size:12px;color:var(--ash);line-height:1.5;margin-bottom:12px">${esc(plan.reasoning)}</div>
+    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);margin-bottom:8px">${en?'Follow-up cadence':'Cadencia de seguimiento'}</div>
+    ${steps}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <button class="save-btn" style="margin-top:0;flex:1" onclick="applyFollowupTasks()">📅 ${en?'Schedule as tasks':'Programar como tareas'}</button>
+      <button class="btn" onclick="generateFollowup()">↻ ${en?'Regenerate':'Regenerar'}</button>
+    </div>`;
+}
+
+async function copyMsg(text) {
+  try { await navigator.clipboard.writeText(text); toast('Mensaje copiado'); }
+  catch (e) { prompt('Copia el mensaje:', text); }
+}
+
+// Automatización: crea una tarea con fecha por cada paso de la cadencia.
+async function applyFollowupTasks() {
+  if (!followupPlan || !followupPlan.cadence) return;
+  const en = followupPlan.language === 'en';
+  try {
+    for (const s of followupPlan.cadence) {
+      const title = `${CHANNEL[s.channel] || s.channel} · ${s.goal}`;
+      await api({ action: 'task', id: leadId }, 'POST', { title, due_date: fdate(s.day) });
+    }
+    toast(en ? 'Follow-up scheduled as tasks ✓' : 'Seguimiento programado como tareas ✓');
+    setTimeout(() => loadLead(), 700);
+  } catch (e) { toast('Error: ' + (e.message || e), true); }
+}
+
 function renderPage(lead, notes, tasks) {
   const main = document.getElementById('main');
   const priorityDot = `<span class="dot dot-${lead.priority}" style="margin-right:4px"></span>`;
@@ -478,6 +544,18 @@ function renderPage(lead, notes, tasks) {
             </div>
           </div>
           <button class="save-btn" id="saveFinanceBtn" onclick="saveFinance()">Guardar finanzas</button>
+        </div>
+
+        <!-- Asistente de seguimiento (IA + automatización) -->
+        <div class="card" id="aiCard">
+          <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <span>Asistente de seguimiento</span>
+            <span id="aiBadge" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);border:1px solid var(--border);border-radius:20px;padding:2px 8px">IA</span>
+          </div>
+          <div id="aiBody">
+            <p style="font-size:12.5px;color:var(--ash);line-height:1.5;margin-bottom:12px">Genera la próxima mejor acción, una cadencia de mensajes lista para enviar y prográmala como tareas — en el idioma del cliente.</p>
+            <button class="save-btn" id="aiGenBtn" style="margin-top:0" onclick="generateFollowup()">✨ Generar plan de seguimiento</button>
+          </div>
         </div>
 
         <!-- Facturas de este cliente -->
