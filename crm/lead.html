@@ -186,7 +186,7 @@
 <nav class="sidebar">
   <div class="sidebar-brand">
     <div class="sidebar-logo">Pittahaya</div>
-    <div class="sidebar-crm-label">CRM · Panel Admin</div>
+    <div class="sidebar-crm-label" data-i18n="crm_label">CRM · Panel Admin</div>
   </div>
   <div class="sidebar-nav">
     <a href="/crm/index.html" class="nav-item">
@@ -195,13 +195,14 @@
     </a>
   </div>
   <div class="sidebar-footer">
-    <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    <button class="btn-logout" id="langBtn" onclick="toggleLang()" style="margin-bottom:8px" title="Español / English">EN</button>
+    <button class="btn-logout" onclick="logout()" data-i18n="logout">Cerrar sesión</button>
   </div>
 </nav>
 
 <!-- Main -->
 <main class="main" id="main">
-  <div class="loading"><div class="loading-spinner"></div>Cargando lead...</div>
+  <div class="loading"><div class="loading-spinner"></div><span data-i18n="loading_lead">Cargando lead...</span></div>
 </main>
 
 <div class="toast" id="toast"></div>
@@ -225,6 +226,77 @@ let authToken = null;
 let leadId    = null;
 let leadData  = null;
 
+// ── i18n (español / inglés) — comparte el idioma con el dashboard ──
+let LANG = (() => { try { return localStorage.getItem('crm_lang') || 'es'; } catch { return 'es'; } })();
+const I18N = {
+  es: {
+    crm_label:'CRM · Panel Admin', logout:'Cerrar sesión', loading_lead:'Cargando lead…',
+    back:'Volver al dashboard', lead_since:(n)=>`Lead hace ${n} día${n!==1?'s':''}`,
+    invoice_receipt:'Factura / Recibo', send_email:'Enviar email', delete:'Eliminar',
+    client_info:'Información del cliente', f_name:'Nombre', f_email:'Email', f_phone:'Teléfono', f_company:'Empresa',
+    f_service:'Servicio solicitado', f_plan:'Plan seleccionado', f_source:'Fuente', f_demo:'Demo visto',
+    f_contact_date:'Fecha de contacto', f_updated:'Última actualización', f_utm:'UTM Source',
+    client_message:'Mensaje del cliente',
+    private_notes:'Notas privadas', add_note_ph:'Agregar una nota privada…', your_name:'Tu nombre', add_note:'Agregar nota', no_notes:'Sin notas aún. Agrega la primera nota privada.',
+    lead_status:'Estado del lead', status:'Estado', priority:'Prioridad', save_changes:'Guardar cambios',
+    st_new:'Nuevo', st_contacted:'Contactado', st_qualified:'Calificado', st_proposal:'Propuesta enviada', st_won:'Ganado ✓', st_lost:'Perdido ✗',
+    pr_cold:'❄️ Frío', pr_warm:'🌡️ Tibio', pr_hot:'🔥 Caliente',
+    contact:'Contacto', social:'Redes sociales', social_ph:'@instagram · Facebook · enlaces…', save_contact:'Guardar contacto',
+    finance:'Finanzas y avance', deal_value:'Valor del trato', paid:'Pagado', payment_status:'Estado de pago',
+    pay_unpaid:'Sin pagar', pay_deposit:'Anticipo', pay_partial:'Parcial', pay_paid:'Pagado ✓',
+    country_cur:'País (fija la moneda)', tax_charged:'Impuesto cobrado (IVA/GST)', withholding:'Retención',
+    project_stage:'Etapa del proyecto', stage_none:'— Sin iniciar', stg_diagnosis:'Diagnóstico', stg_design:'Diseño', stg_review:'Revisión', stg_launch:'Publicación', stg_delivered:'Entregado ✓',
+    due_date:'Vence el cobro', next_followup:'Próximo seguimiento', save_finance:'Guardar finanzas',
+    ai_title:'Asistente de seguimiento', ai_intro:'Genera la próxima mejor acción, una cadencia de mensajes lista para enviar y prográmala como tareas — en el idioma del cliente.', ai_generate:'✨ Generar plan de seguimiento', ai_analyzing:'Analizando…',
+    ai_active:'IA activa', ai_auto:'Automático', ai_auto_nokey:'Automático · sin clave IA', ai_failed:'No se pudo generar: ',
+    invoices_title:'Facturas de este cliente', invoices_empty:'Aún no hay facturas para este cliente.', invoices_loading:'Cargando…', gen_invoice:'+ Generar factura / recibo', inv_paid:'Pagada', inv_balance:'Saldo',
+    tasks_title:'Tareas y recordatorios', task_ph:'Nueva tarea…', task_add:'+ Agregar', no_tasks:'Sin tareas. Agrega recordatorios de seguimiento.', task_due:'Vence:',
+    quick:'Acciones rápidas', send_proposal:'Enviar propuesta por email', whatsapp:'WhatsApp',
+    t_status:'Estado actualizado', t_contact:'Contacto actualizado', t_finance:'Finanzas actualizadas', t_note_add:'Nota agregada', t_note_del:'Nota eliminada', t_task_add:'Tarea agregada', t_task_del:'Tarea eliminada', t_saving:'Guardando…', t_copied:'Mensaje copiado', t_scheduled:'Seguimiento programado como tareas ✓', t_error:'Error: ',
+    c_del_lead:'¿Eliminar este lead de forma permanente? También se borrarán sus notas y tareas. Esta acción no se puede deshacer.', c_del_note:'¿Eliminar esta nota?', c_del_task:'¿Eliminar esta tarea?',
+    load_error:'Error al cargar el lead. ', back_dash:'Volver al dashboard', lang_btn:'EN'
+  },
+  en: {
+    crm_label:'CRM · Admin Panel', logout:'Sign out', loading_lead:'Loading lead…',
+    back:'Back to dashboard', lead_since:(n)=>`Lead ${n} day${n!==1?'s':''} ago`,
+    invoice_receipt:'Invoice / Receipt', send_email:'Send email', delete:'Delete',
+    client_info:'Client information', f_name:'Name', f_email:'Email', f_phone:'Phone', f_company:'Company',
+    f_service:'Service requested', f_plan:'Selected plan', f_source:'Source', f_demo:'Demo viewed',
+    f_contact_date:'Contact date', f_updated:'Last updated', f_utm:'UTM Source',
+    client_message:'Client message',
+    private_notes:'Private notes', add_note_ph:'Add a private note…', your_name:'Your name', add_note:'Add note', no_notes:'No notes yet. Add the first private note.',
+    lead_status:'Lead status', status:'Status', priority:'Priority', save_changes:'Save changes',
+    st_new:'New', st_contacted:'Contacted', st_qualified:'Qualified', st_proposal:'Proposal sent', st_won:'Won ✓', st_lost:'Lost ✗',
+    pr_cold:'❄️ Cold', pr_warm:'🌡️ Warm', pr_hot:'🔥 Hot',
+    contact:'Contact', social:'Social media', social_ph:'@instagram · Facebook · links…', save_contact:'Save contact',
+    finance:'Finance & progress', deal_value:'Deal value', paid:'Paid', payment_status:'Payment status',
+    pay_unpaid:'Unpaid', pay_deposit:'Deposit', pay_partial:'Partial', pay_paid:'Paid ✓',
+    country_cur:'Country (sets currency)', tax_charged:'Tax charged (VAT/GST)', withholding:'Withholding',
+    project_stage:'Project stage', stage_none:'— Not started', stg_diagnosis:'Diagnosis', stg_design:'Design', stg_review:'Review', stg_launch:'Launch', stg_delivered:'Delivered ✓',
+    due_date:'Payment due', next_followup:'Next follow-up', save_finance:'Save finance',
+    ai_title:'Follow-up assistant', ai_intro:'Generates the next best action, a ready-to-send message cadence, and schedules it as tasks — in the client’s language.', ai_generate:'✨ Generate follow-up plan', ai_analyzing:'Analyzing…',
+    ai_active:'AI active', ai_auto:'Automatic', ai_auto_nokey:'Automatic · no AI key', ai_failed:'Could not generate: ',
+    invoices_title:'Invoices for this client', invoices_empty:'No invoices for this client yet.', invoices_loading:'Loading…', gen_invoice:'+ Generate invoice / receipt', inv_paid:'Paid', inv_balance:'Balance',
+    tasks_title:'Tasks & reminders', task_ph:'New task…', task_add:'+ Add', no_tasks:'No tasks. Add follow-up reminders.', task_due:'Due:',
+    quick:'Quick actions', send_proposal:'Send proposal by email', whatsapp:'WhatsApp',
+    t_status:'Status updated', t_contact:'Contact updated', t_finance:'Finance updated', t_note_add:'Note added', t_note_del:'Note deleted', t_task_add:'Task added', t_task_del:'Task deleted', t_saving:'Saving…', t_copied:'Message copied', t_scheduled:'Follow-up scheduled as tasks ✓', t_error:'Error: ',
+    c_del_lead:'Permanently delete this lead? Its notes and tasks will also be deleted. This cannot be undone.', c_del_note:'Delete this note?', c_del_task:'Delete this task?',
+    load_error:'Could not load the lead. ', back_dash:'Back to dashboard', lang_btn:'ES'
+  }
+};
+function t(k){ return (I18N[LANG] && I18N[LANG][k] !== undefined) ? I18N[LANG][k] : (I18N.es[k] !== undefined ? I18N.es[k] : k); }
+function applySidebarI18n(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.getAttribute('data-i18n'); if (I18N[LANG][k] !== undefined) el.textContent = I18N[LANG][k]; });
+  const lb = document.getElementById('langBtn'); if (lb) lb.textContent = I18N[LANG].lang_btn;
+}
+function toggleLang(){
+  LANG = LANG === 'es' ? 'en' : 'es';
+  try { localStorage.setItem('crm_lang', LANG); } catch {}
+  applySidebarI18n();
+  if (leadData) renderPage(leadData.lead, leadData.notes, leadData.tasks), loadLeadInvoices();
+}
+
 async function loadCrmConfig() {
   const res = await fetch('/api/crm-config', { headers: { 'Accept': 'application/json' } });
   const config = await res.json().catch(() => ({}));
@@ -245,6 +317,7 @@ async function init() {
   const params = new URLSearchParams(location.search);
   leadId = params.get('id');
   if (!leadId) { window.location.href = '/crm/index.html'; return; }
+  applySidebarI18n();
   await loadLead();
 }
 
@@ -269,7 +342,7 @@ async function loadLead() {
     renderPage(data.lead, data.notes, data.tasks);
     loadLeadInvoices();
   } catch(e) {
-    document.getElementById('main').innerHTML = `<div class="loading">Error al cargar el lead. <a href="/crm/index.html" style="color:var(--gold)">Volver al dashboard</a></div>`;
+    document.getElementById('main').innerHTML = `<div class="loading">${t('load_error')}<a href="/crm/index.html" style="color:var(--gold)">${t('back_dash')}</a></div>`;
   }
 }
 
@@ -277,21 +350,21 @@ async function loadLeadInvoices() {
   const el = document.getElementById('leadInvoices');
   if (!el) return;
   const fmt = (n) => '$' + (Number(n) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const DOC = { factura: 'Factura', recibo: 'Recibo' };
+  const DOC = LANG === 'en' ? { factura: 'Invoice', recibo: 'Receipt' } : { factura: 'Factura', recibo: 'Recibo' };
   try {
     const { invoices } = await api({ action: 'invoices', lead_id: leadId });
     const rows = invoices || [];
-    if (!rows.length) { el.innerHTML = '<div style="font-size:12px;color:var(--ash);padding:4px 0">Aún no hay facturas para este cliente.</div>'; return; }
+    if (!rows.length) { el.innerHTML = `<div style="font-size:12px;color:var(--ash);padding:4px 0">${t('invoices_empty')}</div>`; return; }
     el.innerHTML = rows.map(inv => {
       const bal = Math.max(0, (Number(inv.total) || 0) - (Number(inv.amount_paid) || 0));
       const flag = inv.country === 'ca' ? '🇨🇦' : '🇪🇨';
       return `<a href="/crm/invoice.html?invoice=${inv.id}" style="display:flex;justify-content:space-between;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);text-decoration:none;color:#ddd;font-size:12.5px">
-        <span>${flag} <b style="color:var(--gold-light)">${esc(inv.number || '—')}</b> · ${DOC[inv.doc_type] || 'Factura'}<br><span style="color:var(--ash);font-size:11px">${(inv.issue_date||'').slice(0,10)}</span></span>
-        <span style="text-align:right;white-space:nowrap">${fmt(inv.total)} ${esc(inv.currency||'')}<br><span style="font-size:11px;color:${bal<=0.001?'#34d399':'#fbbf24'}">${bal<=0.001?'Pagada':'Saldo '+fmt(bal)}</span></span>
+        <span>${flag} <b style="color:var(--gold-light)">${esc(inv.number || '—')}</b> · ${DOC[inv.doc_type] || DOC.factura}<br><span style="color:var(--ash);font-size:11px">${(inv.issue_date||'').slice(0,10)}</span></span>
+        <span style="text-align:right;white-space:nowrap">${fmt(inv.total)} ${esc(inv.currency||'')}<br><span style="font-size:11px;color:${bal<=0.001?'#34d399':'#fbbf24'}">${bal<=0.001?t('inv_paid'):t('inv_balance')+' '+fmt(bal)}</span></span>
       </a>`;
     }).join('');
   } catch (e) {
-    el.innerHTML = `<div style="font-size:12px;color:var(--ash)">No se pudo cargar: ${esc(String(e.message||e)).slice(0,80)}</div>`;
+    el.innerHTML = `<div style="font-size:12px;color:var(--ash)">${esc(String(e.message||e)).slice(0,80)}</div>`;
   }
 }
 
@@ -302,17 +375,17 @@ function fdate(days) { const d = new Date(); d.setDate(d.getDate() + (Number(day
 
 async function generateFollowup() {
   const btn = document.getElementById('aiGenBtn');
-  btn.disabled = true; btn.textContent = 'Analizando…';
+  btn.disabled = true; btn.textContent = t('ai_analyzing');
   try {
     const { plan, aiEnabled } = await api({ action: 'ai-followup', id: leadId });
     followupPlan = plan;
     const badge = document.getElementById('aiBadge');
-    if (plan.source === 'ai') { badge.textContent = 'IA activa'; badge.style.color = '#8ee6bf'; badge.style.borderColor = 'rgba(52,211,153,.4)'; }
-    else { badge.textContent = aiEnabled ? 'Automático' : 'Automático · sin clave IA'; badge.style.color = 'var(--gold-light)'; badge.style.borderColor = 'rgba(201,148,58,.4)'; }
+    if (plan.source === 'ai') { badge.textContent = t('ai_active'); badge.style.color = '#8ee6bf'; badge.style.borderColor = 'rgba(52,211,153,.4)'; }
+    else { badge.textContent = aiEnabled ? t('ai_auto') : t('ai_auto_nokey'); badge.style.color = 'var(--gold-light)'; badge.style.borderColor = 'rgba(201,148,58,.4)'; }
     renderFollowup(plan);
   } catch (e) {
-    toast('No se pudo generar: ' + (e.message || e), true);
-    btn.disabled = false; btn.textContent = '✨ Generar plan de seguimiento';
+    toast(t('ai_failed') + (e.message || e), true);
+    btn.disabled = false; btn.textContent = t('ai_generate');
   }
 }
 
@@ -343,22 +416,21 @@ function renderFollowup(plan) {
 }
 
 async function copyMsg(text) {
-  try { await navigator.clipboard.writeText(text); toast('Mensaje copiado'); }
-  catch (e) { prompt('Copia el mensaje:', text); }
+  try { await navigator.clipboard.writeText(text); toast(t('t_copied')); }
+  catch (e) { prompt(LANG==='en'?'Copy the message:':'Copia el mensaje:', text); }
 }
 
 // Automatización: crea una tarea con fecha por cada paso de la cadencia.
 async function applyFollowupTasks() {
   if (!followupPlan || !followupPlan.cadence) return;
-  const en = followupPlan.language === 'en';
   try {
     for (const s of followupPlan.cadence) {
       const title = `${CHANNEL[s.channel] || s.channel} · ${s.goal}`;
       await api({ action: 'task', id: leadId }, 'POST', { title, due_date: fdate(s.day) });
     }
-    toast(en ? 'Follow-up scheduled as tasks ✓' : 'Seguimiento programado como tareas ✓');
+    toast(t('t_scheduled'));
     setTimeout(() => loadLead(), 700);
-  } catch (e) { toast('Error: ' + (e.message || e), true); }
+  } catch (e) { toast(t('t_error') + (e.message || e), true); }
 }
 
 function renderPage(lead, notes, tasks) {
@@ -371,21 +443,21 @@ function renderPage(lead, notes, tasks) {
       <div>
         <a href="/crm/index.html" class="back-link">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          Volver al dashboard
+          ${t('back')}
         </a>
         <h1 class="lead-name-header">${esc(lead.name)}</h1>
         <div class="lead-meta-header">
           <span>${esc(lead.email)}</span>
           ${lead.phone ? `<span>📞 ${esc(lead.phone)}</span>` : ''}
-          <span>Lead hace ${since} día${since !== 1 ? 's' : ''}</span>
+          <span>${t('lead_since')(since)}</span>
           <span><span class="badge badge-${lead.status}">${statusLabel(lead.status)}</span></span>
-          <span>${priorityDot}${lead.priority}</span>
+          <span>${priorityDot}${priorityLabel(lead.priority)}</span>
         </div>
       </div>
       <div class="header-actions">
-        <a href="/crm/invoice.html?id=${lead.id}" class="btn">Factura / Recibo</a>
-        <a href="mailto:${esc(lead.email)}" class="btn">Enviar email</a>
-        <button class="btn btn-danger" onclick="deleteLead()">Eliminar</button>
+        <a href="/crm/invoice.html?id=${lead.id}" class="btn">${t('invoice_receipt')}</a>
+        <a href="mailto:${esc(lead.email)}" class="btn">${t('send_email')}</a>
+        <button class="btn btn-danger" onclick="deleteLead()">${t('delete')}</button>
       </div>
     </div>
 
@@ -394,39 +466,39 @@ function renderPage(lead, notes, tasks) {
       <div>
         <!-- Contact info -->
         <div class="card">
-          <div class="card-title">Información del cliente</div>
+          <div class="card-title">${t('client_info')}</div>
           <div class="info-grid">
-            <div class="info-item"><label>Nombre</label><div class="val">${esc(lead.name)}</div></div>
-            <div class="info-item"><label>Email</label><div class="val"><a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a></div></div>
-            ${lead.phone ? `<div class="info-item"><label>Teléfono</label><div class="val">${esc(lead.phone)}</div></div>` : ''}
-            ${lead.company ? `<div class="info-item"><label>Empresa</label><div class="val">${esc(lead.company)}</div></div>` : ''}
-            <div class="info-item"><label>Servicio solicitado</label><div class="val">${esc(lead.service) || '—'}</div></div>
-            <div class="info-item"><label>Plan seleccionado</label><div class="val">${esc(lead.plan) || '—'}</div></div>
-            <div class="info-item"><label>Fuente</label><div class="val" style="font-size:11px">${esc(lead.source_page) || '—'}</div></div>
-            ${lead.source_demo ? `<div class="info-item"><label>Demo visto</label><div class="val">${esc(lead.source_demo)}</div></div>` : ''}
-            <div class="info-item"><label>Fecha de contacto</label><div class="val">${formatDateTime(lead.created_at)}</div></div>
-            <div class="info-item"><label>Última actualización</label><div class="val">${formatDateTime(lead.updated_at)}</div></div>
-            ${lead.utm_source ? `<div class="info-item"><label>UTM Source</label><div class="val">${esc(lead.utm_source)}</div></div>` : ''}
+            <div class="info-item"><label>${t('f_name')}</label><div class="val">${esc(lead.name)}</div></div>
+            <div class="info-item"><label>${t('f_email')}</label><div class="val"><a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a></div></div>
+            ${lead.phone ? `<div class="info-item"><label>${t('f_phone')}</label><div class="val">${esc(lead.phone)}</div></div>` : ''}
+            ${lead.company ? `<div class="info-item"><label>${t('f_company')}</label><div class="val">${esc(lead.company)}</div></div>` : ''}
+            <div class="info-item"><label>${t('f_service')}</label><div class="val">${esc(lead.service) || '—'}</div></div>
+            <div class="info-item"><label>${t('f_plan')}</label><div class="val">${esc(lead.plan) || '—'}</div></div>
+            <div class="info-item"><label>${t('f_source')}</label><div class="val" style="font-size:11px">${esc(lead.source_page) || '—'}</div></div>
+            ${lead.source_demo ? `<div class="info-item"><label>${t('f_demo')}</label><div class="val">${esc(lead.source_demo)}</div></div>` : ''}
+            <div class="info-item"><label>${t('f_contact_date')}</label><div class="val">${formatDateTime(lead.created_at)}</div></div>
+            <div class="info-item"><label>${t('f_updated')}</label><div class="val">${formatDateTime(lead.updated_at)}</div></div>
+            ${lead.utm_source ? `<div class="info-item"><label>${t('f_utm')}</label><div class="val">${esc(lead.utm_source)}</div></div>` : ''}
           </div>
         </div>
 
         <!-- Message -->
         ${lead.message ? `
         <div class="card">
-          <div class="card-title">Mensaje del cliente</div>
+          <div class="card-title">${t('client_message')}</div>
           <div class="message-box">${esc(lead.message)}</div>
         </div>` : ''}
 
         <!-- Notes -->
         <div class="card">
-          <div class="card-title">Notas privadas</div>
+          <div class="card-title">${t('private_notes')}</div>
           <div id="notesList">
             ${renderNotes(notes)}
           </div>
-          <textarea id="newNote" placeholder="Agregar una nota privada..."></textarea>
+          <textarea id="newNote" placeholder="${t('add_note_ph')}"></textarea>
           <div style="display:flex; gap:10px; margin-top:10px;">
-            <input type="text" id="noteAuthor" placeholder="Tu nombre" value="Admin" style="width:140px">
-            <button class="save-btn" style="margin-top:0" onclick="addNote()">Agregar nota</button>
+            <input type="text" id="noteAuthor" placeholder="${t('your_name')}" value="Admin" style="width:140px">
+            <button class="save-btn" style="margin-top:0" onclick="addNote()">${t('add_note')}</button>
           </div>
         </div>
       </div>
@@ -435,49 +507,49 @@ function renderPage(lead, notes, tasks) {
       <div>
         <!-- Status & Priority -->
         <div class="card">
-          <div class="card-title">Estado del lead</div>
+          <div class="card-title">${t('lead_status')}</div>
           <div class="select-row">
             <div class="select-group">
-              <label>Estado</label>
+              <label>${t('status')}</label>
               <select id="selectStatus">
-                <option value="new"           ${lead.status==='new'?'selected':''}>Nuevo</option>
-                <option value="contacted"     ${lead.status==='contacted'?'selected':''}>Contactado</option>
-                <option value="qualified"     ${lead.status==='qualified'?'selected':''}>Calificado</option>
-                <option value="proposal_sent" ${lead.status==='proposal_sent'?'selected':''}>Propuesta enviada</option>
-                <option value="won"           ${lead.status==='won'?'selected':''}>Ganado ✓</option>
-                <option value="lost"          ${lead.status==='lost'?'selected':''}>Perdido ✗</option>
+                <option value="new"           ${lead.status==='new'?'selected':''}>${t('st_new')}</option>
+                <option value="contacted"     ${lead.status==='contacted'?'selected':''}>${t('st_contacted')}</option>
+                <option value="qualified"     ${lead.status==='qualified'?'selected':''}>${t('st_qualified')}</option>
+                <option value="proposal_sent" ${lead.status==='proposal_sent'?'selected':''}>${t('st_proposal')}</option>
+                <option value="won"           ${lead.status==='won'?'selected':''}>${t('st_won')}</option>
+                <option value="lost"          ${lead.status==='lost'?'selected':''}>${t('st_lost')}</option>
               </select>
             </div>
             <div class="select-group">
-              <label>Prioridad</label>
+              <label>${t('priority')}</label>
               <select id="selectPriority">
-                <option value="cold" ${lead.priority==='cold'?'selected':''}>❄️ Frío</option>
-                <option value="warm" ${lead.priority==='warm'?'selected':''}>🌡️ Tibio</option>
-                <option value="hot"  ${lead.priority==='hot'?'selected':''}>🔥 Caliente</option>
+                <option value="cold" ${lead.priority==='cold'?'selected':''}>${t('pr_cold')}</option>
+                <option value="warm" ${lead.priority==='warm'?'selected':''}>${t('pr_warm')}</option>
+                <option value="hot"  ${lead.priority==='hot'?'selected':''}>${t('pr_hot')}</option>
               </select>
             </div>
           </div>
-          <button class="save-btn" id="saveStatusBtn" onclick="saveStatus()">Guardar cambios</button>
+          <button class="save-btn" id="saveStatusBtn" onclick="saveStatus()">${t('save_changes')}</button>
         </div>
 
         <!-- Contacto (editable) -->
         <div class="card">
-          <div class="card-title">Contacto</div>
+          <div class="card-title">${t('contact')}</div>
           <div class="select-group">
-            <label>Teléfono</label>
+            <label>${t('f_phone')}</label>
             <input type="text" id="cPhone" value="${esc(lead.phone || '')}" placeholder="+593 99 999 9999">
           </div>
           <div class="select-group" style="margin-top:12px">
-            <label>Redes sociales</label>
-            <input type="text" id="cSocial" value="${esc(lead.social || '')}" placeholder="@instagram · Facebook · enlaces…">
+            <label>${t('social')}</label>
+            <input type="text" id="cSocial" value="${esc(lead.social || '')}" placeholder="${t('social_ph')}">
           </div>
-          <button class="save-btn" id="saveContactBtn" onclick="saveContact()">Guardar contacto</button>
+          <button class="save-btn" id="saveContactBtn" onclick="saveContact()">${t('save_contact')}</button>
         </div>
 
         <!-- Finanzas y avance -->
         <div class="card">
-          <div class="card-title">Finanzas y avance</div>
-          <div class="stage-bar" title="Avance del proyecto">
+          <div class="card-title">${t('finance')}</div>
+          <div class="stage-bar" title="${t('project_stage')}">
             ${['diagnosis','design','review','launch','delivered'].map(st => {
               const order = ['diagnosis','design','review','launch','delivered'];
               const on = lead.project_stage && order.indexOf(lead.project_stage) >= order.indexOf(st);
@@ -486,107 +558,107 @@ function renderPage(lead, notes, tasks) {
           </div>
           <div class="select-row">
             <div class="select-group">
-              <label>Valor del trato</label>
+              <label>${t('deal_value')}</label>
               <input type="number" id="fDeal" min="0" step="any" value="${lead.deal_value != null ? lead.deal_value : ''}" placeholder="0">
             </div>
             <div class="select-group">
-              <label>Pagado</label>
+              <label>${t('paid')}</label>
               <input type="number" id="fPaid" min="0" step="any" value="${lead.amount_paid != null ? lead.amount_paid : ''}" placeholder="0">
             </div>
           </div>
           <div class="select-row" style="margin-top:12px">
             <div class="select-group">
-              <label>Estado de pago</label>
+              <label>${t('payment_status')}</label>
               <select id="fPayment">
-                <option value="unpaid"  ${lead.payment_status==='unpaid'?'selected':''}>Sin pagar</option>
-                <option value="deposit" ${lead.payment_status==='deposit'?'selected':''}>Anticipo</option>
-                <option value="partial" ${lead.payment_status==='partial'?'selected':''}>Parcial</option>
-                <option value="paid"    ${lead.payment_status==='paid'?'selected':''}>Pagado ✓</option>
+                <option value="unpaid"  ${lead.payment_status==='unpaid'?'selected':''}>${t('pay_unpaid')}</option>
+                <option value="deposit" ${lead.payment_status==='deposit'?'selected':''}>${t('pay_deposit')}</option>
+                <option value="partial" ${lead.payment_status==='partial'?'selected':''}>${t('pay_partial')}</option>
+                <option value="paid"    ${lead.payment_status==='paid'?'selected':''}>${t('pay_paid')}</option>
               </select>
             </div>
             <div class="select-group">
-              <label>País (fija la moneda)</label>
+              <label>${t('country_cur')}</label>
               <select id="fCountry">
                 <option value="ec" ${lead.country!=='ca'?'selected':''}>🇪🇨 Ecuador · USD</option>
-                <option value="ca" ${lead.country==='ca'?'selected':''}>🇨🇦 Canadá · CAD</option>
+                <option value="ca" ${lead.country==='ca'?'selected':''}>🇨🇦 ${LANG==='en'?'Canada':'Canadá'} · CAD</option>
               </select>
             </div>
           </div>
           <div class="select-row" style="margin-top:12px">
             <div class="select-group">
-              <label>Impuesto cobrado (IVA/GST)</label>
+              <label>${t('tax_charged')}</label>
               <input type="number" id="fTax" min="0" step="any" value="${lead.tax_amount != null ? lead.tax_amount : ''}" placeholder="0">
             </div>
             <div class="select-group">
-              <label>Retención</label>
+              <label>${t('withholding')}</label>
               <input type="number" id="fWithholding" min="0" step="any" value="${lead.withholding != null ? lead.withholding : ''}" placeholder="0">
             </div>
           </div>
           <div class="select-group" style="margin-top:12px">
-            <label>Etapa del proyecto</label>
+            <label>${t('project_stage')}</label>
             <select id="fStage">
-              <option value=""           ${!lead.project_stage?'selected':''}>— Sin iniciar</option>
-              <option value="diagnosis"  ${lead.project_stage==='diagnosis'?'selected':''}>Diagnóstico</option>
-              <option value="design"     ${lead.project_stage==='design'?'selected':''}>Diseño</option>
-              <option value="review"     ${lead.project_stage==='review'?'selected':''}>Revisión</option>
-              <option value="launch"     ${lead.project_stage==='launch'?'selected':''}>Publicación</option>
-              <option value="delivered"  ${lead.project_stage==='delivered'?'selected':''}>Entregado ✓</option>
+              <option value=""           ${!lead.project_stage?'selected':''}>${t('stage_none')}</option>
+              <option value="diagnosis"  ${lead.project_stage==='diagnosis'?'selected':''}>${t('stg_diagnosis')}</option>
+              <option value="design"     ${lead.project_stage==='design'?'selected':''}>${t('stg_design')}</option>
+              <option value="review"     ${lead.project_stage==='review'?'selected':''}>${t('stg_review')}</option>
+              <option value="launch"     ${lead.project_stage==='launch'?'selected':''}>${t('stg_launch')}</option>
+              <option value="delivered"  ${lead.project_stage==='delivered'?'selected':''}>${t('stg_delivered')}</option>
             </select>
           </div>
           <div class="select-row" style="margin-top:12px">
             <div class="select-group">
-              <label>Vence el cobro</label>
+              <label>${t('due_date')}</label>
               <input type="date" id="fDue" value="${(lead.payment_due || '').slice(0,10)}">
             </div>
             <div class="select-group">
-              <label>Próximo seguimiento</label>
+              <label>${t('next_followup')}</label>
               <input type="date" id="fFollowup" value="${(lead.next_followup || '').slice(0,10)}">
             </div>
           </div>
-          <button class="save-btn" id="saveFinanceBtn" onclick="saveFinance()">Guardar finanzas</button>
+          <button class="save-btn" id="saveFinanceBtn" onclick="saveFinance()">${t('save_finance')}</button>
         </div>
 
         <!-- Asistente de seguimiento (IA + automatización) -->
         <div class="card" id="aiCard">
           <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-            <span>Asistente de seguimiento</span>
+            <span>${t('ai_title')}</span>
             <span id="aiBadge" style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);border:1px solid var(--border);border-radius:20px;padding:2px 8px">IA</span>
           </div>
           <div id="aiBody">
-            <p style="font-size:12.5px;color:var(--ash);line-height:1.5;margin-bottom:12px">Genera la próxima mejor acción, una cadencia de mensajes lista para enviar y prográmala como tareas — en el idioma del cliente.</p>
-            <button class="save-btn" id="aiGenBtn" style="margin-top:0" onclick="generateFollowup()">✨ Generar plan de seguimiento</button>
+            <p style="font-size:12.5px;color:var(--ash);line-height:1.5;margin-bottom:12px">${t('ai_intro')}</p>
+            <button class="save-btn" id="aiGenBtn" style="margin-top:0" onclick="generateFollowup()">${t('ai_generate')}</button>
           </div>
         </div>
 
         <!-- Facturas de este cliente -->
         <div class="card">
-          <div class="card-title">Facturas de este cliente</div>
-          <div id="leadInvoices"><div class="loading" style="padding:6px 0;font-size:12px;color:var(--ash)">Cargando…</div></div>
-          <a href="/crm/invoice.html?id=${lead.id}" class="save-btn" style="display:block;text-align:center;text-decoration:none;margin-top:12px">+ Generar factura / recibo</a>
+          <div class="card-title">${t('invoices_title')}</div>
+          <div id="leadInvoices"><div class="loading" style="padding:6px 0;font-size:12px;color:var(--ash)">${t('invoices_loading')}</div></div>
+          <a href="/crm/invoice.html?id=${lead.id}" class="save-btn" style="display:block;text-align:center;text-decoration:none;margin-top:12px">${t('gen_invoice')}</a>
         </div>
 
         <!-- Tasks -->
         <div class="card">
-          <div class="card-title">Tareas y recordatorios</div>
+          <div class="card-title">${t('tasks_title')}</div>
           <div id="tasksList">
             ${renderTasks(tasks)}
           </div>
           <div class="add-row">
-            <input type="text" id="newTaskTitle" placeholder="Nueva tarea...">
+            <input type="text" id="newTaskTitle" placeholder="${t('task_ph')}">
             <input type="date" id="newTaskDate">
-            <button class="add-btn" onclick="addTask()">+ Agregar</button>
+            <button class="add-btn" onclick="addTask()">${t('task_add')}</button>
           </div>
         </div>
 
         <!-- Quick actions -->
         <div class="card">
-          <div class="card-title">Acciones rápidas</div>
+          <div class="card-title">${t('quick')}</div>
           <div style="display:flex; flex-direction:column; gap:10px;">
-            <a href="mailto:${esc(lead.email)}?subject=Propuesta Pittahaya para ${esc(lead.company || lead.name)}" class="btn" style="justify-content:center; width:100%;">
-              Enviar propuesta por email
+            <a href="mailto:${esc(lead.email)}?subject=${LANG==='en'?'Pittahaya proposal for':'Propuesta Pittahaya para'} ${esc(lead.company || lead.name)}" class="btn" style="justify-content:center; width:100%;">
+              ${t('send_proposal')}
             </a>
-            <a href="https://wa.me/${lead.phone?.replace(/\D/g,'')}?text=Hola ${encodeURIComponent(lead.name.split(' ')[0])}, te contacto de Pittahaya..." class="btn" target="_blank" rel="noopener noreferrer" style="justify-content:center; width:100%; ${!lead.phone?'opacity:0.4;pointer-events:none':''}">
-              WhatsApp
+            <a href="https://wa.me/${lead.phone?.replace(/\D/g,'')}?text=${LANG==='en'?encodeURIComponent('Hi '+lead.name.split(' ')[0]+', reaching out from Pittahaya...'):encodeURIComponent('Hola '+lead.name.split(' ')[0]+', te contacto de Pittahaya...')}" class="btn" target="_blank" rel="noopener noreferrer" style="justify-content:center; width:100%; ${!lead.phone?'opacity:0.4;pointer-events:none':''}">
+              ${t('whatsapp')}
             </a>
           </div>
         </div>
@@ -596,7 +668,7 @@ function renderPage(lead, notes, tasks) {
 }
 
 function renderNotes(notes) {
-  if (!notes || notes.length === 0) return '<div class="empty-state">Sin notas aún. Agrega la primera nota privada.</div>';
+  if (!notes || notes.length === 0) return `<div class="empty-state">${t('no_notes')}</div>`;
   return notes.map(n => `
     <div class="note-item" id="note-${n.id}">
       <div class="note-header">
@@ -612,7 +684,7 @@ function renderNotes(notes) {
 }
 
 function renderTasks(tasks) {
-  if (!tasks || tasks.length === 0) return '<div class="empty-state">Sin tareas. Agrega recordatorios de seguimiento.</div>';
+  if (!tasks || tasks.length === 0) return `<div class="empty-state">${t('no_tasks')}</div>`;
   return tasks.map(t => {
     const isOverdue = t.due_date && !t.completed && new Date(t.due_date) < new Date();
     return `
@@ -620,7 +692,7 @@ function renderTasks(tasks) {
       <input type="checkbox" class="task-check" ${t.completed?'checked':''} onchange="toggleTask('${t.id}', this.checked)">
       <div class="task-body">
         <div class="task-title ${t.completed?'done':''}">${esc(t.title)}</div>
-        ${t.due_date ? `<div class="task-due ${isOverdue?'overdue':''}">${isOverdue?'⚠ ':''} Vence: ${formatDate(t.due_date)}</div>` : ''}
+        ${t.due_date ? `<div class="task-due ${isOverdue?'overdue':''}">${isOverdue?'⚠ ':''} ${I18N[LANG].task_due} ${formatDate(t.due_date)}</div>` : ''}
       </div>
       <button class="task-delete" onclick="deleteTask('${t.id}')" title="Eliminar tarea">✕</button>
     </div>`;
@@ -629,42 +701,42 @@ function renderTasks(tasks) {
 
 // ── Actions ───────────────────────────────────────────────────
 async function deleteLead() {
-  if (!confirm('¿Eliminar este lead de forma permanente? También se borrarán sus notas y tareas. Esta acción no se puede deshacer.')) return;
+  if (!confirm(t('c_del_lead'))) return;
   try {
     await api({ action: 'lead', id: leadId }, 'DELETE');
     window.location.href = '/crm/index.html';
-  } catch (e) { toast('Error al eliminar: ' + (e.message || e), true); }
+  } catch (e) { toast(t('t_error') + (e.message || e), true); }
 }
 
 async function saveStatus() {
   const btn = document.getElementById('saveStatusBtn');
-  btn.disabled = true; btn.textContent = 'Guardando...';
+  btn.disabled = true; btn.textContent = t('t_saving');
   try {
     await api({ action: 'lead', id: leadId }, 'PATCH', {
       status:   document.getElementById('selectStatus').value,
       priority: document.getElementById('selectPriority').value,
     });
-    toast('Estado actualizado');
-  } catch(e) { toast('Error: ' + e.message, true); }
-  btn.disabled = false; btn.textContent = 'Guardar cambios';
+    toast(t('t_status'));
+  } catch(e) { toast(t('t_error') + e.message, true); }
+  btn.disabled = false; btn.textContent = t('save_changes');
 }
 
 async function saveContact() {
   const btn = document.getElementById('saveContactBtn');
-  btn.disabled = true; btn.textContent = 'Guardando...';
+  btn.disabled = true; btn.textContent = t('t_saving');
   try {
     await api({ action: 'lead', id: leadId }, 'PATCH', {
       phone:  document.getElementById('cPhone').value,
       social: document.getElementById('cSocial').value
     });
-    toast('Contacto actualizado');
-  } catch (e) { toast('Error: ' + (e.message || e), true); }
-  btn.disabled = false; btn.textContent = 'Guardar contacto';
+    toast(t('t_contact'));
+  } catch (e) { toast(t('t_error') + (e.message || e), true); }
+  btn.disabled = false; btn.textContent = t('save_contact');
 }
 
 async function saveFinance() {
   const btn = document.getElementById('saveFinanceBtn');
-  btn.disabled = true; btn.textContent = 'Guardando...';
+  btn.disabled = true; btn.textContent = t('t_saving');
   try {
     await api({ action: 'lead', id: leadId }, 'PATCH', {
       deal_value:     document.getElementById('fDeal').value || 0,
@@ -677,10 +749,10 @@ async function saveFinance() {
       payment_due:    document.getElementById('fDue').value || '',
       next_followup:  document.getElementById('fFollowup').value || ''
     });
-    toast('Finanzas actualizadas');
+    toast(t('t_finance'));
     setTimeout(() => loadLead(), 600); // refresh the progress bar
-  } catch(e) { toast('Error: ' + e.message, true); }
-  btn.disabled = false; btn.textContent = 'Guardar finanzas';
+  } catch(e) { toast(t('t_error') + e.message, true); }
+  btn.disabled = false; btn.textContent = t('save_finance');
 }
 
 async function addNote() {
@@ -692,18 +764,18 @@ async function addNote() {
     leadData.notes.unshift(note);
     document.getElementById('notesList').innerHTML = renderNotes(leadData.notes);
     document.getElementById('newNote').value = '';
-    toast('Nota agregada');
-  } catch(e) { toast('Error: ' + e.message, true); }
+    toast(t('t_note_add'));
+  } catch(e) { toast(t('t_error') + e.message, true); }
 }
 
 async function deleteNote(noteId) {
-  if (!confirm('¿Eliminar esta nota?')) return;
+  if (!confirm(t('c_del_note'))) return;
   try {
     await api({ action: 'note', id: noteId }, 'DELETE');
     leadData.notes = leadData.notes.filter(n => n.id !== noteId);
     document.getElementById('notesList').innerHTML = renderNotes(leadData.notes);
-    toast('Nota eliminada');
-  } catch(e) { toast('Error: ' + e.message, true); }
+    toast(t('t_note_del'));
+  } catch(e) { toast(t('t_error') + e.message, true); }
 }
 
 async function addTask() {
@@ -716,8 +788,8 @@ async function addTask() {
     document.getElementById('tasksList').innerHTML = renderTasks(leadData.tasks);
     document.getElementById('newTaskTitle').value = '';
     document.getElementById('newTaskDate').value  = '';
-    toast('Tarea agregada');
-  } catch(e) { toast('Error: ' + e.message, true); }
+    toast(t('t_task_add'));
+  } catch(e) { toast(t('t_error') + e.message, true); }
 }
 
 async function toggleTask(taskId, completed) {
@@ -726,17 +798,17 @@ async function toggleTask(taskId, completed) {
     const task = leadData.tasks.find(t => t.id === taskId);
     if (task) { task.completed = completed; task.completed_at = completed ? new Date().toISOString() : null; }
     document.getElementById('tasksList').innerHTML = renderTasks(leadData.tasks);
-  } catch(e) { toast('Error: ' + e.message, true); }
+  } catch(e) { toast(t('t_error') + e.message, true); }
 }
 
 async function deleteTask(taskId) {
-  if (!confirm('¿Eliminar esta tarea?')) return;
+  if (!confirm(t('c_del_task'))) return;
   try {
     await api({ action: 'task', id: taskId }, 'DELETE');
     leadData.tasks = leadData.tasks.filter(t => t.id !== taskId);
     document.getElementById('tasksList').innerHTML = renderTasks(leadData.tasks);
-    toast('Tarea eliminada');
-  } catch(e) { toast('Error: ' + e.message, true); }
+    toast(t('t_task_del'));
+  } catch(e) { toast(t('t_error') + e.message, true); }
 }
 
 // ── Toast ─────────────────────────────────────────────────────
@@ -755,20 +827,27 @@ function esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function statusLabel(s) {
-  return { new:'Nuevo', contacted:'Contactado', qualified:'Calificado', proposal_sent:'Propuesta', won:'Ganado', lost:'Perdido' }[s] || s;
+  const es = { new:'Nuevo', contacted:'Contactado', qualified:'Calificado', proposal_sent:'Propuesta', won:'Ganado', lost:'Perdido' };
+  const en = { new:'New', contacted:'Contacted', qualified:'Qualified', proposal_sent:'Proposal', won:'Won', lost:'Lost' };
+  return (LANG === 'en' ? en : es)[s] || s;
+}
+function priorityLabel(p) {
+  const es = { cold:'Frío', warm:'Tibio', hot:'Caliente' };
+  const en = { cold:'Cold', warm:'Warm', hot:'Hot' };
+  return (LANG === 'en' ? en : es)[p] || p;
 }
 function formatDateTime(iso) {
   if (!iso) return '—';
-  return new Date(iso).toLocaleString('es-EC', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  return new Date(iso).toLocaleString(LANG==='en'?'en-CA':'es-EC', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
 }
 function formatDate(iso) {
   if (!iso) return '—';
-  return new Date(iso).toLocaleDateString('es-EC', { day:'2-digit', month:'short', year:'numeric' });
+  return new Date(iso).toLocaleDateString(LANG==='en'?'en-CA':'es-EC', { day:'2-digit', month:'short', year:'numeric' });
 }
 
 init().catch((e) => {
   document.getElementById('main').innerHTML =
-    `<div class="loading">Error al iniciar CRM: ${esc(e.message)}</div>`;
+    `<div class="loading">${LANG==='en'?'Error starting CRM':'Error al iniciar CRM'}: ${esc(e.message)}</div>`;
 });
 </script>
 </body>
