@@ -1146,77 +1146,62 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'CRM no configurado. Revisa SUPABASE_URL y SUPABASE_SERVICE_KEY en Vercel.' });
   }
 
-  const auth = await requireAuth(req);
-  if (!auth) return res.status(401).json({ error: 'No autorizado' });
-  const user = auth.user;
-  req.crmRole  = auth.role;
-  req.crmScope = auth.country;   // 'ec' | 'ca' para contador; null para admin
-
-  const { action, id } = req.query;
-
-  // ¿Quién soy? — para que el login redirija al panel correcto.
-  if (req.method === 'GET' && action === 'whoami') {
-    return res.status(200).json({ email: user.email, role: auth.role, country: auth.country });
-  }
-
-  // El contador es SOLO LECTURA y limitado a su país.
-  if (auth.role === 'accountant') {
-    if (req.method !== 'GET') return res.status(403).json({ error: 'Acceso de solo lectura.' });
-    req.query.country = auth.country;        // fuerza el país en todo endpoint que lo use
-    const allowed = ['fiscal', 'fiscal-period', 'reminders', 'invoices', 'invoice', 'export', 'leads', 'expenses', 'lead'];
-    if (!allowed.includes(action)) return res.status(403).json({ error: 'No disponible para este rol.' });
-  }
-
   try {
-    // GET /api/crm?action=metrics
-    if (req.method === 'GET' && action === 'metrics') return getMetrics(req, res);
-    // GET /api/crm?action=fiscal  → radar fiscal por país
-    if (req.method === 'GET' && action === 'fiscal') return getFiscal(req, res);
-    // GET /api/crm?action=fiscal-period&country=ec&start=..&end=..
-    if (req.method === 'GET' && action === 'fiscal-period') return getFiscalPeriod(req, res);
-    // GET /api/crm?action=reminders → cobros y seguimientos
-    if (req.method === 'GET' && action === 'reminders') return getReminders(req, res);
-    // GET /api/crm?action=ai-followup&id=uuid → asistente de seguimiento
-    if (req.method === 'GET' && action === 'ai-followup' && id) return getAiFollowup(req, res, id);
-    // GET/PATCH settings fiscales (activar impuesto por país)
-    if (req.method === 'GET'   && action === 'settings') return getSettings(req, res);
-    if (req.method === 'PATCH' && action === 'settings') return updateSettings(req, res);
-    // Facturas
-    if (req.method === 'GET'  && action === 'invoices') return getInvoices(req, res);
-    if (req.method === 'GET'  && action === 'invoice' && id) return getInvoice(req, res, id);
-    if (req.method === 'POST' && action === 'invoice') return createInvoice(req, res);
-    // GET /api/crm?action=export
-    if (req.method === 'GET' && action === 'export') return exportCSV(req, res);
-    // GET /api/crm?action=leads
-    if (req.method === 'GET' && action === 'leads') return getLeads(req, res);
-    // GET /api/crm?action=lead&id=uuid
-    if (req.method === 'GET' && action === 'lead' && id) return getLead(req, res, id);
-    // PATCH /api/crm?action=lead&id=uuid
-    // POST /api/crm?action=create-lead  (manual lead entry)
-    if (req.method === 'POST' && action === 'create-lead') return createLead(req, res);
-    // Expenses
-    if (req.method === 'GET'    && action === 'expenses') return getExpenses(req, res);
-    if (req.method === 'GET'    && action === 'monthly')  return getMonthly(req, res);
-    if (req.method === 'POST'   && action === 'expense')  return createExpense(req, res);
-    if (req.method === 'POST'   && action === 'recurring') return generateRecurring(req, res);
-    if (req.method === 'PATCH'  && action === 'expense' && id) return updateExpense(req, res, id);
-    if (req.method === 'DELETE' && action === 'expense' && id) return deleteExpense(req, res, id);
-    if (req.method === 'PATCH'  && action === 'lead' && id) return updateLead(req, res, id);
-    if (req.method === 'DELETE' && action === 'lead' && id) return deleteLead(req, res, id);
-    // POST /api/crm?action=note&id=leadUuid
-    if (req.method === 'POST' && action === 'note' && id) return addNote(req, res, id);
-    // DELETE /api/crm?action=note&id=noteUuid
-    if (req.method === 'DELETE' && action === 'note' && id) return deleteNote(req, res, id);
-    // POST /api/crm?action=task&id=leadUuid
-    if (req.method === 'POST' && action === 'task' && id) return addTask(req, res, id);
-    // PATCH /api/crm?action=task&id=taskUuid
-    if (req.method === 'PATCH' && action === 'task' && id) return updateTask(req, res, id);
-    // DELETE /api/crm?action=task&id=taskUuid
-    if (req.method === 'DELETE' && action === 'task' && id) return deleteTask(req, res, id);
+    const auth = await requireAuth(req);
+    if (!auth) return res.status(401).json({ error: 'No autorizado' });
+    const user = auth.user;
+    req.crmRole  = auth.role;
+    req.crmScope = auth.country;   // 'ec' | 'ca' para contador; null para admin
+
+    const { action, id } = req.query;
+
+    // ¿Quién soy? — para que el login redirija al panel correcto.
+    if (req.method === 'GET' && action === 'whoami') {
+      return res.status(200).json({ email: user.email, role: auth.role, country: auth.country });
+    }
+
+    // El contador es SOLO LECTURA y limitado a su país.
+    if (auth.role === 'accountant') {
+      if (req.method !== 'GET') return res.status(403).json({ error: 'Acceso de solo lectura.' });
+      req.query.country = auth.country;        // fuerza el país en todo endpoint que lo use
+      const allowed = ['fiscal', 'fiscal-period', 'reminders', 'invoices', 'invoice', 'export', 'leads', 'expenses', 'lead'];
+      if (!allowed.includes(action)) return res.status(403).json({ error: 'No disponible para este rol.' });
+    }
+
+    // NOTA: cada ruta va con `await` para que un fallo async caiga en este
+    // catch (si no, Vercel lo reporta como FUNCTION_INVOCATION_FAILED).
+    if (req.method === 'GET' && action === 'metrics') return await getMetrics(req, res);
+    if (req.method === 'GET' && action === 'fiscal') return await getFiscal(req, res);
+    if (req.method === 'GET' && action === 'fiscal-period') return await getFiscalPeriod(req, res);
+    if (req.method === 'GET' && action === 'reminders') return await getReminders(req, res);
+    if (req.method === 'GET' && action === 'ai-followup' && id) return await getAiFollowup(req, res, id);
+    if (req.method === 'GET'   && action === 'settings') return await getSettings(req, res);
+    if (req.method === 'PATCH' && action === 'settings') return await updateSettings(req, res);
+    if (req.method === 'GET'  && action === 'invoices') return await getInvoices(req, res);
+    if (req.method === 'GET'  && action === 'invoice' && id) return await getInvoice(req, res, id);
+    if (req.method === 'POST' && action === 'invoice') return await createInvoice(req, res);
+    if (req.method === 'GET' && action === 'export') return await exportCSV(req, res);
+    if (req.method === 'GET' && action === 'leads') return await getLeads(req, res);
+    if (req.method === 'GET' && action === 'lead' && id) return await getLead(req, res, id);
+    if (req.method === 'POST' && action === 'create-lead') return await createLead(req, res);
+    if (req.method === 'GET'    && action === 'expenses') return await getExpenses(req, res);
+    if (req.method === 'GET'    && action === 'monthly')  return await getMonthly(req, res);
+    if (req.method === 'POST'   && action === 'expense')  return await createExpense(req, res);
+    if (req.method === 'POST'   && action === 'recurring') return await generateRecurring(req, res);
+    if (req.method === 'PATCH'  && action === 'expense' && id) return await updateExpense(req, res, id);
+    if (req.method === 'DELETE' && action === 'expense' && id) return await deleteExpense(req, res, id);
+    if (req.method === 'PATCH'  && action === 'lead' && id) return await updateLead(req, res, id);
+    if (req.method === 'DELETE' && action === 'lead' && id) return await deleteLead(req, res, id);
+    if (req.method === 'POST' && action === 'note' && id) return await addNote(req, res, id);
+    if (req.method === 'DELETE' && action === 'note' && id) return await deleteNote(req, res, id);
+    if (req.method === 'POST' && action === 'task' && id) return await addTask(req, res, id);
+    if (req.method === 'PATCH' && action === 'task' && id) return await updateTask(req, res, id);
+    if (req.method === 'DELETE' && action === 'task' && id) return await deleteTask(req, res, id);
 
     return res.status(404).json({ error: 'Ruta no encontrada' });
   } catch (err) {
     console.error('CRM API error:', err);
-    return res.status(500).json({ error: 'Error interno del servidor' });
+    // Mensaje real (recortado) para poder diagnosticar desde el navegador.
+    return res.status(500).json({ error: 'Error del servidor: ' + String(err && err.message || err).slice(0, 300) });
   }
 };
