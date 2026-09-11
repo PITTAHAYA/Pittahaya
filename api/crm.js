@@ -994,7 +994,8 @@ Write every "message" and text in ${ctx.lang === 'en' ? 'ENGLISH' : 'SPANISH (tu
 // leer/cambiar el interruptor global.
 async function runFollowupsNow(req, res) {
   const { runAutoFollowups } = require('../lib/followup');
-  const result = await runAutoFollowups({});
+  const force = !!(req.body && req.body.force);
+  const result = await runAutoFollowups({ force });
   return res.status(200).json(result);
 }
 async function getAutopilot(req, res) {

@@ -1360,12 +1360,16 @@ async function toggleAutopilot() {
   } catch (e) { alert('Error: ' + (e.message || e)); }
 }
 async function runFollowupsNow() {
+  const en = LANG === 'en';
+  const ok = confirm(en
+    ? 'Send the next follow-up email now to your active leads (ignoring the day 2/5/9 wait)? This sends real emails.'
+    : '¿Enviar ya el siguiente correo de seguimiento a tus leads activos (ignorando la espera de día 2/5/9)? Esto envía correos reales.');
+  if (!ok) return;
   const btn = document.getElementById('apRunBtn');
   const out = document.getElementById('apResult');
   btn.disabled = true; btn.textContent = t('ap_running');
   try {
-    const r = await api({ action: 'run-followups' }, 'POST', {});
-    const en = LANG === 'en';
+    const r = await api({ action: 'run-followups' }, 'POST', { force: true });
     if (r.enabled === false) {
       out.textContent = en ? 'Autopilot is off — turn it on to send.' : 'El piloto está apagado — enciéndelo para enviar.';
     } else {
