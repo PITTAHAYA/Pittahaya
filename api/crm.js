@@ -1041,12 +1041,18 @@ async function getAutopilotStats(req, res) {
 
     if (idx >= CADENCE_DAYS.length) {
       completed++;
-    } else if (active && l.autofollow !== false && inWindow) {
-      enrolled++;
+    } else if (active && inWindow) {
       const dueAt = new Date(l.created_at).getTime() + CADENCE_DAYS[idx] * DAY;
-      const overdue = now >= dueAt;
-      if (overdue) dueNow++;
-      upcoming.push({ id: l.id, name: l.name, email: l.email, country: l.country, step: idx + 1, totalSteps: CADENCE_DAYS.length, dueAt: new Date(dueAt).toISOString(), overdue });
+      const paused = l.autofollow === false;
+      if (paused) {
+        // En pausa pero aún en ventana: lo mostramos para poder reanudar.
+        upcoming.push({ id: l.id, name: l.name, email: l.email, country: l.country, step: idx + 1, totalSteps: CADENCE_DAYS.length, dueAt: new Date(dueAt).toISOString(), overdue: false, paused: true });
+      } else {
+        enrolled++;
+        const overdue = now >= dueAt;
+        if (overdue) dueNow++;
+        upcoming.push({ id: l.id, name: l.name, email: l.email, country: l.country, step: idx + 1, totalSteps: CADENCE_DAYS.length, dueAt: new Date(dueAt).toISOString(), overdue, paused: false });
+      }
     }
 
     if (l.last_followup_at) {
@@ -1054,8 +1060,29 @@ async function getAutopilotStats(req, res) {
     }
   }
 
-  upcoming.sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt));
+  // Activos primero (por fecha), luego los pausados.
+  upcoming.sort((a, b) => (a.paused - b.paused) || (new Date(a.dueAt) - new Date(b.dueAt)));
   recent.sort((a, b) => new Date(b.at) - new Date(a.at));
+
+  // Gráfica de enviados por día + actividad reciente EXACTA (desde el log).
+  // Si la tabla followup_log aún no existe, degrada: perDay vacío y recent por last_followup_at.
+  let perDay = [];
+  const days = 14;
+  for (let i = days - 1; i >= 0; i--) perDay.push({ date: new Date(now - i * DAY).toISOString().slice(0, 10), count: 0 });
+  let logRecent = null;
+  try {
+    const since14 = new Date(now - days * DAY).toISOString();
+    const { data: log, error } = await supabase.from('followup_log')
+      .select('lead_id,name,email,country,step,sent_at')
+      .gte('sent_at', since14).order('sent_at', { ascending: false }).limit(600);
+    if (error) throw error;
+    const idxByDate = {}; perDay.forEach((d, i) => { idxByDate[d.date] = i; });
+    for (const row of (log || [])) {
+      const k = new Date(row.sent_at).toISOString().slice(0, 10);
+      if (k in idxByDate) perDay[idxByDate[k]].count++;
+    }
+    logRecent = (log || []).slice(0, 25).map(x => ({ id: x.lead_id, name: x.name, email: x.email, country: x.country, step: x.step, at: x.sent_at }));
+  } catch (e) { /* tabla no migrada: usamos el fallback */ }
 
   return res.status(200).json({
     ok: true,
@@ -1063,8 +1090,19 @@ async function getAutopilotStats(req, res) {
     cadence: CADENCE_DAYS,
     stats: { enrolled, completed, sentTotal, sentThisWeek, dueNow, optedOut, considered: leads.length },
     upcoming: upcoming.slice(0, 40),
-    recent: recent.slice(0, 25)
+    recent: (logRecent || recent).slice(0, 25),
+    perDay
   });
+}
+
+// Pausar/reanudar el seguimiento automático de UN lead (desde el panel).
+async function setLeadAutofollow(req, res) {
+  const id = req.query.id || (req.body && req.body.id);
+  const autofollow = !(req.body && req.body.autofollow === false);
+  if (!id) return res.status(400).json({ error: 'Falta id del lead' });
+  const { error } = await supabase.from('leads').update({ autofollow }).eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true, id, autofollow });
 }
 
 async function getAutopilot(req, res) {
@@ -1282,6 +1320,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'ai-followup' && id) return await getAiFollowup(req, res, id);
     if (req.method === 'GET'   && action === 'autopilot') return await getAutopilot(req, res);
     if (req.method === 'GET'   && action === 'autopilot-stats') return await getAutopilotStats(req, res);
+    if (req.method === 'POST'  && action === 'lead-autofollow') return await setLeadAutofollow(req, res);
     if (req.method === 'PATCH' && action === 'autopilot') return await setAutopilot(req, res);
     if (req.method === 'POST'  && action === 'run-followups') return await runFollowupsNow(req, res);
     if (req.method === 'GET'   && action === 'settings') return await getSettings(req, res);

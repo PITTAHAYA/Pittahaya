@@ -679,6 +679,16 @@
   .ap-pill { font-size: 10px; padding: 3px 9px; border-radius: 20px; white-space: nowrap; background: rgba(201,148,58,.15); color: var(--gold-light); }
   .ap-pill.over { background: rgba(251,191,36,.16); color: #fbbf24; }
   .ap-pill.done { background: rgba(52,211,153,.15); color: #8ee6bf; }
+  .ap-pill.paused { background: rgba(148,163,184,.16); color: #b7c0d0; }
+  .ap-chart { display: flex; align-items: flex-end; gap: 6px; height: 150px; padding-top: 8px; }
+  .ap-cbar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; height: 100%; }
+  .ap-cbar .bar { width: 100%; max-width: 34px; background: linear-gradient(180deg, var(--gold-light), var(--gold)); border-radius: 4px 4px 0 0; min-height: 2px; transition: height .3s; }
+  .ap-cbar .bar.zero { background: var(--onyx-3); }
+  .ap-cbar .cnt { font-size: 11px; color: var(--gold-light); font-weight: 600; height: 14px; }
+  .ap-cbar .day { font-size: 9.5px; color: var(--ash); white-space: nowrap; }
+  .ap-rowbtn { background: var(--onyx-3); border: 1px solid var(--border); color: var(--ash-light, #bbb); border-radius: 6px; padding: 4px 9px; font-size: 12px; cursor: pointer; font-family: inherit; }
+  .ap-rowbtn:hover { color: #fff; }
+  .ap-row-right { display: flex; align-items: center; gap: 8px; }
 
   /* Vistas: ocultar la sección que no pertenece a la vista activa
      (gana sobre display:grid/flex de las clases). */
@@ -823,6 +833,12 @@
       <div class="ap-step"><div class="ap-step-day" data-i18n="apc_d9">Día 9</div><div class="ap-step-name" data-i18n="apc_d9n">Último toque</div><div class="ap-step-desc" data-i18n="apc_d9d">“Aquí seguimos cuando quieras”</div></div>
     </div>
     <p class="page-subtitle" id="apNextRun" style="margin-top:14px"></p>
+  </div>
+
+  <!-- Gráfica de enviados por día -->
+  <div data-view="autopilot" class="finance-section">
+    <div class="finance-head"><div><h2 class="finance-title" data-i18n="apg_title">Enviados por día</h2><p class="page-subtitle" data-i18n="apg_sub">Correos de seguimiento que la IA envió cada día (últimos 14 días).</p></div></div>
+    <div class="ap-chart" id="apChart"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
   </div>
 
   <!-- Próximos envíos + Actividad reciente -->
@@ -1248,7 +1264,7 @@ const I18N = {
     aps_enrolled:'En cadencia', aps_sent:'Correos enviados', aps_week:'Enviados (7 días)', aps_due:'Pendientes hoy', aps_done:'Completados', aps_out:'Bajas',
     apc_title:'Cómo funciona la cadencia', apc_sub:'Cada lead nuevo entra solo. La IA envía en estos momentos y se detiene si responde o lo marcas ganado/perdido.',
     apc_d0:'Día 0', apc_d0n:'Confirmación', apc_d0d:'“Recibimos tu mensaje”', apc_d2:'Día 2', apc_d2n:'Primer toque', apc_d2d:'Saludo + llamada de 15 min', apc_d5:'Día 5', apc_d5n:'Aporte de valor', apc_d5d:'Idea / caso parecido', apc_d9:'Día 9', apc_d9n:'Último toque', apc_d9d:'“Aquí seguimos cuando quieras”',
-    apu_title:'Próximos envíos', apu_sub:'Leads en cola y cuándo les toca el siguiente correo.', apr_title:'Actividad reciente', apr_sub:'Últimos seguimientos que la IA envió sola.',
+    apu_title:'Próximos envíos', apu_sub:'Leads en cola y cuándo les toca el siguiente correo. Pausa o reanuda cualquiera con el botón.', apr_title:'Actividad reciente', apr_sub:'Últimos seguimientos que la IA envió sola.', apg_title:'Enviados por día', apg_sub:'Correos de seguimiento que la IA envió cada día (últimos 14 días).',
     pipeline_title:'Pipeline', pipeline_sub:'Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.',
      th_stage:'Etapa', th_value:'Valor', th_paid:'Pagado', th_pending:'Pendiente', th_payment:'Pago',
     th_desc:'Descripción', th_category:'Categoría', th_type:'Tipo', th_amount:'Monto',
@@ -1281,7 +1297,7 @@ const I18N = {
     aps_enrolled:'In cadence', aps_sent:'Emails sent', aps_week:'Sent (7 days)', aps_due:'Due today', aps_done:'Completed', aps_out:'Opt-outs',
     apc_title:'How the cadence works', apc_sub:'Every new lead is enrolled automatically. The AI sends at these points and stops if they reply or you mark them won/lost.',
     apc_d0:'Day 0', apc_d0n:'Confirmation', apc_d0d:'“We got your message”', apc_d2:'Day 2', apc_d2n:'First touch', apc_d2d:'Hello + 15-min call', apc_d5:'Day 5', apc_d5n:'Add value', apc_d5d:'Idea / similar case', apc_d9:'Day 9', apc_d9n:'Last touch', apc_d9d:'“Still here when you’re ready”',
-    apu_title:'Upcoming sends', apu_sub:'Leads in the queue and when their next email is due.', apr_title:'Recent activity', apr_sub:'Latest follow-ups the AI sent on its own.',
+    apu_title:'Upcoming sends', apu_sub:'Leads in the queue and when their next email is due. Pause or resume any with the button.', apr_title:'Recent activity', apr_sub:'Latest follow-ups the AI sent on its own.', apg_title:'Sent per day', apg_sub:'Follow-up emails the AI sent each day (last 14 days).',
     pipeline_title:'Pipeline', pipeline_sub:'Your sales funnel by stage. Change each lead’s status from its card.',
      th_stage:'Stage', th_value:'Value', th_paid:'Paid', th_pending:'Pending', th_payment:'Payment',
     th_desc:'Description', th_category:'Category', th_type:'Type', th_amount:'Amount',
@@ -1519,7 +1535,10 @@ async function loadAutopilotSystem() {
       <div class="ap-list-row">
         <div><div class="ap-list-name">${flag(u.country)} <a class="rem-name" href="/crm/lead.html?id=${u.id}">${esc(u.name)}</a></div>
         <div class="ap-list-sub">${en ? 'Step' : 'Paso'} ${u.step}/${u.totalSteps} · ${esc(u.email)}</div></div>
-        <span class="ap-pill ${u.overdue ? 'over' : ''}">${u.overdue ? (en ? 'due now' : 'pendiente') : apRel(u.dueAt)}</span>
+        <div class="ap-row-right">
+          <span class="ap-pill ${u.paused ? 'paused' : (u.overdue ? 'over' : '')}">${u.paused ? (en ? 'paused' : 'en pausa') : (u.overdue ? (en ? 'due now' : 'pendiente') : apRel(u.dueAt))}</span>
+          <button class="ap-rowbtn" onclick="pauseLead('${u.id}', ${u.paused ? 'false' : 'true'})" title="${u.paused ? (en ? 'Resume follow-ups' : 'Reanudar seguimiento') : (en ? 'Pause follow-ups' : 'Pausar seguimiento')}">${u.paused ? '▶' : '⏸'}</button>
+        </div>
       </div>`).join('') : `<div class="empty">${en ? 'No leads in the queue right now.' : 'No hay leads en cola ahora mismo.'}</div>`;
 
     const rc = document.getElementById('apRecent');
@@ -1530,10 +1549,32 @@ async function loadAutopilotSystem() {
         <div class="ap-list-sub">${en ? 'Sent step' : 'Envió paso'} ${x.step} · ${apRel(x.at)}</div></div>
         <span class="ap-pill done">✓ ${en ? 'sent' : 'enviado'}</span>
       </div>`).join('') : `<div class="empty">${en ? 'No follow-ups sent yet — they start on day 2.' : 'Aún no se han enviado seguimientos — empiezan al día 2.'}</div>`;
+
+    // Gráfica de enviados por día
+    const chart = document.getElementById('apChart');
+    if (chart) {
+      const pd = r.perDay || [];
+      const total = pd.reduce((a, d) => a + d.count, 0);
+      const max = Math.max(1, ...pd.map(d => d.count));
+      chart.innerHTML = total === 0
+        ? `<div class="empty" style="margin:auto">${en ? 'No sends in the last 14 days yet.' : 'Aún no hay envíos en los últimos 14 días.'}</div>`
+        : pd.map(d => {
+            const h = Math.round(d.count / max * 100);
+            return `<div class="ap-cbar" title="${d.date}: ${d.count}"><div class="cnt">${d.count || ''}</div><div class="bar ${d.count ? '' : 'zero'}" style="height:${d.count ? Math.max(h, 5) : 2}%"></div><div class="day">${d.date.slice(8, 10)}/${d.date.slice(5, 7)}</div></div>`;
+          }).join('');
+    }
   } catch (e) {
     const up = document.getElementById('apUpcoming');
     if (up) up.innerHTML = `<div class="empty">Error: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
   }
+}
+
+// Pausar/reanudar el seguimiento automático de un lead desde el panel.
+async function pauseLead(id, pause) {
+  try {
+    await api({ action: 'lead-autofollow', id }, 'POST', { autofollow: !pause });
+    loadAutopilotSystem();
+  } catch (e) { alert('Error: ' + (e.message || e)); }
 }
 
 async function refreshAll() {

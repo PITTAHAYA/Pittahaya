@@ -33,6 +33,20 @@ alter table public.leads
   add column if not exists autofollow       boolean default true,
   add column if not exists last_followup_at timestamptz;
 
+-- Registro de cada correo de seguimiento que envía el piloto automático
+-- (para la gráfica de enviados por día y la actividad reciente exacta).
+create table if not exists public.followup_log (
+  id       uuid primary key default gen_random_uuid(),
+  lead_id  uuid,
+  name     text,
+  email    text,
+  country  text,
+  step     int,
+  sent_at  timestamptz default now()
+);
+alter table public.followup_log enable row level security;  -- solo la service key del CRM entra
+create index if not exists followup_log_sent_idx on public.followup_log (sent_at desc);
+
 -- ── Índices para reportes por país ──────────────────────────
 create index if not exists leads_country_idx      on public.leads (country);
 create index if not exists expenses_country_idx   on public.expenses (country);
