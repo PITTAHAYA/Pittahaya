@@ -653,10 +653,19 @@
   .ap-switch .ap-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ash); transition: background .2s; }
   .ap-switch.on { border-color: rgba(52,211,153,.4); color: #8ee6bf; }
   .ap-switch.on .ap-dot { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,.6); }
+  .ap-mini { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: var(--onyx-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; flex-wrap: wrap; }
+  .ap-mini-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .ap-mini #apMiniBadge { cursor: default; }
+  .ap-mini-text { font-size: 12px; color: var(--ash); max-width: 520px; }
 
   /* Vistas: ocultar la sección que no pertenece a la vista activa
      (gana sobre display:grid/flex de las clases). */
   [data-view][hidden] { display: none !important; }
+
+  /* Modo privacidad (ojito): difumina TODOS los montos para grabar pantalla. */
+  .money { transition: filter .12s ease; }
+  body.hide-money .money { filter: blur(9px); -webkit-filter: blur(9px); user-select: none; }
+  #privacyBtn.on { color: var(--gold-light); border-color: rgba(201,148,58,.45); }
 </style>
 </head>
 <body>
@@ -685,8 +694,12 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
       <span data-i18n="nav_finance">Finanzas</span>
     </a>
+    <a href="#" class="nav-item" data-nav="facturas" onclick="showView('facturas'); return false;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      <span data-i18n="nav_invoices">Facturas</span>
+    </a>
     <a href="#" class="nav-item" data-nav="impuestos" onclick="showView('impuestos'); return false;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 15l6-6M9.5 9.5h.01M14.5 14.5h.01"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
       <span data-i18n="nav_fiscal">Impuestos</span>
     </a>
   </div>
@@ -711,6 +724,10 @@
       <button class="btn" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         <span data-i18n="btn_export">Exportar CSV</span>
+      </button>
+      <button class="btn" id="privacyBtn" onclick="togglePrivacy()" title="Ocultar/mostrar montos (para grabar pantalla)">
+        <svg id="privacyIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span id="privacyLabel">Ocultar $</span>
       </button>
       <button class="btn btn-primary" onclick="refreshAll()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
@@ -804,6 +821,15 @@
   </div>
 
   <!-- Charts -->
+  <!-- Mini-resumen del piloto automático dentro de Leads -->
+  <div data-view="leads" class="ap-mini" id="apMini">
+    <div class="ap-mini-left">
+      <span class="ap-switch" id="apMiniBadge"><span class="ap-dot"></span><span id="apMiniState">—</span></span>
+      <span class="ap-mini-text" data-i18n="ap_sub">La IA envía sola la cadencia de correos a cada lead nuevo en sus fechas (día 2, 5 y 9).</span>
+    </div>
+    <button class="btn" onclick="showView('autopilot')" data-i18n="ap_mini_open">Abrir Seguimiento IA →</button>
+  </div>
+
   <div data-view="leads" class="charts-row">
     <div class="chart-card">
       <div class="chart-title" data-i18n="chart_service">Leads por servicio (30 días)</div>
@@ -904,7 +930,7 @@
   </div>
 
   <!-- ── Facturas emitidas ── -->
-  <div data-view="finanzas" class="finance-section">
+  <div data-view="facturas" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="invoices_title">Facturas emitidas</h2>
@@ -1138,7 +1164,7 @@ let searchTimer = null;
 let LANG = (() => { try { return localStorage.getItem('crm_lang') || 'es'; } catch { return 'es'; } })();
 const I18N = {
   es: {
-    crm_label:'CRM · Panel Admin', nav_section:'Navegación', nav_dashboard:'Dashboard', nav_new:'Nuevos leads', nav_hot:'Leads calientes', nav_won:'Ganados', nav_overview:'Resumen', nav_leads:'Leads', nav_autopilot:'Seguimiento IA', nav_finance:'Finanzas', nav_fiscal:'Impuestos', logout:'Cerrar sesión',
+    crm_label:'CRM · Panel Admin', nav_section:'Navegación', nav_dashboard:'Dashboard', nav_new:'Nuevos leads', nav_hot:'Leads calientes', nav_won:'Ganados', nav_overview:'Resumen', nav_leads:'Leads', nav_autopilot:'Seguimiento IA', nav_finance:'Finanzas', nav_invoices:'Facturas', nav_fiscal:'Impuestos', priv_hide:'Ocultar $', priv_show:'Mostrar $', ap_mini_open:'Abrir Seguimiento IA →', logout:'Cerrar sesión',
     dashboard:'Dashboard', loading_data:'Cargando datos...', btn_new_lead:'Nuevo lead', btn_export:'Exportar CSV', btn_refresh:'Actualizar',
     m_total:'Total Leads', m_week:'Nuevos esta semana', m_hot:'Leads calientes', m_hot_sub:'Requieren acción', m_conv:'Tasa de conversión',
     m_revenue:'Ingresos cobrados', m_pipeline:'Pipeline (potencial)', m_pipeline_sub:'Valor de leads abiertos', m_outstanding:'Por cobrar', m_outstanding_sub:'De clientes ganados',
@@ -1167,7 +1193,7 @@ const I18N = {
     lang_btn:'EN'
   },
   en: {
-    crm_label:'CRM · Admin Panel', nav_section:'Navigation', nav_dashboard:'Dashboard', nav_new:'New leads', nav_hot:'Hot leads', nav_won:'Won', nav_overview:'Overview', nav_leads:'Leads', nav_autopilot:'Follow-up AI', nav_finance:'Finance', nav_fiscal:'Taxes', logout:'Sign out',
+    crm_label:'CRM · Admin Panel', nav_section:'Navigation', nav_dashboard:'Dashboard', nav_new:'New leads', nav_hot:'Hot leads', nav_won:'Won', nav_overview:'Overview', nav_leads:'Leads', nav_autopilot:'Follow-up AI', nav_finance:'Finance', nav_invoices:'Invoices', nav_fiscal:'Taxes', priv_hide:'Hide $', priv_show:'Show $', ap_mini_open:'Open Follow-up AI →', logout:'Sign out',
     dashboard:'Dashboard', loading_data:'Loading data...', btn_new_lead:'New lead', btn_export:'Export CSV', btn_refresh:'Refresh',
     m_total:'Total leads', m_week:'New this week', m_hot:'Hot leads', m_hot_sub:'Need action', m_conv:'Conversion rate',
     m_revenue:'Revenue collected', m_pipeline:'Pipeline (potential)', m_pipeline_sub:'Value of open leads', m_outstanding:'Outstanding', m_outstanding_sub:'From won clients',
@@ -1208,11 +1234,12 @@ function toggleLang() {
   try { localStorage.setItem('crm_lang', LANG); } catch {}
   applyI18n();
   paintViewTitle();
+  paintPrivacy();
   refreshAll();   // re-render dynamic content in the new language
 }
 
 // ── Navegación por vistas (barra lateral estilo SaaS) ─────────
-const VIEW_TITLE = { resumen:'nav_overview', leads:'nav_leads', autopilot:'ap_title', finanzas:'nav_finance', impuestos:'nav_fiscal' };
+const VIEW_TITLE = { resumen:'nav_overview', leads:'nav_leads', autopilot:'ap_title', finanzas:'nav_finance', facturas:'nav_invoices', impuestos:'nav_fiscal' };
 let currentView = 'resumen';
 function paintViewTitle() {
   const h = document.getElementById('pageTitle');
@@ -1226,6 +1253,25 @@ function showView(name) {
   paintViewTitle();
   try { localStorage.setItem('crm_view', name); } catch (e) {}
   window.scrollTo(0, 0);
+}
+
+// ── Modo privacidad (ojito): oculta montos para grabar pantalla ──
+let moneyHidden = false;
+const EYE_OPEN  = '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/>';
+const EYE_OFF   = '<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+function paintPrivacy() {
+  document.body.classList.toggle('hide-money', moneyHidden);
+  const btn = document.getElementById('privacyBtn');
+  const label = document.getElementById('privacyLabel');
+  const icon = document.getElementById('privacyIcon');
+  if (btn) btn.classList.toggle('on', moneyHidden);
+  if (label) label.textContent = t(moneyHidden ? 'priv_show' : 'priv_hide');
+  if (icon) icon.innerHTML = moneyHidden ? EYE_OFF : EYE_OPEN;
+}
+function togglePrivacy() {
+  moneyHidden = !moneyHidden;
+  try { localStorage.setItem('crm_privacy', moneyHidden ? '1' : '0'); } catch (e) {}
+  paintPrivacy();
 }
 
 async function loadCrmConfig() {
@@ -1262,6 +1308,8 @@ async function init() {
   let savedView = 'resumen';
   try { savedView = localStorage.getItem('crm_view') || 'resumen'; } catch (e) {}
   showView(savedView);    // aplica la vista guardada de la barra lateral
+  try { moneyHidden = localStorage.getItem('crm_privacy') === '1'; } catch (e) {}
+  paintPrivacy();         // aplica el modo privacidad guardado (ojito)
   await refreshAll();
 }
 
@@ -1337,9 +1385,14 @@ async function saveNewLead() {
 }
 
 // ── Helpers (finance) ─────────────────────────────────────────
-function money(n) {
+// Texto plano del monto (para tooltips/atributos, sin HTML).
+function moneyRaw(n) {
   n = Number(n) || 0;
   return (n < 0 ? '-$' : '$') + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+// Monto para mostrar: envuelto en .money para el modo privacidad (ojito).
+function money(n) {
+  return '<span class="money">' + moneyRaw(n) + '</span>';
 }
 function stageLabel(s) {
   const es = { diagnosis:'Diagnóstico', design:'Diseño', review:'Revisión', launch:'Publicación', delivered:'Entregado' };
@@ -1371,10 +1424,18 @@ let autopilotOn = true;
 function paintAutopilot() {
   const btn = document.getElementById('apToggle');
   const state = document.getElementById('apState');
-  if (!btn || !state) return;
-  btn.classList.toggle('on', autopilotOn);
-  btn.setAttribute('aria-pressed', String(autopilotOn));
-  state.textContent = autopilotOn ? t('ap_on') : t('ap_off');
+  if (btn && state) {
+    btn.classList.toggle('on', autopilotOn);
+    btn.setAttribute('aria-pressed', String(autopilotOn));
+    state.textContent = autopilotOn ? t('ap_on') : t('ap_off');
+  }
+  // Mini badge dentro de la vista Leads
+  const mBadge = document.getElementById('apMiniBadge');
+  const mState = document.getElementById('apMiniState');
+  if (mBadge && mState) {
+    mBadge.classList.toggle('on', autopilotOn);
+    mState.textContent = autopilotOn ? t('ap_on') : t('ap_off');
+  }
 }
 async function loadAutopilot() {
   try { const { enabled } = await api({ action: 'autopilot' }); autopilotOn = enabled !== false; }
@@ -2001,7 +2062,7 @@ async function loadMonthly() {
         const rev = Number(m.revenue) || 0, exp = Number(m.expenses) || 0, prof = Number(m.profit) || 0;
         const h = v => Math.max(2, Math.round(Math.abs(v) / max * 100));
         const profColor = prof >= 0 ? '#c9a24a' : '#f87171';
-        return `<div class="mc-col" title="${esc(m.label || m.month)}\nIngresos: ${money(rev)}\nGastos: ${money(exp)}\nUtilidad: ${money(prof)}">
+        return `<div class="mc-col" title="${esc(m.label || m.month)}\nIngresos: ${moneyRaw(rev)}\nGastos: ${moneyRaw(exp)}\nUtilidad: ${moneyRaw(prof)}">
           <div class="mc-bars">
             <div class="mc-bar" style="height:${h(rev)}%;background:#34d399"></div>
             <div class="mc-bar" style="height:${h(exp)}%;background:#f87171"></div>
