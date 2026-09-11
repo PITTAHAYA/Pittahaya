@@ -657,6 +657,28 @@
   .ap-mini-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .ap-mini #apMiniBadge { cursor: default; }
   .ap-mini-text { font-size: 12px; color: var(--ash); max-width: 520px; }
+  /* Panel del autopilot */
+  .ap-kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 16px; }
+  @media (max-width: 900px) { .ap-kpis { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .ap-kpis { grid-template-columns: repeat(2, 1fr); } }
+  .ap-kpi { background: var(--onyx-2); border: 1px solid var(--border); border-radius: 12px; padding: 16px 14px; text-align: center; }
+  .ap-kpi-val { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--gold-light); line-height: 1; }
+  .ap-kpi-lbl { font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ash); margin-top: 7px; }
+  .ap-kpi-warn.has .ap-kpi-val { color: #fbbf24; }
+  .ap-timeline { display: flex; align-items: stretch; gap: 8px; flex-wrap: wrap; }
+  .ap-step { flex: 1; min-width: 120px; background: var(--onyx-3); border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px; }
+  .ap-step-day { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-light); font-weight: 700; }
+  .ap-step-name { font-size: 14px; color: #e6e6e6; font-weight: 600; margin-top: 4px; }
+  .ap-step-desc { font-size: 12px; color: var(--ash); margin-top: 3px; }
+  .ap-arrow { display: flex; align-items: center; color: var(--ash); font-size: 18px; }
+  @media (max-width: 640px) { .ap-arrow { display: none; } }
+  .ap-list-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .ap-list-row:last-child { border-bottom: none; }
+  .ap-list-name { font-size: 13px; color: #e0e0e0; }
+  .ap-list-sub { font-size: 11px; color: var(--ash); margin-top: 2px; }
+  .ap-pill { font-size: 10px; padding: 3px 9px; border-radius: 20px; white-space: nowrap; background: rgba(201,148,58,.15); color: var(--gold-light); }
+  .ap-pill.over { background: rgba(251,191,36,.16); color: #fbbf24; }
+  .ap-pill.done { background: rgba(52,211,153,.15); color: #8ee6bf; }
 
   /* Vistas: ocultar la sección que no pertenece a la vista activa
      (gana sobre display:grid/flex de las clases). */
@@ -776,6 +798,45 @@
       </div>
     </div>
     <div id="apResult" class="page-subtitle" style="margin-top:6px"></div>
+  </div>
+
+  <!-- KPIs del piloto -->
+  <div data-view="autopilot" class="ap-kpis" id="apStatsGrid">
+    <div class="ap-kpi"><div class="ap-kpi-val" id="aps-enrolled">—</div><div class="ap-kpi-lbl" data-i18n="aps_enrolled">En cadencia</div></div>
+    <div class="ap-kpi"><div class="ap-kpi-val" id="aps-sent">—</div><div class="ap-kpi-lbl" data-i18n="aps_sent">Correos enviados</div></div>
+    <div class="ap-kpi"><div class="ap-kpi-val" id="aps-week">—</div><div class="ap-kpi-lbl" data-i18n="aps_week">Enviados (7 días)</div></div>
+    <div class="ap-kpi ap-kpi-warn"><div class="ap-kpi-val" id="aps-due">—</div><div class="ap-kpi-lbl" data-i18n="aps_due">Pendientes hoy</div></div>
+    <div class="ap-kpi"><div class="ap-kpi-val" id="aps-done">—</div><div class="ap-kpi-lbl" data-i18n="aps_done">Completados</div></div>
+    <div class="ap-kpi"><div class="ap-kpi-val" id="aps-out">—</div><div class="ap-kpi-lbl" data-i18n="aps_out">Bajas</div></div>
+  </div>
+
+  <!-- Cadencia visual -->
+  <div data-view="autopilot" class="finance-section">
+    <div class="finance-head"><div><h2 class="finance-title" data-i18n="apc_title">Cómo funciona la cadencia</h2><p class="page-subtitle" data-i18n="apc_sub">Cada lead nuevo entra solo. La IA envía en estos momentos y se detiene si responde o lo marcas ganado/perdido.</p></div></div>
+    <div class="ap-timeline">
+      <div class="ap-step"><div class="ap-step-day" data-i18n="apc_d0">Día 0</div><div class="ap-step-name" data-i18n="apc_d0n">Confirmación</div><div class="ap-step-desc" data-i18n="apc_d0d">“Recibimos tu mensaje”</div></div>
+      <div class="ap-arrow">→</div>
+      <div class="ap-step"><div class="ap-step-day" data-i18n="apc_d2">Día 2</div><div class="ap-step-name" data-i18n="apc_d2n">Primer toque</div><div class="ap-step-desc" data-i18n="apc_d2d">Saludo + llamada de 15 min</div></div>
+      <div class="ap-arrow">→</div>
+      <div class="ap-step"><div class="ap-step-day" data-i18n="apc_d5">Día 5</div><div class="ap-step-name" data-i18n="apc_d5n">Aporte de valor</div><div class="ap-step-desc" data-i18n="apc_d5d">Idea / caso parecido</div></div>
+      <div class="ap-arrow">→</div>
+      <div class="ap-step"><div class="ap-step-day" data-i18n="apc_d9">Día 9</div><div class="ap-step-name" data-i18n="apc_d9n">Último toque</div><div class="ap-step-desc" data-i18n="apc_d9d">“Aquí seguimos cuando quieras”</div></div>
+    </div>
+    <p class="page-subtitle" id="apNextRun" style="margin-top:14px"></p>
+  </div>
+
+  <!-- Próximos envíos + Actividad reciente -->
+  <div data-view="autopilot" class="rem-grid">
+    <div class="rem-col">
+      <div class="rem-head"><h2 class="finance-title" data-i18n="apu_title">Próximos envíos</h2><span class="rem-count" id="apu-count"></span></div>
+      <p class="page-subtitle" data-i18n="apu_sub">Leads en cola y cuándo les toca el siguiente correo.</p>
+      <div id="apUpcoming"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
+    </div>
+    <div class="rem-col">
+      <div class="rem-head"><h2 class="finance-title" data-i18n="apr_title">Actividad reciente</h2><span class="rem-count" id="apr-count"></span></div>
+      <p class="page-subtitle" data-i18n="apr_sub">Últimos seguimientos que la IA envió sola.</p>
+      <div id="apRecent"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
+    </div>
   </div>
 
   <!-- ── Radar Fiscal (por país — para el contador) ── -->
@@ -1184,6 +1245,10 @@ const I18N = {
     charts_title:'Gráficos', charts_sub:'Visualiza tu desempeño financiero de un vistazo.',
     mc_title:'Utilidad mensual', mc_sub:'Ingresos, gastos y utilidad — últimos 6 meses', cl_revenue:'Ingresos', cl_expenses:'Gastos', cl_profit:'Utilidad', cc_title:'Gastos por categoría', cc_sub:'Distribución de tus gastos registrados',
     ap_title:'Piloto automático de seguimiento', ap_sub:'La IA envía sola la cadencia de correos a cada lead nuevo en sus fechas (día 2, 5 y 9). Se detiene si marcas al cliente ganado o perdido.', ap_run:'Enviar seguimientos ahora', ap_on:'Encendido', ap_off:'Apagado', ap_running:'Enviando…',
+    aps_enrolled:'En cadencia', aps_sent:'Correos enviados', aps_week:'Enviados (7 días)', aps_due:'Pendientes hoy', aps_done:'Completados', aps_out:'Bajas',
+    apc_title:'Cómo funciona la cadencia', apc_sub:'Cada lead nuevo entra solo. La IA envía en estos momentos y se detiene si responde o lo marcas ganado/perdido.',
+    apc_d0:'Día 0', apc_d0n:'Confirmación', apc_d0d:'“Recibimos tu mensaje”', apc_d2:'Día 2', apc_d2n:'Primer toque', apc_d2d:'Saludo + llamada de 15 min', apc_d5:'Día 5', apc_d5n:'Aporte de valor', apc_d5d:'Idea / caso parecido', apc_d9:'Día 9', apc_d9n:'Último toque', apc_d9d:'“Aquí seguimos cuando quieras”',
+    apu_title:'Próximos envíos', apu_sub:'Leads en cola y cuándo les toca el siguiente correo.', apr_title:'Actividad reciente', apr_sub:'Últimos seguimientos que la IA envió sola.',
     pipeline_title:'Pipeline', pipeline_sub:'Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.',
      th_stage:'Etapa', th_value:'Valor', th_paid:'Pagado', th_pending:'Pendiente', th_payment:'Pago',
     th_desc:'Descripción', th_category:'Categoría', th_type:'Tipo', th_amount:'Monto',
@@ -1213,6 +1278,10 @@ const I18N = {
     charts_title:'Charts', charts_sub:'See your financial performance at a glance.',
     mc_title:'Monthly profit', mc_sub:'Revenue, expenses and profit — last 6 months', cl_revenue:'Revenue', cl_expenses:'Expenses', cl_profit:'Profit', cc_title:'Expenses by category', cc_sub:'Breakdown of your recorded expenses',
     ap_title:'Follow-up autopilot', ap_sub:'The AI sends the email cadence to every new lead on its own schedule (day 2, 5 and 9). It stops when you mark the client won or lost.', ap_run:'Send follow-ups now', ap_on:'On', ap_off:'Off', ap_running:'Sending…',
+    aps_enrolled:'In cadence', aps_sent:'Emails sent', aps_week:'Sent (7 days)', aps_due:'Due today', aps_done:'Completed', aps_out:'Opt-outs',
+    apc_title:'How the cadence works', apc_sub:'Every new lead is enrolled automatically. The AI sends at these points and stops if they reply or you mark them won/lost.',
+    apc_d0:'Day 0', apc_d0n:'Confirmation', apc_d0d:'“We got your message”', apc_d2:'Day 2', apc_d2n:'First touch', apc_d2d:'Hello + 15-min call', apc_d5:'Day 5', apc_d5n:'Add value', apc_d5d:'Idea / similar case', apc_d9:'Day 9', apc_d9n:'Last touch', apc_d9d:'“Still here when you’re ready”',
+    apu_title:'Upcoming sends', apu_sub:'Leads in the queue and when their next email is due.', apr_title:'Recent activity', apr_sub:'Latest follow-ups the AI sent on its own.',
     pipeline_title:'Pipeline', pipeline_sub:'Your sales funnel by stage. Change each lead’s status from its card.',
      th_stage:'Stage', th_value:'Value', th_paid:'Paid', th_pending:'Pending', th_payment:'Payment',
     th_desc:'Description', th_category:'Category', th_type:'Type', th_amount:'Amount',
@@ -1415,8 +1484,60 @@ function paymentLabel(p) {
   return `<span style="color:${color}">${map[p] || '—'}</span>`;
 }
 
+// Fecha relativa corta (hoy / mañana / en 3 días / hace 2 días).
+function apRel(iso) {
+  const en = LANG === 'en';
+  const diff = new Date(iso).getTime() - Date.now();
+  const d = Math.round(diff / 86400000);
+  if (Math.abs(diff) < 3600000) return en ? 'now' : 'ahora';
+  if (d === 0)  return en ? 'today' : 'hoy';
+  if (d === 1)  return en ? 'tomorrow' : 'mañana';
+  if (d === -1) return en ? 'yesterday' : 'ayer';
+  if (d > 1)    return en ? `in ${d} days` : `en ${d} días`;
+  return en ? `${-d} days ago` : `hace ${-d} días`;
+}
+// Panel de control del piloto automático (KPIs, cola, actividad).
+async function loadAutopilotSystem() {
+  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = (v == null ? 0 : v); };
+  try {
+    const r = await api({ action: 'autopilot-stats' });
+    const s = r.stats || {};
+    const en = LANG === 'en';
+    set('aps-enrolled', s.enrolled); set('aps-sent', s.sentTotal); set('aps-week', s.sentThisWeek);
+    set('aps-due', s.dueNow); set('aps-done', s.completed); set('aps-out', s.optedOut);
+    const warn = document.querySelector('.ap-kpi-warn'); if (warn) warn.classList.toggle('has', (s.dueNow || 0) > 0);
+
+    const nr = document.getElementById('apNextRun');
+    if (nr) nr.innerHTML = (en
+      ? `⏱️ Automatic send runs every day (~10:00 AM Ecuador time).`
+      : `⏱️ El envío automático corre todos los días (~10:00 AM hora de Ecuador).`)
+      + ((s.dueNow || 0) > 0 ? (en ? ` <b style="color:#fbbf24">${s.dueNow} due right now</b> — or press “Send follow-ups now”.` : ` <b style="color:#fbbf24">${s.dueNow} pendientes ahora</b> — o pulsa “Enviar seguimientos ahora”.`) : '');
+
+    const up = document.getElementById('apUpcoming');
+    const upc = document.getElementById('apu-count'); if (upc) upc.textContent = (r.upcoming || []).length;
+    if (up) up.innerHTML = (r.upcoming && r.upcoming.length) ? r.upcoming.map(u => `
+      <div class="ap-list-row">
+        <div><div class="ap-list-name">${flag(u.country)} <a class="rem-name" href="/crm/lead.html?id=${u.id}">${esc(u.name)}</a></div>
+        <div class="ap-list-sub">${en ? 'Step' : 'Paso'} ${u.step}/${u.totalSteps} · ${esc(u.email)}</div></div>
+        <span class="ap-pill ${u.overdue ? 'over' : ''}">${u.overdue ? (en ? 'due now' : 'pendiente') : apRel(u.dueAt)}</span>
+      </div>`).join('') : `<div class="empty">${en ? 'No leads in the queue right now.' : 'No hay leads en cola ahora mismo.'}</div>`;
+
+    const rc = document.getElementById('apRecent');
+    const rcc = document.getElementById('apr-count'); if (rcc) rcc.textContent = (r.recent || []).length;
+    if (rc) rc.innerHTML = (r.recent && r.recent.length) ? r.recent.map(x => `
+      <div class="ap-list-row">
+        <div><div class="ap-list-name">${flag(x.country)} <a class="rem-name" href="/crm/lead.html?id=${x.id}">${esc(x.name)}</a></div>
+        <div class="ap-list-sub">${en ? 'Sent step' : 'Envió paso'} ${x.step} · ${apRel(x.at)}</div></div>
+        <span class="ap-pill done">✓ ${en ? 'sent' : 'enviado'}</span>
+      </div>`).join('') : `<div class="empty">${en ? 'No follow-ups sent yet — they start on day 2.' : 'Aún no se han enviado seguimientos — empiezan al día 2.'}</div>`;
+  } catch (e) {
+    const up = document.getElementById('apUpcoming');
+    if (up) up.innerHTML = `<div class="empty">Error: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
+  }
+}
+
 async function refreshAll() {
-  await Promise.all([loadMetrics(), loadReminders(), loadAutopilot(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+  await Promise.all([loadMetrics(), loadReminders(), loadAutopilot(), loadAutopilotSystem(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
 }
 
 // ── Piloto automático de seguimiento ──────────────────────────
@@ -1472,6 +1593,7 @@ async function runFollowupsNow() {
     out.textContent = 'Error: ' + String(e.message || e).slice(0, 160);
   } finally {
     btn.disabled = false; btn.textContent = t('ap_run');
+    loadAutopilotSystem();  // refresca KPIs y actividad tras enviar
   }
 }
 

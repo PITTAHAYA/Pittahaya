@@ -998,6 +998,75 @@ async function runFollowupsNow(req, res) {
   const result = await runAutoFollowups({ force });
   return res.status(200).json(result);
 }
+// Panorama completo del piloto automático para el panel de control.
+async function getAutopilotStats(req, res) {
+  const { CADENCE_DAYS } = require('../lib/followup');
+  const DAY = 86400000;
+  const ENROLL_WINDOW = 14;   // días en que un lead sigue en cadencia
+  const now = Date.now();
+
+  // ¿Encendido?
+  let enabled = true;
+  try {
+    const { data } = await supabase.from('crm_settings').select('value').eq('key', 'autopilot').single();
+    if (data && data.value && data.value.enabled === false) enabled = false;
+  } catch (e) {}
+
+  // Leads de los últimos 60 días (ventana de visualización).
+  const since = new Date(now - 60 * DAY).toISOString();
+  let leads = [];
+  try {
+    const { data, error } = await supabase.from('leads')
+      .select('id,name,email,service,country,source_page,status,created_at,followups_sent,autofollow,last_followup_at')
+      .gte('created_at', since)
+      .order('created_at', { ascending: false })
+      .limit(500);
+    if (error) throw error;
+    leads = data || [];
+  } catch (e) {
+    return res.status(200).json({ ok: false, enabled, error: String(e.message || e).slice(0, 200), cadence: CADENCE_DAYS, stats: {}, upcoming: [], recent: [] });
+  }
+
+  let enrolled = 0, completed = 0, sentTotal = 0, dueNow = 0, optedOut = 0, sentThisWeek = 0;
+  const upcoming = [], recent = [];
+  const weekAgo = now - 7 * DAY;
+
+  for (const l of leads) {
+    const idx = Number(l.followups_sent) || 0;
+    sentTotal += idx;
+    const active = !['won', 'lost'].includes(l.status);
+    const inWindow = (now - new Date(l.created_at).getTime()) <= ENROLL_WINDOW * DAY;
+    if (l.autofollow === false) optedOut++;
+    if (l.last_followup_at && new Date(l.last_followup_at).getTime() >= weekAgo) sentThisWeek++;
+
+    if (idx >= CADENCE_DAYS.length) {
+      completed++;
+    } else if (active && l.autofollow !== false && inWindow) {
+      enrolled++;
+      const dueAt = new Date(l.created_at).getTime() + CADENCE_DAYS[idx] * DAY;
+      const overdue = now >= dueAt;
+      if (overdue) dueNow++;
+      upcoming.push({ id: l.id, name: l.name, email: l.email, country: l.country, step: idx + 1, totalSteps: CADENCE_DAYS.length, dueAt: new Date(dueAt).toISOString(), overdue });
+    }
+
+    if (l.last_followup_at) {
+      recent.push({ id: l.id, name: l.name, email: l.email, country: l.country, step: idx, at: l.last_followup_at });
+    }
+  }
+
+  upcoming.sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt));
+  recent.sort((a, b) => new Date(b.at) - new Date(a.at));
+
+  return res.status(200).json({
+    ok: true,
+    enabled,
+    cadence: CADENCE_DAYS,
+    stats: { enrolled, completed, sentTotal, sentThisWeek, dueNow, optedOut, considered: leads.length },
+    upcoming: upcoming.slice(0, 40),
+    recent: recent.slice(0, 25)
+  });
+}
+
 async function getAutopilot(req, res) {
   let enabled = true;
   try {
@@ -1212,6 +1281,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'reminders') return await getReminders(req, res);
     if (req.method === 'GET' && action === 'ai-followup' && id) return await getAiFollowup(req, res, id);
     if (req.method === 'GET'   && action === 'autopilot') return await getAutopilot(req, res);
+    if (req.method === 'GET'   && action === 'autopilot-stats') return await getAutopilotStats(req, res);
     if (req.method === 'PATCH' && action === 'autopilot') return await setAutopilot(req, res);
     if (req.method === 'POST'  && action === 'run-followups') return await runFollowupsNow(req, res);
     if (req.method === 'GET'   && action === 'settings') return await getSettings(req, res);
