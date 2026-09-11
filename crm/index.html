@@ -653,6 +653,10 @@
   .ap-switch .ap-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ash); transition: background .2s; }
   .ap-switch.on { border-color: rgba(52,211,153,.4); color: #8ee6bf; }
   .ap-switch.on .ap-dot { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,.6); }
+
+  /* Vistas: ocultar la sección que no pertenece a la vista activa
+     (gana sobre display:grid/flex de las clases). */
+  [data-view][hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -665,21 +669,25 @@
   </div>
   <div class="sidebar-nav">
     <div class="nav-section-label" style="margin-top:8px;" data-i18n="nav_section">Navegación</div>
-    <a href="/crm/index.html" class="nav-item active">
+    <a href="#" class="nav-item active" data-nav="resumen" onclick="showView('resumen'); return false;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      <span data-i18n="nav_dashboard">Dashboard</span>
+      <span data-i18n="nav_overview">Resumen</span>
     </a>
-    <a href="#" class="nav-item" onclick="filterStatus('new'); return false;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
-      <span data-i18n="nav_new">Nuevos leads</span>
+    <a href="#" class="nav-item" data-nav="leads" onclick="showView('leads'); return false;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      <span data-i18n="nav_leads">Leads</span>
     </a>
-    <a href="#" class="nav-item" onclick="filterStatus('hot'); return false;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c0 6-6 8-6 14a6 6 0 0012 0c0-6-6-8-6-14z"/></svg>
-      <span data-i18n="nav_hot">Leads calientes</span>
+    <a href="#" class="nav-item" data-nav="autopilot" onclick="showView('autopilot'); return false;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      <span data-i18n="nav_autopilot">Seguimiento IA</span>
     </a>
-    <a href="#" class="nav-item" onclick="filterStatus('won'); return false;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 6L9 17l-5-5"/></svg>
-      <span data-i18n="nav_won">Ganados</span>
+    <a href="#" class="nav-item" data-nav="finanzas" onclick="showView('finanzas'); return false;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      <span data-i18n="nav_finance">Finanzas</span>
+    </a>
+    <a href="#" class="nav-item" data-nav="impuestos" onclick="showView('impuestos'); return false;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 15l6-6M9.5 9.5h.01M14.5 14.5h.01"/></svg>
+      <span data-i18n="nav_fiscal">Impuestos</span>
     </a>
   </div>
   <div class="sidebar-footer">
@@ -692,7 +700,7 @@
 <main class="main">
   <div class="page-header">
     <div>
-      <h1 class="page-title" data-i18n="dashboard">Dashboard</h1>
+      <h1 class="page-title" id="pageTitle">Resumen</h1>
       <p class="page-subtitle" id="lastUpdated" data-i18n="loading_data">Cargando datos...</p>
     </div>
     <div class="header-actions">
@@ -712,7 +720,7 @@
   </div>
 
   <!-- Metrics -->
-  <div class="metrics-grid" id="metricsGrid">
+  <div data-view="resumen" class="metrics-grid" id="metricsGrid">
     <div class="metric-card"><div class="metric-label" data-i18n="m_total">Total Leads</div><div class="metric-value" id="m-total">—</div></div>
     <div class="metric-card"><div class="metric-label" data-i18n="m_week">Nuevos esta semana</div><div class="metric-value" id="m-week">—</div></div>
     <div class="metric-card"><div class="metric-label" data-i18n="m_hot">Leads calientes</div><div class="metric-value" id="m-hot">—</div><div class="metric-sub" data-i18n="m_hot_sub">Requieren acción</div></div>
@@ -723,7 +731,7 @@
   </div>
 
   <!-- ── Cobros y seguimientos (recordatorios) ── -->
-  <div class="rem-section">
+  <div data-view="resumen" class="rem-section">
     <div class="rem-grid">
       <div class="rem-col">
         <div class="rem-head"><h2 class="finance-title" data-i18n="rem_rec_title">Por cobrar</h2><span class="rem-count" id="rem-rec-count"></span></div>
@@ -739,7 +747,7 @@
   </div>
 
   <!-- ── Piloto automático de seguimiento (IA) ── -->
-  <div class="finance-section" id="autopilotBar">
+  <div data-view="autopilot" class="finance-section" id="autopilotBar">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="ap_title">Piloto automático de seguimiento</h2>
@@ -754,7 +762,7 @@
   </div>
 
   <!-- ── Radar Fiscal (por país — para el contador) ── -->
-  <div class="fiscal-section">
+  <div data-view="impuestos" class="fiscal-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="radar_title">Radar fiscal</h2>
@@ -767,7 +775,7 @@
   </div>
 
   <!-- ── Reporte fiscal por período (descarga y declara) ── -->
-  <div class="fiscal-section">
+  <div data-view="impuestos" class="fiscal-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="period_title">Reporte fiscal por período</h2>
@@ -796,7 +804,7 @@
   </div>
 
   <!-- Charts -->
-  <div class="charts-row">
+  <div data-view="leads" class="charts-row">
     <div class="chart-card">
       <div class="chart-title" data-i18n="chart_service">Leads por servicio (30 días)</div>
       <div id="chartService"></div>
@@ -808,7 +816,7 @@
   </div>
 
   <!-- Filters -->
-  <div class="filters-bar">
+  <div data-view="leads" class="filters-bar">
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" id="searchInput" data-i18n-ph="search_ph" placeholder="Buscar por nombre, email, empresa..." oninput="debounceSearch()">
@@ -839,7 +847,7 @@
   </div>
 
   <!-- Table -->
-  <div class="table-wrap">
+  <div data-view="leads" class="table-wrap">
     <table>
       <thead>
         <tr>
@@ -867,7 +875,7 @@
   </div>
 
   <!-- ── Finanzas (vista para contabilidad) ── -->
-  <div class="finance-section">
+  <div data-view="finanzas" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="finance_title">Finanzas</h2>
@@ -896,7 +904,7 @@
   </div>
 
   <!-- ── Facturas emitidas ── -->
-  <div class="finance-section">
+  <div data-view="finanzas" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="invoices_title">Facturas emitidas</h2>
@@ -921,7 +929,7 @@
   </div>
 
   <!-- ── Rentabilidad (P&L) ── -->
-  <div class="finance-section">
+  <div data-view="finanzas" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="pnl_title">Rentabilidad</h2>
@@ -934,7 +942,7 @@
   </div>
 
   <!-- ── Gastos ── -->
-  <div class="finance-section">
+  <div data-view="finanzas" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="expenses_title">Gastos</h2>
@@ -987,7 +995,7 @@
   </div>
 
   <!-- ── Gráficos ── -->
-  <div class="finance-section">
+  <div data-view="finanzas" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="charts_title">Gráficos</h2>
@@ -1022,7 +1030,7 @@
   </div>
 
   <!-- ── Pipeline (Kanban) ── -->
-  <div class="finance-section">
+  <div data-view="leads" class="finance-section">
     <div class="finance-head">
       <div>
         <h2 class="finance-title" data-i18n="pipeline_title">Pipeline</h2>
@@ -1130,7 +1138,7 @@ let searchTimer = null;
 let LANG = (() => { try { return localStorage.getItem('crm_lang') || 'es'; } catch { return 'es'; } })();
 const I18N = {
   es: {
-    crm_label:'CRM · Panel Admin', nav_section:'Navegación', nav_dashboard:'Dashboard', nav_new:'Nuevos leads', nav_hot:'Leads calientes', nav_won:'Ganados', logout:'Cerrar sesión',
+    crm_label:'CRM · Panel Admin', nav_section:'Navegación', nav_dashboard:'Dashboard', nav_new:'Nuevos leads', nav_hot:'Leads calientes', nav_won:'Ganados', nav_overview:'Resumen', nav_leads:'Leads', nav_autopilot:'Seguimiento IA', nav_finance:'Finanzas', nav_fiscal:'Impuestos', logout:'Cerrar sesión',
     dashboard:'Dashboard', loading_data:'Cargando datos...', btn_new_lead:'Nuevo lead', btn_export:'Exportar CSV', btn_refresh:'Actualizar',
     m_total:'Total Leads', m_week:'Nuevos esta semana', m_hot:'Leads calientes', m_hot_sub:'Requieren acción', m_conv:'Tasa de conversión',
     m_revenue:'Ingresos cobrados', m_pipeline:'Pipeline (potencial)', m_pipeline_sub:'Valor de leads abiertos', m_outstanding:'Por cobrar', m_outstanding_sub:'De clientes ganados',
@@ -1159,7 +1167,7 @@ const I18N = {
     lang_btn:'EN'
   },
   en: {
-    crm_label:'CRM · Admin Panel', nav_section:'Navigation', nav_dashboard:'Dashboard', nav_new:'New leads', nav_hot:'Hot leads', nav_won:'Won', logout:'Sign out',
+    crm_label:'CRM · Admin Panel', nav_section:'Navigation', nav_dashboard:'Dashboard', nav_new:'New leads', nav_hot:'Hot leads', nav_won:'Won', nav_overview:'Overview', nav_leads:'Leads', nav_autopilot:'Follow-up AI', nav_finance:'Finance', nav_fiscal:'Taxes', logout:'Sign out',
     dashboard:'Dashboard', loading_data:'Loading data...', btn_new_lead:'New lead', btn_export:'Export CSV', btn_refresh:'Refresh',
     m_total:'Total leads', m_week:'New this week', m_hot:'Hot leads', m_hot_sub:'Need action', m_conv:'Conversion rate',
     m_revenue:'Revenue collected', m_pipeline:'Pipeline (potential)', m_pipeline_sub:'Value of open leads', m_outstanding:'Outstanding', m_outstanding_sub:'From won clients',
@@ -1199,7 +1207,25 @@ function toggleLang() {
   LANG = LANG === 'es' ? 'en' : 'es';
   try { localStorage.setItem('crm_lang', LANG); } catch {}
   applyI18n();
+  paintViewTitle();
   refreshAll();   // re-render dynamic content in the new language
+}
+
+// ── Navegación por vistas (barra lateral estilo SaaS) ─────────
+const VIEW_TITLE = { resumen:'nav_overview', leads:'nav_leads', autopilot:'ap_title', finanzas:'nav_finance', impuestos:'nav_fiscal' };
+let currentView = 'resumen';
+function paintViewTitle() {
+  const h = document.getElementById('pageTitle');
+  if (h) h.textContent = t(VIEW_TITLE[currentView] || 'nav_overview');
+}
+function showView(name) {
+  if (!VIEW_TITLE[name]) name = 'resumen';
+  currentView = name;
+  document.querySelectorAll('[data-view]').forEach(el => { el.hidden = (el.dataset.view !== name); });
+  document.querySelectorAll('.sidebar-nav .nav-item').forEach(a => a.classList.toggle('active', a.dataset.nav === name));
+  paintViewTitle();
+  try { localStorage.setItem('crm_view', name); } catch (e) {}
+  window.scrollTo(0, 0);
 }
 
 async function loadCrmConfig() {
@@ -1233,6 +1259,9 @@ async function init() {
   if (dateInput)  dateInput.value  = today;
   applyI18n();            // idioma guardado (ES/EN)
   buildPeriodOptions();   // llena el selector de períodos del reporte fiscal
+  let savedView = 'resumen';
+  try { savedView = localStorage.getItem('crm_view') || 'resumen'; } catch (e) {}
+  showView(savedView);    // aplica la vista guardada de la barra lateral
   await refreshAll();
 }
 
