@@ -646,6 +646,13 @@
   #monthlyChart { flex-direction: column; align-items: stretch; min-height: 0; gap: 20px; }
   .mc-country-head { font-size: 12px; letter-spacing: .04em; color: var(--gold-light); margin-bottom: 10px; }
   .mc-country .bar-chart { min-height: 0; }
+
+  /* ── Piloto automático ── */
+  .ap-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .ap-switch { display: inline-flex; align-items: center; gap: 8px; background: var(--onyx-3); border: 1px solid var(--border); color: var(--ash-light); border-radius: 20px; padding: 7px 14px; font-size: 12px; cursor: pointer; font-family: inherit; }
+  .ap-switch .ap-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ash); transition: background .2s; }
+  .ap-switch.on { border-color: rgba(52,211,153,.4); color: #8ee6bf; }
+  .ap-switch.on .ap-dot { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,.6); }
 </style>
 </head>
 <body>
@@ -729,6 +736,21 @@
         <div id="rem-followups"><div class="loading"><div class="loading-spinner"></div>Cargando…</div></div>
       </div>
     </div>
+  </div>
+
+  <!-- ── Piloto automático de seguimiento (IA) ── -->
+  <div class="finance-section" id="autopilotBar">
+    <div class="finance-head">
+      <div>
+        <h2 class="finance-title" data-i18n="ap_title">Piloto automático de seguimiento</h2>
+        <p class="page-subtitle" data-i18n="ap_sub">La IA envía sola la cadencia de correos a cada lead nuevo en sus fechas (día 2, 5 y 9). Se detiene si marcas al cliente ganado o perdido.</p>
+      </div>
+      <div class="ap-controls">
+        <button class="ap-switch" id="apToggle" onclick="toggleAutopilot()" aria-pressed="false"><span class="ap-dot"></span><span id="apState">Apagado</span></button>
+        <button class="btn btn-primary" id="apRunBtn" onclick="runFollowupsNow()" data-i18n="ap_run">Enviar seguimientos ahora</button>
+      </div>
+    </div>
+    <div id="apResult" class="page-subtitle" style="margin-top:6px"></div>
   </div>
 
   <!-- ── Radar Fiscal (por país — para el contador) ── -->
@@ -1127,6 +1149,7 @@ const I18N = {
     expenses_title:'Gastos', expenses_sub:'Registra cada gasto del negocio. Los "costos directos" se restan del ingreso para la utilidad bruta.',
     charts_title:'Gráficos', charts_sub:'Visualiza tu desempeño financiero de un vistazo.',
     mc_title:'Utilidad mensual', mc_sub:'Ingresos, gastos y utilidad — últimos 6 meses', cl_revenue:'Ingresos', cl_expenses:'Gastos', cl_profit:'Utilidad', cc_title:'Gastos por categoría', cc_sub:'Distribución de tus gastos registrados',
+    ap_title:'Piloto automático de seguimiento', ap_sub:'La IA envía sola la cadencia de correos a cada lead nuevo en sus fechas (día 2, 5 y 9). Se detiene si marcas al cliente ganado o perdido.', ap_run:'Enviar seguimientos ahora', ap_on:'Encendido', ap_off:'Apagado', ap_running:'Enviando…',
     pipeline_title:'Pipeline', pipeline_sub:'Tu embudo de ventas por etapa. Cambia el estado de cada lead desde su tarjeta.',
      th_stage:'Etapa', th_value:'Valor', th_paid:'Pagado', th_pending:'Pendiente', th_payment:'Pago',
     th_desc:'Descripción', th_category:'Categoría', th_type:'Tipo', th_amount:'Monto',
@@ -1155,6 +1178,7 @@ const I18N = {
     expenses_title:'Expenses', expenses_sub:'Log every business expense. "Direct costs" are subtracted from revenue for gross profit.',
     charts_title:'Charts', charts_sub:'See your financial performance at a glance.',
     mc_title:'Monthly profit', mc_sub:'Revenue, expenses and profit — last 6 months', cl_revenue:'Revenue', cl_expenses:'Expenses', cl_profit:'Profit', cc_title:'Expenses by category', cc_sub:'Breakdown of your recorded expenses',
+    ap_title:'Follow-up autopilot', ap_sub:'The AI sends the email cadence to every new lead on its own schedule (day 2, 5 and 9). It stops when you mark the client won or lost.', ap_run:'Send follow-ups now', ap_on:'On', ap_off:'Off', ap_running:'Sending…',
     pipeline_title:'Pipeline', pipeline_sub:'Your sales funnel by stage. Change each lead’s status from its card.',
      th_stage:'Stage', th_value:'Value', th_paid:'Paid', th_pending:'Pending', th_payment:'Payment',
     th_desc:'Description', th_category:'Category', th_type:'Type', th_amount:'Amount',
@@ -1310,7 +1334,51 @@ function paymentLabel(p) {
 }
 
 async function refreshAll() {
-  await Promise.all([loadMetrics(), loadReminders(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+  await Promise.all([loadMetrics(), loadReminders(), loadAutopilot(), loadFiscal(), loadFiscalPeriod(), loadInvoices(), loadLeads(), loadFinance(), loadExpenses(), loadPipeline(), loadMonthly()]);
+}
+
+// ── Piloto automático de seguimiento ──────────────────────────
+let autopilotOn = true;
+function paintAutopilot() {
+  const btn = document.getElementById('apToggle');
+  const state = document.getElementById('apState');
+  if (!btn || !state) return;
+  btn.classList.toggle('on', autopilotOn);
+  btn.setAttribute('aria-pressed', String(autopilotOn));
+  state.textContent = autopilotOn ? t('ap_on') : t('ap_off');
+}
+async function loadAutopilot() {
+  try { const { enabled } = await api({ action: 'autopilot' }); autopilotOn = enabled !== false; }
+  catch (e) { autopilotOn = true; }
+  paintAutopilot();
+}
+async function toggleAutopilot() {
+  try {
+    const { enabled } = await api({ action: 'autopilot' }, 'PATCH', { enabled: !autopilotOn });
+    autopilotOn = enabled !== false;
+    paintAutopilot();
+  } catch (e) { alert('Error: ' + (e.message || e)); }
+}
+async function runFollowupsNow() {
+  const btn = document.getElementById('apRunBtn');
+  const out = document.getElementById('apResult');
+  btn.disabled = true; btn.textContent = t('ap_running');
+  try {
+    const r = await api({ action: 'run-followups' }, 'POST', {});
+    const en = LANG === 'en';
+    if (r.enabled === false) {
+      out.textContent = en ? 'Autopilot is off — turn it on to send.' : 'El piloto está apagado — enciéndelo para enviar.';
+    } else {
+      out.innerHTML = en
+        ? `✓ Sent <b>${r.sent}</b> follow-up email(s) · ${r.considered} lead(s) checked.`
+        : `✓ Se enviaron <b>${r.sent}</b> correo(s) de seguimiento · ${r.considered} lead(s) revisados.`;
+      if ((r.details || []).some(d => d.error)) out.innerHTML += en ? ' <span style="color:#f87171">(some failed — check Resend)</span>' : ' <span style="color:#f87171">(algunos fallaron — revisa Resend)</span>';
+    }
+  } catch (e) {
+    out.textContent = 'Error: ' + String(e.message || e).slice(0, 160);
+  } finally {
+    btn.disabled = false; btn.textContent = t('ap_run');
+  }
 }
 
 // ── Cobros y seguimientos ─────────────────────────────────────

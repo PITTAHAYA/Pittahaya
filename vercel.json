@@ -98,5 +98,8 @@
         }
       ]
     }
+  ],
+  "crons": [
+    { "path": "/api/cron-followups", "schedule": "0 15 * * *" }
   ]
 }

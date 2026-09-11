@@ -26,6 +26,13 @@ alter table public.expenses
 alter table public.leads
   add column if not exists payment_due date;
 
+-- Piloto automático de seguimiento: cuántos correos de la cadencia se han
+-- enviado a este lead, y si está inscrito (se puede pausar por lead).
+alter table public.leads
+  add column if not exists followups_sent   int     default 0,
+  add column if not exists autofollow       boolean default true,
+  add column if not exists last_followup_at timestamptz;
+
 -- ── Índices para reportes por país ──────────────────────────
 create index if not exists leads_country_idx      on public.leads (country);
 create index if not exists expenses_country_idx   on public.expenses (country);

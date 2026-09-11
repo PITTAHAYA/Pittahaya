@@ -990,6 +990,29 @@ Write every "message" and text in ${ctx.lang === 'en' ? 'ENGLISH' : 'SPANISH (tu
   }
 }
 
+// Piloto automático: correr el auto-envío ahora (botón admin del CRM) y
+// leer/cambiar el interruptor global.
+async function runFollowupsNow(req, res) {
+  const { runAutoFollowups } = require('../lib/followup');
+  const result = await runAutoFollowups({});
+  return res.status(200).json(result);
+}
+async function getAutopilot(req, res) {
+  let enabled = true;
+  try {
+    const { data } = await supabase.from('crm_settings').select('value').eq('key', 'autopilot').single();
+    if (data && data.value && data.value.enabled === false) enabled = false;
+  } catch (e) { /* sin registro → encendido por defecto */ }
+  return res.status(200).json({ enabled });
+}
+async function setAutopilot(req, res) {
+  const enabled = !(req.body && req.body.enabled === false);
+  const { error } = await supabase.from('crm_settings')
+    .upsert({ key: 'autopilot', value: { enabled }, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ enabled });
+}
+
 async function getAiFollowup(req, res, id) {
   const { data: lead, error } = await supabase.from('leads').select('*').eq('id', id).single();
   if (error || !lead) return res.status(404).json({ error: 'Lead no encontrado' });
@@ -1187,6 +1210,9 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'fiscal-period') return await getFiscalPeriod(req, res);
     if (req.method === 'GET' && action === 'reminders') return await getReminders(req, res);
     if (req.method === 'GET' && action === 'ai-followup' && id) return await getAiFollowup(req, res, id);
+    if (req.method === 'GET'   && action === 'autopilot') return await getAutopilot(req, res);
+    if (req.method === 'PATCH' && action === 'autopilot') return await setAutopilot(req, res);
+    if (req.method === 'POST'  && action === 'run-followups') return await runFollowupsNow(req, res);
     if (req.method === 'GET'   && action === 'settings') return await getSettings(req, res);
     if (req.method === 'PATCH' && action === 'settings') return await updateSettings(req, res);
     if (req.method === 'GET'  && action === 'invoices') return await getInvoices(req, res);
