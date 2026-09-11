@@ -332,19 +332,32 @@ const sendLeadConfirmation = async (lead) => {
     foot: "Webs premium y automatización con IA · pittahaya.com"
   };
 
+  // Estilo claro premium con logo — consistente con los correos de seguimiento
+  // (lib/followup.js). Entrega mejor a bandeja que el fondo oscuro anterior.
+  const logo = "https://www.pittahaya.com/assets/pitahaya-logo.png";
   const html = `
-    <div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;background:#0c0d12;border:1px solid #1e2030;border-radius:14px;overflow:hidden">
-      <div style="height:4px;background:linear-gradient(90deg,#e6bf74,#e83487)"></div>
-      <div style="padding:28px 26px">
-        <h2 style="margin:0 0 14px;font-size:20px;color:#f6efe2">${t.hi}</h2>
-        <p style="margin:0 0 14px;line-height:1.6;color:#c7ccd8">${t.p1}</p>
-        ${t.p2 ? `<p style="margin:0 0 14px;line-height:1.6;color:#c7ccd8">${t.p2}</p>` : ""}
-        <p style="margin:0 0 22px;line-height:1.6;color:#c7ccd8">${t.p3}</p>
-        <p style="margin:0 0 10px;line-height:1.6;color:#9aa1b2;font-size:14px">${t.cta}</p>
-        <a href="${t.ctaUrl}" style="display:inline-block;background:linear-gradient(135deg,#e6bf74,#e83487);color:#0a0a0a;text-decoration:none;font-weight:700;padding:11px 20px;border-radius:8px;font-size:14px">${t.ctaLabel}</a>
-        <p style="margin:26px 0 0;color:#f6efe2;font-weight:600">${t.sign}</p>
+    <div style="background:#f4f2ee;padding:28px 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif">
+      <div style="max-width:520px;margin:0 auto;background:#ffffff;border:1px solid #ece7de;border-radius:16px;overflow:hidden;box-shadow:0 2px 6px rgba(20,14,4,.05)">
+        <div style="height:4px;background:linear-gradient(90deg,#e6bf74,#e83487)"></div>
+        <div style="padding:30px 32px 12px">
+          <div style="margin:0 0 22px">
+            <img src="${logo}" alt="Pittahaya" width="42" height="42" style="display:inline-block;vertical-align:middle;border:0;width:42px;height:42px">
+            <span style="display:inline-block;vertical-align:middle;margin-left:10px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#c9943a;font-weight:700">Pittahaya</span>
+          </div>
+          <h2 style="margin:0 0 16px;font-size:21px;color:#1a1a1a">${t.hi}</h2>
+          <p style="font-size:15.5px;line-height:1.7;color:#28251f;margin:0 0 16px">${t.p1}</p>
+          ${t.p2 ? `<p style="font-size:15.5px;line-height:1.7;color:#28251f;margin:0 0 16px">${t.p2}</p>` : ""}
+          <p style="font-size:15.5px;line-height:1.7;color:#28251f;margin:0 0 22px">${t.p3}</p>
+          <p style="font-size:14px;color:#6b6459;margin:0 0 10px">${t.cta}</p>
+          <a href="${t.ctaUrl}" style="display:inline-block;background:linear-gradient(135deg,#e6bf74,#e83487);color:#ffffff;text-decoration:none;font-weight:700;padding:11px 22px;border-radius:9px;font-size:14px">${t.ctaLabel}</a>
+          <p style="margin:26px 0 4px;font-size:15px;color:#1a1a1a;font-weight:600">${t.sign}</p>
+        </div>
+        <div style="padding:15px 32px;background:#faf7f2;border-top:1px solid #efe9df">
+          <a href="https://www.pittahaya.com" style="color:#c9943a;text-decoration:none;font-size:13px;font-weight:600">pittahaya.com</a>
+          <span style="color:#cabfac;font-size:12px"> &nbsp;·&nbsp; </span>
+          <span style="color:#b0a690;font-size:12px">${t.foot}</span>
+        </div>
       </div>
-      <div style="padding:14px 26px;background:#080910;color:#5f6678;font-size:12px;border-top:1px solid #1e2030">${t.foot}</div>
     </div>
   `;
 
