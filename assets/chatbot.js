@@ -20,6 +20,7 @@
     automatizacion:"automation.html",
     portafolio:    "portfolio.html",
     faq:           "faq.html",
+    nosotros:      "about.html",
     landing:       "demo-landing.html",
     corporativa:   "demo-corporativa.html",
     marca:         "demo-marca.html",
@@ -33,6 +34,7 @@
     automatizacion:"automatizacion.html",
     portafolio:   "portafolio.html",
     faq:          "faq.html",
+    nosotros:     "sobre-mi.html",
     landing:      "demo-landing.html",
     corporativa:  "demo-corporativa.html",
     marca:        "demo-marca.html",
@@ -502,8 +504,8 @@
       id: "content",
       phrases: ["que necesito tener listo", "que me piden para empezar", "necesito textos previos", "necesito fotos propias", "que debo preparar", "do I need text", "do I need to provide", "what do I need", "do I need photos", "do I need content"],
       keywords: ["textos", "copy", "contenido", "fotos", "imagenes", "videos", "redaccion", "mensaje", "copywriting", "proveer", "preparar", "text", "texts", "content", "photos", "images", "pictures", "video", "videos", "provide", "prepare"],
-      text: "No es obligatorio tener todo listo. Si no tienes textos, te orientamos para construir el mensaje: propuesta de valor, beneficios y llamadas a la acción. Las imágenes pueden combinarse con librerías licenciadas de alta calidad. Lo más importante al inicio es tener claro qué vendes y para quién es.",
-      en: { text: "You don't need to have everything ready. If you don't have copy, we guide you to build the message: value proposition, benefits and calls to action. Images can be combined with high-quality licensed libraries. What matters most at the start is having clarity about what you sell and who it's for." },
+      text: "No es obligatorio tener todo listo. Si no tienes textos, te orientamos para construir el mensaje: propuesta de valor, beneficios y llamadas a la acción. Las imágenes pueden combinarse con bancos de imágenes con licencia y de alta calidad. Lo más importante al inicio es tener claro qué vendes y para quién es.",
+      en: { text: "You don't need to have everything ready. If you don't have copy, we guide you to build the message: value proposition, benefits and calls to action. Images can be combined with high-quality licensed stock libraries. What matters most at the start is having clarity about what you sell and who it's for." },
       actions: act.contact
     },
 
@@ -532,8 +534,8 @@
       id: "hosting",
       phrases: ["incluye dominio", "incluye hosting", "como funciona el hosting", "donde se publica", "email corporativo", "correo empresarial", "is hosting included", "is domain included", "do you host", "where is it hosted", "how do I publish"],
       keywords: ["dominio", "hosting", "host", "publicar", "subir", "deploy", "correo", "email", "servidor", "nube", "vercel", "domain", "publish", "upload", "server", "cloud", "mail"],
-      text: "Depende del plan. En la mayoría de casos te acompañamos en la configuración del dominio y hosting, o conectamos la web a lo que ya tengas. El correo corporativo se puede configurar por separado. Todo queda acordado desde el diagnóstico para que no haya costos sorpresa.",
-      en: { text: "Depends on the plan. In most cases we guide you through domain and hosting setup, or connect the site to what you already have. Corporate email can be configured separately. Everything is agreed during the diagnostic so there are no surprise costs." },
+      text: "Depende del plan. En la mayoría de los casos te acompañamos en la configuración del dominio y hosting, o conectamos la web a lo que ya tengas. El correo corporativo se puede configurar por separado. Todo queda acordado desde el diagnóstico para que no haya costos sorpresa.",
+      en: { text: "It depends on the plan. In most cases we guide you through domain and hosting setup, or connect the site to what you already have. Corporate email can be configured separately. Everything is agreed during the diagnostic so there are no surprise costs." },
       actions: act.contact
     },
 
@@ -713,7 +715,7 @@
       phrases: ["tengo un restaurante", "tengo una cafeteria", "tengo un bar", "negocio de comida", "i have a restaurant", "i have a cafe", "i have a bar", "food business"],
       keywords: ["restaurante", "cafeteria", "bar", "comida", "menu", "gastronomia", "delivery", "chef", "restaurant", "cafe", "food", "menu"],
       text: "Para restaurante o cafetería la web debe mostrar el concepto, el menú con fotos apetitosas, la ubicación, el horario y un link directo para reservas o pedidos. Un chatbot con IA puede tomar reservas y responder por ti. La fotografía lo es todo: la comida entra por los ojos antes de entrar al local.",
-      en: { text: "For a restaurant or cafe, the site must show the concept, the menu with appetizing photos, location, hours and a direct link for reservations or orders. An AI chatbot can take bookings and reply for you. Photography is everything: food enters through the eyes before it enters the venue." },
+      en: { text: "For a restaurant or cafe, the site must show the concept, the menu with appetizing photos, location, hours and a direct link for reservations or orders. An AI chatbot can take bookings and reply for you. Photography is everything: people eat with their eyes first." },
       actions: [{ label: inEn ? "View Brand demo" : "Ver demo Marca", href: routes.marca }, { label: inEn ? "Quote my restaurant" : "Cotizar mi restaurante", href: routes.contacto }]
     },
 
@@ -732,7 +734,7 @@
       id: "objection-price",
       phrases: ["es muy caro", "no tengo presupuesto", "no puedo pagar tanto", "es costoso", "fuera de mi presupuesto", "tengo poco dinero", "it's too expensive", "i don't have budget", "i can't pay that much", "out of my budget"],
       keywords: ["caro", "costoso", "barato", "economico", "accesible", "expensive", "cheap", "affordable", "pricey"],
-      text: "Es válido. El Plan Básico existe justamente para quien quiere empezar con autoridad sin un presupuesto grande. Lo más caro suele ser seguir sin una presencia que genere confianza: perder clientes que se van a la competencia por no verte serio. ¿Quieres que te muestre el plan de menor inversión?",
+      text: "Es comprensible. El Plan Básico existe justamente para quien quiere empezar con autoridad sin un presupuesto grande. Lo más caro suele ser seguir sin una presencia que genere confianza: perder clientes que se van a la competencia por no verte serio. ¿Quieres que te muestre el plan de menor inversión?",
       en: { text: "That's fair. The Basic plan exists exactly for those who want to start with authority without a big budget. The most expensive thing is usually staying without a presence that builds trust — losing clients to competitors because you don't look serious. Want me to show you the lowest-investment plan?" },
       actions: [{ label: inEn ? "View Basic plan" : "Ver Plan Básico", href: routes.planes }, { label: inEn ? "Request diagnostic" : "Solicitar diagnóstico", href: routes.contacto }]
     },
@@ -752,7 +754,7 @@
       id: "objection-existing",
       phrases: ["ya tengo web", "ya tengo una pagina", "quiero mejorar mi web actual", "tengo web pero no funciona", "mi web esta desactualizada", "i already have a website", "i want to improve my current site", "my site doesn't work", "my website is outdated"],
       keywords: ["rediseño", "mejorar", "actualizar", "renovar", "antigua", "desactualizada", "redesign", "improve", "update", "outdated", "old"],
-      text: "Perfecto punto de partida. Si tu web existe pero no genera confianza, no convierte o simplemente no refleja el nivel de tu negocio, un rediseño puede ser la inversión más directa que hagas este año. El diagnóstico gratis sirve exactamente para eso: analizar qué falla y qué se puede mejorar.",
+      text: "Es un punto de partida perfecto. Si tu web existe pero no genera confianza, no convierte o simplemente no refleja el nivel de tu negocio, un rediseño puede ser la inversión más directa que hagas este año. El diagnóstico gratis sirve exactamente para eso: analizar qué falla y qué se puede mejorar.",
       en: { text: "Perfect starting point. If your site exists but doesn't build trust, doesn't convert or simply doesn't reflect your business's level, a redesign can be the most direct investment you make this year. The free diagnostic is exactly for that: analyzing what's failing and what can be improved." },
       actions: [{ label: inEn ? "Diagnose my site" : "Solicitar diagnóstico de mi web", href: routes.contacto }, { label: inEn ? "Redesign service" : "Ver servicio de rediseño", href: routes.servicios }]
     },
@@ -763,7 +765,7 @@
       phrases: ["por que no usar wix", "vs wordpress", "wix vs pittahaya", "squarespace vs pittahaya", "no es lo mismo que wix", "que diferencia con wordpress", "why not use wix", "difference with wordpress", "why not a builder"],
       keywords: ["wix", "wordpress", "squarespace", "webflow", "shopify", "plantilla", "constructor", "builder", "template"],
       text: "Wix, WordPress y similares dan herramientas para que tú construyas. Pittahaya diseña la estrategia visual, el copy de conversión, la experiencia de usuario y la arquitectura desde cero para tu negocio específico — y puede sumar IA encima. La diferencia se nota: una plantilla rellenada versus una web pensada para vender tu oferta en particular.",
-      en: { text: "Wix, WordPress and similar tools give you tools to build it yourself. Pittahaya designs the visual strategy, conversion copy, user experience and architecture from scratch for your specific business — and can layer AI on top. The difference shows: a filled-in template versus a site built to sell your particular offer." },
+      en: { text: "Wix, WordPress and similar platforms give you tools to build it yourself. Pittahaya designs the visual strategy, conversion copy, user experience and architecture from scratch for your specific business — and can layer AI on top. The difference shows: a filled-in template versus a site built to sell your particular offer." },
       actions: [{ label: inEn ? "See our own demos" : "Ver demos propios", href: routes.portafolio }, { label: inEn ? "Request diagnostic" : "Solicitar diagnóstico", href: routes.contacto }]
     },
 
@@ -782,8 +784,8 @@
       id: "testimonials",
       phrases: ["tienen referencias", "clientes satisfechos", "caso de exito", "quiero ver resultados", "pueden mostrar clientes", "do you have references", "happy clients", "success stories", "can you show clients"],
       keywords: ["referencia", "referencias", "testimonio", "testimonios", "caso", "exito", "resultado", "opinion", "reference", "references", "testimonial", "testimonials", "case", "success", "review", "reviews"],
-      text: "En el portafolio puedes ver los demos con distintos estilos y niveles de acabado. Clientes reales han reportado mayor confianza transmitida, más consultas recibidas y precios percibidos como más altos después del rediseño. En el diagnóstico puedo compartir casos más específicos según tu industria.",
-      en: { text: "In the portfolio you can see the demos with different styles and finish levels. Real clients have reported more trust conveyed, more inquiries received and prices perceived as higher after the redesign. In the diagnostic I can share more specific cases for your industry." },
+      text: "En el portafolio puedes recorrer seis marcas completas que diseñamos y programamos, y este mismo sitio es nuestro caso insignia: bilingüe, con asistente de IA y CRM propio. Además, estamos abriendo cupos en nuestro programa de clientes fundadores. En el diagnóstico te mostramos cómo se aplicaría todo esto a tu industria.",
+      en: { text: "In the portfolio you can explore six complete brands we designed and built, and this very site is our flagship case: bilingual, with an AI assistant and its own CRM. We're also opening spots in our founding client program. In the diagnostic we'll show you how all of this applies to your industry." },
       actions: [{ label: L.viewAllDemos, href: routes.portafolio }, { label: inEn ? "Talk about the project" : "Hablar del proyecto", href: routes.contacto }]
     },
 
@@ -934,7 +936,7 @@
       keywords: ["experiencia", "equipo", "empresa", "quien", "quienes", "agencia", "trayectoria", "experience", "team", "company", "agency", "who"],
       text: "Pittahaya es un estudio de diseño con raíz ecuatoriana, enfocado en webs premium y automatización con IA. Trabajamos de forma cercana y personal: hablas directamente con quien diseña tu proyecto, sin pasar por intermediarios ni call centers. En 'Sobre nosotros' cuentas con más contexto, y en el portafolio ves el nivel de trabajo.",
       en: { text: "Pittahaya is a design studio with Ecuadorian roots, focused on premium websites and AI automation. We work closely and personally: you talk directly with the person designing your project — no middlemen or call centers. The 'About' page gives you more context, and the portfolio shows the level of work." },
-      actions: [{ label: inEn ? "About us" : "Sobre nosotros", href: routes.servicios }, { label: L.viewAllDemos, href: routes.portafolio }]
+      actions: [{ label: inEn ? "About us" : "Sobre nosotros", href: routes.nosotros }, { label: L.viewAllDemos, href: routes.portafolio }]
     },
 
     // ── Availability / when can you start ──

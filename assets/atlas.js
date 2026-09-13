@@ -255,7 +255,7 @@
         if (readout) {
           var number = String(index + 1).padStart(2, "0");
           var fallbackId = "FOLIO " + number;
-          readout.textContent = normaliseValue(company.id, fallbackId) + " - " +
+          readout.textContent = normaliseValue(company.id, fallbackId) + " · " +
             normaliseValue(company.name, t("Registro privado", "Private record"));
         }
         renderArchiveMeta(company);
@@ -289,7 +289,7 @@
           folio.className = "archive-folio-marker" + (index === 0 ? " is-selected" : "");
           folio.type = "button";
           folio.setAttribute("aria-label", t("Consultar ", "View ") +
-            normaliseValue(company.id, "folio " + number) + " - " +
+            normaliseValue(company.id, "folio " + number) + " · " +
             normaliseValue(company.name, t("registro privado", "private record")));
           folio.setAttribute("aria-pressed", String(index === 0));
           folio.appendChild(makeTextElement("span", "archive-folio-marker__tick", ""));

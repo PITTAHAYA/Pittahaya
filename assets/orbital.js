@@ -176,8 +176,8 @@
         var factor = (city.fib / city.orb).toFixed(1);
         latNote.textContent = isEnglish
           ? "From " + city.name + ", the optical link to plane " + city.gs +
-            " resolves " + factor + "× faster than the terrestrial route to the nearest data centre. " +
-            "Light travels 47% faster through vacuum than through silica fibre."
+            " resolves " + factor + "× faster than the terrestrial route to the nearest data center. " +
+            "Light travels 47% faster through vacuum than through silica fiber."
           : "Desde " + city.name + ", el enlace óptico al plano " + city.gs +
             " resuelve " + factor + "× más rápido que la ruta terrestre al centro de datos más cercano. " +
             "La luz viaja un 47% más rápido en el vacío que en fibra de sílice.";
@@ -200,7 +200,7 @@
       ["ic", "Nairobi · handover complete with no packet loss"],
       ["ok", "Constellation · 24/24 nodes nominal"],
       ["ic", "ECU-1-08 · core temperature 39 °C · within limits"],
-      ["wn", "Debris detected · avoidance manoeuvre scheduled T-14 min"],
+      ["wn", "Debris detected · avoidance maneuver scheduled T-14 min"],
       ["ok", "Singapore · model synchronization · 640 GB"]
     ] : [
       ["ok", "ECU-1-04 · lote de inferencia completado · 8.4 PFLOP"],
@@ -210,10 +210,10 @@
       ["ok", "Quito · 2.1 TB descargados · integridad verificada"],
       ["wn", "POL-1-06 · eclipse en 90 s · migrando carga a POL-1-07"],
       ["ok", "SSO-1-03 · corrección de órbita · Δv 0.4 m/s"],
-      ["ic", "Nairobi · handover completado sin pérdida de paquetes"],
+      ["ic", "Nairobi · traspaso completado sin pérdida de paquetes"],
       ["ok", "Constelación · 24/24 nodos nominales"],
       ["ic", "ECU-1-08 · temperatura de núcleo 39 °C · dentro de margen"],
-      ["wn", "Detección de escombros · maniobra evasiva programada T-14 min"],
+      ["wn", "Detección de basura espacial · maniobra evasiva programada T-14 min"],
       ["ok", "Singapur · sincronización de modelo · 640 GB"]
     ];
     var n = 0;

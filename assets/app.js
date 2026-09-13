@@ -108,7 +108,7 @@
       ["#portafolio .section-title", "Mira demos y elige una dirección"],
       ["#portafolio .section-lead", "Cada demo muestra una forma distinta de vender y generar confianza."],
       [".conversion-panel .section-title", "Haz que tu web se sienta más valiosa."],
-      [".conversion-panel p", "Cuéntame qué vendes y te doy una dirección clara."]
+      [".conversion-panel p", "Cuéntanos qué vendes y te damos una dirección clara."]
     ],
     "servicios.html": [
       [".section > .container > .section-title", "Servicios web premium"],
@@ -122,7 +122,7 @@
       [".pricing .price:nth-child(1) .plan-note", "Base profesional para recibir contactos."],
       [".pricing .price:nth-child(2) .plan-note", "Servicios, prueba y ruta clara a cotización."],
       [".pricing .price:nth-child(3) .plan-note", "Experiencia memorable y de alta percepción."],
-      ["[data-plan-finder] .section-title", "Te digo qué plan elegir"],
+      ["[data-plan-finder] .section-title", "Te decimos qué plan elegir"],
       ["[data-plan-finder] .section-lead", "Selecciona tu objetivo y recibe una recomendación."],
       [".hr + .section-title", "Cómo avanzamos"],
       [".hr + .section-title + .section-lead", "Un proceso directo, sin complicarte."]
@@ -137,14 +137,14 @@
       [".section > .container > .section-title", "Tu marca, más premium."],
       [".section > .container > .section-lead", "Tu marca puede sentirse premium, clara y fácil de recordar."],
       [".grid-2 .section-title", "Que tu marca se sienta más valiosa"],
-      [".grid-2 .section-lead", "Creo webs modernas para que tu negocio se vea mejor y convierta con claridad."],
+      [".grid-2 .section-lead", "Creamos webs modernas para que tu negocio se vea mejor y convierta con claridad."],
       [".section-title[style]", "Por qué funciona"]
     ],
     "contacto.html": [
       [".section > .container > .section-title", "Diagnóstico gratis."],
       [".section > .container > .section-lead", "Completa el formulario y recibe una dirección clara para tu web."],
       [".grid-2 .section-title", "Diagnóstico gratis"],
-      [".grid-2 .section-lead", "Mientras más claro seas, mejor te puedo orientar."],
+      [".grid-2 .section-lead", "Mientras más claro seas, mejor podremos orientarte."],
       [".contact-option:nth-child(1) span", "Ruta recomendada y siguiente paso."],
       [".contact-option:nth-child(2) span", "Para negocios que quieren verse más premium."],
       [".contact-option:nth-child(3) span", "Respuesta enfocada y directa."],
@@ -245,8 +245,8 @@
         eyebrow: "Buyer-ready client",
         title: "Immediate sale without feeling desperate.",
         mobileTitle: "Clear, fast sale.",
-        body: "Ideal for a concrete offer: the visitor understands the outcome, sees proof, kills doubts, and reaches contact with momentum.",
-        mobileBody: "Client understands the offer and reaches contact effortlessly.",
+        body: "Ideal for a concrete offer: the visitor understands the outcome, sees proof, clears up doubts, and reaches contact with momentum.",
+        mobileBody: "The client understands the offer and reaches out effortlessly.",
         cta: "View conversion demo",
         href: "demo-landing.html"
       }
@@ -282,7 +282,7 @@
         title: "A site remembered as a high-value brand.",
         mobileTitle: "A brand people remember.",
         body: "For creative or high-end brands that sell perception: texture, rhythm, color, luxury, voice — an experience that lingers in memory.",
-        mobileBody: "For brands that sell perception, desire and premium aesthetic.",
+        mobileBody: "For brands that sell perception, desire and a premium aesthetic.",
         cta: "View memorable demos",
         href: "portfolio.html"
       }
@@ -333,7 +333,7 @@
         title: "The offer feels more valuable without over-explaining.",
         mobileTitle: "Your offer feels more valuable.",
         body: "Visual rhythm turns common services into an aspirational experience: the client feels quality before asking the price.",
-        mobileBody: "Clients feel quality before asking price.",
+        mobileBody: "Clients feel the quality before asking the price.",
         label: "Built desire",
         screen: "Your product reads premium.",
         mobileScreen: "More desire, less explaining.",
@@ -496,7 +496,7 @@
         name: "Basic Plan",
         label: "Elegant presence",
         body: "Best to start with a clear, fast, trustworthy site: enough so your business stops looking improvised and can start receiving leads.",
-        mobileBody: "Clean site so you look pro and start getting leads.",
+        mobileBody: "A clean site so you look professional and start getting leads.",
         href: "contacto.html"
       }
     },
@@ -509,8 +509,8 @@
       en: {
         name: "Business Plan",
         label: "Full sales route",
-        body: "The best choice if you want to explain services, kill doubts, show process, and turn visits into intentional conversations.",
-        mobileBody: "Explain services, kill doubts, convert visits.",
+        body: "The best choice if you want to explain services, clear up doubts, show process, and turn visits into intentional conversations.",
+        mobileBody: "Explain services, clear up doubts, convert visits.",
         href: "contacto.html"
       }
     },
@@ -845,13 +845,13 @@
     const auditBtnDefault = auditBtn ? auditBtn.textContent.trim() : "";
     const AM = inEn ? {
       sending: "Sending…",
-      ok: "Got it! We'll send your free audit to your email within 24h. 🎉",
+      ok: "Got it! We'll send your free audit to your email within 24 h. 🎉",
       err: "Something went wrong. Please try again or use the contact form.",
       invalid: "Please add your site, your name and a valid email.",
       consent: "Please confirm you accept the Privacy Policy and Terms."
     } : {
       sending: "Enviando…",
-      ok: "¡Listo! Te enviaremos tu auditoría gratis a tu correo en menos de 24h. 🎉",
+      ok: "¡Listo! Te enviaremos tu auditoría gratis a tu correo en menos de 24 h. 🎉",
       err: "Algo falló. Intenta de nuevo o usa el formulario de contacto.",
       invalid: "Agrega tu sitio, tu nombre y un correo válido.",
       consent: "Por favor confirma que aceptas la Política de Privacidad y los Términos."

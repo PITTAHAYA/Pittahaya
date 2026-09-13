@@ -41,7 +41,7 @@
       focus: "50% 54%",
       interior: assetRoot + "casas/solar-interior.jpg",
       description: t("Una pieza de hormigón y sombra en diálogo con un paisaje abierto. Sus planos profundos, el agua y la vegetación construyen un refugio preciso frente al clima.", "A composition of concrete and shadow in dialogue with an open landscape. Deep planes, water, and vegetation create a precise refuge from the climate."),
-      facts: [[t("Paisaje", "Landscape"), t("Desértico", "Desert")], [t("Carácter", "Character"), t("Arquitectónico", "Architectural")], [t("Acceso", "Access"), t("Por consulta", "By enquiry")]]
+      facts: [[t("Paisaje", "Landscape"), t("Desértico", "Desert")], [t("Carácter", "Character"), t("Arquitectónico", "Architectural")], [t("Acceso", "Access"), t("Por consulta", "By inquiry")]]
     },
     {
       slug: "aster",

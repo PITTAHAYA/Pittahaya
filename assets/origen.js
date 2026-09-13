@@ -210,7 +210,7 @@
   var NOTES = [
     { t: t("Cacao profundo", "Deep cacao"), c: t("La estructura sobre la que todo lo demás se apoya. Tostado sin amargor, largo y limpio.", "The structure supporting everything else. Roasted without bitterness, long and clean."), m: 4, x: 30, y: 40 },
     { t: t("Fruta roja", "Red fruit"),     c: t("Un ataque brillante de grosella y cereza que aparece en los primeros segundos y se retira.", "A bright opening of redcurrant and cherry that appears in the first seconds, then recedes."), m: 3, x: 70, y: 30 },
-    { t: t("Jazmín", "Jasmine"),         c: t("Un final floral delicado, desarrollado de forma natural por el cacao fino de aroma.", "A delicate floral finish developed naturally by fine-flavour cacao."), m: 2, x: 50, y: 22 },
+    { t: t("Jazmín", "Jasmine"),         c: t("Un final floral delicado, desarrollado de forma natural por el cacao fino de aroma.", "A delicate floral finish developed naturally by fine-flavor cacao."), m: 2, x: 50, y: 22 },
     { t: t("Caramelo", "Caramel"),       c: t("El cuerpo dulce que aparece a media fusión, resultado del tueste lento y bajo.", "The sweet body emerging midway through the melt, created by a slow, low roast."), m: 3, x: 40, y: 62 },
     { t: t("Nuez tostada", "Toasted walnut"),   c: t("El cierre seco y cálido que deja la barra limpia y pide el siguiente trozo.", "The dry, warm close that leaves a clean palate and invites the next piece."), m: 3, x: 66, y: 70 }
   ];
@@ -245,7 +245,7 @@
       c: t("La humedad permanente y el suelo volcánico dan un grano denso y mineral. Fermenta rápido y exige control estricto de temperatura.", "Persistent humidity and volcanic soil produce a dense, mineral bean. It ferments quickly and demands strict temperature control."),
       p: "Tierra Negra 85%" },
     { n: "Los Ríos", climate: t("Valle fluvial, cálido y estable", "Warm, stable river valley"), profile: t("Floral, fruta roja, jazmín", "Floral, red fruit, jasmine"), harvest: t("Abril – septiembre", "April – September"),
-      c: t("El corazón del cacao fino de aroma. El agua del río modera la temperatura y permite fermentaciones largas que revelan lo floral.", "The heartland of fine-flavour cacao. River water moderates the temperature and enables long fermentations that reveal floral notes."),
+      c: t("El corazón del cacao fino de aroma. El agua del río modera la temperatura y permite fermentaciones largas que revelan lo floral.", "The heartland of fine-flavor cacao. River water moderates the temperature and enables long fermentations that reveal floral notes."),
       p: "Latitud Cero 72%" },
     { n: t("Amazonía", "Amazonia"), climate: t("Selva alta, húmeda y sombreada", "High rainforest, humid and shaded"), profile: t("Cacao puro, cedro, especia", "Pure cacao, cedar, spice"), harvest: t("Enero – mayo", "January – May"),
       c: t("Cultivo bajo dosel, con árboles antiguos y rendimientos bajos. Grano pequeño, intenso y de una profundidad que no admite azúcar.", "Grown beneath the canopy among old trees with low yields. A small, intense bean of such depth that it needs no sugar."),

@@ -25,16 +25,16 @@
   var PUERTAS = [
     {
       nombre: t("Plan Básico", "Starter Plan"),
-      frase: t("Que te encuentren y te crean.", "So people find you and believe you."),
+      frase: t("Que te encuentren y te crean.", "So people find you — and trust you."),
       cifra: "1", unidad: t("semana", "week"),
       da: "plan-basico",
       tono: "rgba(232,52,135,.2)", borde: "rgba(232,52,135,.5)", trazo: "rgba(232,52,135,.9)",
       luzA: "rgba(232,52,135,.16)", luzB: "rgba(198,255,106,.08)", luzX: "18%"
     },
     {
-      marca: t("El más pedido", "Most chosen"),
+      marca: t("El más pedido", "Most popular"),
       nombre: t("Plan Negocio", "Business Plan"),
-      frase: t("Que explique, convenza y traiga clientes.", "That explains, convinces and brings clients."),
+      frase: t("Que explique, convenza y traiga clientes.", "So it explains, convinces, and brings in clients."),
       cifra: "2", unidad: t("semanas", "weeks"),
       da: "plan-negocio",
       tono: "rgba(212,175,55,.22)", borde: "rgba(212,175,55,.55)", trazo: "rgba(224,190,110,.95)",
@@ -42,7 +42,7 @@
     },
     {
       nombre: t("Plan Premium", "Premium Plan"),
-      frase: t("Que además atienda y venda sin ti.", "And that answers and sells without you."),
+      frase: t("Que además atienda y venda sin ti.", "And it answers and sells, even without you."),
       cifra: "6", unidad: t("semanas", "weeks"),
       da: ["plan-premium", "plan-sistema"],
       tono: "rgba(198,255,106,.2)", borde: "rgba(198,255,106,.5)", trazo: "rgba(198,255,106,.9)",
@@ -101,10 +101,10 @@
     '<div class="pt__wrap"><div class="pt__filas" data-filas></div></div>' +
     '<div class="pt__wrap"><div class="pt__final">' +
       '<p class="pt__cupo"><i aria-hidden="true"></i>' +
-        t("Cupos limitados · los primeros proyectos entran a precio de lanzamiento",
-          "Limited spots · the first projects come in at launch pricing") + '</p>' +
+        t("Cupos limitados · precio de lanzamiento para clientes fundadores",
+          "Limited spots · launch pricing for founding clients") + '</p>' +
       '<button class="pt__todo" type="button" data-todo>' +
-        t("Ver el detalle completo", "See the full detail") + '</button>' +
+        t("Ver el detalle completo", "See full details") + '</button>' +
     '</div></div>';
 
   var primera = vitrinas[0];
