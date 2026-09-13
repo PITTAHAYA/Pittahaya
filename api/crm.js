@@ -86,6 +86,11 @@ function sanitize(str, maxLen = 500) {
   return String(str).trim().slice(0, maxLen);
 }
 
+// Valida que un valor sea un UUID (los ids de leads/facturas lo son).
+// Defensa en profundidad: rechaza entradas basura antes de tocar la base.
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function isUuid(v) { return typeof v === 'string' && UUID_RE.test(v.trim()); }
+
 // ── Países / config fiscal ───────────────────────────────────
 // Pittahaya factura desde dos países. Cada uno tiene su moneda, su
 // umbral de "pequeño proveedor" (bajo el cual NO hay que registrarse
@@ -1099,7 +1104,7 @@ async function getAutopilotStats(req, res) {
 async function setLeadAutofollow(req, res) {
   const id = req.query.id || (req.body && req.body.id);
   const autofollow = !(req.body && req.body.autofollow === false);
-  if (!id) return res.status(400).json({ error: 'Falta id del lead' });
+  if (!isUuid(id)) return res.status(400).json({ error: 'id de lead inválido' });
   const { error } = await supabase.from('leads').update({ autofollow }).eq('id', id);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ ok: true, id, autofollow });
