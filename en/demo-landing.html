@@ -221,16 +221,17 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
   </style>
 <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important}.reserveBar{display:none}</style></noscript>
 <link rel="manifest" href="../site.webmanifest" />
+<link rel="stylesheet" href="../assets/veloce-reserva.css?v=3" />
 </head>
 <body>
 
 <div class="progress" data-progress aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="brand" href="portfolio.html" aria-label="Veloce">VEL<i>O</i>CE</a>
+  <a class="brand" href="#top" aria-label="VELOCE, back to top">VEL<i>O</i>CE</a>
   <div class="navR">
     <a class="lnk" href="../demo-landing.html" hreflang="es" lang="es">ES</a>
-    <a class="lnk" href="portfolio.html">← demos</a>
+    <a class="lnk" href="portfolio.html">← Demos</a>
     <a class="pill" href="#reservar">Reserve</a>
   </div>
 </header>
@@ -384,14 +385,36 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
   <!-- ═ RESERVAR ═ -->
   <section class="sec reserve" id="reservar">
     <div class="wrap">
-      <div class="reserveCard" data-reveal>
-        <div class="no">Chassis No. 12 is available</div>
-        <h2>Reserve your place in the series.</h2>
-        <div class="price"><i>$</i>25,000</div>
-        <p>Refundable for 30 days. Applied to the final price (from $1,850,000 USD). Reserving secures your chassis number and begins your private configuration with the atelier.</p>
-        <a class="pill" href="contact.html" style="min-height:54px;padding:16px 34px;font-size:15px">Reserve No. 12 →</a>
-        <div class="foot"><b>38</b> of 50 remaining · 2027 delivery · private atelier</div>
+      <div class="resvHead">
+        <span class="kicker" data-reveal style="display:inline-flex">04 — Your chassis</span>
+        <h2 class="h2" data-reveal>Choose your number. <em>No one else will have it.</em></h2>
+        <p class="lead" data-reveal>Fifty numbered chassis, engraved on the monocoque and on the certificate. Twelve already have owners. Choose a free one: it is held in your name while you decide.</p>
       </div>
+      <div class="resvGrid" data-resv>
+        <div class="chassisWrap" data-reveal>
+          <div class="chassisTop"><span>Série Uno · chassis 01—50</span><span><b>38</b> remaining</span></div>
+          <div class="chassis" role="group" aria-label="Choose a chassis number" data-chassis></div>
+          <div class="chassisLegend" aria-hidden="true"><span><i></i>Available</span><span><i class="l-off"></i>Reserved</span><span><i class="l-on"></i>Your choice</span></div>
+        </div>
+        <aside class="resvCard" data-reveal aria-live="polite">
+          <div class="resvNo">Your reservation</div>
+          <div class="resvBig">No. <span data-resv-no>12</span><small>/50</small></div>
+          <div class="resvRows">
+            <div class="resvRow"><span>Light signature</span><b><i aria-hidden="true"></i><em data-resv-sig>Molten Gold</em></b></div>
+            <div class="resvRow"><span>Estimated delivery</span><b data-resv-eta>Q1 2027</b></div>
+            <div class="resvRow"><span>Deposit</span><b>$25,000 · refundable</b></div>
+            <div class="resvRow"><span>Price</span><b>from $1,850,000 USD</b></div>
+          </div>
+          <a class="pill" href="contact.html" data-resv-cta>Reserve No. 12 →</a>
+          <p class="resvFine">Refundable for 30 days · applied to the final price · the signature can be changed at the atelier</p>
+        </aside>
+      </div>
+      <ol class="own">
+        <li data-reveal><small>01 · Today</small><b>Reservation</b><p>Your number is locked and you receive a provisional certificate signed by the atelier.</p></li>
+        <li data-reveal><small>02 · Week 2</small><b>Private atelier</b><p>A one-to-one session in Milan or remotely: leather, finishes, and your final light signature.</p></li>
+        <li data-reveal><small>03 · 14 weeks</small><b>Build</b><p>Your chassis is assembled by hand. You receive a photo report at every milestone.</p></li>
+        <li data-reveal><small>04 · Delivery</small><b>In person</b><p>We deliver it wherever you are, with the final certificate and a key engraved with your number.</p></li>
+      </ol>
     </div>
   </section>
 </main>
@@ -421,7 +444,7 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 </div>
 
 <script src="../assets/demo-landing-fx.js?v=14" defer></script>
-<script src="../assets/veloce.js?v=14" defer></script>
+<script src="../assets/veloce.js?v=17" defer></script>
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

@@ -1,0 +1,61 @@
+/* AURELIA · consulta privada en tres pasos, dentro de la página */
+.access .inq{max-width:780px;margin:44px auto 0;padding:clamp(24px,3.4vw,44px);text-align:left;border:1px solid rgba(250,248,243,.18);background:rgba(13,11,8,.58);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.access .inq p{margin:0;max-width:none;font-size:inherit;line-height:inherit}
+.inqTop{display:flex;align-items:center;gap:16px;margin-bottom:28px;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,248,243,.62)}
+.inqBar{position:relative;flex:1;height:1px;background:rgba(250,248,243,.16)}
+.inqBar i{position:absolute;inset:0 auto 0 0;width:33.3%;background:var(--bronze2);transition:width .7s var(--ease)}
+.inqStep{min-width:0;margin:0;padding:0;border:0}
+.inqStep[hidden],.inq [hidden]{display:none!important}
+.inqStep legend{padding:0;margin-bottom:22px;font:300 clamp(26px,2.8vw,36px)/1.12 "Cormorant Garamond",Georgia,serif;color:var(--ivory)}
+.inqChoices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.inqChoice{position:relative;display:block;cursor:pointer}
+.inqChoice input{position:absolute;opacity:0;pointer-events:none}
+.inqChoice span{display:flex;flex-direction:column;gap:8px;height:100%;padding:18px;border:1px solid rgba(250,248,243,.2);transition:border-color .4s var(--ease),background .4s var(--ease)}
+.inqChoice:hover span{border-color:rgba(250,248,243,.42)}
+.inqChoice b{font:400 21px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--ivory)}
+.inqChoice small{font-size:12.5px;line-height:1.55;color:rgba(250,248,243,.62)}
+.inqChoice input:checked+span{border-color:var(--bronze2);background:rgba(198,164,115,.13)}
+.inqChoice input:focus-visible+span{outline:2px solid var(--bronze2);outline-offset:2px}
+.inqChoice--chip span{align-items:center;justify-content:center;min-height:48px;padding:12px 14px;text-align:center;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(250,248,243,.78)}
+.inqFields{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.inqField{display:grid;gap:9px;align-content:start}
+.inqField--full{grid-column:1/-1}
+.inqField label,.inqLabel{font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.64)}
+.inqField input,.inqField select,.inqField textarea{width:100%;min-height:50px;padding:12px 14px;border:1px solid rgba(250,248,243,.24);border-radius:0;background:rgba(250,248,243,.05);color:var(--ivory);font:300 15px/1.4 "Inter",system-ui,sans-serif;transition:border-color .3s ease,background .3s ease}
+.inqField select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--bronze2) 50%),linear-gradient(135deg,var(--bronze2) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:40px}
+.inqField select option,.inqField select optgroup{color:#14110d;background:#f7f4ee}
+.inqField textarea{min-height:100px;resize:vertical}
+.inqField input:focus,.inqField select:focus,.inqField textarea:focus{outline:none;border-color:var(--bronze2);background:rgba(250,248,243,.08)}
+.inqField input:focus-visible,.inqField select:focus-visible,.inqField textarea:focus-visible{outline:2px solid var(--bronze2);outline-offset:1px}
+.inqField [aria-invalid="true"]{border-color:#e8a27a}
+.access .inq .inqErr{margin-top:14px;color:#f0bd98;font-size:12.5px}
+.access .inq .inqErr:empty{display:none}
+.inqNav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:18px}
+.inqNav .btn{margin-left:auto}
+/* .btn nació para enlaces: en un <button> el navegador le ponía su fondo
+   blanco y el texto marfil desaparecía */
+.inq button.btn{background:transparent;font-family:"Inter",system-ui,sans-serif;font-weight:400;cursor:pointer}
+.inq button.btn:hover{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+.inqBack{min-height:44px;padding:0;border:0;background:none;color:rgba(250,248,243,.68);font:400 9.5px/1 "Inter",system-ui,sans-serif;letter-spacing:2.4px;text-transform:uppercase;cursor:pointer}
+.inqBack:hover{color:var(--ivory)}
+.inqDone{padding:14px 0 4px;text-align:center}
+.inqDone:focus{outline:none}
+.inqDone h3{margin:14px 0 14px;font:300 clamp(32px,3.6vw,48px)/1.08 "Cormorant Garamond",Georgia,serif;color:var(--ivory)}
+.inqDone h3 em{font-style:italic;color:var(--bronze2)}
+.access .inq .inqDone p{max-width:46ch;margin:0 auto;color:rgba(250,248,243,.72);font-size:15px;line-height:1.85}
+.inqRef{display:inline-block;margin-top:24px;padding:11px 18px;border:1px solid rgba(198,164,115,.5);font-size:11px;letter-spacing:3px;color:var(--bronze2)}
+.access .inq .inqNote{margin-top:22px;padding-top:16px;border-top:1px solid rgba(250,248,243,.1);color:rgba(250,248,243,.48);font-size:10.5px;text-align:center}
+/* teléfono: las tres intenciones en una fila, sin descripción */
+@media (max-width:700px){
+  .access .inq{margin-top:28px;padding:18px}
+  .inqTop{margin-bottom:18px}
+  .inqStep legend{margin-bottom:14px;font-size:24px}
+  .inqChoices{grid-template-columns:repeat(3,1fr);gap:6px}
+  .inqChoice small{display:none}
+  .inqChoice span{align-items:center;justify-content:center;min-height:52px;padding:10px 6px;text-align:center}
+  .inqChoice b{font-size:17px}
+  .inqChoice--chip span{font-size:10.5px;letter-spacing:.8px}
+  .inqFields{grid-template-columns:1fr;gap:12px}
+  .inqField textarea{min-height:72px}
+  .access .inq .inqNote{margin-top:14px;padding-top:12px}
+}

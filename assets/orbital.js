@@ -203,13 +203,13 @@
       ["wn", "Debris detected · avoidance maneuver scheduled T-14 min"],
       ["ok", "Singapore · model synchronization · 640 GB"]
     ] : [
-      ["ok", "ECU-1-04 · lote de inferencia completado · 8.4 PFLOP"],
+      ["ok", "ECU-1-04 · lote de inferencia completado · 8,4 PFLOP"],
       ["ic", "POL-1-02 · enlace óptico establecido con SSO-1-07"],
       ["ok", "Svalbard · ventana de contacto abierta · 11 min"],
       ["ic", "ECU-1-01 · entrando en zona de sol · radiadores replegados"],
-      ["ok", "Quito · 2.1 TB descargados · integridad verificada"],
+      ["ok", "Quito · 2,1 TB descargados · integridad verificada"],
       ["wn", "POL-1-06 · eclipse en 90 s · migrando carga a POL-1-07"],
-      ["ok", "SSO-1-03 · corrección de órbita · Δv 0.4 m/s"],
+      ["ok", "SSO-1-03 · corrección de órbita · Δv 0,4 m/s"],
       ["ic", "Nairobi · traspaso completado sin pérdida de paquetes"],
       ["ok", "Constelación · 24/24 nodos nominales"],
       ["ic", "ECU-1-08 · temperatura de núcleo 39 °C · dentro de margen"],

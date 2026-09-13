@@ -1,0 +1,52 @@
+/* ORIGEN 0° · trazabilidad por lote */
+.lot-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,96px);align-items:start}
+.lot-form{margin-top:32px}
+.lot-label{display:block;margin-bottom:10px;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--faint)}
+.lot-row{display:flex;gap:10px}
+.lot-row input{flex:1;min-width:0;min-height:52px;padding:0 16px;border:1px solid var(--hair);border-radius:1px;background:rgba(242,236,225,.04);color:var(--ivory);font:400 16px/1 var(--sans);letter-spacing:3px;text-transform:uppercase;transition:border-color .4s var(--ease)}
+.lot-row input::placeholder{color:rgba(242,236,225,.3)}
+.lot-row input:focus{outline:none;border-color:var(--copper2)}
+.lot-row input:focus-visible{outline:2px solid var(--copper2);outline-offset:2px}
+.lot-try{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0;font-size:12px;color:var(--faint)}
+.lot-try button{min-height:40px;padding:0 14px;border:1px solid var(--hair);border-radius:999px;background:none;color:var(--dim);font:400 11px/1 var(--sans);letter-spacing:1.6px;cursor:pointer;transition:border-color .3s ease,color .3s ease}
+.lot-try button:hover{border-color:var(--copper2);color:var(--ivory)}
+
+.lot-card{min-height:440px;padding:clamp(24px,3vw,40px);border:1px solid var(--hair);background:linear-gradient(170deg,rgba(242,236,225,.045),rgba(242,236,225,.01))}
+.lot-card.is-fresh>*{animation:lotIn .8s var(--ease) both}
+.lot-card.is-fresh>*:nth-child(2){animation-delay:.08s}
+.lot-card.is-fresh>*:nth-child(3){animation-delay:.16s}
+@keyframes lotIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.lot-head small,.lot-miss small{font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--copper2)}
+.lot-head h3,.lot-miss h3{margin:10px 0 6px;font-weight:300;font-size:clamp(30px,3vw,42px);line-height:1.05}
+.lot-head p,.lot-miss p{margin:0;color:var(--dim);font-size:14px;line-height:1.75}
+.lot-facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:24px 0;background:var(--hair);border:1px solid var(--hair)}
+.lot-facts div{padding:14px 16px;background:var(--cacao)}
+.lot-facts dt{margin-bottom:6px;font-size:9px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint)}
+.lot-facts dd{margin:0;font-size:19px;color:var(--ivory)}
+.lot-path{position:relative;list-style:none;margin:0;padding:0 0 0 18px}
+.lot-path::before{content:"";position:absolute;left:3px;top:14px;bottom:14px;width:1px;background:linear-gradient(var(--copper2),rgba(211,160,116,.1))}
+.lot-path li{position:relative;display:grid;grid-template-columns:104px 1fr;gap:14px;padding:10px 0;font-size:13px;line-height:1.55;color:var(--dim)}
+.lot-path li::before{content:"";position:absolute;left:-18px;top:16px;width:7px;height:7px;border-radius:50%;background:var(--cacao);border:1px solid var(--copper2)}
+.lot-path li:last-child::before{background:var(--copper2)}
+.lot-path time{font-size:11px;letter-spacing:.6px;color:var(--faint);font-variant-numeric:tabular-nums}
+.lot-path b{font-weight:400;color:var(--ivory)}
+
+
+@media (max-width:900px){
+  .lot-grid{grid-template-columns:1fr}
+  .lot-card{min-height:0}
+}
+/* teléfono: ficha de lote compacta (sin el detalle de cada paso) */
+@media (max-width:600px){
+  .lot{padding:64px 0}
+  .lot-form{margin-top:22px}
+  .lot-row .btn{flex:0 0 auto;padding:0 18px}
+  .lot-card{padding:18px}
+  .lot-head h3{font-size:28px}
+  .lot-facts{margin:14px 0}
+  .lot-facts div{padding:10px 12px}
+  .lot-facts dd{font-size:16px}
+  .lot-path li{grid-template-columns:84px 1fr;gap:10px;padding:6px 0;font-size:12px}
+  .lot-path li::before{top:12px}
+  .lot-det{display:none}
+}

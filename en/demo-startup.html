@@ -27,7 +27,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/orbital.css?v=4" />
-<link rel="stylesheet" href="../assets/orbital-immersive.css?v=1" />
+<link rel="stylesheet" href="../assets/orbital-immersive.css?v=2" />
+<link rel="stylesheet" href="../assets/orbital-plus.css?v=3" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
@@ -48,7 +49,7 @@
 <div class="obx-cross" data-obx-cross aria-hidden="true">
   <i></i><i></i><i></i><i></i><b></b>
 </div>
-<a class="skip" href="#main" style="position:absolute;left:-9999px">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="hdr" data-hdr>
   <a class="brand" href="demo-startup.html" aria-label="ORBITAL · home">
@@ -154,6 +155,38 @@
   </div>
 </section>
 
+<section class="sec sec--line" id="capacidad" aria-labelledby="cap-title">
+  <div class="sec-head">
+    <p class="eyebrow" data-reveal>Capacity</p>
+    <h2 class="d2" id="cap-title" data-reveal>Reserve compute<br>in orbit.</h2>
+    <p class="lede" data-reveal>Choose how much capacity you need, where you consume it from, and for how long. The estimate uses the same parameters as our commercial team.</p>
+  </div>
+  <div class="wrap">
+    <div class="cap" data-cap-calc data-reveal>
+      <div class="cap-in">
+        <div class="cap-field">
+          <div class="cap-lab"><label for="cap-pf">Dedicated compute</label><output data-cap-pf-out for="cap-pf">4.8 PFLOP</output></div>
+          <input type="range" id="cap-pf" min="1" max="12" step="1" value="4" data-cap-pf aria-describedby="cap-pf-hint">
+          <p class="cap-hint" id="cap-pf-hint">1 node = 1.2 PFLOP FP8 · 1 to 12 nodes per contract</p>
+        </div>
+        <div class="cap-field"><span class="cap-lab">Consumption region</span><div class="cap-seg" role="group" data-cap-region></div></div>
+        <div class="cap-field"><span class="cap-lab">Commitment</span><div class="cap-seg" role="group" data-cap-term></div></div>
+      </div>
+      <div class="cap-out" aria-live="polite">
+        <div class="cap-price"><small>Monthly estimate</small><b data-cap-price>—</b><i>per month · before taxes</i><span data-cap-save></span></div>
+        <dl class="cap-kpis">
+          <div><dt>Dedicated nodes</dt><dd data-cap-nodes>4</dd></div>
+          <div><dt>Latency</dt><dd data-cap-lat>11 ms</dd></div>
+          <div><dt>Energy</dt><dd>100% solar</dd></div>
+          <div><dt>Water saved</dt><dd data-cap-water>—</dd></div>
+        </dl>
+        <a class="cap-cta" href="contact.html">Talk to an account engineer →</a>
+        <p class="cap-note">Indicative demo pricing. Not a commercial offer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec sec--line" style="padding-bottom:0">
   <div class="sec-head"><p class="eyebrow" data-reveal>Continue</p></div>
   <div class="next" style="margin-top:34px">
@@ -193,8 +226,9 @@
   </div>
 </footer>
 
-<script src="../assets/orbital.js?v=5" defer></script>
+<script src="../assets/orbital.js?v=6" defer></script>
 <script src="../assets/orbital-immersive.js?v=1" defer></script>
 <script src="../assets/orbital-tracker.js?v=4" defer></script>
+<script src="../assets/orbital-capacidad.js?v=1" defer></script>
 </body>
 </html>

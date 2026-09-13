@@ -373,13 +373,19 @@ body.xray .xray-aviso{opacity:1;transform:none}
 .escala-muestra{font-family:var(--serif);line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .escala-tok{margin-left:auto;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
   color:var(--marfil-3);white-space:nowrap}
-
+/* en 375 px el token no cabía al lado de la muestra y empujaba la
+   página 12 px hacia la derecha: en el teléfono va debajo */
+@media (max-width:600px){
+  .escala-fila{flex-wrap:wrap;gap:4px 16px}
+  .escala-muestra{flex:1 1 100%}
+  .escala-tok{margin-left:0;white-space:normal}
+}
 /* paleta */
 .paleta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:auto}
 .tono{aspect-ratio:1.35;border-radius:10px;border:1px solid var(--linea);
   display:flex;align-items:flex-end;padding:10px;cursor:default;transition:transform .4s var(--ease)}
 .tono:hover{transform:translateY(-3px)}
-.tono b{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;font-weight:400}
+.tono b{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;font-weight:400}
 
 /* ritmo de espaciado */
 .ritmo-demo{display:flex;align-items:flex-end;gap:8px;margin-top:16px;height:90px}
@@ -417,3 +423,4 @@ body.xray .xray-aviso{opacity:1;transform:none}
   .heroe-fondo video{display:none!important}
   .heroe-fondo.con-video img.lista{opacity:.42!important}
 }
+

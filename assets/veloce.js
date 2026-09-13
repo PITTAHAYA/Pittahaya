@@ -59,9 +59,27 @@
   var sticky = document.querySelector("[data-reserve-bar]");
   var after = document.querySelector("[data-reserve-after]");
   if (sticky && after && "IntersectionObserver" in window) {
+    /* mientras está escondida bajo el borde, su botón seguía recibiendo
+       el tabulador: invisible pero enfocable */
+    var setSticky = function (on) {
+      sticky.classList.toggle("on", on);
+      sticky.setAttribute("aria-hidden", on ? "false" : "true");
+      sticky.inert = !on;
+    };
+    setSticky(false);
+    /* se muestra pasado el héroe, pero se retira en la propia sección de
+       reserva: ahí repetía el botón y tapaba la tira de chasis */
+    var pastHero = false, inReserve = false;
+    var reserve = document.getElementById("reservar");
+    var sync = function () { setSticky(pastHero && !inReserve); };
     new IntersectionObserver(function (e) {
-      sticky.classList.toggle("on", !e[0].isIntersecting && e[0].boundingClientRect.top < 0);
+      pastHero = !e[0].isIntersecting && e[0].boundingClientRect.top < 0;
+      sync();
     }, { threshold: 0 }).observe(after);
+    if (reserve) new IntersectionObserver(function (e) {
+      inReserve = e[0].isIntersecting;
+      sync();
+    }, { threshold: 0, rootMargin: "0px 0px -35% 0px" }).observe(reserve);
   }
 
   /* signature configurator — swatches repaint --sig / --sig2 live */
@@ -163,7 +181,9 @@
       var total = ex.offsetHeight - innerHeight;
       var p = total > 0 ? Math.max(0, Math.min(1, -ex.getBoundingClientRect().top / total)) : 0;
       var e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;   /* easeInOut */
-      em.style.setProperty("--ew", (70 + e * 30) + "vw");
+      /* en el teléfono, al 70% el auto quedaba diminuto entre dos franjas negras */
+      var base = innerWidth <= 760 ? 88 : 70;
+      em.style.setProperty("--ew", (base + e * (100 - base)) + "vw");
       em.style.setProperty("--er", (18 * (1 - e)) + "px");
     };
     if (quieto) {
@@ -204,5 +224,59 @@
       });
     }, { threshold: .5 });
     counters.forEach(function (c) { io.observe(c); });
+  }
+
+  /* reserva de chasis — 50 números, 12 ya con dueño; el elegido viaja
+     a la tarjeta de resumen, al botón y a la barra fija */
+  var resv = document.querySelector("[data-resv]");
+  if (resv) {
+    var en = /^en\b/i.test(document.documentElement.lang || "");
+    var sold = [1, 2, 3, 5, 7, 8, 11, 17, 23, 31, 42, 50];
+    var grid = resv.querySelector("[data-chassis]");
+    var noEl = resv.querySelector("[data-resv-no]");
+    var etaEl = resv.querySelector("[data-resv-eta]");
+    var sigEl = resv.querySelector("[data-resv-sig]");
+    var cta = resv.querySelector("[data-resv-cta]");
+    var barNo = document.querySelector("[data-reserve-bar] .no");
+    var barCta = document.querySelector("[data-reserve-bar] .pill");
+    var pad = function (n) { return String(n).padStart(2, "0"); };
+    var eta = function (n) {
+      var q = n <= 20 ? 1 : n <= 35 ? 2 : 3;
+      return (en ? "Q" : "T") + q + " 2027";
+    };
+    var buttons = [];
+    var pick = function (n, btn) {
+      buttons.forEach(function (b) { if (!b.disabled) b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+      if (noEl) noEl.textContent = pad(n);
+      if (etaEl) etaEl.textContent = eta(n);
+      if (cta) cta.textContent = (en ? "Reserve No. " : "Reservar el Nº ") + pad(n) + " →";
+      if (barNo) barNo.textContent = (en ? "No. " : "Nº ") + pad(n) + "/50";
+      if (barCta) barCta.textContent = (en ? "Reserve No. " : "Reservar el Nº ") + pad(n) + " →";
+    };
+    for (var n = 1; n <= 50; n++) {
+      (function (num) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "ch";
+        b.textContent = pad(num);
+        if (sold.indexOf(num) > -1) {
+          b.disabled = true;
+          b.setAttribute("aria-label", (en ? "Chassis " : "Chasis ") + pad(num) + (en ? ", reserved" : ", reservado"));
+        } else {
+          b.setAttribute("aria-label", (en ? "Chassis " : "Chasis ") + pad(num));
+          b.setAttribute("aria-pressed", "false");
+          b.addEventListener("click", function () { pick(num, b); });
+        }
+        buttons.push(b);
+        grid.appendChild(b);
+      })(n);
+    }
+    pick(12, buttons[11]);
+    var syncSig = function () {
+      var s = document.querySelector("[data-sig-name]");
+      if (s && sigEl) sigEl.textContent = s.textContent;
+    };
+    document.querySelectorAll("[data-sig]").forEach(function (s) { s.addEventListener("click", syncSig); });
+    syncSig();
   }
 })();

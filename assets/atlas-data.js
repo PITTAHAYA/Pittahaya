@@ -88,7 +88,7 @@
       Object.freeze({ id: "infraestructura", number: "04", name: t("Infraestructura", "Infrastructure"), descriptor: t("Conectividad · servicios esenciales", "Connectivity · essential services"), motion: "infrastructure" })
     ]),
     metrics: Object.freeze([
-      Object.freeze({ value: "$6.4", suffix: t("MM", "B"), label: t("Capital gestionado", "Capital under management") }),
+      Object.freeze({ value: t("$6.400", "$6.4"), suffix: t("MM", "B"), label: t("Capital gestionado", "Capital under management") }),
       Object.freeze({ value: "24", suffix: "", label: t("Compañías en propiedad", "Companies owned") }),
       Object.freeze({ value: "33", suffix: t("años", "years"), label: t("Horizonte medio de tenencia", "Average holding period") }),
       Object.freeze({ value: "0", suffix: "", label: t("Ventas forzadas · en 33 años", "Forced sales · in 33 years") })

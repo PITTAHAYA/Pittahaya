@@ -229,4 +229,7 @@ main,.ft{ position:relative; z-index:1; }
 }
 
 /* el salto al contenido también es un control: 44 px de alto */
-.skip:focus,.skip:focus-visible{ min-height:44px;display:inline-flex;align-items:center; }
+/* antes iba escondido con un estilo en línea que nunca se retiraba:
+   con el teclado el enlace recibía el foco pero seguía fuera de pantalla */
+.skip{ position:absolute;left:-9999px;top:12px;z-index:200; }
+.skip:focus,.skip:focus-visible{ left:12px;min-height:44px;display:inline-flex;align-items:center;padding:0 16px;background:#04060a;color:#e9eff8;border:1px solid rgba(111,214,232,.6);border-radius:6px; }

@@ -221,16 +221,17 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
   </style>
 <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important}.reserveBar{display:none}</style></noscript>
 <link rel="manifest" href="/site.webmanifest" />
+<link rel="stylesheet" href="assets/veloce-reserva.css?v=3" />
 </head>
 <body>
 
 <div class="progress" data-progress aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="brand" href="portafolio.html" aria-label="Veloce">VEL<i>O</i>CE</a>
+  <a class="brand" href="#top" aria-label="VELOCE, volver arriba">VEL<i>O</i>CE</a>
   <div class="navR">
     <a class="lnk" href="en/demo-landing.html" hreflang="en" lang="en">EN</a>
-    <a class="lnk" href="portafolio.html">← demos</a>
+    <a class="lnk" href="portafolio.html">← Demos</a>
     <a class="pill" href="#reservar">Reservar</a>
   </div>
 </header>
@@ -384,14 +385,36 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
   <!-- ═ RESERVAR ═ -->
   <section class="sec reserve" id="reservar">
     <div class="wrap">
-      <div class="reserveCard" data-reveal>
-        <div class="no">El chasis Nº 12 está disponible</div>
-        <h2>Reserva tu lugar en la serie.</h2>
-        <div class="price"><i>$</i>25,000</div>
-        <p>Depósito reembolsable durante 30 días. Se descuenta del precio final (desde $1,850,000 USD). Al reservar bloqueas tu número de chasis y comienza tu configuración privada con el atelier.</p>
-        <a class="pill" href="contacto.html" style="min-height:54px;padding:16px 34px;font-size:15px">Reservar el Nº 12 →</a>
-        <div class="foot">quedan <b>38</b> de 50 · entrega 2027 · atelier privado</div>
+      <div class="resvHead">
+        <span class="kicker" data-reveal style="display:inline-flex">04 — Tu chasis</span>
+        <h2 class="h2" data-reveal>Elige tu número. <em>Nadie más lo tendrá.</em></h2>
+        <p class="lead" data-reveal>Cincuenta chasis numerados, grabados en el monocasco y en el certificado. Doce ya tienen dueño. Elige uno libre: queda bloqueado a tu nombre mientras decides.</p>
       </div>
+      <div class="resvGrid" data-resv>
+        <div class="chassisWrap" data-reveal>
+          <div class="chassisTop"><span>Série Uno · chasis 01—50</span><span>Quedan <b>38</b></span></div>
+          <div class="chassis" role="group" aria-label="Elige un número de chasis" data-chassis></div>
+          <div class="chassisLegend" aria-hidden="true"><span><i></i>Disponible</span><span><i class="l-off"></i>Reservado</span><span><i class="l-on"></i>Tu elección</span></div>
+        </div>
+        <aside class="resvCard" data-reveal aria-live="polite">
+          <div class="resvNo">Tu reserva</div>
+          <div class="resvBig">Nº <span data-resv-no>12</span><small>/50</small></div>
+          <div class="resvRows">
+            <div class="resvRow"><span>Firma lumínica</span><b><i aria-hidden="true"></i><em data-resv-sig>Oro Fundido</em></b></div>
+            <div class="resvRow"><span>Entrega estimada</span><b data-resv-eta>T1 2027</b></div>
+            <div class="resvRow"><span>Depósito</span><b>$25,000 · reembolsable</b></div>
+            <div class="resvRow"><span>Precio</span><b>desde $1,850,000 USD</b></div>
+          </div>
+          <a class="pill" href="contacto.html" data-resv-cta>Reservar el Nº 12 →</a>
+          <p class="resvFine">Depósito reembolsable durante 30 días · se descuenta del precio final · la firma puede cambiarse en el atelier</p>
+        </aside>
+      </div>
+      <ol class="own">
+        <li data-reveal><small>01 · Hoy</small><b>Reserva</b><p>Tu número queda bloqueado y recibes el certificado provisional firmado por el atelier.</p></li>
+        <li data-reveal><small>02 · Semana 2</small><b>Atelier privado</b><p>Una sesión uno a uno en Milán o en remoto: cuero, acabados y tu firma lumínica definitiva.</p></li>
+        <li data-reveal><small>03 · 14 semanas</small><b>Construcción</b><p>Tu chasis se ensambla a mano. Recibes un informe fotográfico en cada hito.</p></li>
+        <li data-reveal><small>04 · Entrega</small><b>En persona</b><p>Te lo entregamos donde estés, con el certificado final y la llave grabada con tu número.</p></li>
+      </ol>
     </div>
   </section>
 </main>
@@ -405,8 +428,8 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
     </div>
     <div class="footCols">
       <div><h3>El auto</h3><a href="#silueta">Silueta</a><a href="#poder">Rendimiento</a><a href="#poder">Especificaciones</a><a href="#silueta">Firma lumínica</a></div>
-      <div><h3>Propiedad</h3><a href="#reservar">Reservar</a><a href="contacto.html">Atelier a medida</a><a href="contacto.html">Entrega</a><a href="contacto.html">Cuidado &amp; garantía</a></div>
-      <div><h3>Ateliers</h3><a href="contacto.html">Milano</a><a href="contacto.html">Dubái</a><a href="contacto.html">Los Ángeles</a><a href="contacto.html">Singapur</a></div>
+      <div><h3>Propiedad</h3><a href="#reservar">Reservar</a><a href="contacto.html">Atelier a medida</a><a href="contacto.html">Entrega</a><a href="contacto.html">Cuidado y garantía</a></div>
+      <div><h3>Ateliers</h3><a href="contacto.html">Milán</a><a href="contacto.html">Dubái</a><a href="contacto.html">Los Ángeles</a><a href="contacto.html">Singapur</a></div>
       <div><h3>Casa</h3><a href="contacto.html">La marca</a><a href="contacto.html">Prensa</a><a href="contacto.html">Contacto</a><a href="portafolio.html">Más demos</a></div>
     </div>
     <div class="footBar">
@@ -421,7 +444,7 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 </div>
 
 <script src="assets/demo-landing-fx.js?v=14" defer></script>
-<script src="assets/veloce.js?v=14" defer></script>
+<script src="assets/veloce.js?v=17" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

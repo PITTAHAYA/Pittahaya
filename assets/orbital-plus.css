@@ -1,0 +1,57 @@
+/* ORBITAL · estimador de capacidad */
+.cap{display:grid;grid-template-columns:1.1fr .9fr;margin-top:48px;border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:var(--panel)}
+.cap-in{display:grid;gap:32px;align-content:start;padding:clamp(22px,3vw,40px)}
+.cap-lab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.cap-lab output{font-size:18px;letter-spacing:0;text-transform:none;color:var(--ink);font-variant-numeric:tabular-nums}
+.cap input[type=range]{width:100%;height:30px;margin:0;accent-color:var(--ice);cursor:pointer}
+.cap-hint{margin:6px 0 0;font-family:var(--mono);font-size:10px;color:var(--faint)}
+.cap-seg{display:flex;flex-wrap:wrap;gap:8px}
+.cap-seg button{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border:1px solid var(--line-2);border-radius:8px;background:transparent;color:var(--dim);font:500 13px/1 var(--sans);cursor:pointer;transition:color .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
+.cap-seg button:hover{color:var(--ink);border-color:rgba(111,214,232,.55)}
+.cap-seg button[aria-pressed="true"]{color:var(--ink);border-color:var(--ice);background:rgba(111,214,232,.11)}
+.cap-seg button small{font-family:var(--mono);font-size:10px;color:var(--solar)}
+.cap-out{display:flex;flex-direction:column;gap:24px;padding:clamp(22px,3vw,40px);background:var(--deep);border-left:1px solid var(--line-2)}
+.cap-price small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.cap-price b{display:block;margin-top:10px;font-size:clamp(38px,4.4vw,60px);font-weight:500;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.cap-price b+i{display:inline-block;margin-top:6px;font-style:normal;font-family:var(--mono);font-size:11px;color:var(--faint)}
+.cap-price span{display:block;margin-top:10px;font-size:13px;color:var(--ok)}
+.cap-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin:0;background:var(--line);border:1px solid var(--line)}
+.cap-kpis div{padding:14px 16px;background:var(--deep)}
+.cap-kpis dt{margin-bottom:6px;font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.cap-kpis dd{margin:0;font-family:var(--mono);font-size:16px;color:var(--ink)}
+.cap-cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:auto;padding:0 22px;border-radius:999px;background:var(--ice);color:#03131a;font-weight:600;font-size:14px;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.cap-cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(111,214,232,.28)}
+.cap-note{margin:0;font-family:var(--mono);font-size:9.5px;line-height:1.6;color:var(--faint)}
+/* las filas deslizables no pueden ensanchar la tarjeta */
+.cap>*,.cap-field{min-width:0}
+@media (max-width:900px){
+  .cap{grid-template-columns:minmax(0,1fr)}
+  .cap-out{border-left:0;border-top:1px solid var(--line-2)}
+}
+
+/* teléfono: la portada de ORBITAL se hacía larguísima. La tesis pasa a
+   un carril deslizable, "Continuar" a una rejilla 2×2 sin descripciones
+   y el estimador se queda en lo esencial */
+@media (max-width:620px){
+  .thesis{display:flex;gap:10px;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);background:none;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .thesis::-webkit-scrollbar{display:none}
+  .thesis article{flex:0 0 82%;border:1px solid var(--line);border-radius:12px;scroll-snap-align:start}
+  .thesis .fig b{white-space:nowrap}
+  .next{display:grid!important;grid-template-columns:1fr 1fr!important;gap:1px}
+  .next a{min-height:0!important;padding:20px 16px!important}
+  .next a p{display:none}
+
+  #capacidad.sec{padding:56px 0}
+  #capacidad .sec-head .lede,.cap-hint,.cap-note{display:none}
+  .cap{margin-top:24px}
+  .cap-in{gap:20px;padding:18px}
+  .cap-lab{margin-bottom:10px}
+  .cap-seg{flex-wrap:nowrap;margin-inline:-18px;padding-inline:18px;overflow-x:auto;scrollbar-width:none}
+  .cap-seg::-webkit-scrollbar{display:none}
+  .cap-seg button{flex:0 0 auto;min-height:40px;padding:0 12px}
+  .cap-out{gap:16px;padding:18px}
+  .cap-price b{font-size:40px}
+  .cap-kpis div{padding:10px 12px}
+  .cap-kpis dd{font-size:14px}
+  .cap-cta{min-height:48px}
+}

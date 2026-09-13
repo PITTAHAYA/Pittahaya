@@ -309,7 +309,7 @@ img { display: block; max-width: 100%; }
   animation: time-line 7s var(--ease) infinite alternate;
 }
 @keyframes time-line { to { transform: translateX(194%); } }
-.time-point { position: relative; color: rgba(21, 23, 27, 0.48); font: 400 8px/1.6 "JetBrains Mono", monospace; letter-spacing: 0.2em; text-transform: uppercase; }
+.time-point { position: relative; color: rgba(21, 23, 27, 0.48); font: 400 9px/1.6 "JetBrains Mono", monospace; letter-spacing: 0.18em; text-transform: uppercase; }
 .time-point b { display: block; margin-bottom: 7px; color: var(--paper-ink); font-weight: 400; }
 
 /* Holdings */

@@ -86,7 +86,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 /* walk progress — a hairline that fills as you advance */
 .thRail{position:absolute;left:50%;transform:translateX(-50%);bottom:0;z-index:5;width:min(420px,54vw);height:1px;background:rgba(250,248,243,.16)}
 .thRail i{display:block;height:100%;width:0%;background:var(--bronze2);transition:width .1s linear}
-.thFrame{position:absolute;inset:clamp(20px,3.5vw,54px);z-index:5;pointer-events:none;border:1px solid rgba(250,248,243,.18);color:rgba(250,248,243,.58);font-size:8px;letter-spacing:3.2px;text-transform:uppercase}
+.thFrame{position:absolute;inset:clamp(20px,3.5vw,54px);z-index:5;pointer-events:none;border:1px solid rgba(250,248,243,.18);color:rgba(250,248,243,.58);font-size:9px;letter-spacing:3.2px;text-transform:uppercase}
 .thFrame::before,.thFrame::after{content:"";position:absolute;width:30px;height:30px;border-color:rgba(198,164,115,.72)}
 .thFrame::before{left:-1px;top:-1px;border-left:1px solid;border-top:1px solid}.thFrame::after{right:-1px;bottom:-1px;border-right:1px solid;border-bottom:1px solid}
 .thFrame span{position:absolute}.thFrame .tl{left:18px;top:16px}.thFrame .tr{right:18px;top:16px;text-align:right}.thFrame .bl{left:18px;bottom:16px}.thFrame .br{right:18px;bottom:16px;text-align:right}
@@ -101,7 +101,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .revealLedger{display:grid;grid-template-columns:repeat(3,1fr);width:min(880px,100%);margin:clamp(56px,10vh,100px) auto 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .revealLedger div{padding:24px 20px;border-right:1px solid var(--hair)}.revealLedger div:last-child{border-right:0}
 .revealLedger b{display:block;font:300 24px/1.1 "Cormorant Garamond";color:var(--ink)}
-.revealLedger span{display:block;margin-top:9px;color:var(--faint);font-size:8px;letter-spacing:2.5px;text-transform:uppercase}
+.revealLedger span{display:block;margin-top:9px;color:var(--faint);font-size:9px;letter-spacing:2.5px;text-transform:uppercase}
 
 /* ═══════════ SECTIONS ═══════════ */
 .sec{padding:clamp(90px,15vh,180px) 0}
@@ -114,16 +114,16 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .worldHead{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);align-items:end;gap:clamp(34px,7vw,110px);margin-bottom:clamp(38px,6vh,64px)}
 .worldHead .lead{margin:0 0 4px}
 .futureFrame{background:#13110e;color:var(--ivory);padding:clamp(14px,1.7vw,24px);box-shadow:0 34px 90px -58px rgba(20,17,13,.75)}
-.futureEyebrow{display:flex;justify-content:space-between;gap:24px;padding:2px 2px clamp(14px,1.8vw,22px);color:rgba(250,248,243,.45);font-size:7px;letter-spacing:3px;text-transform:uppercase}
+.futureEyebrow{display:flex;justify-content:space-between;gap:24px;padding:2px 2px clamp(14px,1.8vw,22px);color:rgba(250,248,243,.45);font-size:8.5px;letter-spacing:3px;text-transform:uppercase}
 .futureRail{display:flex;height:clamp(420px,42vw,580px);gap:1px;overflow:hidden;background:rgba(250,248,243,.14)}
 .futureCard{position:relative;isolation:isolate;min-width:0;flex:1 1 0;overflow:hidden;background:#28231d;transition:flex-grow 1s var(--ease)}
 .futureCard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--focus,50% 50%);filter:saturate(.78) contrast(1.04);transform:scale(1.012);transition:transform 1.5s var(--ease),filter 1.1s ease}
 .futureCard::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,10,8,.1),rgba(12,10,8,.06) 38%,rgba(12,10,8,.88));transition:background .8s ease}
 .futureCard::after{content:"";position:absolute;left:0;top:0;bottom:0;z-index:2;width:1px;background:rgba(250,248,243,.2)}
 .futureCard:first-child::after{display:none}
-.futureTop{position:absolute;z-index:3;top:clamp(22px,2.5vw,34px);left:clamp(22px,2.5vw,34px);right:clamp(22px,2.5vw,34px);display:flex;justify-content:space-between;gap:18px;color:rgba(250,248,243,.62);font-size:7px;letter-spacing:2.6px;text-transform:uppercase;white-space:nowrap}
+.futureTop{position:absolute;z-index:3;top:clamp(22px,2.5vw,34px);left:clamp(22px,2.5vw,34px);right:clamp(22px,2.5vw,34px);display:flex;justify-content:space-between;gap:18px;color:rgba(250,248,243,.62);font-size:8.5px;letter-spacing:2.6px;text-transform:uppercase;white-space:nowrap}
 .futureMeta{position:absolute;z-index:3;left:clamp(22px,2.5vw,34px);right:clamp(22px,2.5vw,34px);bottom:clamp(24px,3vw,40px)}
-.futureMeta small{display:block;margin-bottom:12px;color:var(--bronze2);font-size:7px;letter-spacing:2.7px;text-transform:uppercase}
+.futureMeta small{display:block;margin-bottom:12px;color:var(--bronze2);font-size:8.5px;letter-spacing:2.7px;text-transform:uppercase}
 .futureMeta h3{margin:0;font:300 clamp(31px,3.4vw,54px)/.92 "Cormorant Garamond";letter-spacing:-.5px;white-space:nowrap}
 .futureMeta p{max-width:28ch;margin:14px 0 0;color:rgba(250,248,243,.67);font-size:11px;line-height:1.65;opacity:0;transform:translateY(10px);transition:opacity .65s ease,transform .8s var(--ease)}
 .futureRail:hover .futureCard{flex-grow:.76}
@@ -156,7 +156,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   opacity:0;transform:translateY(-100%);transition:opacity .7s var(--ease),transform .7s var(--ease);pointer-events:none}
 .site.on{opacity:1;transform:none;pointer-events:auto}
 .brand{display:grid;align-content:center;min-height:44px;gap:3px;font-family:"Cormorant Garamond",serif;font-weight:400;font-size:19px;letter-spacing:7px;color:var(--ink)}
-.brand small{font-family:"Inter";font-size:6.5px;letter-spacing:3.3px;text-transform:uppercase;color:var(--faint)}
+.brand small{font-family:"Inter";font-size:8px;letter-spacing:3.3px;text-transform:uppercase;color:var(--faint)}
 .siteR{display:flex;align-items:center;gap:clamp(14px,2.2vw,32px)}
 .siteR a.lnk{font-size:10px;letter-spacing:2.4px;text-transform:uppercase;color:var(--dim);transition:color .4s ease}
 .siteR a.lnk:hover{color:var(--ink)}
@@ -203,7 +203,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .propertyCard:hover img,.propertyCard:focus-within img{transform:none;filter:saturate(.9) brightness(1.025)}
 .propertyCard::before{display:none}
 .propertyIndex{position:absolute;z-index:2;top:clamp(24px,3vw,42px);left:clamp(24px,3vw,42px);font-size:9px;letter-spacing:3px;color:rgba(250,248,243,.72)}
-.propertyStatus{position:absolute;z-index:2;top:clamp(24px,3vw,42px);right:clamp(24px,3vw,42px);font-size:7px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(250,248,243,.7)}
+.propertyStatus{position:absolute;z-index:2;top:clamp(24px,3vw,42px);right:clamp(24px,3vw,42px);font-size:8.5px;letter-spacing:2.2px;text-transform:uppercase;color:rgba(250,248,243,.7)}
 .propertyCursor{position:absolute;z-index:4;left:50%;top:50%;width:82px;height:82px;margin:-41px 0 0 -41px;border-radius:50%;display:grid;place-items:center;background:rgba(247,244,238,.94);color:#14110d;font-size:8px;letter-spacing:2px;text-transform:uppercase;opacity:0;transform:scale(.65);transition:opacity .4s ease,transform .6s var(--ease);pointer-events:none}
 .propertyCard:hover .propertyCursor{opacity:1;transform:scale(1)}
 .propertyMeta{position:absolute;z-index:2;left:clamp(22px,3vw,42px);right:clamp(22px,3vw,42px);bottom:clamp(22px,3.4vw,46px)}
@@ -223,7 +223,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .dialogHero{position:relative;height:min(58vh,620px);background:#201c17}
 .dialogHero img{width:100%;height:100%;object-fit:cover}
 .dialogHero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(13,11,8,.76))}
-.dialogView{position:absolute;z-index:2;top:clamp(24px,4vw,44px);left:clamp(24px,4vw,48px);padding:9px 12px;border:1px solid rgba(255,255,255,.28);background:rgba(13,11,8,.32);backdrop-filter:blur(10px);color:rgba(255,255,255,.78);font-size:7px;letter-spacing:2.5px;text-transform:uppercase}
+.dialogView{position:absolute;z-index:2;top:clamp(24px,4vw,44px);left:clamp(24px,4vw,48px);padding:9px 12px;border:1px solid rgba(255,255,255,.28);background:rgba(13,11,8,.32);backdrop-filter:blur(10px);color:rgba(255,255,255,.78);font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase}
 .dialogTitle{position:absolute;z-index:2;left:clamp(26px,6vw,76px);right:clamp(26px,6vw,76px);bottom:clamp(26px,5vw,64px);color:#fff}
 .dialogTitle span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.68)}
 .dialogTitle h2{font:300 clamp(42px,7vw,86px)/.95 "Cormorant Garamond";margin:10px 0 0}
@@ -235,7 +235,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .dialogFact b{font-weight:400;text-align:right}
 .dialogCta{margin-top:28px}
 .dialogNav{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:30px;padding-top:18px;border-top:1px solid var(--hair)}
-.dialogNav button{border:0;background:none;padding:8px 0;color:var(--dim);font:400 8px/1 "Inter";letter-spacing:2px;text-transform:uppercase;cursor:pointer}.dialogNav button:hover{color:var(--ink)}
+.dialogNav button{border:0;background:none;min-height:44px;padding:0 4px;color:var(--dim);font:400 9px/1 "Inter";letter-spacing:2px;text-transform:uppercase;cursor:pointer}.dialogNav button:hover{color:var(--ink)}
 
 /* CINEMATIC MANIFESTO */
 .manifesto{position:relative;min-height:min(900px,92vh);display:flex;align-items:flex-end;overflow:hidden;background:#16120e;color:var(--ivory)}
@@ -248,7 +248,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 .manifesto h2 em{font-weight:300;color:var(--bronze2)}
 .manifestoFoot{display:flex;justify-content:space-between;gap:40px;align-items:flex-end;margin-top:clamp(38px,6vh,64px);padding-top:22px;border-top:1px solid rgba(250,248,243,.25)}
 .manifestoFoot p{margin:0;max-width:50ch;color:rgba(250,248,243,.68);font-size:13px;line-height:1.8}
-.manifestoCode{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,248,243,.54);white-space:nowrap}
+.manifestoCode{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,248,243,.54);white-space:nowrap}
 
 @media (max-width:960px){
   .worldHead{grid-template-columns:1fr}.worldHead .lead{max-width:60ch}
@@ -283,7 +283,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   .futureCard{flex:0 0 min(80vw,410px);height:clamp(380px,58vh,470px);scroll-snap-align:start}
   .futureCard::after{display:none}.futureMeta h3{font-size:38px}.futureMeta p{max-width:25ch}
   .futureFooter{padding:18px 14px 4px 2px;align-items:flex-start;flex-direction:column}.futureFooter p{font-size:10px}
-  .worldSwipe{display:flex;align-items:center;gap:12px;margin:8px 0 0;color:var(--faint);font-size:8px;letter-spacing:2.5px;text-transform:uppercase}
+  .worldSwipe{display:flex;align-items:center;gap:12px;margin:8px 0 0;color:var(--faint);font-size:9px;letter-spacing:2.5px;text-transform:uppercase}
   .worldSwipe::before{content:"";width:34px;height:1px;background:var(--bronze)}
   .manifesto{min-height:720px}.manifesto h2{letter-spacing:-1px}.manifestoFoot{align-items:flex-start;flex-direction:column}
 }
@@ -307,6 +307,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     .site{opacity:1;transform:none;pointer-events:auto}
   </style></noscript>
 <link rel="manifest" href="/site.webmanifest" />
+<link rel="stylesheet" href="assets/aurelia-consulta.css?v=4" />
 </head>
 <body>
 
@@ -317,8 +318,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   <div class="siteR">
     <a class="lnk" href="#coleccion">Colección</a>
     <a class="lnk" href="#representacion">Representación</a>
-    <a class="lnk" href="#espacios">Signature</a>
-    <a class="lnk" href="portafolio.html">← demos</a>
+    <a class="lnk" href="#espacios">Horizontes</a>
+    <a class="lnk" href="portafolio.html">← Demos</a>
     <a class="btn ink" href="#acceso">Consulta privada</a>
   </div>
 </header>
@@ -461,7 +462,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
             <div class="futureMeta"><small>Riviera privada</small><h3>Mónaco</h3><p>Una posición excepcional sobre el Mediterráneo, presentada fuera de mercado.</p></div>
           </article>
         </div>
-        <div class="futureFooter"><p>Las próximas aperturas se presentan primero a nuestra red privada. Sin listados públicos, sin exposición innecesaria.</p><a href="contacto.html">Registrar interés →</a></div>
+        <div class="futureFooter"><p>Las próximas aperturas se presentan primero a nuestra red privada. Sin listados públicos, sin exposición innecesaria.</p><a href="#acceso" data-intent="horizontes">Registrar interés →</a></div>
       </div>
       <span class="worldSwipe" aria-hidden="true">Deslice para descubrir</span>
     </div>
@@ -474,7 +475,50 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
       <span class="label" data-r style="color:var(--bronze2)">Private Client Desk</span>
       <h2 class="h2" data-r style="margin-top:18px">Algunas puertas <em>solo se abren al preguntar.</em></h2>
       <p data-r>Cuéntenos qué busca o qué propiedad desea representar. La primera conversación es breve, privada y diseñada para determinar si existe un encaje real.</p>
-      <div data-r><a class="btn" href="contacto.html">Iniciar consulta privada →</a></div>
+      <form class="inq" data-inq data-r novalidate aria-label="Consulta privada">
+        <div class="inqTop" data-inq-chrome><span data-inq-count>Paso 1 de 3</span><span class="inqBar" aria-hidden="true"><i data-inq-bar></i></span><span>Confidencial</span></div>
+        <fieldset class="inqStep" data-inq-step>
+          <legend>¿Qué le trae a AURELIA?</legend>
+          <div class="inqChoices">
+            <label class="inqChoice"><input type="radio" name="intent" value="adquirir" checked><span><b>Adquirir</b><small>Busco una residencia de la colección o fuera de mercado.</small></span></label>
+            <label class="inqChoice"><input type="radio" name="intent" value="representar"><span><b>Representar</b><small>Deseo presentar una propiedad con discreción.</small></span></label>
+            <label class="inqChoice"><input type="radio" name="intent" value="horizontes"><span><b>Horizontes</b><small>Quiero acceso anticipado a las próximas aperturas.</small></span></label>
+          </div>
+        </fieldset>
+        <fieldset class="inqStep" data-inq-step hidden>
+          <legend>Cuéntenos un poco más.</legend>
+          <div class="inqFields">
+            <div class="inqField inqField--full" data-inq-residence-field><label for="inq-res">Residencia o destino de interés</label><select id="inq-res" name="residence" data-inq-residence><option value="">Aún no lo sé</option></select></div>
+            <div class="inqField inqField--full" data-inq-location-field hidden><label for="inq-loc">¿Dónde está la propiedad?</label><input id="inq-loc" name="location" autocomplete="off" placeholder="Ciudad, región o costa"></div>
+            <div class="inqField inqField--full"><span class="inqLabel" id="inq-when">Horizonte</span>
+              <div class="inqChoices inqChoices--chips" role="radiogroup" aria-labelledby="inq-when">
+                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="inmediato"><span>Inmediato</span></label>
+                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="6-12" checked><span>6 a 12 meses</span></label>
+                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="sin-prisa"><span>Sin prisa</span></label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="inqStep" data-inq-step hidden>
+          <legend>¿Cómo prefiere que le contactemos?</legend>
+          <div class="inqFields">
+            <div class="inqField"><label for="inq-name">Nombre</label><input id="inq-name" name="name" autocomplete="name" required></div>
+            <div class="inqField"><label for="inq-mail">Correo electrónico</label><input id="inq-mail" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+            <div class="inqField"><label for="inq-country">País de residencia</label><input id="inq-country" name="country" autocomplete="country-name"></div>
+            <div class="inqField"><label for="inq-pref">Canal preferido</label><select id="inq-pref" name="channel"><option>Correo electrónico</option><option>Llamada</option><option>Mensaje</option></select></div>
+            <div class="inqField inqField--full"><label for="inq-note">Nota para el asesor (opcional)</label><textarea id="inq-note" name="note" placeholder="Fechas, preferencias, lo que no debería faltar…"></textarea></div>
+          </div>
+        </fieldset>
+        <p class="inqErr" data-inq-err role="alert" data-inq-chrome></p>
+        <div class="inqNav" data-inq-chrome><button class="inqBack" type="button" data-inq-back hidden>← Atrás</button><button class="btn" type="button" data-inq-next>Continuar →</button><button class="btn" type="submit" data-inq-submit hidden>Enviar consulta privada →</button></div>
+        <div class="inqDone" data-inq-done hidden tabindex="-1">
+          <span class="label" style="color:var(--bronze2)">Consulta recibida</span>
+          <h3>Gracias. <em>La puerta está abierta.</em></h3>
+          <p>Un asesor de Private Client Desk le escribirá en menos de 24 horas, por el canal que eligió. Nadie más verá su consulta.</p>
+          <span class="inqRef" data-inq-ref>AUR-0000</span>
+        </div>
+        <p class="inqNote">Demo conceptual: este formulario no envía ni guarda ningún dato.</p>
+      </form>
     </div>
   </section>
 
@@ -510,7 +554,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div><span class="label">Nota de curaduría</span><p data-dialog-description style="margin-top:18px"></p></div>
     <div>
       <div class="dialogFacts" data-dialog-facts></div>
-      <div class="dialogCta"><a class="btn ink" href="contacto.html">Solicitar dossier →</a></div>
+      <div class="dialogCta"><a class="btn ink" href="#acceso" data-dossier>Solicitar dossier →</a></div>
       <div class="dialogNav"><button type="button" data-dialog-prev>← Anterior</button><span class="label" data-dialog-reference></span><button type="button" data-dialog-next>Siguiente →</button></div>
     </div>
   </div>
@@ -521,6 +565,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 </div>
 
 <script src="assets/aurelia-collection.js?v=8" defer></script>
+<script src="assets/aurelia-consulta.js?v=2" defer></script>
 <script src="assets/mare.js?v=11" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
