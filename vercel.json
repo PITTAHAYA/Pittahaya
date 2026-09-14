@@ -1,6 +1,7 @@
 {
   "redirects": [
-    { "source": "/en", "destination": "/en/", "permanent": true }
+    { "source": "/en", "destination": "/en/", "permanent": true },
+    { "source": "/:page(about|automation|contact|offer|plans|portfolio|privacy|services|terms){.html}?", "destination": "/en/:page.html", "permanent": false }
   ],
   "rewrites": [
     { "source": "/:page((?!api$|crm$|en$|assets$)[a-z0-9-]+)", "destination": "/:page.html" },
