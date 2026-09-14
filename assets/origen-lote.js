@@ -47,6 +47,42 @@
         ["2026-02-24", t("Conchado", "Conching"), t("64 h con pétalos de rosa", "64 h with rose petals")],
         ["2026-03-04", t("Templado y sellado", "Tempering and sealing"), t("Barra numerada a mano", "Hand-numbered bar")]
       ]
+    },
+    "NL-2605": {
+      edition: "Nube de Leche 58%", farm: "Finca La Esperanza", grower: t("Familia Zambrano", "The Zambrano family"),
+      region: "Manabí · 40 m", variety: t("Nacional fino de aroma", "Nacional fine-flavor"), bars: 1800,
+      path: [
+        ["2025-11-18", t("Cosecha a mano", "Hand harvest"), t("Mazorcas de la costa de Jama", "Pods from the Jama coast")],
+        ["2025-11-19", t("Fermentación", "Fermentation"), t("5 días bajo hoja de plátano", "5 days under banana leaves")],
+        ["2025-11-24", t("Secado", "Drying"), t("8 días al sol", "8 days in the sun")],
+        ["2025-12-22", t("Tueste", "Roast"), "110 °C · 30 min"],
+        ["2026-01-05", t("Conchado", "Conching"), t("60 h con leche entera y panela", "60 h with whole milk and panela")],
+        ["2026-01-12", t("Templado y sellado", "Tempering and sealing"), t("Barra numerada a mano", "Hand-numbered bar")]
+      ]
+    },
+    "AP-2602": {
+      edition: "Altitud Pura 92%", farm: "Finca Yaku", grower: t("Familia Grefa", "The Grefa family"),
+      region: t("Napo · 620 m", "Napo · 620 m"), variety: t("Nacional amazónico", "Amazonian Nacional"), bars: 520,
+      path: [
+        ["2026-01-22", t("Cosecha a mano", "Hand harvest"), t("Árboles de más de cuarenta años", "Trees over forty years old")],
+        ["2026-01-23", t("Fermentación", "Fermentation"), t("7 días en cajón de laurel", "7 days in laurel-wood boxes")],
+        ["2026-01-30", t("Secado", "Drying"), t("12 días bajo techo ventilado", "12 days under a ventilated roof")],
+        ["2026-03-02", t("Tueste", "Roast"), "122 °C · 30 min"],
+        ["2026-03-10", t("Conchado", "Conching"), "84 h"],
+        ["2026-03-19", t("Templado y sellado", "Tempering and sealing"), t("Barra numerada a mano", "Hand-numbered bar")]
+      ]
+    },
+    "SA-2609": {
+      edition: "Sal Amazónica 75%", farm: "Finca Sumak", grower: t("Familia Tanguila", "The Tanguila family"),
+      region: t("Napo · 510 m", "Napo · 510 m"), variety: t("Nacional amazónico", "Amazonian Nacional"), bars: 900,
+      path: [
+        ["2026-02-03", t("Cosecha a mano", "Hand harvest"), t("Chacra junto a guayusa y yuca", "Forest garden beside guayusa and cassava")],
+        ["2026-02-04", t("Fermentación", "Fermentation"), t("6 días en cajón de laurel", "6 days in laurel-wood boxes")],
+        ["2026-02-10", t("Secado", "Drying"), t("10 días al sol", "10 days in the sun")],
+        ["2026-03-12", t("Tueste", "Roast"), "116 °C · 32 min"],
+        ["2026-03-20", t("Conchado", "Conching"), "70 h"],
+        ["2026-03-28", t("Templado y sellado", "Tempering and sealing"), t("Sal de manantial espolvoreada a mano", "Spring salt scattered by hand")]
+      ]
     }
   };
 
@@ -129,8 +165,15 @@
     });
   });
 
-  var fromUrl = new URLSearchParams(location.search).get("lot");
+  /* la ficha de producto enlaza con #lote=LC-2614 (el hash sobrevive a la
+     redirección a URL limpia; un ?lot= no) */
+  var desdeHash = (location.hash.match(/lote=([A-Za-z0-9-]+)/) || [])[1];
+  var fromUrl = desdeHash || new URLSearchParams(location.search).get("lot");
   var first = fromUrl ? normalise(fromUrl) : "LC-2614";
   input.value = first;
   render(first);
+  if (desdeHash) {
+    var seccion = document.getElementById("trazabilidad");
+    if (seccion) window.setTimeout(function () { seccion.scrollIntoView({ block: "start" }); }, 350);
+  }
 })();

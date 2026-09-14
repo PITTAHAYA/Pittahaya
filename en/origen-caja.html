@@ -32,6 +32,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/origen.css?v=5" />
   <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
+  <link rel="stylesheet" href="../assets/origen-shop.css?v=3" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -62,33 +63,41 @@
   <section class="page-head">
     <div class="wrap">
       <p class="eyebrow" data-reveal>Tasting box</p>
-      <h1 class="display" data-reveal>Compose <em>your collection.</em></h1>
-      <p data-corto="Choose format and bars. Wrapped by hand." class="lead" data-reveal>Choose the format, select the bars, and watch your box come together. Wrapped by hand, with a personalized card if you wish.</p>
+      <h1 class="display" data-reveal>Build <em>your box.</em></h1>
+      <p data-corto="Three, six, or twelve. Tied with ribbon, with a handwritten card." class="lead" data-reveal>Three, six, or twelve bars. We tie it with cotton ribbon, wrap it in linen if you ask, and handwrite your card in ink at the workshop.</p>
     </div>
   </section>
+  <section class="o-band"><figure class="o-figure wrap" data-reveal style="--pos:50% 55%"><img src="../assets/origen/caja-abierta.jpg" alt="Open tasting box with six bars from lightest to darkest" loading="lazy" decoding="async" /><figcaption>The full tasting: six bars, from lightest to darkest, tied with cotton ribbon.</figcaption></figure></section>
+
   <section class="section builder" id="caja" data-builder style="padding-top:0">
     <div class="wrap">
       <h2 class="solo-lectores">Build your box</h2>
-        <div class="builder-grid">
+      <div class="presets" role="group" aria-label="Ready-made boxes">
+        <button class="preset" type="button" data-preset="nube,latitud,tierra" data-preset-format="3" data-preset-name="primera"><small>3 bars · $78</small><b>The first tasting</b><span>Nube, Latitud, and Tierra: from milk to 85%, no jumps.</span></button>
+        <button class="preset" type="button" data-preset="latitud,tierra,altitud" data-preset-format="3" data-preset-name="oscuros"><small>3 bars · $78</small><b>Dark only</b><span>72, 85, and 92: for those no longer seeking sweetness.</span></button>
+        <button class="preset" type="button" data-preset="nube,rosa,latitud,sal,tierra,altitud" data-preset-format="6" data-preset-name="completa"><small>6 bars · $148</small><b>The full tasting</b><span>All six, arranged from low to high.</span></button>
+      </div>
+      <div class="builder-grid">
         <div data-reveal>
           <div class="format-row" role="group" aria-label="Box format">
-            <button class="format is-active" type="button" data-format="3" data-price="78"><b>3 bars</b><span>Full size · $78</span></button>
-            <button class="format" type="button" data-format="6" data-price="148"><b>6 bars</b><span>Full size · $148</span></button>
-            <button class="format" type="button" data-format="12" data-price="96"><b>12 miniatures</b><span>Tasting · $96</span></button>
+            <button class="format is-active" type="button" aria-pressed="true" data-format="3" data-price="78"><b>3 bars</b><span>70 g bars · $78</span></button>
+            <button class="format" type="button" aria-pressed="false" data-format="6" data-price="148"><b>6 bars</b><span>70 g bars · $148</span></button>
+            <button class="format" type="button" aria-pressed="false" data-format="12" data-price="96"><b>12 miniatures</b><span>20 g each · $96</span></button>
           </div>
           <div class="picker" data-picker></div>
         </div>
         <aside class="box-stage" data-box-stage>
           <div class="box-visual" data-box-visual aria-hidden="true"></div>
-          <div class="box-meta"><span data-box-count>0 of 3 slots</span><span data-box-format>Full size</span></div>
+          <div class="box-meta"><span data-box-count>0 of 3 spaces</span><span data-box-format>70 g bars</span></div>
           <div class="box-total serif" data-box-total>$78</div>
           <div class="box-extras">
-            <label class="check"><input type="checkbox" data-extra="wrap" /> Linen gift wrap <span style="color:rgba(10,7,5,.45)">+$6</span></label>
-            <label class="check"><input type="checkbox" data-extra="card" /> Add a personalized card</label>
-            <textarea class="gift-note" data-gift-note aria-label="Personalized card message" placeholder="Your message (max. 140 characters)" maxlength="140" hidden></textarea>
+            <label class="check"><input type="checkbox" data-extra="wrap" /> Hand-sewn linen wrapping <span style="color:rgba(10,7,5,.55)">+$6</span></label>
+            <label class="check"><input type="checkbox" data-extra="card" /> A card handwritten at the workshop</label>
+            <textarea class="gift-note" data-gift-note aria-label="Card message" placeholder="Your message (max. 140 characters)" maxlength="140" hidden></textarea>
           </div>
-          <p class="box-status" data-box-status>Select 3 bars to complete the box.</p>
-          <button class="btn btn--ink" type="button" data-box-add style="width:100%;margin-top:12px" disabled>Add box to bag</button>
+          <p class="box-status" data-box-status>Choose 3 bars to complete the box.</p>
+          <button class="btn btn--ink" type="button" data-box-add style="width:100%;margin-top:12px" disabled>Add the box to your bag</button>
+          <p class="box-eta" data-eta></p>
         </aside>
       </div>
     </div>
@@ -97,11 +106,11 @@
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Born at latitude zero</span></div>
+      <div class="foot-brand serif">ORIGEN 0°<span>Workshop in Quito · 0°13′ S</span></div>
       <a class="btn" href="origen-caja.html">Build a box →</a>
     </div>
     <div class="foot-cols">
-      <div><h3>Shop</h3><a href="origen-coleccion.html">The collection</a><a href="origen-caja.html">Tasting box</a><a href="origen-sociedad.html">The Society</a><a href="demo-servicios.html#insignia">Latitud Cero 72%</a></div>
+      <div><h3>Shop</h3><a href="origen-coleccion.html">The collection</a><a href="origen-caja.html">Tasting box</a><a href="origen-sociedad.html">The Society</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
       <div><h3>Origin</h3><a href="origen-origenes.html">The land</a><a href="origen-origenes.html#regiones">Origin explorer</a><a href="origen-sociedad.html#diario">Journal</a><a href="demo-servicios.html#perfil">Flavor profile</a></div>
       <div><h3>House</h3><a href="contact.html">Contact</a><a href="contact.html">Shipping</a><a href="contact.html">Wholesale</a><a href="contact.html">Press</a></div>
       <div><h3>Demo</h3><a href="portfolio.html">More demos</a><a href="index.html">Pittahaya</a><a href="contact.html">Commission yours</a><a href="plans.html">Plans</a></div>
@@ -115,8 +124,8 @@
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="../assets/origen.js?v=7" defer></script>
-<script src="../assets/origen-boutique.js?v=1" defer></script>
+<script src="../assets/origen.js?v=9" defer></script>
+<script src="../assets/origen-boutique.js?v=4" defer></script>
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

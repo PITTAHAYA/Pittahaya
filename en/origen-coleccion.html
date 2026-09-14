@@ -32,6 +32,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/origen.css?v=5" />
   <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
+  <link rel="stylesheet" href="../assets/origen-shop.css?v=3" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -61,35 +62,42 @@
 <main id="main">
   <section class="page-head">
     <div class="wrap">
-      <p class="eyebrow" data-reveal>The collection</p>
-      <h1 class="display" data-reveal>Six editions. <em>One origin.</em></h1>
-      <p data-corto="From the most delicate milk to 92%, no compromises." class="lead" data-reveal>From the most delicate milk chocolate to an uncompromising 92%. Each bar inhabits its own visual world and its own moment of the day.</p>
+      <p class="eyebrow" data-reveal>The collection · 2026 harvest</p>
+      <h1 class="display" data-reveal>Six farms. <em>Six bars.</em></h1>
+      <p data-corto="Each bar from a single farm, with its lot and coordinates." class="lead" data-reveal>Each bar comes from a single farm and carries its lot and coordinates on the wrapper. From a 58% milk, to start, to a 92% with barely any sugar left.</p>
     </div>
   </section>
   <section class="collection" id="coleccion" aria-label="Products"><div data-collection></div></section>
 
-  <section class="section ritual" aria-labelledby="ritual-title">
+  <section class="section tasting" aria-labelledby="tasting-title">
     <div class="wrap">
-      <p class="eyebrow" data-reveal>The ritual</p>
-      <h2 class="display" id="ritual-title" data-reveal style="margin:16px auto 0;max-width:18ch">How to taste <em>serious chocolate.</em></h2>
-      <div class="ritual-steps">
-        <div class="ritual-step" data-reveal><i class="serif">01</i><b class="serif">Observe</b><p>Notice the color and natural sheen, without excessive polish.</p><div class="ln"></div></div>
-        <div class="ritual-step" data-reveal><i class="serif">02</i><b class="serif">Break</b><p>Listen for the clean snap. A well-tempered bar sounds crisp.</p><div class="ln"></div></div>
-        <div class="ritual-step" data-reveal><i class="serif">03</i><b class="serif">Melt</b><p>Let it soften on the palate without chewing.</p><div class="ln"></div></div>
-        <div class="ritual-step" data-reveal><i class="serif">04</i><b class="serif">Discover</b><p>Wait. The flavor changes three times before it leaves.</p><div class="ln"></div></div>
+      <div class="section-head" data-reveal>
+        <div><p class="eyebrow">Tasting at home</p><h2 class="display" id="tasting-title">Low to high. <em>In this order.</em></h2></div>
+        <p data-corto="From 58% to 92%, with a sip of water in between." class="lead">With a sip of water between each one, and always going up: start with the 92% and you'll never taste the milk in the 58%.</p>
       </div>
-      <div style="margin-top:clamp(38px,6vh,64px)" data-reveal><a class="btn" href="origen-caja.html">Build a tasting box →</a></div>
+      <ol class="tasting-order">
+        <li data-reveal><b>58</b><a href="#nube">Nube de Leche</a><span>Look for the panela before the milk.</span></li>
+        <li data-reveal><b>70</b><a href="#rosa">Rosa &amp; Cacao</a><span>The petal arrives at the end, not the start.</span></li>
+        <li data-reveal><b>72</b><a href="#latitud">Latitud Cero</a><span>Wait for the jasmine: it takes almost a minute.</span></li>
+        <li data-reveal><b>75</b><a href="#sal">Sal Amazónica</a><span>Let the salt dissolve on its own.</span></li>
+        <li data-reveal><b>85</b><a href="#tierra">Tierra Negra</a><span>Dry and mineral, never bitter.</span></li>
+        <li data-reveal><b>92</b><a href="#altitud">Altitud Pura</a><span>One square, and nothing after.</span></li>
+      </ol>
+      <div class="tasting-cta" data-reveal>
+        <a class="btn btn--solid" href="origen-caja.html#completa">Take all six in one box · $148</a>
+        <p>Arranged in order, with a printed tasting sheet.</p>
+      </div>
     </div>
   </section>
 </main>
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Born at latitude zero</span></div>
+      <div class="foot-brand serif">ORIGEN 0°<span>Workshop in Quito · 0°13′ S</span></div>
       <a class="btn" href="origen-caja.html">Build a box →</a>
     </div>
     <div class="foot-cols">
-      <div><h3>Shop</h3><a href="origen-coleccion.html">The collection</a><a href="origen-caja.html">Tasting box</a><a href="origen-sociedad.html">The Society</a><a href="demo-servicios.html#insignia">Latitud Cero 72%</a></div>
+      <div><h3>Shop</h3><a href="origen-coleccion.html">The collection</a><a href="origen-caja.html">Tasting box</a><a href="origen-sociedad.html">The Society</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
       <div><h3>Origin</h3><a href="origen-origenes.html">The land</a><a href="origen-origenes.html#regiones">Origin explorer</a><a href="origen-sociedad.html#diario">Journal</a><a href="demo-servicios.html#perfil">Flavor profile</a></div>
       <div><h3>House</h3><a href="contact.html">Contact</a><a href="contact.html">Shipping</a><a href="contact.html">Wholesale</a><a href="contact.html">Press</a></div>
       <div><h3>Demo</h3><a href="portfolio.html">More demos</a><a href="index.html">Pittahaya</a><a href="contact.html">Commission yours</a><a href="plans.html">Plans</a></div>
@@ -103,8 +111,8 @@
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="../assets/origen.js?v=7" defer></script>
-<script src="../assets/origen-boutique.js?v=1" defer></script>
+<script src="../assets/origen.js?v=9" defer></script>
+<script src="../assets/origen-boutique.js?v=4" defer></script>
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

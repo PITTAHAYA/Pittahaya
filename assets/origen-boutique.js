@@ -78,16 +78,24 @@
 
   var rejilla = el("div", "bq-grid");
 
+  var O = window.ORIGEN || {};
+  var datos = function (id) { return (O.byId && O.byId[id]) || {}; };
+  var dinero = O.money || function (n) { return "$" + n; };
+  var uno = function (n) { return Number(n).toLocaleString(EN ? "en-US" : "es-EC", { minimumFractionDigits: 1, maximumFractionDigits: 1 }); };
+
   fichas.forEach(function (f, i) {
+    var d = datos(f.id);
     var tarjeta = el("article", "bq-card");
     tarjeta.setAttribute("data-bq", String(i));
+    tarjeta.setAttribute("data-kind", d.kind || "");
+    if (d.limited) tarjeta.setAttribute("data-limited", "");
     tarjeta.style.transitionDelay = (i * 70) + "ms";
 
     var numeral = el("span", "bq-card__num", f.n);
     numeral.setAttribute("aria-hidden", "true"); // filigrana decorativa
     tarjeta.appendChild(numeral);
     if (f.limitada) tarjeta.appendChild(el("span", "bq-card__flag", t("Edición limitada", "Limited edition")));
-    else if (f.insignia) tarjeta.appendChild(el("span", "bq-card__flag bq-card__flag--house", t("La insignia", "The signature")));
+    else if (f.insignia) tarjeta.appendChild(el("span", "bq-card__flag bq-card__flag--house", t("La de la casa", "The house bar")));
 
     var peana = el("div", "bq-card__stage");
     var im = doc.createElement("img");
@@ -97,8 +105,15 @@
 
     var col = el("div", "bq-card__col");
     col.appendChild(el("h3", "bq-card__name", f.nombre));
-    col.appendChild(el("p", "bq-card__meta", f.meta));
-    col.appendChild(el("p", "bq-card__notes", f.notas));
+    col.appendChild(el("p", "bq-card__meta", (d.pct || "") + " · " + (d.place || d.origin || "")));
+    if (d.coord) col.appendChild(el("p", "bq-card__coord", d.coord));
+    col.appendChild(el("p", "bq-card__notes", d.notes || f.notas));
+    if (d.rating) {
+      var nota = el("p", "bq-card__rating");
+      nota.appendChild(el("b", "", "★ " + uno(d.rating)));
+      nota.appendChild(doc.createTextNode(" · " + d.count + t(" reseñas", " reviews")));
+      col.appendChild(nota);
+    }
 
     var medidor = el("div", "bq-meter");
     medidor.setAttribute("aria-label", t("Intensidad ", "Intensity ") + f.fuerza + t(" de 5", " of 5"));
@@ -108,6 +123,13 @@
       medidor.appendChild(s);
     }
     col.appendChild(medidor);
+
+    if (d.lot) {
+      var poco = d.lotLeft < 100;
+      col.appendChild(el("p", "bq-card__lot" + (poco ? " is-low" : ""), poco
+        ? t("Últimas ", "Last ") + d.lotLeft + t(" del lote ", " of lot ") + d.lot
+        : t("Lote ", "Lot ") + d.lot + " · " + t("quedan ", "") + (O.num ? O.num(d.lotLeft) : d.lotLeft) + t("", " left")));
+    }
 
     var pie = el("div", "bq-card__foot");
     pie.appendChild(el("span", "bq-card__price", f.precio));
@@ -132,6 +154,36 @@
     rejilla.appendChild(tarjeta);
   });
 
+  /* filtros: por lo que la gente de verdad pregunta */
+  var FILTROS = [
+    ["all", t("Todas", "All")], ["milk", t("Con leche", "Milk")], ["dark", "70–80%"],
+    ["intense", t("85% o más", "85% and up")], ["limited", t("Edición limitada", "Limited edition")]
+  ];
+  var filtros = el("div", "bq-filters");
+  filtros.setAttribute("role", "group");
+  filtros.setAttribute("aria-label", t("Filtrar la colección", "Filter the collection"));
+  FILTROS.forEach(function (fx, n) {
+    var b = el("button", "bq-filter", fx[1]);
+    b.type = "button";
+    b.setAttribute("data-filter", fx[0]);
+    b.setAttribute("aria-pressed", String(n === 0));
+    filtros.appendChild(b);
+  });
+  var contador = cabeza.querySelector(".bq-floor__count");
+  filtros.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-filter]");
+    if (!b) return;
+    var k = b.getAttribute("data-filter");
+    Array.prototype.forEach.call(filtros.children, function (c) { c.setAttribute("aria-pressed", String(c === b)); });
+    var vis = 0;
+    Array.prototype.forEach.call(rejilla.children, function (c) {
+      var ok = k === "all" || (k === "limited" ? c.hasAttribute("data-limited") : c.getAttribute("data-kind") === k);
+      c.hidden = !ok;
+      if (ok) vis++;
+    });
+    if (contador) contador.textContent = vis + (vis === 1 ? t(" edición", " edition") : t(" ediciones", " editions"));
+  });
+  piso.appendChild(filtros);
   piso.appendChild(rejilla);
 
   monte.innerHTML = "";
@@ -333,58 +385,169 @@
   hoja.setAttribute("role", "dialog");
   hoja.setAttribute("aria-modal", "true");
   hoja.setAttribute("aria-hidden", "true");
+  hoja.setAttribute("aria-labelledby", "bq-sheet-name");
   hoja.innerHTML =
     '<div class="bq-sheet__media">' +
       '<img alt="" data-bq-img />' +
+      '<span class="bq-sheet__coord" data-bq-coord></span>' +
+      '<div class="bq-thumbs" data-bq-thumbs role="group" aria-label="' + t("Fotos", "Photos") + '"></div>' +
       '<button class="bq-sheet__step bq-sheet__step--prev" type="button" data-bq-prev aria-label="' + t("Anterior", "Previous") + '">‹</button>' +
       '<button class="bq-sheet__step bq-sheet__step--next" type="button" data-bq-next aria-label="' + t("Siguiente", "Next") + '">›</button>' +
     '</div>' +
     '<div class="bq-sheet__body"><div class="bq-sheet__in">' +
       '<p class="bq-sheet__eyebrow" data-bq-eyebrow></p>' +
-      '<h2 class="bq-sheet__name" data-bq-name></h2>' +
-      '<p class="bq-sheet__meta" data-bq-meta></p>' +
+      '<h2 class="bq-sheet__name" id="bq-sheet-name" data-bq-name></h2>' +
+      '<p class="bq-sheet__rating" data-bq-rating></p>' +
       '<p class="bq-sheet__copy" data-bq-copy></p>' +
       '<dl class="bq-spec">' +
+        '<div><dt>' + t("Finca", "Farm") + '</dt><dd data-bq-farm></dd></div>' +
         '<div><dt>' + t("Intensidad", "Intensity") + '</dt><dd data-bq-int></dd></div>' +
-        '<div><dt>' + t("Formato", "Format") + '</dt><dd>70 g</dd></div>' +
+        '<div class="bq-spec__wide"><dt>' + t("Notas", "Notes") + '</dt><dd data-bq-notes></dd></div>' +
+        '<div class="bq-spec__wide"><dt>' + t("Ingredientes", "Ingredients") + '</dt><dd data-bq-ing></dd></div>' +
       '</dl>' +
+      '<div class="bq-formats" role="radiogroup" aria-label="' + t("Formato", "Format") + '" data-bq-formats></div>' +
+      '<p class="bq-lot" data-bq-lot></p>' +
       '<div class="bq-sheet__buy">' +
-        '<span class="bq-sheet__price" data-bq-price></span>' +
-        '<button class="bq-sheet__cta" type="button" data-bq-add>' + t("Añadir a la bolsa", "Add to bag") + '</button>' +
+        '<div class="bq-qty" role="group" aria-label="' + t("Cantidad", "Quantity") + '">' +
+          '<button type="button" data-bq-minus aria-label="' + t("Una menos", "One fewer") + '">−</button>' +
+          '<span data-bq-q aria-live="polite">1</span>' +
+          '<button type="button" data-bq-plus aria-label="' + t("Una más", "One more") + '">+</button>' +
+        '</div>' +
+        '<button class="bq-sheet__cta" type="button" data-bq-add></button>' +
       '</div>' +
+      '<p class="bq-eta" data-bq-eta></p>' +
+      '<details class="bq-more" data-bq-open><summary>' + t("Cómo se funde", "How it melts") + '</summary><ol class="bq-melt" data-bq-melt></ol></details>' +
+      '<details class="bq-more" data-bq-open><summary>' + t("Con qué tomarla", "What to drink with it") + '</summary><p class="bq-pair" data-bq-pair></p></details>' +
+      '<details class="bq-more"><summary>' + t("Reseñas", "Reviews") + ' <span data-bq-rcount></span></summary><div class="bq-revs" data-bq-reviews></div></details>' +
     '</div></div>' +
     '<button class="bq-sheet__close" type="button" data-bq-close aria-label="' + t("Cerrar", "Close") + '">×</button>';
   doc.body.appendChild(hoja);
 
-  var sImg = hoja.querySelector("[data-bq-img]");
-  var sEye = hoja.querySelector("[data-bq-eyebrow]");
-  var sName = hoja.querySelector("[data-bq-name]");
-  var sMeta = hoja.querySelector("[data-bq-meta]");
-  var sCopy = hoja.querySelector("[data-bq-copy]");
-  var sInt = hoja.querySelector("[data-bq-int]");
-  var sPrice = hoja.querySelector("[data-bq-price]");
-  var sAdd = hoja.querySelector("[data-bq-add]");
+  var q = function (sel) { return hoja.querySelector(sel); };
+  var sImg = q("[data-bq-img]"), sCoord = q("[data-bq-coord]"), sEye = q("[data-bq-eyebrow]"), sName = q("[data-bq-name]");
+  var sRating = q("[data-bq-rating]"), sCopy = q("[data-bq-copy]"), sFarm = q("[data-bq-farm]"), sInt = q("[data-bq-int]");
+  var sNotes = q("[data-bq-notes]"), sIng = q("[data-bq-ing]"), sFormats = q("[data-bq-formats]"), sLot = q("[data-bq-lot]");
+  var sQ = q("[data-bq-q]"), sAdd = q("[data-bq-add]"), sEta = q("[data-bq-eta]"), sMelt = q("[data-bq-melt]");
+  var sPair = q("[data-bq-pair]"), sRcount = q("[data-bq-rcount]"), sRevs = q("[data-bq-reviews]");
+  var sThumbs = q("[data-bq-thumbs]");
   var abierta = -1;
   var devolverFoco = null;
+  var cant = 1, formato = "bar";
 
   Array.prototype.forEach.call(hoja.querySelectorAll(".bq-sheet__in > *"), function (n, i) {
-    n.style.setProperty("--sd", (140 + i * 70) + "ms");
+    n.style.setProperty("--sd", (140 + Math.min(i, 8) * 60) + "ms");
   });
+  /* en la computadora hay sitio: el cómo se funde y el maridaje abiertos */
+  if (window.matchMedia("(min-width: 900px)").matches) {
+    Array.prototype.forEach.call(hoja.querySelectorAll("[data-bq-open]"), function (d) { d.open = true; });
+  }
+
+  function precio(d) { return formato === "trio" && O.trioPrice ? O.trioPrice(d) : d.price; }
+  function pintarCompra() {
+    var d = datos(fichas[abierta].id);
+    sQ.textContent = cant;
+    sAdd.classList.remove("is-done");
+    sAdd.textContent = t("Añadir", "Add") + " · " + dinero(precio(d) * cant);
+    Array.prototype.forEach.call(sFormats.children, function (b) {
+      b.setAttribute("aria-checked", String(b.getAttribute("data-f") === formato));
+    });
+  }
 
   function pintar(i) {
     var f = fichas[i];
-    abierta = i;
+    var d = datos(f.id);
+    abierta = i; cant = 1; formato = "bar";
     sImg.src = f.img; sImg.alt = f.alt;
-    sEye.textContent = t("Edición ", "Edition ") + f.n + (f.limitada ? t(" · limitada", " · limited") : "");
+
+    /* la barra, su envoltura, el lote al reverso, el quiebre y la finca */
+    var base = f.img.replace(/[^\/]+$/, "");
+    var fotos = [
+      [f.img, f.alt],
+      [base + "wrapper-front.jpg", t("La barra en su envoltura de papel", "The bar in its paper wrapper")],
+      [base + "wrapper-back.jpg", t("El reverso, con el lote sellado a mano", "The back, with the hand-stamped lot")],
+      [base + "snap-macro.jpg", t("El quiebre limpio de un buen temple", "The clean snap of a good temper")],
+      [base + "farm-hands.jpg", t("Una mazorca abierta en la finca", "A pod opened on the farm")]
+    ];
+    sThumbs.textContent = "";
+    fotos.forEach(function (ph, n) {
+      var b = el("button", "bq-thumb");
+      b.type = "button";
+      b.setAttribute("aria-label", ph[1]);
+      b.setAttribute("aria-pressed", String(n === 0));
+      var mini = doc.createElement("img");
+      mini.src = ph[0]; mini.alt = ""; mini.loading = "lazy"; mini.decoding = "async";
+      b.appendChild(mini);
+      b.addEventListener("click", function () {
+        sImg.src = ph[0]; sImg.alt = ph[1];
+        Array.prototype.forEach.call(sThumbs.children, function (c) { c.setAttribute("aria-pressed", String(c === b)); });
+      });
+      sThumbs.appendChild(b);
+    });
+    sCoord.textContent = d.coord ? d.coord + " · " + d.alt : "";
+    sEye.textContent = t("Edición ", "Edition ") + f.n + " · " + (d.pct || "") + " cacao" + (d.limited ? t(" · edición limitada", " · limited edition") : "");
     sName.textContent = f.nombre;
-    sMeta.textContent = f.meta;
-    sCopy.textContent = f.notas;
+    sRating.textContent = d.rating ? "★ " + uno(d.rating) + " · " + d.count + t(" reseñas", " reviews") : "";
+    sCopy.textContent = d.copy || f.notas;
+    sFarm.textContent = d.farm ? d.farm + ", " + d.place : "";
     sInt.textContent = f.fuerza + " / 5";
-    sPrice.textContent = f.precio;
-    sAdd.classList.remove("is-done");
-    sAdd.textContent = t("Añadir a la bolsa", "Add to bag");
-    if (f.add) sAdd.setAttribute("data-bq-for", f.add);
+    sNotes.textContent = d.notes || "";
+    sIng.textContent = d.ing ? d.ing + t(". Nada más.", ". Nothing else.") : "";
+
+    sFormats.textContent = "";
+    var trio = O.trioPrice ? O.trioPrice(d) : d.price * 3;
+    [["bar", t("Barra · 70 g", "Bar · 70 g"), dinero(d.price)],
+     ["trio", t("Estuche de 3", "Box of 3"), dinero(trio) + t(" · ahorra ", " · save ") + dinero(d.price * 3 - trio)]].forEach(function (fx) {
+      var b = el("button", "bq-format");
+      b.type = "button";
+      b.setAttribute("role", "radio");
+      b.setAttribute("data-f", fx[0]);
+      b.appendChild(el("b", "", fx[1]));
+      b.appendChild(el("span", "", fx[2]));
+      sFormats.appendChild(b);
+    });
+
+    sLot.textContent = "";
+    sLot.classList.toggle("is-low", d.lotLeft < 100);
+    if (d.lot) {
+      sLot.appendChild(el("span", "", O.lotText ? O.lotText(d) : d.lot));
+      var rastro = el("a", "", t("Rastrear el lote →", "Trace the lot →"));
+      rastro.href = "demo-servicios.html#lote=" + d.lot;
+      sLot.appendChild(rastro);
+      var barra = el("i");
+      barra.setAttribute("aria-hidden", "true");
+      barra.style.setProperty("--p", (d.lotLeft / d.lotTotal).toFixed(3));
+      sLot.appendChild(barra);
+    }
+    sEta.textContent = O.etaText ? O.etaText() : "";
+
+    sMelt.textContent = "";
+    (d.melt || []).forEach(function (m) {
+      var li = el("li");
+      li.appendChild(el("small", "", m[0]));
+      li.appendChild(el("b", "", m[1]));
+      sMelt.appendChild(li);
+    });
+    sPair.textContent = d.pair || "";
+    sRcount.textContent = d.count ? "(" + d.count + ")" : "";
+    sRevs.textContent = "";
+    (d.reviews || []).forEach(function (r) {
+      var rev = el("blockquote", "bq-rev");
+      rev.appendChild(el("p", "", t("«", "“") + r.x + t("»", "”")));
+      rev.appendChild(el("cite", "", "★★★★★ · " + r.n + " · " + r.c));
+      sRevs.appendChild(rev);
+    });
+    q(".bq-sheet__body").scrollTop = 0;
+    pintarCompra();
   }
+
+  sFormats.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-f]");
+    if (!b || abierta < 0) return;
+    formato = b.getAttribute("data-f");
+    pintarCompra();
+  });
+  q("[data-bq-minus]").addEventListener("click", function () { if (abierta >= 0) { cant = Math.max(1, cant - 1); pintarCompra(); } });
+  q("[data-bq-plus]").addEventListener("click", function () { if (abierta >= 0) { cant = Math.min(9, cant + 1); pintarCompra(); } });
 
   function abrir(i, origen) {
     devolverFoco = origen || null;
@@ -507,27 +670,15 @@
       return;
     }
 
-    // el botón grande de la vista rápida
-    if (e.target.closest("[data-bq-add]") && abierta >= 0) {
-      var f = fichas[abierta];
-      sAdd.classList.add("is-done");
-      sAdd.textContent = t("Añadida ✓", "Added ✓");
-      celebrar(f, sImg);
-      return;
-    }
   });
 
-  // en la vista rápida el botón no lleva [data-add]: se lo pasamos a origen.js
   sAdd.addEventListener("click", function () {
-    if (abierta < 0) return;
-    var id = fichas[abierta].add;
-    if (!id) return;
-    var puente = doc.createElement("button");
-    puente.setAttribute("data-add", id);
-    puente.style.display = "none";
-    doc.body.appendChild(puente);
-    puente.click();
-    doc.body.removeChild(puente);
+    if (abierta < 0 || !O.add) return;
+    var f = fichas[abierta];
+    O.add(f.id, formato, cant, false);
+    sAdd.classList.add("is-done");
+    sAdd.textContent = t("Añadida ✓", "Added ✓");
+    celebrar(f, sImg);
   });
 
   doc.addEventListener("keydown", function (e) {
@@ -546,6 +697,13 @@
     if (Math.abs(dx) > 56) pasar(dx < 0 ? 1 : -1);
     x0 = null;
   }, { passive: true });
+
+  function abrirPorHash() {
+    var h = decodeURIComponent(location.hash.slice(1));
+    for (var j = 0; j < fichas.length; j++) if (fichas[j].id === h) { abrir(j, null); return; }
+  }
+  if (location.hash) window.setTimeout(abrirPorHash, 450);
+  window.addEventListener("hashchange", abrirPorHash);
 
   /* ---------------------------------------------------------- */
   /* 6. Entrada de las tarjetas                                 */

@@ -32,6 +32,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/origen.css?v=5" />
   <link rel="stylesheet" href="assets/origen-boutique.css?v=1" />
+  <link rel="stylesheet" href="assets/origen-shop.css?v=3" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -62,35 +63,38 @@
   <section class="section origin" id="origen" aria-labelledby="origin-title" style="padding-top:clamp(120px,18vh,200px)">
     <div class="origin-media" aria-hidden="true"><img src="assets/origen/origin-farm.jpg" alt="" fetchpriority="high" /></div>
     <div class="wrap">
-      <p class="eyebrow" data-reveal>La tierra</p>
-      <h1 class="display" id="origin-title" data-reveal style="margin-top:16px;max-width:15ch">El sabor empieza <em>mucho antes.</em></h1>
-      <p class="origin-quote serif" data-reveal>«La calidad empieza con la gente que entiende la tierra.»</p>
-      <p data-corto="No compramos cacao: compramos criterio. Tres generaciones leyendo el clima." class="lead" data-reveal style="margin-top:26px">Trabajamos con productores que llevan tres generaciones leyendo el clima, la humedad y el punto exacto de fermentación. No compramos cacao: compramos criterio. El resto —el tueste, el conchado, el temple— solo puede conservar lo que ellos ya lograron.</p>
+      <p class="eyebrow" data-reveal>Las fincas</p>
+      <h1 class="display" id="origin-title" data-reveal style="margin-top:16px;max-width:16ch">Seis familias, <em>a menos de dos grados de la línea.</em></h1>
+      <p class="origin-quote serif" data-reveal>«Si fermentas un día de más, la fruta se vuelve vinagre. Un día de menos, y no aparece.»</p>
+      <p class="origin-by" data-reveal>Rosa Cedeño · Finca El Paraíso, Vinces</p>
+      <p data-corto="Pagamos por criterio, no por kilo: más del doble del precio de bolsa." class="lead" data-reveal style="margin-top:26px">No compramos cacao por kilo: compramos criterio. Pagamos a cada familia más del doble del precio de bolsa y apartamos su cosecha antes de que el árbol florezca. El tueste, el conchado y el temple solo pueden conservar lo que ellos ya consiguieron en la finca.</p>
     </div>
   </section>
+
+  <section class="o-band"><figure class="o-figure wrap" data-reveal><img src="assets/origen/fermentacion.jpg" alt="Cajones de laurel con granos de cacao fermentando bajo hojas de plátano" loading="lazy" decoding="async" /><figcaption>Cajones de laurel bajo hoja de plátano: aquí pasan los seis días que deciden el sabor.</figcaption></figure></section>
 
   <section class="section regions" id="regiones" aria-labelledby="regions-title" data-regions>
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <div><p class="eyebrow">Explorador de orígenes</p><h2 class="display" id="regions-title">Por qué el origen <em>cambia el sabor.</em></h2></div>
-        <p data-corto="Mismo país, cuatro climas. Cuatro firmas en la taza." class="lead">Mismo país, cuatro climas. La altitud, la lluvia y el suelo dejan una firma que se reconoce en la taza.</p>
+        <div><p class="eyebrow">Explorador de fincas</p><h2 class="display" id="regions-title">Mismo país, <em>cuatro sabores.</em></h2></div>
+        <p data-corto="La lluvia, el suelo y el mar dejan su firma en la barra." class="lead">La lluvia, el suelo y la distancia al mar dejan una firma que se reconoce en la barra. Elija una región.</p>
       </div>
       <div class="region-grid">
         <div class="region-list" role="tablist" aria-label="Regiones de origen">
           <button class="region-btn is-active" role="tab" aria-selected="true" type="button" data-region="0"><b class="serif">Manabí</b><u>Costa seca</u></button>
-          <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="1"><b class="serif">Esmeraldas</b><u>Trópico húmedo</u></button>
-          <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="2"><b class="serif">Los Ríos</b><u>Valle fluvial</u></button>
-          <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="3"><b class="serif">Amazonía</b><u>Selva alta</u></button>
+          <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="1"><b class="serif">Esmeraldas</b><u>Al norte de la línea</u></button>
+          <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="2"><b class="serif">Los Ríos</b><u>Valle de río</u></button>
+          <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="3"><b class="serif">Amazonía</b><u>Bajo el dosel</u></button>
         </div>
         <div class="region-panel" role="tabpanel" aria-live="polite">
           <h3 class="serif" data-region-name>Manabí</h3>
           <div class="rmeta">
-            <span>Clima<b data-region-climate>Seco, con brisa marina</b></span>
-            <span>Perfil<b data-region-profile>Nuez, caramelo, cuerpo firme</b></span>
+            <span>Coordenadas<b data-region-climate>0°41′ S · 80°06′ O · 320 m</b></span>
+            <span>Perfil<b data-region-profile>Frutos rojos, rosa, caramelo</b></span>
             <span>Cosecha<b data-region-harvest>Marzo – junio</b></span>
           </div>
-          <p data-region-copy>Suelo arenoso y menos lluvia obligan al árbol a concentrar. El resultado es un cacao de cuerpo firme y dulzor tostado, con poca acidez.</p>
-          <a class="region-link" href="origen-coleccion.html" data-region-product>Ver Nube de Leche 58% →</a>
+          <p data-region-copy>Colinas secas y brisa del Pacífico. En Finca San Jacinto, la familia Mendoza fermenta solo cinco días para no perder lo floral: de ahí sale Rosa &amp; Cacao.</p>
+          <a class="region-link" href="origen-coleccion.html#rosa" data-region-product>Ver Rosa &amp; Cacao 70% →</a>
         </div>
       </div>
     </div>
@@ -99,11 +103,11 @@
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Nacido en la latitud cero</span></div>
+      <div class="foot-brand serif">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></div>
       <a class="btn" href="origen-caja.html">Componer una caja →</a>
     </div>
     <div class="foot-cols">
-      <div><h3>Tienda</h3><a href="origen-coleccion.html">La colección</a><a href="origen-caja.html">Caja de degustación</a><a href="origen-sociedad.html">La Sociedad</a><a href="demo-servicios.html#insignia">Latitud Cero 72%</a></div>
+      <div><h3>Tienda</h3><a href="origen-coleccion.html">La colección</a><a href="origen-caja.html">Caja de degustación</a><a href="origen-sociedad.html">La Sociedad</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
       <div><h3>Origen</h3><a href="origen-origenes.html">La tierra</a><a href="origen-origenes.html#regiones">Explorador de orígenes</a><a href="origen-sociedad.html#diario">Diario</a><a href="demo-servicios.html#perfil">Perfil sensorial</a></div>
       <div><h3>Casa</h3><a href="contacto.html">Contacto</a><a href="contacto.html">Envíos</a><a href="contacto.html">Mayoristas</a><a href="contacto.html">Prensa</a></div>
       <div><h3>Demo</h3><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a><a href="contacto.html">Encargar el suyo</a><a href="planes.html">Planes</a></div>
@@ -117,8 +121,8 @@
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="assets/origen.js?v=7" defer></script>
-<script src="assets/origen-boutique.js?v=1" defer></script>
+<script src="assets/origen.js?v=9" defer></script>
+<script src="assets/origen-boutique.js?v=4" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

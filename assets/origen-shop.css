@@ -1,0 +1,274 @@
+/* ═══════════════════════════════════════════════════════════
+   ORIGEN 0° · la tienda
+   Tarjetas con finca y lote, filtros, ficha de producto, bolsa
+   con envío en frío, confirmación, cata en casa y cajas pensadas.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── tarjetas ─────────────────────────────────────────────── */
+.bq-card[hidden]{ display:none; }
+.bq-card__meta{ margin-bottom:4px; }
+.bq-card__coord{ margin:0 0 12px;font-size:10px;letter-spacing:1.2px;color:var(--plinth-copper);font-variant-numeric:tabular-nums; }
+.bq-card__rating{ margin:-8px 0 14px;font-size:12px;color:var(--plinth-dim); }
+.bq-card__rating b{ font-weight:500;color:var(--plinth-ink); }
+.bq-card__lot{ margin:-6px 0 16px;font-size:11.5px;color:var(--plinth-faint); }
+.bq-card__lot.is-low{ color:var(--burgundy); }
+
+/* ── filtros ─────────────────────────────────────────────── */
+.bq-filters{
+  width:min(1340px,calc(100% - 9vw));margin:0 auto clamp(22px,3vw,34px);
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.bq-filter{
+  min-height:44px;padding:0 18px;border:1px solid rgba(26,18,12,.18);border-radius:100px;
+  background:transparent;color:var(--plinth-ink);cursor:pointer;
+  font:400 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  transition:background .25s ease,color .25s ease,border-color .25s ease;
+}
+.bq-filter:hover{ border-color:var(--plinth-ink); }
+.bq-filter[aria-pressed="true"]{ background:var(--plinth-ink);color:var(--plinth);border-color:var(--plinth-ink); }
+
+/* ── ficha de producto ───────────────────────────────────── */
+.bq-sheet__coord{
+  position:absolute;left:22px;bottom:20px;z-index:2;padding:8px 13px;border-radius:100px;
+  background:rgba(18,13,9,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:#f6efe6;font-size:10.5px;letter-spacing:1.4px;font-variant-numeric:tabular-nums;
+}
+.bq-sheet__coord:empty{ display:none; }
+.bq-sheet__body{ justify-content:flex-start; }
+.bq-sheet__in{ padding-block:clamp(8px,4vh,36px);max-width:560px; }
+.bq-sheet__eyebrow{ margin-bottom:12px; }
+.bq-sheet__rating{ margin:0 0 18px;font-size:12.5px;color:var(--plinth-dim); }
+.bq-sheet__copy{ margin-bottom:22px; }
+.bq-spec{ margin-bottom:22px; }
+.bq-spec dd{ font-size:18px;line-height:1.25; }
+.bq-spec__wide{ grid-column:1/-1; }
+.bq-spec__wide dd{ font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--plinth-dim); }
+
+.bq-formats{ display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px; }
+.bq-format{
+  display:grid;gap:4px;min-height:60px;padding:12px 14px;
+  border:1px solid rgba(26,18,12,.18);border-radius:14px;background:transparent;
+  text-align:left;color:var(--plinth-ink);cursor:pointer;
+  transition:border-color .25s ease,background .25s ease,box-shadow .25s ease;
+}
+.bq-format b{ font-family:var(--serif);font-weight:400;font-size:18px; }
+.bq-format span{ font-size:11.5px;color:var(--plinth-dim); }
+.bq-format:hover{ border-color:var(--plinth-ink); }
+.bq-format[aria-checked="true"]{ border-color:var(--plinth-ink);background:rgba(26,18,12,.05);box-shadow:inset 0 0 0 1px var(--plinth-ink); }
+
+.bq-lot{
+  display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 16px;
+  margin:0 0 20px;font-size:12px;color:var(--plinth-dim);
+}
+.bq-lot:empty{ display:none; }
+.bq-lot i{ grid-column:1/-1;position:relative;height:3px;border-radius:3px;background:rgba(26,18,12,.1);overflow:hidden; }
+.bq-lot i::after{ content:"";position:absolute;inset:0;background:var(--copper);transform-origin:left;transform:scaleX(var(--p,1)); }
+.bq-lot a{ font-size:11.5px;color:var(--plinth-copper);border-bottom:1px solid currentColor;padding-bottom:1px; }
+.bq-lot.is-low span{ color:var(--burgundy); }
+.bq-lot.is-low i::after{ background:var(--burgundy); }
+
+.bq-sheet__buy{ flex-wrap:nowrap; }
+.bq-qty{
+  display:flex;align-items:center;flex:0 0 auto;height:54px;
+  border:1px solid rgba(26,18,12,.18);border-radius:100px;
+}
+.bq-qty button{ width:46px;height:100%;border:0;background:none;color:var(--plinth-ink);font-size:18px;cursor:pointer; }
+.bq-qty span{ min-width:20px;text-align:center;font-size:15px;font-variant-numeric:tabular-nums; }
+
+.bq-eta,.eta-line,.cart-eta,.box-eta{ font-size:12px;line-height:1.5; }
+.bq-eta::before,.eta-line::before,.cart-eta::before,.box-eta::before{
+  content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;
+  background:#6f9a5e;vertical-align:1px;
+}
+.bq-eta{ margin:14px 0 18px;color:var(--plinth-dim); }
+
+.bq-more{ border-top:1px solid var(--plinth-hair); }
+.bq-more:last-child{ border-bottom:1px solid var(--plinth-hair); }
+.bq-more summary{
+  display:flex;justify-content:space-between;align-items:center;min-height:52px;cursor:pointer;list-style:none;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--plinth-ink);
+}
+.bq-more summary::-webkit-details-marker{ display:none; }
+.bq-more summary::after{ content:"+";font-size:19px;letter-spacing:0;transition:transform .3s ease; }
+.bq-more[open] summary::after{ transform:rotate(45deg); }
+.bq-more summary span{ margin-left:6px;margin-right:auto;color:var(--plinth-faint); }
+.bq-melt{ list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px;padding:0; }
+.bq-melt li{ padding:12px;border-radius:12px;background:rgba(26,18,12,.045); }
+.bq-melt small{ display:block;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--plinth-faint); }
+.bq-melt b{ display:block;margin-top:6px;font-family:var(--serif);font-weight:400;font-size:17px;line-height:1.2; }
+.bq-pair{ margin:0 0 18px;font-family:var(--serif);font-size:19px;line-height:1.4; }
+.bq-revs{ display:grid;gap:16px;padding-bottom:18px; }
+.bq-rev{ margin:0; }
+.bq-rev p{ margin:0;font-size:14px;line-height:1.6;color:var(--plinth-ink); }
+.bq-rev cite{ display:block;margin-top:5px;font-style:normal;font-size:11px;letter-spacing:.4px;color:var(--plinth-faint); }
+
+/* ── bolsa ───────────────────────────────────────────────── */
+.cart-n{ font-family:var(--sans);font-size:12px;color:var(--faint); }
+.cart-free{ padding:14px 24px 16px;border-bottom:1px solid var(--hair); }
+.cart-free p{ margin:0 0 10px;font-size:12px;color:var(--dim); }
+.free-bar{ height:3px;border-radius:3px;background:var(--hair);overflow:hidden; }
+.free-bar i{ display:block;height:100%;background:var(--copper2);transform-origin:left;transform:scaleX(var(--p,0));transition:transform .6s var(--ease); }
+.cart-free.is-done p{ color:var(--ivory); }
+.cart-free.is-done .free-bar i{ background:#8fb27a; }
+.cart-empty{ display:grid;gap:18px;justify-items:center; }
+.cart-empty p{ margin:0;max-width:30ch; }
+.cart-x{ padding:14px 24px;border-top:1px solid var(--hair);background:rgba(242,236,225,.03); }
+.cart-x[hidden]{ display:none; }
+.cart-x__lab{ margin:0 0 10px;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--faint); }
+.cart-x__row{ display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center; }
+.cart-x__row > div{ min-width:0; }
+.cart-x__row img{ width:48px;height:48px;object-fit:cover;border-radius:2px; }
+.cart-x__row b{ display:block;font-family:var(--serif);font-weight:400;font-size:16px; }
+.cart-x__row span{ display:block;margin-top:3px;font-size:11px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.cart-x__add{
+  min-height:44px;padding:0 14px;border:1px solid var(--copper2);border-radius:100px;
+  background:none;color:var(--ivory);font:400 12px/1 var(--sans);cursor:pointer;white-space:nowrap;
+  transition:background .25s ease,color .25s ease,border-color .25s ease;
+}
+.cart-x__add:hover{ background:var(--copper);border-color:var(--copper);color:#180d05; }
+.cart-eta{ margin:0 0 14px;color:var(--dim); }
+.cart-safe{ margin:10px 0 0;text-align:center;font-size:10.5px;color:var(--faint); }
+
+/* ── confirmación ────────────────────────────────────────── */
+.confirm{ text-align:left;overflow-y:auto; }
+.confirm-in{ width:min(560px,100%); }
+.confirm .confirm-in > .eyebrow{ margin:0 0 16px;font-size:10px;letter-spacing:3px;color:var(--copper2); }
+.confirm h2{ font-style:normal; }
+.confirm h2 em{ font-style:italic;color:var(--copper2); }
+.confirm-steps{ list-style:none;margin:32px 0 0;padding:0;border-left:1px solid var(--hair); }
+.confirm-steps li{ position:relative;padding:0 0 22px 22px; }
+.confirm-steps li::before{ content:"";position:absolute;left:-4px;top:6px;width:7px;height:7px;border-radius:50%;background:var(--copper2); }
+.confirm-steps b{ display:block;font-family:var(--serif);font-weight:400;font-size:20px;color:var(--ivory); }
+.confirm-steps span{ display:block;margin-top:4px;font-size:13.5px;line-height:1.6;color:var(--dim); }
+.confirm .confirm-total{ margin:8px 0 0;letter-spacing:1.6px; }
+.confirm-total b{ margin-left:10px;font-size:26px;letter-spacing:0;text-transform:none;color:var(--ivory); }
+.confirm .confirm-note{ margin:18px 0 0;font-size:11px;letter-spacing:.3px;text-transform:none;color:var(--faint); }
+
+/* ── la barra de la casa: lote y entrega a la vista ─────── */
+.stock{ display:grid;gap:8px;margin:22px 0 0;font-size:12px;color:var(--dim); }
+.stock i{ position:relative;height:3px;border-radius:3px;background:var(--hair);overflow:hidden; }
+.stock i::after{ content:"";position:absolute;inset:0;background:var(--copper2);transform-origin:left;transform:scaleX(var(--p,1)); }
+.stock.is-low span{ color:#e8a8ae; }
+.eta-line{ margin:12px 0 0;color:var(--dim); }
+.price-row{ flex-wrap:wrap; }
+.price-row .rating{ font-size:12px;color:var(--dim); }
+.origin-by{ margin:14px 0 0;font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--copper2); }
+
+/* ── la cata en casa, en orden ───────────────────────────── */
+.tasting{ background:var(--cacao); }
+.tasting .section-head{ align-items:end; }
+.tasting-order{
+  list-style:none;display:grid;grid-template-columns:repeat(6,1fr);
+  margin:clamp(34px,5vh,56px) 0 0;padding:0;border-top:1px solid var(--hair);
+}
+.tasting-order li{ position:relative;padding:24px 18px 0 0; }
+.tasting-order li::before{ content:"";position:absolute;top:-4px;left:0;width:7px;height:7px;border-radius:50%;background:var(--copper2); }
+.tasting-order b{ display:block;font-family:var(--serif);font-weight:300;font-size:clamp(34px,3.6vw,50px);line-height:1;color:var(--ivory); }
+.tasting-order a{ display:inline-block;margin-top:10px;font-family:var(--serif);font-size:19px;color:var(--ivory);border-bottom:1px solid transparent;transition:border-color .3s ease; }
+.tasting-order a:hover{ border-color:var(--copper2); }
+.tasting-order span{ display:block;margin-top:6px;font-size:12.5px;line-height:1.55;color:var(--dim); }
+.tasting-cta{ display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:clamp(30px,5vh,48px); }
+.tasting-cta p{ margin:0;font-size:12.5px;color:var(--faint); }
+
+/* ── cajas pensadas ──────────────────────────────────────── */
+.presets{ display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 clamp(24px,4vh,40px); }
+.preset{
+  display:grid;gap:6px;align-content:start;padding:18px;border:1px solid var(--hairInk);border-radius:2px;
+  background:rgba(255,255,255,.4);text-align:left;color:var(--cacao);cursor:pointer;
+  transition:border-color .3s ease,background .3s ease;
+}
+.preset:hover{ border-color:var(--roast); }
+.preset.is-active{ border-color:var(--cacao);background:rgba(10,7,5,.05);box-shadow:inset 0 0 0 1px var(--cacao); }
+.preset small{ font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(10,7,5,.6); }
+.preset b{ font-family:var(--serif);font-weight:400;font-size:22px; }
+.preset span{ font-size:12.5px;line-height:1.5;color:rgba(10,7,5,.7); }
+.box-eta{ margin:10px 0 0;color:rgba(10,7,5,.68); }
+
+/* ── fotos del obrador, la caja, la finca y el envío ─────── */
+.o-band{ padding:0 0 clamp(54px,8vh,96px); }
+.o-figure{ margin:0 auto; }
+.o-figure img{ display:block;width:100%;aspect-ratio:21/9;object-fit:cover;object-position:var(--pos,50% 50%); }
+.o-figure figcaption{ margin-top:14px;font-size:12px;line-height:1.6;color:var(--faint); }
+
+/* ── galería de la ficha ─────────────────────────────────── */
+.bq-thumbs{ position:absolute;right:18px;bottom:16px;z-index:2;display:flex;gap:6px; }
+.bq-thumb{
+  width:52px;height:52px;padding:0;border:1px solid rgba(246,239,230,.35);border-radius:10px;
+  overflow:hidden;background:none;cursor:pointer;opacity:.72;
+  transition:opacity .25s ease,border-color .25s ease;
+}
+.bq-thumb img{ display:block;width:100%;height:100%;object-fit:cover; }
+.bq-thumb:hover,.bq-thumb[aria-pressed="true"]{ opacity:1;border-color:#f6efe6; }
+
+/* ── diario ──────────────────────────────────────────────── */
+.entry small{ display:block;margin-top:12px;font-size:11px;color:var(--faint); }
+
+/* ── teléfono: todo compacto ─────────────────────────────── */
+@media (max-width:900px){
+  .tasting-order{ grid-template-columns:repeat(3,1fr);row-gap:28px; }
+}
+@media (max-width:760px){
+  .presets{ display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none; }
+  .presets::-webkit-scrollbar{ display:none; }
+  .preset{ flex:0 0 76%;scroll-snap-align:start; }
+}
+@media (max-width:640px){
+  .bq-filters{
+    flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    width:auto;margin-inline:0;padding-inline:4.5vw;
+  }
+  .bq-filters::-webkit-scrollbar{ display:none; }
+  .bq-filter{ flex:0 0 auto;padding:0 15px; }
+  .bq-card__coord,.bq-card__rating{ display:none; }
+  .bq-card__lot{ margin:-4px 0 10px;font-size:11px; }
+
+  /* las miniaturas van abajo; las coordenadas suben para no pisarlas */
+  .bq-sheet__coord{ left:12px;bottom:60px; }
+  .bq-thumbs{ left:12px;right:auto;bottom:12px;gap:5px; }
+  .bq-thumb{ width:40px;height:40px;border-radius:8px; }
+  .o-figure img{ aspect-ratio:4/3; }
+  .o-band{ padding-bottom:40px; }
+  .bq-sheet__rating{ margin-bottom:12px; }
+  .bq-sheet__copy{ font-size:14.5px;margin-bottom:18px; }
+  /* en el teléfono la ficha técnica se queda en finca y notas, a lo ancho */
+  .bq-spec{ grid-template-columns:1fr; }
+  .bq-spec div:nth-child(2),.bq-spec div:nth-child(4){ display:none; }
+  .bq-spec div{ padding:12px 14px; }
+  .bq-spec dd{ font-size:16px; }
+
+  /* los tres formatos de caja en una fila, no apilados */
+  .format-row{ grid-template-columns:repeat(3,1fr)!important;gap:6px;margin-bottom:18px; }
+  .format{ padding:12px 10px; }
+  .format b{ font-size:17px; }
+  .format span{ font-size:9px;letter-spacing:.8px; }
+  .bq-formats{ gap:8px; }
+  .bq-format{ min-height:54px;padding:10px 12px; }
+  .bq-format b{ font-size:16px; }
+  .bq-qty{ height:50px; }
+  .bq-qty button{ width:40px; }
+  .bq-melt{ grid-template-columns:1fr;gap:6px; }
+  .bq-melt li{ display:flex;justify-content:space-between;align-items:baseline;padding:10px 12px; }
+  .bq-melt b{ margin:0;font-size:16px; }
+
+  .tasting-order{
+    display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+    border-top:0;margin-inline:calc(50% - 50vw);padding-inline:4.5vw;
+  }
+  .tasting-order::-webkit-scrollbar{ display:none; }
+  .tasting-order li{ flex:0 0 40%;padding:16px;border:1px solid var(--hair);border-radius:14px;scroll-snap-align:start; }
+  .tasting-order li::before,.tasting-order span{ display:none; }
+  .tasting-order a{ font-size:16px; }
+
+  .journal-grid{
+    display:flex!important;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+    margin-inline:calc(50% - 50vw);padding-inline:4.5vw;
+  }
+  .journal-grid::-webkit-scrollbar{ display:none; }
+  .entry{ flex:0 0 78%;scroll-snap-align:start; }
+  .plans{
+    display:flex!important;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border:0;
+    margin-inline:calc(50% - 50vw);padding-inline:4.5vw;
+  }
+  .plans::-webkit-scrollbar{ display:none; }
+  .plan{ flex:0 0 84%;border:1px solid var(--hair);scroll-snap-align:start; }
+}
