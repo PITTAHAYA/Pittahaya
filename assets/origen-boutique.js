@@ -105,32 +105,7 @@
 
     var col = el("div", "bq-card__col");
     col.appendChild(el("h3", "bq-card__name", f.nombre));
-    col.appendChild(el("p", "bq-card__meta", (d.pct || "") + " · " + (d.place || d.origin || "")));
-    if (d.coord) col.appendChild(el("p", "bq-card__coord", d.coord));
-    col.appendChild(el("p", "bq-card__notes", d.notes || f.notas));
-    if (d.rating) {
-      var nota = el("p", "bq-card__rating");
-      nota.appendChild(el("b", "", "★ " + uno(d.rating)));
-      nota.appendChild(doc.createTextNode(" · " + d.count + t(" reseñas", " reviews")));
-      col.appendChild(nota);
-    }
-
-    var medidor = el("div", "bq-meter");
-    medidor.setAttribute("aria-label", t("Intensidad ", "Intensity ") + f.fuerza + t(" de 5", " of 5"));
-    for (var k = 0; k < 5; k++) {
-      var s = el("span", k < f.fuerza ? "on" : "");
-      s.style.setProperty("--md", (i * 70 + k * 80 + 180) + "ms");
-      medidor.appendChild(s);
-    }
-    col.appendChild(medidor);
-
-    if (d.lot) {
-      var poco = d.lotLeft < 100;
-      col.appendChild(el("p", "bq-card__lot" + (poco ? " is-low" : ""), poco
-        ? t("Últimas ", "Last ") + d.lotLeft + t(" del lote ", " of lot ") + d.lot
-        : t("Lote ", "Lot ") + d.lot + " · " + t("quedan ", "") + (O.num ? O.num(d.lotLeft) : d.lotLeft) + t("", " left")));
-    }
-
+    col.appendChild(el("p", "bq-card__meta", (d.pct || "") + " · " + (d.origin || "")));
     var pie = el("div", "bq-card__foot");
     pie.appendChild(el("span", "bq-card__price", f.precio));
     var actos = el("div", "bq-card__acts");
@@ -139,7 +114,6 @@
     ver.type = "button";
     ver.setAttribute("data-bq-look", String(i));
     ver.setAttribute("aria-label", t("Ver ", "View ") + f.nombre);
-    actos.appendChild(ver);
 
     var mas = el("button", "bq-add");
     mas.type = "button";
@@ -199,7 +173,8 @@
   }).filter(function (x) { return x.pct; })
     .sort(function (a, b) { return a.pct - b.pct; });
 
-  if (escala.length > 2) {
+  /* el dial se retiró de la colección: sólo vive si una página lo pide */
+  if (escala.length > 2 && doc.querySelector("[data-with-dial]")) {
     var MIN = escala[0].pct;
     var MAX = escala[escala.length - 1].pct;
 
@@ -397,16 +372,9 @@
     '<div class="bq-sheet__body"><div class="bq-sheet__in">' +
       '<p class="bq-sheet__eyebrow" data-bq-eyebrow></p>' +
       '<h2 class="bq-sheet__name" id="bq-sheet-name" data-bq-name></h2>' +
-      '<p class="bq-sheet__rating" data-bq-rating></p>' +
+      '<p class="bq-sheet__price" data-bq-price></p>' +
       '<p class="bq-sheet__copy" data-bq-copy></p>' +
-      '<dl class="bq-spec">' +
-        '<div><dt>' + t("Finca", "Farm") + '</dt><dd data-bq-farm></dd></div>' +
-        '<div><dt>' + t("Intensidad", "Intensity") + '</dt><dd data-bq-int></dd></div>' +
-        '<div class="bq-spec__wide"><dt>' + t("Notas", "Notes") + '</dt><dd data-bq-notes></dd></div>' +
-        '<div class="bq-spec__wide"><dt>' + t("Ingredientes", "Ingredients") + '</dt><dd data-bq-ing></dd></div>' +
-      '</dl>' +
       '<div class="bq-formats" role="radiogroup" aria-label="' + t("Formato", "Format") + '" data-bq-formats></div>' +
-      '<p class="bq-lot" data-bq-lot></p>' +
       '<div class="bq-sheet__buy">' +
         '<div class="bq-qty" role="group" aria-label="' + t("Cantidad", "Quantity") + '">' +
           '<button type="button" data-bq-minus aria-label="' + t("Una menos", "One fewer") + '">−</button>' +
@@ -416,8 +384,15 @@
         '<button class="bq-sheet__cta" type="button" data-bq-add></button>' +
       '</div>' +
       '<p class="bq-eta" data-bq-eta></p>' +
-      '<details class="bq-more" data-bq-open><summary>' + t("Cómo se funde", "How it melts") + '</summary><ol class="bq-melt" data-bq-melt></ol></details>' +
-      '<details class="bq-more" data-bq-open><summary>' + t("Con qué tomarla", "What to drink with it") + '</summary><p class="bq-pair" data-bq-pair></p></details>' +
+      '<details class="bq-more"><summary>' + t("La finca y el lote", "The farm and the lot") + '</summary>' +
+        '<dl class="bq-spec">' +
+          '<div><dt>' + t("Finca", "Farm") + '</dt><dd data-bq-farm></dd></div>' +
+          '<div><dt>' + t("Intensidad", "Intensity") + '</dt><dd data-bq-int></dd></div>' +
+          '<div class="bq-spec__wide"><dt>' + t("Notas", "Notes") + '</dt><dd data-bq-notes></dd></div>' +
+          '<div class="bq-spec__wide"><dt>' + t("Ingredientes", "Ingredients") + '</dt><dd data-bq-ing></dd></div>' +
+        '</dl><p class="bq-lot" data-bq-lot></p></details>' +
+      '<details class="bq-more"><summary>' + t("Cómo se funde", "How it melts") + '</summary><ol class="bq-melt" data-bq-melt></ol></details>' +
+      '<details class="bq-more"><summary>' + t("Con qué tomarla", "What to drink with it") + '</summary><p class="bq-pair" data-bq-pair></p></details>' +
       '<details class="bq-more"><summary>' + t("Reseñas", "Reviews") + ' <span data-bq-rcount></span></summary><div class="bq-revs" data-bq-reviews></div></details>' +
     '</div></div>' +
     '<button class="bq-sheet__close" type="button" data-bq-close aria-label="' + t("Cerrar", "Close") + '">×</button>';
@@ -425,7 +400,7 @@
 
   var q = function (sel) { return hoja.querySelector(sel); };
   var sImg = q("[data-bq-img]"), sCoord = q("[data-bq-coord]"), sEye = q("[data-bq-eyebrow]"), sName = q("[data-bq-name]");
-  var sRating = q("[data-bq-rating]"), sCopy = q("[data-bq-copy]"), sFarm = q("[data-bq-farm]"), sInt = q("[data-bq-int]");
+  var sPrice = q("[data-bq-price]"), sCopy = q("[data-bq-copy]"), sFarm = q("[data-bq-farm]"), sInt = q("[data-bq-int]");
   var sNotes = q("[data-bq-notes]"), sIng = q("[data-bq-ing]"), sFormats = q("[data-bq-formats]"), sLot = q("[data-bq-lot]");
   var sQ = q("[data-bq-q]"), sAdd = q("[data-bq-add]"), sEta = q("[data-bq-eta]"), sMelt = q("[data-bq-melt]");
   var sPair = q("[data-bq-pair]"), sRcount = q("[data-bq-rcount]"), sRevs = q("[data-bq-reviews]");
@@ -447,7 +422,8 @@
     var d = datos(fichas[abierta].id);
     sQ.textContent = cant;
     sAdd.classList.remove("is-done");
-    sAdd.textContent = t("Añadir", "Add") + " · " + dinero(precio(d) * cant);
+    sPrice.textContent = dinero(precio(d));
+    sAdd.textContent = t("Añadir a la bolsa", "Add to bag") + (cant > 1 ? " · " + dinero(precio(d) * cant) : "");
     Array.prototype.forEach.call(sFormats.children, function (b) {
       b.setAttribute("aria-checked", String(b.getAttribute("data-f") === formato));
     });
@@ -484,9 +460,8 @@
       sThumbs.appendChild(b);
     });
     sCoord.textContent = d.coord ? d.coord + " · " + d.alt : "";
-    sEye.textContent = t("Edición ", "Edition ") + f.n + " · " + (d.pct || "") + " cacao" + (d.limited ? t(" · edición limitada", " · limited edition") : "");
+    sEye.textContent = (d.pct || "") + " cacao · " + (d.origin || "") + (d.limited ? t(" · edición limitada", " · limited edition") : "");
     sName.textContent = f.nombre;
-    sRating.textContent = d.rating ? "★ " + uno(d.rating) + " · " + d.count + t(" reseñas", " reviews") : "";
     sCopy.textContent = d.copy || f.notas;
     sFarm.textContent = d.farm ? d.farm + ", " + d.place : "";
     sInt.textContent = f.fuerza + " / 5";
@@ -511,7 +486,7 @@
     if (d.lot) {
       sLot.appendChild(el("span", "", O.lotText ? O.lotText(d) : d.lot));
       var rastro = el("a", "", t("Rastrear el lote →", "Trace the lot →"));
-      rastro.href = "demo-servicios.html#lote=" + d.lot;
+      rastro.href = "origen-origenes.html#lote=" + d.lot;
       sLot.appendChild(rastro);
       var barra = el("i");
       barra.setAttribute("aria-hidden", "true");
@@ -528,7 +503,7 @@
       sMelt.appendChild(li);
     });
     sPair.textContent = d.pair || "";
-    sRcount.textContent = d.count ? "(" + d.count + ")" : "";
+    sRcount.textContent = d.count ? "★ " + uno(d.rating) + " · " + d.count : "";
     sRevs.textContent = "";
     (d.reviews || []).forEach(function (r) {
       var rev = el("blockquote", "bq-rev");

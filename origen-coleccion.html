@@ -33,6 +33,8 @@
   <link rel="stylesheet" href="assets/origen.css?v=5" />
   <link rel="stylesheet" href="assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="assets/origen-shop.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-lux.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-wow.css?v=3" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -48,9 +50,8 @@
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, inicio">ORIGEN 0°<span>Latitud cero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Abrir navegación"><i aria-hidden="true"></i></button>
   <nav class="site-nav" id="origen-nav" data-nav aria-label="Navegación principal">
-    <a class="nav-link" href="demo-servicios.html">Inicio</a>
     <a class="nav-link is-current" href="origen-coleccion.html" aria-current="page">Colección</a>
-    <a class="nav-link" href="origen-caja.html">Caja de degustación</a>
+    <a class="nav-link" href="origen-caja.html">Cajas</a>
     <a class="nav-link" href="origen-origenes.html">Orígenes</a>
     <a class="nav-link" href="origen-sociedad.html">Sociedad</a>
     <a class="nav-link" href="portafolio.html">← Demos</a>
@@ -60,59 +61,45 @@
   </div>
 </header>
 <main id="main">
-  <section class="page-head">
+  <section class="page-head lx-page-head">
     <div class="wrap">
-      <p class="eyebrow" data-reveal>La colección · Cosecha 2026</p>
-      <h1 class="display" data-reveal>Seis fincas. <em>Seis barras.</em></h1>
-      <p data-corto="Cada barra, de una sola finca, con su lote y sus coordenadas." class="lead" data-reveal>Cada barra sale de una sola finca y lleva impresos su lote y sus coordenadas. Del 58% con leche, para empezar, al 92% que ya casi no lleva azúcar.</p>
+      <p class="eyebrow" data-reveal>Cosecha 2026</p>
+      <h1 class="display" data-reveal>La colección</h1>
     </div>
   </section>
   <section class="collection" id="coleccion" aria-label="Productos"><div data-collection></div></section>
 
-  <section class="section tasting" aria-labelledby="tasting-title">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <div><p class="eyebrow">La cata en casa</p><h2 class="display" id="tasting-title">De menor a mayor. <em>En este orden.</em></h2></div>
-        <p data-corto="Del 58% al 92%, con un sorbo de agua entre una y otra." class="lead">Con un sorbo de agua entre una y otra, y siempre subiendo: si empieza por el 92%, ya no sentirá la leche del 58%.</p>
-      </div>
-      <ol class="tasting-order">
-        <li data-reveal><b>58</b><a href="#nube">Nube de Leche</a><span>Busque la panela antes que la leche.</span></li>
-        <li data-reveal><b>70</b><a href="#rosa">Rosa &amp; Cacao</a><span>El pétalo aparece al final, no al principio.</span></li>
-        <li data-reveal><b>72</b><a href="#latitud">Latitud Cero</a><span>Espere al jazmín: tarda casi un minuto.</span></li>
-        <li data-reveal><b>75</b><a href="#sal">Sal Amazónica</a><span>Deje que la sal se disuelva sola.</span></li>
-        <li data-reveal><b>85</b><a href="#tierra">Tierra Negra</a><span>Seca y mineral, sin amargor.</span></li>
-        <li data-reveal><b>92</b><a href="#altitud">Altitud Pura</a><span>Un cuadrado, y nada después.</span></li>
-      </ol>
-      <div class="tasting-cta" data-reveal>
-        <a class="btn btn--solid" href="origen-caja.html#completa">Llevar las seis en una caja · $148</a>
-        <p>Van ordenadas, con la ficha de cata impresa.</p>
+  <section class="lx-split" aria-labelledby="gift-title">
+    <div class="wrap lx-split__in">
+      <div class="lx-split__img" data-reveal><img src="assets/origen/caja-abierta.jpg" alt="Caja de degustación con seis barras, de la más clara a la más oscura" loading="lazy" /></div>
+      <div class="lx-split__txt" data-reveal>
+        <p class="eyebrow">Para regalar</p>
+        <h2 class="display" id="gift-title">La cata <em>completa.</em></h2>
+        <p>Las seis barras, de la más clara a la más oscura.</p>
+        <a class="btn btn--solid" href="origen-caja.html#completa">Armar la caja · $148</a>
       </div>
     </div>
   </section>
 </main>
-<footer class="foot">
+<footer class="foot lx-foot">
   <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></div>
-      <a class="btn" href="origen-caja.html">Componer una caja →</a>
-    </div>
-    <div class="foot-cols">
-      <div><h3>Tienda</h3><a href="origen-coleccion.html">La colección</a><a href="origen-caja.html">Caja de degustación</a><a href="origen-sociedad.html">La Sociedad</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
-      <div><h3>Origen</h3><a href="origen-origenes.html">La tierra</a><a href="origen-origenes.html#regiones">Explorador de orígenes</a><a href="origen-sociedad.html#diario">Diario</a><a href="demo-servicios.html#perfil">Perfil sensorial</a></div>
-      <div><h3>Casa</h3><a href="contacto.html">Contacto</a><a href="contacto.html">Envíos</a><a href="contacto.html">Mayoristas</a><a href="contacto.html">Prensa</a></div>
-      <div><h3>Demo</h3><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a><a href="contacto.html">Encargar el suyo</a><a href="planes.html">Planes</a></div>
+    <div class="lx-foot__top">
+      <a class="foot-brand serif" href="demo-servicios.html">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></a>
+      <nav class="lx-foot__nav" aria-label="Pie de página">
+        <a href="origen-coleccion.html">Colección</a><a href="origen-caja.html">Cajas</a><a href="origen-origenes.html">Orígenes</a><a href="origen-sociedad.html">Sociedad</a><a href="contacto.html">Contacto</a>
+      </nav>
     </div>
     <div class="foot-bar">
       <span>© <span data-year></span> ORIGEN 0° · marca ficticia</span>
-      <span>Demo de e-commerce por <b>Pittahaya</b> · <a href="index.html">pittahaya.com</a></span>
+      <span>Demo por <b>Pittahaya</b> · <a href="portafolio.html">Más demos</a></span>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="assets/origen.js?v=9" defer></script>
-<script src="assets/origen-boutique.js?v=4" defer></script>
+<script src="assets/origen.js?v=13" defer></script>
+<script src="assets/origen-boutique.js?v=5" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

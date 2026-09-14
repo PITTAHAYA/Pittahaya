@@ -33,6 +33,8 @@
   <link rel="stylesheet" href="../assets/origen.css?v=5" />
   <link rel="stylesheet" href="../assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="../assets/origen-shop.css?v=3" />
+  <link rel="stylesheet" href="../assets/origen-lux.css?v=3" />
+  <link rel="stylesheet" href="../assets/origen-wow.css?v=3" />
   <link rel="stylesheet" href="../assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -48,9 +50,8 @@
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, home">ORIGEN 0°<span>Latitude zero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Open navigation"><i aria-hidden="true"></i></button>
   <nav class="site-nav" id="origen-nav" data-nav aria-label="Primary navigation">
-    <a class="nav-link" href="demo-servicios.html">Home</a>
     <a class="nav-link" href="origen-coleccion.html">Collection</a>
-    <a class="nav-link" href="origen-caja.html">Tasting box</a>
+    <a class="nav-link" href="origen-caja.html">Boxes</a>
     <a class="nav-link" href="origen-origenes.html">Origins</a>
     <a class="nav-link is-current" href="origen-sociedad.html" aria-current="page">Society</a>
     <a class="nav-link" href="portfolio.html">← Demos</a>
@@ -60,56 +61,40 @@
   </div>
 </header>
 <main id="main">
-  <section class="page-head">
+  <section class="page-head lx-page-head">
     <div class="wrap">
       <p class="eyebrow" data-reveal>Membership</p>
       <h1 class="display" data-reveal>The Society <em>of Origin.</em></h1>
-      <p data-corto="Every month, a lot that never reaches the shop. With a letter from the grower." class="lead" data-reveal>Every month, a lot that never reaches the shop. You receive it before anyone else, with the farm's tasting sheet and a letter from whoever harvested it.</p>
+      <p class="lead" data-reveal>Every month, a lot that never reaches the shop.</p>
     </div>
   </section>
-  <section class="section society" id="sociedad" style="padding-top:0">
+
+  <figure class="lx-full">
+    <img src="../assets/origen/sociedad-envio.jpg" alt="Open Society box with two bars, a handwritten letter, and a dried cacao pod" loading="lazy" style="object-position:50% 62%" />
+    <figcaption><b class="serif">Two bars and a letter.</b><span>From whoever harvested them</span></figcaption>
+  </figure>
+
+  <section class="section society" id="sociedad">
     <div class="wrap">
       <div class="plans">
         <div class="plan" data-reveal>
           <h2 class="serif">Discovery</h2>
           <div class="pprice serif">$34<small>/month</small></div>
-          <p>Two bars from the collection: one you already know and one you haven't tried yet.</p>
-          <ul><li>2 bars of 70 g</li><li>Printed tasting sheet</li><li>Cold shipping included</li><li>Pause or cancel from your inbox</li></ul>
-          <button class="btn" type="button" data-add="soc-descubrimiento">Join · $34 a month</button>
+          <ul><li>2 bars a month</li><li>The farm's tasting sheet</li><li>Cold shipping included</li></ul>
+          <button class="btn" type="button" data-add="soc-descubrimiento">Join</button>
         </div>
         <div class="plan is-feature" data-reveal>
           <h2 class="serif">Dark Collection</h2>
           <div class="pprice serif">$52<small>/month</small></div>
-          <p>Three bars from 72% to 92%, for those no longer seeking sweetness.</p>
-          <ul><li>3 dark bars</li><li>One always from the farm of the month</li><li>72-hour early access to every lot</li><li>Priority cold shipping</li></ul>
-          <button class="btn btn--solid" type="button" data-add="soc-oscura">Join · $52 a month</button>
+          <ul><li>3 bars from 72% to 92%</li><li>Early access to every lot</li><li>Priority shipping</li></ul>
+          <button class="btn btn--solid" type="button" data-add="soc-oscura">Join</button>
         </div>
         <div class="plan" data-reveal>
           <h2 class="serif">Rare Origins</h2>
           <div class="pprice serif">$88<small>/month</small></div>
-          <p>Microlots of fewer than two hundred bars that never reach the shop.</p>
-          <ul><li>1 numbered microlot + 2 bars</li><li>A letter from the grower</li><li>First option to buy</li><li>Yearly private tasting in Quito</li></ul>
-          <button class="btn" type="button" data-add="soc-raros">Join · $88 a month</button>
+          <ul><li>One numbered microlot</li><li>A letter from the grower</li><li>Yearly tasting in Quito</li></ul>
+          <button class="btn" type="button" data-add="soc-raros">Join</button>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="o-band"><figure class="o-figure wrap" data-reveal style="--pos:50% 62%"><img src="../assets/origen/sociedad-envio.jpg" alt="Open Society box with two bars, a handwritten letter, and a dried cacao pod" loading="lazy" decoding="async" /><figcaption>September's delivery: two bars, the farm's tasting sheet, and a letter from whoever harvested it.</figcaption></figure></section>
-
-  <section class="section journal" id="diario" aria-labelledby="journal-title">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <div><p class="eyebrow">Journal</p><h2 class="display" id="journal-title">Notes <em>from the workshop.</em></h2></div>
-        <p data-corto="From the farms and the tempering table, without jargon." class="lead">What we learn on the farms and at the tempering table, written without jargon.</p>
-      </div>
-      <div class="journal-grid">
-        <article class="entry" data-reveal><i>Tasting</i><h3 class="serif">Why an 85% can be less bitter than a 72%</h3><p>The percentage tells you how much cacao there is, not how it was fermented. What to read on the label instead.</p><small>5 min · Daniela Ortiz, chocolate maker</small></article>
-        <article class="entry" data-reveal><i>Process</i><h3 class="serif">Six days in a laurel-wood box</h3><p>How fermentation builds the raspberry before chocolate even exists.</p><small>7 min · Rosa Cedeño, Finca El Paraíso</small></article>
-        <article class="entry" data-reveal><i>Origin</i><h3 class="serif">Nacional, the cacao that almost disappeared</h3><p>Two blights in the 1920s and a higher-yielding clone later: how the jasmine-scented cacao survived.</p><small>9 min · Daniela Ortiz</small></article>
-        <article class="entry" data-reveal><i>Ritual</i><h3 class="serif">Low to high: why the order matters</h3><p>Water, not bread. Room temperature, not the fridge. And why the 92% goes last.</p><small>4 min · The workshop team</small></article>
-        <article class="entry" data-reveal><i>Pairing</i><h3 class="serif">What to drink with each bar</h3><p>From Loja coffee to aged rum: six pairings tested at the workshop table.</p><small>6 min · Andrés Villacís, sommelier</small></article>
-        <article class="entry" data-reveal><i>Harvest</i><h3 class="serif">640 bars and a decision</h3><p>Why Rosa &amp; Cacao won't be repeated, even when it sells out.</p><small>5 min · The Mendoza family</small></article>
       </div>
     </div>
   </section>
@@ -118,11 +103,8 @@
     <div class="wrap">
       <div class="studio-rule" data-reveal aria-hidden="true"></div>
       <p class="eyebrow" data-reveal>The studio behind it</p>
-      <h2 class="display" id="studio-title" data-reveal style="margin:16px auto 0;max-width:18ch">This world was imagined and built by <em>Pittahaya.</em></h2>
-      <p data-corto="ORIGEN 0° doesn't exist. All of this is a demonstration. Your product deserves more than a shop." class="lead" data-reveal style="margin-top:28px">ORIGEN 0° doesn't exist. The brand, the farms, the art direction, the shop, the product page, the bag, and every interaction you just explored were created as a demonstration. Your product deserves more than a shop.</p>
-      <div class="studio-caps" data-reveal>
-        <span>Brand identity</span><span>Creative direction</span><span>Voice and copy</span><span>Premium UX/UI</span><span>E-commerce</span><span>Product pages</span><span>Configurators</span><span>Motion design</span><span>Responsive experiences</span>
-      </div>
+      <h2 class="display" id="studio-title" data-reveal style="margin:16px auto 0;max-width:16ch">Imagined and built by <em>Pittahaya.</em></h2>
+      <p class="lead" data-reveal style="margin-top:22px">ORIGEN 0° is a demonstration. Your brand can have a shop like this.</p>
       <div class="studio-actions" data-reveal>
         <a class="btn btn--ink" href="contact.html" style="background:#0a0705;color:#f2ece1;border-color:#0a0705">Build your world</a>
         <a class="btn btn--ink" href="portfolio.html">Explore Pittahaya</a>
@@ -130,29 +112,25 @@
     </div>
   </section>
 </main>
-<footer class="foot">
+<footer class="foot lx-foot">
   <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Workshop in Quito · 0°13′ S</span></div>
-      <a class="btn" href="origen-caja.html">Build a box →</a>
-    </div>
-    <div class="foot-cols">
-      <div><h3>Shop</h3><a href="origen-coleccion.html">The collection</a><a href="origen-caja.html">Tasting box</a><a href="origen-sociedad.html">The Society</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
-      <div><h3>Origin</h3><a href="origen-origenes.html">The land</a><a href="origen-origenes.html#regiones">Origin explorer</a><a href="origen-sociedad.html#diario">Journal</a><a href="demo-servicios.html#perfil">Flavor profile</a></div>
-      <div><h3>House</h3><a href="contact.html">Contact</a><a href="contact.html">Shipping</a><a href="contact.html">Wholesale</a><a href="contact.html">Press</a></div>
-      <div><h3>Demo</h3><a href="portfolio.html">More demos</a><a href="index.html">Pittahaya</a><a href="contact.html">Commission yours</a><a href="plans.html">Plans</a></div>
+    <div class="lx-foot__top">
+      <a class="foot-brand serif" href="demo-servicios.html">ORIGEN 0°<span>Workshop in Quito · 0°13′ S</span></a>
+      <nav class="lx-foot__nav" aria-label="Footer">
+        <a href="origen-coleccion.html">Collection</a><a href="origen-caja.html">Boxes</a><a href="origen-origenes.html">Origins</a><a href="origen-sociedad.html">Society</a><a href="contact.html">Contact</a>
+      </nav>
     </div>
     <div class="foot-bar">
       <span>© <span data-year></span> ORIGEN 0° · fictional brand</span>
-      <span>E-commerce demo by <b>Pittahaya</b> · <a href="index.html">pittahaya.com</a></span>
+      <span>Demo by <b>Pittahaya</b> · <a href="portfolio.html">More demos</a></span>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="../assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="../assets/origen.js?v=9" defer></script>
-<script src="../assets/origen-boutique.js?v=4" defer></script>
+<script src="../assets/origen.js?v=13" defer></script>
+<script src="../assets/origen-boutique.js?v=5" defer></script>
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
 </body>

@@ -33,8 +33,9 @@
   <link rel="stylesheet" href="assets/origen.css?v=5" />
   <link rel="stylesheet" href="assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="assets/origen-shop.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-lux.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-wow.css?v=3" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
-<link rel="stylesheet" href="assets/origen-plus.css?v=2" />
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -49,9 +50,8 @@
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, inicio">ORIGEN 0°<span>Latitud cero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Abrir navegación"><i aria-hidden="true"></i></button>
   <nav class="site-nav" id="origen-nav" data-nav aria-label="Navegación principal">
-    <a class="nav-link is-current" href="demo-servicios.html" aria-current="page">Inicio</a>
     <a class="nav-link" href="origen-coleccion.html">Colección</a>
-    <a class="nav-link" href="origen-caja.html">Caja de degustación</a>
+    <a class="nav-link" href="origen-caja.html">Cajas</a>
     <a class="nav-link" href="origen-origenes.html">Orígenes</a>
     <a class="nav-link" href="origen-sociedad.html">Sociedad</a>
     <a class="nav-link" href="portafolio.html">← Demos</a>
@@ -61,162 +61,98 @@
   </div>
 </header>
 <main id="main">
-  <section class="hero" id="inicio" aria-labelledby="hero-title" data-hero>
+  <section class="hero lx-hero" id="inicio" aria-labelledby="hero-title" data-hero>
     <div class="hero-media" aria-hidden="true"><img src="assets/origen/hero-pod.jpg" alt="" width="2000" height="1125" fetchpriority="high" /></div>
     <div class="hero-shade" aria-hidden="true"></div>
     <div class="hero-inner">
-      <p class="eyebrow">Chocolate de una sola finca · Cosecha 2026</p>
+      <p class="eyebrow">Chocolate de una sola finca · Ecuador</p>
       <h1 id="hero-title" class="serif">Nacido en la <em>latitud cero.</em></h1>
-      <div class="hero-lower">
-        <div>
-          <p class="hero-copy" data-corto="Seis barras, seis fincas, todas a menos de dos grados de la línea ecuatorial.">Seis barras, cada una de una sola finca y una sola familia. Todas crecen a menos de dos grados de la línea ecuatorial; todas se templan a mano en nuestro obrador de Quito.</p>
-          <div class="hero-actions">
-            <a class="btn btn--solid" href="origen-coleccion.html">Comprar la colección</a>
-            <a class="btn" href="origen-origenes.html">Conocer las fincas</a>
-          </div>
-        </div>
-        <p class="hero-meta">Obrador · 0°13′ S · 78°30′ O<br />Seis fincas · seis familias<br />Envío en frío, también al exterior</p>
-      </div>
-    </div>
-    <a class="hero-scroll" href="#revelacion">Desplácese<span></span></a>
-  </section>
-
-  <section class="reveal-cacao" id="revelacion" data-reveal-section aria-label="De la mazorca a la barra">
-    <div class="reveal-media">
-      <img src="assets/origen/pod-open.jpg" alt="Mazorca de cacao Nacional abierta, con los granos cubiertos de pulpa blanca" loading="lazy" />
-      <div class="reveal-lines">
-        <p data-line class="serif">Una mazorca da <em>unos cuarenta granos.</em></p>
-        <p data-line class="serif">Una barra de Latitud Cero necesita casi sesenta.</p>
-        <p data-line class="serif">Por eso cada barra lleva el nombre de quien los cosechó.</p>
-      </div>
+      <div class="hero-actions"><a class="btn btn--solid" href="origen-coleccion.html">Descubrir la colección</a></div>
     </div>
   </section>
 
-  <section class="section process" aria-labelledby="process-title">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <div><p class="eyebrow">Del árbol a la barra</p><h2 class="display" id="process-title">Cuarenta y siete días <em>entre la mazorca y usted.</em></h2></div>
-        <p data-corto="Seis pasos, ninguno con prisa. Así se hizo el lote LC-2614." class="lead">Seis pasos y ninguno con prisa. Estas son las fechas reales del lote LC-2614 de Latitud Cero, de la finca de los Cedeño a nuestra mesa de templado.</p>
+  <div class="lx-marquee" aria-hidden="true"><div class="lx-marquee__track"><span>Latitud cero <em>·</em> Los Ríos <em>·</em> Esmeraldas <em>·</em> Manabí <em>·</em> Amazonía <em>·</em> Quito <em>·</em> </span><span>Latitud cero <em>·</em> Los Ríos <em>·</em> Esmeraldas <em>·</em> Manabí <em>·</em> Amazonía <em>·</em> Quito <em>·</em> </span></div></div>
+
+  <section class="lx-shelf" aria-labelledby="shelf-title">
+    <div class="wrap lx-head">
+      <h2 class="serif" id="shelf-title">La colección</h2>
+      <div class="lx-head__acts">
+        <button class="lx-go" type="button" data-shelf-go="-1" aria-label="Anteriores">←</button>
+        <button class="lx-go" type="button" data-shelf-go="1" aria-label="Siguientes">→</button>
+        <a href="origen-coleccion.html">Ver todo</a>
       </div>
-      <div class="process-track">
-        <div class="process-step" data-reveal><b>Cosecha</b><span>Día 0 · Mazorcas maduras, abiertas en la finca el mismo día.</span></div>
-        <div class="process-step" data-reveal><b>Fermentación</b><span>Días 1–6 · En cajones de laurel, bajo hoja de plátano. Aquí nace la frambuesa.</span></div>
-        <div class="process-step" data-reveal><b>Secado</b><span>Días 7–15 · Al sol, removido a mano cada dos horas.</span></div>
-        <div class="process-step" data-reveal><b>Tueste</b><span>Día 32 · 118 °C durante 32 minutos: lo justo para no borrar el jazmín.</span></div>
-        <div class="process-step" data-reveal><b>Conchado</b><span>Días 40–43 · 72 horas de refinado, hasta que no quede un solo grano.</span></div>
-        <div class="process-step" data-reveal><b>Templado</b><span>Día 47 · Moldeada, numerada y sellada a mano en Quito.</span></div>
+    </div>
+    <div class="lx-rail" data-shelf></div>
+  </section>
+
+  <section class="lx-feature" id="insignia" aria-labelledby="flagship-title">
+    <div class="wrap lx-feature__in">
+      <div class="lx-feature__img" data-reveal><img src="assets/origen/wrapper-front.jpg" alt="Latitud Cero 72% en su envoltura de papel" loading="lazy" /></div>
+      <div class="lx-feature__txt" data-reveal>
+        <p class="eyebrow">La barra de la casa</p>
+        <h2 class="display" id="flagship-title">Latitud Cero <em>72%</em></h2>
+        <p>Frambuesa, cacao tostado y jazmín. De la finca de los Cedeño, en Vinces.</p>
+        <p class="lx-price serif">$28</p>
+        <div class="lx-acts"><button class="btn btn--solid" type="button" data-add="latitud">Añadir a la bolsa</button><a class="lx-link" href="origen-coleccion.html#latitud">Ver la barra</a></div>
       </div>
     </div>
   </section>
 
-  <section class="o-band"><figure class="o-figure wrap" data-reveal><img src="assets/origen/obrador.jpg" alt="Templado de chocolate sobre mármol en el obrador de Quito" loading="lazy" decoding="async" /><figcaption>Día 47 · Templado sobre mármol en el obrador de Quito, a 2.850 m de altura.</figcaption></figure></section>
+  <section class="lx-seq" data-seq aria-label="Del fruto a la barra">
+    <div class="lx-seq__stage">
+      <figure class="lx-seq__frame is-on" data-word="El fruto" data-sub="Día 0 · Finca El Paraíso, Vinces"><img src="assets/origen/pod-open.jpg" alt="Mazorca de cacao Nacional abierta" loading="eager" decoding="async" /></figure>
+      <figure class="lx-seq__frame" data-word="Fermentación" data-sub="Días 1–6 · bajo hoja de plátano"><img src="assets/origen/fermentacion.jpg" alt="Cacao fermentando bajo hojas de plátano" loading="lazy" decoding="async" /></figure>
+      <figure class="lx-seq__frame" data-word="Templado" data-sub="Día 47 · Quito, a 2.850 m"><img src="assets/origen/obrador.jpg" alt="Chocolate templado sobre mármol en Quito" loading="lazy" decoding="async" /></figure>
+      <figure class="lx-seq__frame" data-word="El quiebre" data-sub="Un buen temple suena seco"><img src="assets/origen/snap-macro.jpg" alt="Una barra que se parte con un quiebre limpio" loading="lazy" decoding="async" /></figure>
+      <figure class="lx-seq__frame" data-word="Numerada" data-sub="Lote LC-2614 · a mano"><img src="assets/origen/wrapper-back.jpg" alt="Reverso de la envoltura con el lote sellado a mano" loading="lazy" decoding="async" /></figure>
+      <div class="lx-seq__cap is-in"><span class="lx-seq__n" data-seq-n>01 / 05</span><b class="serif" data-seq-word>El fruto</b><i data-seq-sub>Día 0 · Finca El Paraíso, Vinces</i></div>
+      <div class="lx-seq__rail" aria-hidden="true"><i data-seq-bar></i></div>
+    </div>
+  </section>
 
-  <section class="section flagship" id="insignia" aria-labelledby="flagship-title">
-    <div class="wrap flagship-grid">
-      <div class="flagship-shot" data-reveal>
-        <img src="assets/origen/latitude-zero.jpg" alt="Barra Latitud Cero 72% partida sobre su envoltura de papel" loading="lazy" />
-        <span class="flagship-badge">La barra de la casa</span>
-      </div>
-      <div data-reveal>
-        <p class="eyebrow">Finca El Paraíso · Vinces · 72% cacao</p>
-        <h2 class="display" id="flagship-title" style="margin-top:14px">Latitud Cero <em>72%</em></h2>
-        <p data-corto="Frambuesa, cacao tostado y jazmín. La primera barra que hicimos." class="lead" style="margin-top:20px">La primera barra que hicimos y la que más se pide. Grano Nacional de la familia Cedeño: abre con frambuesa, se asienta en cacao tostado y termina en jazmín. Si solo va a probar una, que sea esta.</p>
-        <div class="price-row"><span class="price serif">$28<small>USD · 70 g</small></span><span class="rating">★ 4,9 · 486 reseñas</span></div>
-        <dl class="spec-list">
-          <div><dt>Notas</dt><dd>Frambuesa · cacao tostado · jazmín</dd></div>
-          <div><dt>Finca</dt><dd>El Paraíso, Vinces · 1°33′ S</dd></div>
-          <div><dt>Ingredientes</dt><dd>Cacao y azúcar de caña. Nada más.</dd></div>
-        </dl>
-        <p class="stock" data-stock="latitud"></p>
-        <div class="hero-actions" style="margin-top:22px">
-          <button class="btn btn--solid" type="button" data-add="latitud">Añadir a la bolsa · $28</button>
-          <a class="btn" href="origen-coleccion.html#latitud">Ver la ficha completa</a>
-        </div>
-        <p class="eta-line" data-eta></p>
+  <section class="lx-split lx-split--flip" aria-labelledby="farms-title">
+    <div class="wrap lx-split__in">
+      <div class="lx-split__img" data-reveal><img src="assets/origen/fermentacion.jpg" alt="Cajones de laurel con cacao fermentando bajo hojas de plátano" loading="lazy" /></div>
+      <div class="lx-split__txt" data-reveal>
+        <p class="eyebrow">El origen</p>
+        <h2 class="display" id="farms-title">Seis familias. <em>Seis fincas.</em></h2>
+        <p>Todas a menos de dos grados de la línea.</p>
+        <a class="lx-link" href="origen-origenes.html">Conocer las fincas</a>
       </div>
     </div>
   </section>
 
-  <section class="section flavour" id="perfil" aria-labelledby="flavour-title" data-flavour>
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <div><p class="eyebrow">Cómo se funde · Latitud Cero 72%</p><h2 class="display" id="flavour-title">Cinco notas <em>en sesenta segundos.</em></h2></div>
-        <p data-corto="Deje un trozo en la lengua, sin morder. Toque cada momento." class="lead">Deje un trozo en la lengua sin morderlo y cuente. El sabor cambia en este orden; toque cada momento para saber de dónde viene.</p>
+  <section class="lx-split" aria-labelledby="gift-title">
+    <div class="wrap lx-split__in">
+      <div class="lx-split__img" data-reveal><img src="assets/origen/caja-abierta.jpg" alt="Caja de degustación con seis barras, de la más clara a la más oscura" loading="lazy" /></div>
+      <div class="lx-split__txt" data-reveal>
+        <p class="eyebrow">Para regalar</p>
+        <h2 class="display" id="gift-title">La cata <em>completa.</em></h2>
+        <p>Las seis barras, de la más clara a la más oscura.</p>
+        <a class="btn btn--solid" href="origen-caja.html#completa">Armar la caja · $148</a>
       </div>
-      <div class="flavour-grid">
-        <div class="notes" role="tablist" aria-label="Momentos de la cata">
-          <button class="note-btn is-active" role="tab" aria-selected="true" data-note="0" type="button"><b class="serif">Cacao tostado</b><u>0 s</u></button>
-          <button class="note-btn" role="tab" aria-selected="false" data-note="1" type="button"><b class="serif">Frambuesa</b><u>10 s</u></button>
-          <button class="note-btn" role="tab" aria-selected="false" data-note="2" type="button"><b class="serif">Caramelo</b><u>20 s</u></button>
-          <button class="note-btn" role="tab" aria-selected="false" data-note="3" type="button"><b class="serif">Nuez tostada</b><u>40 s</u></button>
-          <button class="note-btn" role="tab" aria-selected="false" data-note="4" type="button"><b class="serif">Jazmín</b><u>60 s</u></button>
-        </div>
-        <div class="note-panel" role="tabpanel" aria-live="polite">
-          <h3 class="serif" data-note-title>Cacao tostado</h3>
-          <p data-note-copy>La base. Aparece al primer contacto y se queda debajo de todo lo demás: tostado, sin amargor.</p>
-          <div class="note-meter" data-note-meter aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section lot" id="trazabilidad" aria-labelledby="lot-title">
-    <div class="wrap lot-grid">
-      <div data-reveal>
-        <p class="eyebrow">Trazabilidad por lote</p>
-        <h2 class="display" id="lot-title" style="margin-top:14px">Cada barra tiene <em>nombre y apellido.</em></h2>
-        <p class="lead" style="margin-top:20px">Escriba el código impreso en el reverso de su barra y recorra su camino: la finca, la familia que la cosechó, cuántos días fermentó y cuándo se templó.</p>
-        <form class="lot-form" data-lot-form role="search" aria-label="Rastrear un lote">
-          <label class="lot-label" for="lot-code">Código de lote</label>
-          <div class="lot-row"><input id="lot-code" name="lot" data-lot-input autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="LC-2614" maxlength="8"><button class="btn btn--solid" type="submit">Rastrear</button></div>
-          <p class="lot-try">Pruebe: <button type="button" data-lot-try="LC-2614">LC-2614</button><button type="button" data-lot-try="TN-2608">TN-2608</button><button type="button" data-lot-try="RC-2611">RC-2611</button></p>
-        </form>
-      </div>
-      <div class="lot-card" data-lot-card aria-live="polite" data-reveal></div>
-    </div>
-  </section>
-
-  <section class="section next-step">
-    <div class="wrap next-grid">
-      <a class="next-card" href="origen-coleccion.html" data-reveal>
-        <img src="assets/origen/rose-cacao.jpg" alt="" loading="lazy" />
-        <div><p class="eyebrow">Comprar</p><h3 class="serif">La colección</h3><p>Seis barras, del 58% con leche al 92%.</p></div>
-      </a>
-      <a class="next-card" href="origen-caja.html" data-reveal>
-        <img src="assets/origen/tierra-negra.jpg" alt="" loading="lazy" />
-        <div><p class="eyebrow">Regalar</p><h3 class="serif">Caja de degustación</h3><p>De 3, 6 o 12, cerrada con cinta de algodón.</p></div>
-      </a>
-      <a class="next-card" href="origen-origenes.html" data-reveal>
-        <img src="assets/origen/origin-farm.jpg" alt="" loading="lazy" />
-        <div><p class="eyebrow">Conocer</p><h3 class="serif">Las fincas</h3><p>Seis familias en el mapa, con sus coordenadas.</p></div>
-      </a>
     </div>
   </section>
 </main>
-<footer class="foot">
+<footer class="foot lx-foot">
   <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></div>
-      <a class="btn" href="origen-caja.html">Componer una caja →</a>
-    </div>
-    <div class="foot-cols">
-      <div><h3>Tienda</h3><a href="origen-coleccion.html">La colección</a><a href="origen-caja.html">Caja de degustación</a><a href="origen-sociedad.html">La Sociedad</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
-      <div><h3>Origen</h3><a href="origen-origenes.html">La tierra</a><a href="origen-origenes.html#regiones">Explorador de orígenes</a><a href="origen-sociedad.html#diario">Diario</a><a href="demo-servicios.html#perfil">Perfil sensorial</a></div>
-      <div><h3>Casa</h3><a href="contacto.html">Contacto</a><a href="contacto.html">Envíos</a><a href="contacto.html">Mayoristas</a><a href="contacto.html">Prensa</a></div>
-      <div><h3>Demo</h3><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a><a href="contacto.html">Encargar el suyo</a><a href="planes.html">Planes</a></div>
+    <div class="lx-foot__top">
+      <a class="foot-brand serif" href="demo-servicios.html">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></a>
+      <nav class="lx-foot__nav" aria-label="Pie de página">
+        <a href="origen-coleccion.html">Colección</a><a href="origen-caja.html">Cajas</a><a href="origen-origenes.html">Orígenes</a><a href="origen-sociedad.html">Sociedad</a><a href="contacto.html">Contacto</a>
+      </nav>
     </div>
     <div class="foot-bar">
       <span>© <span data-year></span> ORIGEN 0° · marca ficticia</span>
-      <span>Demo de e-commerce por <b>Pittahaya</b> · <a href="index.html">pittahaya.com</a></span>
+      <span>Demo por <b>Pittahaya</b> · <a href="portafolio.html">Más demos</a></span>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="assets/origen.js?v=9" defer></script>
-<script src="assets/origen-boutique.js?v=4" defer></script>
-<script src="assets/origen-lote.js?v=4" defer></script>
+<script src="assets/origen.js?v=13" defer></script>
+<script src="assets/origen-boutique.js?v=5" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

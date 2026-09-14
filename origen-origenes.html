@@ -33,6 +33,9 @@
   <link rel="stylesheet" href="assets/origen.css?v=5" />
   <link rel="stylesheet" href="assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="assets/origen-shop.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-lux.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-wow.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-plus.css?v=3" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -48,9 +51,8 @@
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, inicio">ORIGEN 0°<span>Latitud cero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Abrir navegación"><i aria-hidden="true"></i></button>
   <nav class="site-nav" id="origen-nav" data-nav aria-label="Navegación principal">
-    <a class="nav-link" href="demo-servicios.html">Inicio</a>
     <a class="nav-link" href="origen-coleccion.html">Colección</a>
-    <a class="nav-link" href="origen-caja.html">Caja de degustación</a>
+    <a class="nav-link" href="origen-caja.html">Cajas</a>
     <a class="nav-link is-current" href="origen-origenes.html" aria-current="page">Orígenes</a>
     <a class="nav-link" href="origen-sociedad.html">Sociedad</a>
     <a class="nav-link" href="portafolio.html">← Demos</a>
@@ -64,20 +66,16 @@
     <div class="origin-media" aria-hidden="true"><img src="assets/origen/origin-farm.jpg" alt="" fetchpriority="high" /></div>
     <div class="wrap">
       <p class="eyebrow" data-reveal>Las fincas</p>
-      <h1 class="display" id="origin-title" data-reveal style="margin-top:16px;max-width:16ch">Seis familias, <em>a menos de dos grados de la línea.</em></h1>
-      <p class="origin-quote serif" data-reveal>«Si fermentas un día de más, la fruta se vuelve vinagre. Un día de menos, y no aparece.»</p>
+      <h1 class="display" id="origin-title" data-reveal style="margin-top:16px;max-width:14ch">Seis familias, <em>una sola línea.</em></h1>
+      <p class="origin-quote serif" data-reveal>«Un día de más y la fruta se vuelve vinagre. Un día de menos, y no aparece.»</p>
       <p class="origin-by" data-reveal>Rosa Cedeño · Finca El Paraíso, Vinces</p>
-      <p data-corto="Pagamos por criterio, no por kilo: más del doble del precio de bolsa." class="lead" data-reveal style="margin-top:26px">No compramos cacao por kilo: compramos criterio. Pagamos a cada familia más del doble del precio de bolsa y apartamos su cosecha antes de que el árbol florezca. El tueste, el conchado y el temple solo pueden conservar lo que ellos ya consiguieron en la finca.</p>
     </div>
   </section>
-
-  <section class="o-band"><figure class="o-figure wrap" data-reveal><img src="assets/origen/fermentacion.jpg" alt="Cajones de laurel con granos de cacao fermentando bajo hojas de plátano" loading="lazy" decoding="async" /><figcaption>Cajones de laurel bajo hoja de plátano: aquí pasan los seis días que deciden el sabor.</figcaption></figure></section>
 
   <section class="section regions" id="regiones" aria-labelledby="regions-title" data-regions>
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <div><p class="eyebrow">Explorador de fincas</p><h2 class="display" id="regions-title">Mismo país, <em>cuatro sabores.</em></h2></div>
-        <p data-corto="La lluvia, el suelo y el mar dejan su firma en la barra." class="lead">La lluvia, el suelo y la distancia al mar dejan una firma que se reconoce en la barra. Elija una región.</p>
+        <div><p class="eyebrow">Explorador</p><h2 class="display" id="regions-title">Cuatro regiones, <em>cuatro sabores.</em></h2></div>
       </div>
       <div class="region-grid">
         <div class="region-list" role="tablist" aria-label="Regiones de origen">
@@ -87,42 +85,55 @@
           <button class="region-btn" role="tab" aria-selected="false" type="button" data-region="3"><b class="serif">Amazonía</b><u>Bajo el dosel</u></button>
         </div>
         <div class="region-panel" role="tabpanel" aria-live="polite">
+          <figure class="region-photo" data-region-photo aria-hidden="true"><img class="is-on" src="assets/origen/farm-hands.jpg" alt="" loading="lazy" /><figcaption>Manabí</figcaption></figure>
           <h3 class="serif" data-region-name>Manabí</h3>
           <div class="rmeta">
             <span>Coordenadas<b data-region-climate>0°41′ S · 80°06′ O · 320 m</b></span>
             <span>Perfil<b data-region-profile>Frutos rojos, rosa, caramelo</b></span>
             <span>Cosecha<b data-region-harvest>Marzo – junio</b></span>
           </div>
-          <p data-region-copy>Colinas secas y brisa del Pacífico. En Finca San Jacinto, la familia Mendoza fermenta solo cinco días para no perder lo floral: de ahí sale Rosa &amp; Cacao.</p>
+          <p data-region-copy></p>
           <a class="region-link" href="origen-coleccion.html#rosa" data-region-product>Ver Rosa &amp; Cacao 70% →</a>
         </div>
       </div>
     </div>
   </section>
-</main>
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></div>
-      <a class="btn" href="origen-caja.html">Componer una caja →</a>
+
+  <section class="section lot" id="trazabilidad" aria-labelledby="lot-title">
+    <div class="wrap lot-grid">
+      <div data-reveal>
+        <p class="eyebrow">Trazabilidad</p>
+        <h2 class="display" id="lot-title" style="margin-top:14px">Cada barra tiene <em>nombre y apellido.</em></h2>
+        <form class="lot-form" data-lot-form role="search" aria-label="Rastrear un lote">
+          <label class="lot-label" for="lot-code">Código del reverso de su barra</label>
+          <div class="lot-row"><input id="lot-code" name="lot" data-lot-input autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="LC-2614" maxlength="8"><button class="btn btn--solid" type="submit">Rastrear</button></div>
+          <p class="lot-try">Pruebe: <button type="button" data-lot-try="LC-2614">LC-2614</button><button type="button" data-lot-try="TN-2608">TN-2608</button><button type="button" data-lot-try="RC-2611">RC-2611</button></p>
+        </form>
+      </div>
+      <div class="lot-card" data-lot-card aria-live="polite" data-reveal></div>
     </div>
-    <div class="foot-cols">
-      <div><h3>Tienda</h3><a href="origen-coleccion.html">La colección</a><a href="origen-caja.html">Caja de degustación</a><a href="origen-sociedad.html">La Sociedad</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
-      <div><h3>Origen</h3><a href="origen-origenes.html">La tierra</a><a href="origen-origenes.html#regiones">Explorador de orígenes</a><a href="origen-sociedad.html#diario">Diario</a><a href="demo-servicios.html#perfil">Perfil sensorial</a></div>
-      <div><h3>Casa</h3><a href="contacto.html">Contacto</a><a href="contacto.html">Envíos</a><a href="contacto.html">Mayoristas</a><a href="contacto.html">Prensa</a></div>
-      <div><h3>Demo</h3><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a><a href="contacto.html">Encargar el suyo</a><a href="planes.html">Planes</a></div>
+  </section>
+</main>
+<footer class="foot lx-foot">
+  <div class="wrap">
+    <div class="lx-foot__top">
+      <a class="foot-brand serif" href="demo-servicios.html">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></a>
+      <nav class="lx-foot__nav" aria-label="Pie de página">
+        <a href="origen-coleccion.html">Colección</a><a href="origen-caja.html">Cajas</a><a href="origen-origenes.html">Orígenes</a><a href="origen-sociedad.html">Sociedad</a><a href="contacto.html">Contacto</a>
+      </nav>
     </div>
     <div class="foot-bar">
       <span>© <span data-year></span> ORIGEN 0° · marca ficticia</span>
-      <span>Demo de e-commerce por <b>Pittahaya</b> · <a href="index.html">pittahaya.com</a></span>
+      <span>Demo por <b>Pittahaya</b> · <a href="portafolio.html">Más demos</a></span>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="assets/origen.js?v=9" defer></script>
-<script src="assets/origen-boutique.js?v=4" defer></script>
+<script src="assets/origen.js?v=13" defer></script>
+<script src="assets/origen-boutique.js?v=5" defer></script>
+<script src="assets/origen-lote.js?v=5" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

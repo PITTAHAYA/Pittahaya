@@ -347,19 +347,19 @@
     { n: "Manabí", coord: coord("0°41′ S · 80°06′ W") + " · 320 m", profile: t("Frutos rojos, rosa, caramelo", "Red berries, rose, caramel"), harvest: t("Marzo – junio", "March – June"),
       c: t("Colinas secas y brisa del Pacífico. En Finca San Jacinto, la familia Mendoza fermenta solo cinco días para no perder lo floral: de ahí sale Rosa & Cacao. La leche de Nube viene de la misma costa, en Jama.",
            "Dry hills and a Pacific breeze. At Finca San Jacinto, the Mendoza family ferments for only five days to keep the florals: that's where Rosa & Cacao comes from. The milk for Nube comes from the same coast, in Jama."),
-      p: "Rosa & Cacao 70%", id: "rosa" },
+      p: "Rosa & Cacao 70%", id: "rosa", img: "farm-hands.jpg" },
     { n: "Esmeraldas", coord: coord("0°19′ N · 79°28′ W") + " · 140 m", profile: t("Ciruela negra, nuez, mineral", "Black plum, walnut, mineral"), harvest: t("Todo el año", "Year-round"),
       c: t("La única de nuestras fincas al norte de la línea. Lluvia constante y suelo volcánico: los Quiñónez fermentan siete días y controlan la temperatura del cajón cada seis horas.",
            "The only one of our farms north of the line. Constant rain and volcanic soil: the Quiñónez family ferments for seven days and checks the box temperature every six hours."),
-      p: "Tierra Negra 85%", id: "tierra" },
+      p: "Tierra Negra 85%", id: "tierra", img: "fermentacion.jpg" },
     { n: "Los Ríos", coord: coord("1°33′ S · 79°45′ W") + " · 60 m", profile: t("Frambuesa, cacao tostado, jazmín", "Raspberry, roasted cacao, jasmine"), harvest: t("Abril – septiembre", "April – September"),
       c: t("Vinces, tierra de río y cuna del cacao fino de aroma. La familia Cedeño conserva árboles Nacional que plantó el abuelo; de ellos sale Latitud Cero, la barra de la casa.",
            "Vinces, river country and the cradle of Ecuador's fine-flavour cacao. The Cedeño family keeps Nacional trees their grandfather planted; they give us Latitud Cero, the house bar."),
-      p: "Latitud Cero 72%", id: "latitud" },
+      p: "Latitud Cero 72%", id: "latitud", img: "origin-farm.jpg" },
     { n: t("Amazonía", "Amazonia"), coord: coord("0°55′ S · 77°48′ W") + " · 620 m", profile: t("Espresso, cedro, sal mineral", "Espresso, cedar, mineral salt"), harvest: t("Enero – mayo", "January – May"),
       c: t("Chacras bajo el dosel en Archidona y Tena, cultivadas junto a guayusa y yuca. Rendimientos bajos y grano pequeño e intenso: Altitud Pura y Sal Amazónica.",
            "Forest gardens beneath the canopy in Archidona and Tena, grown alongside guayusa and cassava. Low yields and a small, intense bean: Altitud Pura and Sal Amazónica."),
-      p: "Altitud Pura 92%", id: "altitud" }
+      p: "Altitud Pura 92%", id: "altitud", img: "pod-open.jpg" }
   ];
   var regions = doc.querySelector("[data-regions]");
   if (regions) {
@@ -378,6 +378,17 @@
       rCopy.textContent = r.c;
       rProduct.textContent = t("Ver ", "View ") + r.p + " →";
       rProduct.setAttribute("href", "origen-coleccion.html#" + r.id);
+      /* la foto de la región entra con un fundido; la anterior se queda debajo */
+      var fig = regions.querySelector("[data-region-photo]");
+      if (fig && r.img) {
+        var capa = doc.createElement("img");
+        capa.src = assetRoot + r.img; capa.alt = ""; capa.decoding = "async";
+        fig.appendChild(capa);
+        requestAnimationFrame(function () { capa.classList.add("is-on"); });
+        while (fig.querySelectorAll("img").length > 2) fig.removeChild(fig.querySelector("img"));
+        var tag = fig.querySelector("figcaption");
+        if (tag) { tag.textContent = r.n; fig.appendChild(tag); }
+      }
     };
     rBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -687,7 +698,7 @@
         row.className = "pick";
         var left = doc.createElement("div");
         var b = doc.createElement("b"); b.className = "serif"; b.textContent = p.name;
-        var s = doc.createElement("span"); s.textContent = p.pct + " · " + p.notes;
+        var s = doc.createElement("span"); s.textContent = p.pct + " · " + p.origin;
         left.appendChild(b); left.appendChild(s);
 
         var q = doc.createElement("div"); q.className = "pick-qty";
@@ -812,6 +823,88 @@
     var wanted = location.hash.slice(1) || new URLSearchParams(location.search).get("preset");
     var presetEl = wanted && doc.querySelector('[data-preset-name="' + wanted.replace(/[^a-z-]/g, "") + '"]');
     if (presetEl) applyPreset(presetEl, false);
+  }
+
+  /* ── la vitrina de la portada: foto, nombre, precio ── */
+  var shelf = doc.querySelector("[data-shelf]");
+  if (shelf) {
+    PRODUCTS.forEach(function (p) {
+      var a = doc.createElement("a");
+      a.className = "lx-tile";
+      a.href = "origen-coleccion.html#" + p.id;
+      var fig = doc.createElement("span");
+      fig.className = "lx-tile__img";
+      var im = doc.createElement("img");
+      im.src = p.img; im.alt = p.name + " " + p.pct; im.loading = "lazy"; im.decoding = "async";
+      fig.appendChild(im);
+      if (p.limited) {
+        var tag = doc.createElement("i");
+        tag.textContent = t("Edición limitada", "Limited edition");
+        fig.appendChild(tag);
+      }
+      var nm = doc.createElement("b"); nm.className = "serif"; nm.textContent = p.name;
+      var meta = doc.createElement("span"); meta.textContent = p.pct + " · " + p.origin;
+      var pr = doc.createElement("em"); pr.textContent = money(p.price);
+      a.appendChild(fig); a.appendChild(nm); a.appendChild(meta); a.appendChild(pr);
+      shelf.appendChild(a);
+    });
+    doc.querySelectorAll("[data-shelf-go]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var first = shelf.firstElementChild;
+        var step = first ? first.getBoundingClientRect().width + 20 : 300;
+        shelf.scrollBy({ left: step * 2 * +b.getAttribute("data-shelf-go"), behavior: reduced.matches ? "auto" : "smooth" });
+      });
+    });
+  }
+
+  /* ── la secuencia fijada al scroll: una escena por tramo ── */
+  var seq = doc.querySelector("[data-seq]");
+  if (seq) {
+    var frames = [].slice.call(seq.querySelectorAll(".lx-seq__frame"));
+    var cap = seq.querySelector(".lx-seq__cap");
+    var sN = seq.querySelector("[data-seq-n]");
+    var sW = seq.querySelector("[data-seq-word]");
+    var sS = seq.querySelector("[data-seq-sub]");
+    var rail = seq.querySelector("[data-seq-bar]");
+    var cur = -1, pendSeq = 0;
+    seq.style.setProperty("--n", frames.length);
+    var paintSeq = function () {
+      pendSeq = 0;
+      var travel = Math.max(1, seq.offsetHeight - innerHeight);
+      var p = clamp(-seq.getBoundingClientRect().top / travel, 0, 0.9999);
+      if (rail) rail.style.transform = "scaleY(" + p.toFixed(4) + ")";
+      var i = Math.floor(p * frames.length);
+      if (i === cur) return;
+      cur = i;
+      frames.forEach(function (f, n) {
+        f.classList.toggle("is-on", n === i);
+        f.classList.toggle("is-past", n < i);
+      });
+      cap.classList.remove("is-in");
+      void cap.offsetWidth;
+      sN.textContent = String(i + 1).padStart(2, "0") + " / " + String(frames.length).padStart(2, "0");
+      sW.textContent = frames[i].getAttribute("data-word");
+      sS.textContent = frames[i].getAttribute("data-sub");
+      cap.classList.add("is-in");
+    };
+    var askSeq = function () { if (!pendSeq) pendSeq = requestAnimationFrame(paintSeq); };
+    addEventListener("scroll", askSeq, { passive: true });
+    addEventListener("resize", askSeq, { passive: true });
+    paintSeq();
+  }
+
+  /* ── botones principales magnéticos: un gesto de lujo, sólo con ratón ── */
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches && !reduced.matches) {
+    doc.addEventListener("pointermove", function (e) {
+      var b = e.target.closest && e.target.closest(".btn--solid, .lx-go");
+      if (!b) return;
+      var r = b.getBoundingClientRect();
+      b.style.transform = "translate(" + ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + "px," + ((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1) + "px)";
+    }, { passive: true });
+    doc.addEventListener("pointerout", function (e) {
+      var b = e.target.closest && e.target.closest(".btn--solid, .lx-go");
+      if (b && !b.contains(e.relatedTarget)) b.style.transform = "";
+    }, { passive: true });
   }
 
   /* ── API para la boutique ── */

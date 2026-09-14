@@ -33,6 +33,8 @@
   <link rel="stylesheet" href="assets/origen.css?v=5" />
   <link rel="stylesheet" href="assets/origen-boutique.css?v=1" />
   <link rel="stylesheet" href="assets/origen-shop.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-lux.css?v=3" />
+  <link rel="stylesheet" href="assets/origen-wow.css?v=3" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 </head>
 <body>
@@ -48,9 +50,8 @@
   <a class="brand" href="demo-servicios.html" aria-label="ORIGEN 0°, inicio">ORIGEN 0°<span>Latitud cero · Ecuador</span></a>
   <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="origen-nav" aria-label="Abrir navegación"><i aria-hidden="true"></i></button>
   <nav class="site-nav" id="origen-nav" data-nav aria-label="Navegación principal">
-    <a class="nav-link" href="demo-servicios.html">Inicio</a>
     <a class="nav-link" href="origen-coleccion.html">Colección</a>
-    <a class="nav-link is-current" href="origen-caja.html" aria-current="page">Caja de degustación</a>
+    <a class="nav-link is-current" href="origen-caja.html" aria-current="page">Cajas</a>
     <a class="nav-link" href="origen-origenes.html">Orígenes</a>
     <a class="nav-link" href="origen-sociedad.html">Sociedad</a>
     <a class="nav-link" href="portafolio.html">← Demos</a>
@@ -60,29 +61,26 @@
   </div>
 </header>
 <main id="main">
-  <section class="page-head">
+  <section class="page-head lx-page-head">
     <div class="wrap">
-      <p class="eyebrow" data-reveal>Caja de degustación</p>
+      <p class="eyebrow" data-reveal>Para regalar</p>
       <h1 class="display" data-reveal>Arme <em>su caja.</em></h1>
-      <p data-corto="Tres, seis o doce. La cerramos con cinta y escribimos su tarjeta a mano." class="lead" data-reveal>Tres, seis o doce barras. La cerramos con cinta de algodón, la envolvemos en lino si lo pide y escribimos su tarjeta a mano, con tinta, en el obrador.</p>
     </div>
   </section>
-  <section class="o-band"><figure class="o-figure wrap" data-reveal style="--pos:50% 55%"><img src="assets/origen/caja-abierta.jpg" alt="Caja de degustación abierta con seis barras de la más clara a la más oscura" loading="lazy" decoding="async" /><figcaption>La cata completa: seis barras, de la más clara a la más oscura, cerradas con cinta de algodón.</figcaption></figure></section>
-
   <section class="section builder" id="caja" data-builder style="padding-top:0">
     <div class="wrap">
       <h2 class="solo-lectores">Componga su caja</h2>
       <div class="presets" role="group" aria-label="Cajas pensadas">
-        <button class="preset" type="button" data-preset="nube,latitud,tierra" data-preset-format="3" data-preset-name="primera"><small>3 barras · $78</small><b>La primera cata</b><span>Nube, Latitud y Tierra: de la leche al 85%, sin saltos.</span></button>
-        <button class="preset" type="button" data-preset="latitud,tierra,altitud" data-preset-format="3" data-preset-name="oscuros"><small>3 barras · $78</small><b>Solo oscuros</b><span>72, 85 y 92: para quien ya no busca dulzor.</span></button>
-        <button class="preset" type="button" data-preset="nube,rosa,latitud,sal,tierra,altitud" data-preset-format="6" data-preset-name="completa"><small>6 barras · $148</small><b>La cata completa</b><span>Las seis, ordenadas de menor a mayor.</span></button>
+        <button class="preset" type="button" data-preset="nube,latitud,tierra" data-preset-format="3" data-preset-name="primera"><small>3 barras · $78</small><b>La primera cata</b><span>De la leche al 85%.</span></button>
+        <button class="preset" type="button" data-preset="latitud,tierra,altitud" data-preset-format="3" data-preset-name="oscuros"><small>3 barras · $78</small><b>Solo oscuros</b><span>72, 85 y 92.</span></button>
+        <button class="preset" type="button" data-preset="nube,rosa,latitud,sal,tierra,altitud" data-preset-format="6" data-preset-name="completa"><small>6 barras · $148</small><b>La cata completa</b><span>Las seis, en orden.</span></button>
       </div>
       <div class="builder-grid">
         <div data-reveal>
           <div class="format-row" role="group" aria-label="Formato de caja">
-            <button class="format is-active" type="button" aria-pressed="true" data-format="3" data-price="78"><b>3 barras</b><span>Barras de 70 g · $78</span></button>
-            <button class="format" type="button" aria-pressed="false" data-format="6" data-price="148"><b>6 barras</b><span>Barras de 70 g · $148</span></button>
-            <button class="format" type="button" aria-pressed="false" data-format="12" data-price="96"><b>12 miniaturas</b><span>20 g cada una · $96</span></button>
+            <button class="format is-active" type="button" aria-pressed="true" data-format="3" data-price="78"><b>3 barras</b><span>$78</span></button>
+            <button class="format" type="button" aria-pressed="false" data-format="6" data-price="148"><b>6 barras</b><span>$148</span></button>
+            <button class="format" type="button" aria-pressed="false" data-format="12" data-price="96"><b>12 miniaturas</b><span>$96</span></button>
           </div>
           <div class="picker" data-picker></div>
         </div>
@@ -91,8 +89,8 @@
           <div class="box-meta"><span data-box-count>0 de 3 espacios</span><span data-box-format>Barras de 70 g</span></div>
           <div class="box-total serif" data-box-total>$78</div>
           <div class="box-extras">
-            <label class="check"><input type="checkbox" data-extra="wrap" /> Envoltura en lino, cosida a mano <span style="color:rgba(10,7,5,.55)">+$6</span></label>
-            <label class="check"><input type="checkbox" data-extra="card" /> Tarjeta escrita a mano en el obrador</label>
+            <label class="check"><input type="checkbox" data-extra="wrap" /> Envoltura en lino <span style="color:rgba(10,7,5,.55)">+$6</span></label>
+            <label class="check"><input type="checkbox" data-extra="card" /> Tarjeta escrita a mano</label>
             <textarea class="gift-note" data-gift-note aria-label="Mensaje de la tarjeta" placeholder="Su mensaje (máx. 140 caracteres)" maxlength="140" hidden></textarea>
           </div>
           <p class="box-status" data-box-status>Elija 3 barras para completar la caja.</p>
@@ -103,29 +101,25 @@
     </div>
   </section>
 </main>
-<footer class="foot">
+<footer class="foot lx-foot">
   <div class="wrap">
-    <div class="foot-top">
-      <div class="foot-brand serif">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></div>
-      <a class="btn" href="origen-caja.html">Componer una caja →</a>
-    </div>
-    <div class="foot-cols">
-      <div><h3>Tienda</h3><a href="origen-coleccion.html">La colección</a><a href="origen-caja.html">Caja de degustación</a><a href="origen-sociedad.html">La Sociedad</a><a href="origen-coleccion.html#latitud">Latitud Cero 72%</a></div>
-      <div><h3>Origen</h3><a href="origen-origenes.html">La tierra</a><a href="origen-origenes.html#regiones">Explorador de orígenes</a><a href="origen-sociedad.html#diario">Diario</a><a href="demo-servicios.html#perfil">Perfil sensorial</a></div>
-      <div><h3>Casa</h3><a href="contacto.html">Contacto</a><a href="contacto.html">Envíos</a><a href="contacto.html">Mayoristas</a><a href="contacto.html">Prensa</a></div>
-      <div><h3>Demo</h3><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a><a href="contacto.html">Encargar el suyo</a><a href="planes.html">Planes</a></div>
+    <div class="lx-foot__top">
+      <a class="foot-brand serif" href="demo-servicios.html">ORIGEN 0°<span>Obrador en Quito · 0°13′ S</span></a>
+      <nav class="lx-foot__nav" aria-label="Pie de página">
+        <a href="origen-coleccion.html">Colección</a><a href="origen-caja.html">Cajas</a><a href="origen-origenes.html">Orígenes</a><a href="origen-sociedad.html">Sociedad</a><a href="contacto.html">Contacto</a>
+      </nav>
     </div>
     <div class="foot-bar">
       <span>© <span data-year></span> ORIGEN 0° · marca ficticia</span>
-      <span>Demo de e-commerce por <b>Pittahaya</b> · <a href="index.html">pittahaya.com</a></span>
+      <span>Demo por <b>Pittahaya</b> · <a href="portafolio.html">Más demos</a></span>
     </div>
   </div>
 </footer>
 
 <div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="Pittahaya" /></div>
 
-<script src="assets/origen.js?v=9" defer></script>
-<script src="assets/origen-boutique.js?v=4" defer></script>
+<script src="assets/origen.js?v=13" defer></script>
+<script src="assets/origen-boutique.js?v=5" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 </body>

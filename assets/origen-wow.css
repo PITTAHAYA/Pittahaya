@@ -1,0 +1,94 @@
+/* ═══════════════════════════════════════════════════════════
+   ORIGEN 0° · el momento wow
+   Una secuencia fijada al scroll (del fruto a la barra), una
+   franja de fincas en movimiento y fotos que se abren al entrar.
+   Sólo transform, opacity y clip-path: el navegador lo mueve solo.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── la franja de las fincas ─────────────────────────────── */
+.lx-marquee{
+  overflow:hidden;white-space:nowrap;padding:clamp(24px,4.5vh,50px) 0;
+  border-block:1px solid var(--hair);
+}
+.lx-marquee__track{ display:inline-flex;animation:lxMarq 52s linear infinite;will-change:transform; }
+.lx-marquee span{
+  padding-right:.5em;font-family:var(--serif);font-weight:300;
+  font-size:clamp(46px,7.4vw,124px);line-height:1;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:1px rgba(211,160,116,.55);
+}
+.lx-marquee span em{ font-style:italic;color:var(--copper2);-webkit-text-stroke:0;padding:0 .12em; }
+@keyframes lxMarq{ to{ transform:translateX(-50%); } }
+
+/* ── la secuencia: del fruto a la barra ──────────────────── */
+.lx-seq{ position:relative;height:calc(var(--n,5) * 90vh + 10vh);background:#050302; }
+.lx-seq__stage{ position:sticky;top:0;height:100vh;height:100svh;overflow:hidden; }
+.lx-seq__frame{ position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1.1s var(--ease); }
+.lx-seq__frame img{
+  width:100%;height:100%;object-fit:cover;
+  transform:scale(1.14);transition:transform 2.8s var(--ease);
+}
+.lx-seq__frame.is-on{ opacity:1; }
+.lx-seq__frame.is-on img,.lx-seq__frame.is-past img{ transform:scale(1); }
+.lx-seq__stage::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,rgba(5,3,2,.88),rgba(5,3,2,.08) 48%,rgba(5,3,2,.38));
+}
+.lx-seq__cap{ position:absolute;z-index:2;left:4.5vw;right:14vw;bottom:clamp(40px,9vh,100px);display:grid;gap:12px; }
+.lx-seq__n{ font-size:10.5px;letter-spacing:3px;color:var(--copper2);font-variant-numeric:tabular-nums; }
+.lx-seq__cap b{ font-weight:300;font-size:clamp(56px,10.5vw,176px);line-height:.88;letter-spacing:-.035em;color:var(--ivory); }
+.lx-seq__cap i{ font-style:normal;font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--dim); }
+.lx-seq__cap > *{ opacity:0;transform:translateY(26px); }
+.lx-seq__cap.is-in > *{ opacity:1;transform:none;transition:transform 1s var(--ease),opacity .8s ease; }
+.lx-seq__cap.is-in b{ transition-delay:.07s; }
+.lx-seq__cap.is-in i{ transition-delay:.15s; }
+.lx-seq__rail{ position:absolute;z-index:2;right:4.5vw;top:50%;width:1px;height:34vh;transform:translateY(-50%);background:rgba(242,236,225,.18); }
+.lx-seq__rail i{ position:absolute;inset:0;background:var(--copper2);transform-origin:top;transform:scaleY(0); }
+
+/* ── las fotos se abren al entrar ────────────────────────── */
+.lx-feature__img[data-reveal],.lx-split__img[data-reveal]{
+  clip-path:inset(12% 9% 12% 9%);
+  transition:clip-path 1.6s var(--ease),opacity 1s ease,transform 1s ease;
+}
+.lx-feature__img.is-visible,.lx-split__img.is-visible{ clip-path:inset(0 0 0 0); }
+.lx-feature__img[data-reveal] img,.lx-split__img[data-reveal] img{ transform:scale(1.2);transition:transform 2.2s var(--ease); }
+.lx-feature__img.is-visible img,.lx-split__img.is-visible img{ transform:scale(1); }
+.lx-feature__img.is-visible:hover img,.lx-split__img.is-visible:hover img{ transform:scale(1.035); }
+
+/* ── la colección: cada barra se abre al entrar ──────────── */
+.bq-card .bq-card__stage{ clip-path:inset(0 0 0 0);transition:clip-path 1.4s var(--ease); }
+.bq-card:not(.is-in) .bq-card__stage{ clip-path:inset(14% 10% 14% 10%); }
+.bq-card .bq-card__stage img{ transition:transform 1.8s var(--ease); }
+.bq-card:not(.is-in) .bq-card__stage img{ transform:scale(1.18); }
+
+/* ── orígenes: la foto de cada región ────────────────────── */
+.region-photo{ position:relative;margin:0 0 22px;aspect-ratio:16/9;overflow:hidden;border-radius:3px;background:var(--cacao); }
+.region-photo img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transform:scale(1.08);transition:opacity 1s var(--ease),transform 2.4s var(--ease);
+}
+.region-photo img.is-on{ opacity:1;transform:scale(1); }
+.region-photo::after{ content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,7,5,.7),transparent 55%); }
+.region-photo figcaption{
+  position:absolute;z-index:2;left:18px;bottom:14px;
+  font-family:var(--serif);font-weight:300;font-size:clamp(28px,3vw,42px);line-height:1;color:var(--ivory);
+}
+.region-panel h3[data-region-name]{ display:none; }
+
+/* ── botones magnéticos: vuelven suave ───────────────────── */
+.btn--solid,.lx-go{ transition:transform .5s var(--ease),background .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease); }
+
+@media (max-width:640px){
+  .region-photo{ aspect-ratio:4/3;margin-bottom:16px; }
+  .lx-marquee span{ font-size:15vw; }
+  /* en el teléfono la secuencia no puede alargar la página: ~325 px por escena */
+  .lx-seq{ height:calc(var(--n,5) * 50vh + 50vh); }
+  .lx-seq__cap{ right:56px; }
+  .lx-seq__cap b{ font-size:16vw; }
+  .lx-seq__rail{ right:22px;height:24vh; }
+}
+@media (prefers-reduced-motion:reduce){
+  .lx-marquee__track{ animation:none; }
+  .lx-seq__frame,.lx-seq__frame img,.lx-seq__cap > *{ transition:none!important; }
+  .lx-feature__img[data-reveal],.lx-split__img[data-reveal]{ clip-path:none; }
+  .lx-feature__img[data-reveal] img,.lx-split__img[data-reveal] img{ transform:none; }
+}
