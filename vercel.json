@@ -1,4 +1,8 @@
 {
+  "rewrites": [
+    { "source": "/:page((?!api$|crm$|en$|assets$)[a-z0-9-]+)", "destination": "/:page.html" },
+    { "source": "/en/:page([a-z0-9-]+)", "destination": "/en/:page.html" }
+  ],
   "headers": [
     {
       "source": "/crm/(.*)",
