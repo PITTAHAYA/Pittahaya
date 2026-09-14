@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/en", "destination": "/en/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/:page((?!api$|crm$|en$|assets$)[a-z0-9-]+)", "destination": "/:page.html" },
     { "source": "/en/:page([a-z0-9-]+)", "destination": "/en/:page.html" }
