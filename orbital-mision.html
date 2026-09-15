@@ -28,7 +28,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/orbital.css?v=4" />
 <link rel="stylesheet" href="assets/orbital-immersive.css?v=2" />
-<link rel="stylesheet" href="assets/orbital-lux.css?v=1" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
@@ -60,6 +59,7 @@
     <i></i><i></i><i></i>
   </button>
   <nav class="nav" id="nav-main" data-nav aria-label="Principal">
+    <a href="demo-startup.html">Inicio</a>
     <a href="orbital-constelacion.html">Constelación</a>
     <a href="orbital-nodo.html">El nodo</a>
     <a href="orbital-mision.html" class="is-here" aria-current="page">Misión</a>
@@ -73,6 +73,7 @@
   <div class="wrap">
     <p class="eyebrow">Operaciones</p>
     <h1 class="d2">Control de misión.</h1>
+    <p data-corto="Once personas operan la constelación desde Quito. Esto ven ahora mismo." class="lede">La constelación se opera desde Quito con un equipo de once personas. Esto es lo que ven en pantalla ahora mismo.</p>
   </div>
 </section>
 
@@ -165,6 +166,26 @@
   </div>
 </section>
 
+<section class="sec sec--line" style="padding-bottom:0">
+  <div class="sec-head"><p class="eyebrow" data-reveal>Continuar</p></div>
+  <div class="next" style="margin-top:34px">
+    <a href="orbital-constelacion.html" data-reveal>
+      <h3>La constelación</h3>
+      <p data-corto="Los 24 nodos en vivo.">Rastreador en vivo de los 24 nodos y latencia por ciudad.</p>
+      <span class="go">Abrir →</span>
+    </a>
+    <a href="orbital-nodo.html" data-reveal>
+      <h3>El nodo</h3>
+      <p data-corto="Dentro del módulo.">Qué hay dentro del módulo de cómputo.</p>
+      <span class="go">Abrir →</span>
+    </a>
+    <a href="orbital-compania.html" data-reveal>
+      <h3>La compañía</h3>
+      <p data-corto="Cronología y tesis.">Cronología, respaldo institucional y tesis.</p>
+      <span class="go">Abrir →</span>
+    </a>
+  </div>
+</section>
 </main>
 
 <footer class="ft">
@@ -182,6 +203,5 @@
 <script src="assets/orbital.js?v=6" defer></script>
 <script src="assets/orbital-immersive.js?v=1" defer></script>
 <script src="assets/orbital-tracker.js?v=4" defer></script>
-<script src="assets/orbital-lux.js?v=1" defer></script>
 </body>
 </html>

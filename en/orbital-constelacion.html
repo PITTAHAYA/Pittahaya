@@ -28,7 +28,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/orbital.css?v=4" />
 <link rel="stylesheet" href="../assets/orbital-immersive.css?v=2" />
-<link rel="stylesheet" href="../assets/orbital-lux.css?v=1" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
@@ -60,6 +59,7 @@
     <i></i><i></i><i></i>
   </button>
   <nav class="nav" id="nav-main" data-nav aria-label="Primary">
+    <a href="demo-startup.html">Home</a>
     <a href="orbital-constelacion.html" class="is-here" aria-current="page">Constellation</a>
     <a href="orbital-nodo.html">The node</a>
     <a href="orbital-mision.html">Mission</a>
@@ -74,6 +74,7 @@
   <div class="wrap">
     <p class="eyebrow">Space segment</p>
     <h1 class="d2">Twenty-four nodes.<br>Three planes. <em class="ice">One system.</em></h1>
+    <p data-corto="Live propagation. Tap any node to read its telemetry." class="lede">The constellation propagates in real time. Select any node to read its telemetry, illumination status, and active links to the ground segment.</p>
   </div>
 </section>
 
@@ -108,6 +109,7 @@
           <dt style="font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)">Compute load · <span data-sat-loadtxt>—</span></dt>
           <div class="sat-load"><i data-sat-load></i></div>
         </div>
+        <p class="tracker-note">Nodes with hollow outlines are passing through Earth's shadow cone: they run on battery power and automatically reduce their load. Amber lines indicate open contact windows.</p>
       </aside>
     </div>
   </div>
@@ -118,10 +120,32 @@
   <figcaption><b>Quito Station · 4,180 m</b>Zero latitude: every equatorial node passes overhead fifteen times a day.</figcaption>
 </figure>
 
+<section class="sec">
+  <div class="wrap">
+    <div class="split split--flip">
+      <div class="split-media is-wide" data-reveal>
+        <img src="../assets/orbital/ground.jpg" alt="Antennas at the Quito ground station." />
+      </div>
+      <div class="split-body">
+        <p class="eyebrow" data-reveal>Ground segment</p>
+        <h2 class="d3" data-reveal>Ecuador is in the best place on the planet.</h2>
+        <p data-corto="At zero latitude every equatorial node passes overhead. At 4,180 m the link loses ten times less." class="lede" data-reveal>A station at zero latitude sees every node in an equatorial orbit pass overhead on each revolution. At 4,180 meters, above the atmosphere's humid layer, the terrestrial optical link loses an order of magnitude less signal.</p>
+        <dl class="specs" data-reveal>
+          <div><dt>Quito · ECU</dt><dd>0.18° S · 4,180 m</dd></div>
+          <div><dt>Singapore · SGP</dt><dd>1.35° N · sea level</dd></div>
+          <div><dt>Nairobi · KEN</dt><dd>1.29° S · 1,795 m</dd></div>
+          <div><dt>Svalbard · NOR</dt><dd>78.22° N · polar</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sec sec--line">
   <div class="sec-head">
     <p class="eyebrow" data-reveal>Latency</p>
     <h2 class="d2" data-reveal>Closer from above.</h2>
+    <p data-corto="Pick a city: optical link against terrestrial fiber." class="lede" data-reveal>Choose a city. We compare the optical link to the nearest orbital plane against the real terrestrial fiber route to the closest conventional data center.</p>
   </div>
   <div class="wrap">
     <div class="lat">
@@ -149,6 +173,26 @@
   </div>
 </section>
 
+<section class="sec sec--line" style="padding-bottom:0">
+  <div class="sec-head"><p class="eyebrow" data-reveal>Continue</p></div>
+  <div class="next" style="margin-top:34px">
+    <a href="orbital-nodo.html" data-reveal>
+      <h3>The node</h3>
+      <p data-corto="Inside the module.">What is inside the module and how it survives fourteen years without maintenance.</p>
+      <span class="go">Open →</span>
+    </a>
+    <a href="orbital-mision.html" data-reveal>
+      <h3>Mission control</h3>
+      <p data-corto="Live console.">Live telemetry, contact windows, and launch manifest.</p>
+      <span class="go">Open →</span>
+    </a>
+    <a href="orbital-compania.html" data-reveal>
+      <h3>The company</h3>
+      <p data-corto="Timeline and thesis.">Timeline, backing, and investment thesis.</p>
+      <span class="go">Open →</span>
+    </a>
+  </div>
+</section>
 </main>
 
 <footer class="ft">
@@ -166,6 +210,5 @@
 <script src="../assets/orbital.js?v=6" defer></script>
 <script src="../assets/orbital-immersive.js?v=1" defer></script>
 <script src="../assets/orbital-tracker.js?v=4" defer></script>
-<script src="../assets/orbital-lux.js?v=1" defer></script>
 </body>
 </html>
