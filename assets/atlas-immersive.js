@@ -116,13 +116,22 @@
   /* 3. Cifras que se cuentan                                   */
   /* ---------------------------------------------------------- */
   function contar(el) {
-    var crudo = el.textContent;
+    /* sólo el primer nodo de texto: el sufijo en <small> (MM, años…) ya
+       vive en su propio elemento; leer textContent lo duplicaba */
+    var nodo = el.firstChild;
+    if (!nodo || nodo.nodeType !== 3) return;
+    var crudo = nodo.nodeValue;
     var m = crudo.match(/-?[\d.,]+/);
     if (!m) return;
     var texto = m[0];
-    var decimales = (texto.split(".")[1] || "").length;
-    var meta = parseFloat(texto.replace(/,/g, ""));
+    /* «6.400» en español es seis mil cuatrocientos, no seis coma cuatro */
+    var miles = /^\d{1,3}(\.\d{3})+$/.test(texto);
+    var decimales = miles ? 0 : (texto.split(".")[1] || "").length;
+    var meta = parseFloat(miles ? texto.replace(/\./g, "") : texto.replace(/,/g, ""));
     if (!isFinite(meta)) return;
+    var formato = function (n) {
+      return miles ? Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : n.toFixed(decimales);
+    };
 
     var antes = crudo.slice(0, m.index);
     var despues = crudo.slice(m.index + texto.length);
@@ -132,10 +141,10 @@
       if (!t0) t0 = t;
       var p = Math.min((t - t0) / 1400, 1);
       var e = 1 - Math.pow(1 - p, 3);
-      el.firstChild.nodeValue = antes + (meta * e).toFixed(decimales) + despues;
+      nodo.nodeValue = antes + formato(meta * e) + despues;
       if (p < 1) requestAnimationFrame(paso);
     }
-    el.firstChild.nodeValue = antes + (0).toFixed(decimales) + despues;
+    nodo.nodeValue = antes + formato(0) + despues;
     requestAnimationFrame(paso);
   }
 

@@ -29,9 +29,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/atlas.css?v=10" />
   <link rel="stylesheet" href="assets/atlas-immersive.css?v=1" />
-  <link rel="stylesheet" href="assets/carrete.css?v=1" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 <link rel="stylesheet" href="assets/atlas-plus.css?v=3" />
+  <link rel="stylesheet" href="assets/atlas-lux.css?v=2" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Saltar al contenido</a>
@@ -73,7 +73,6 @@
     </button>
 
     <nav class="site-nav" id="atlas-navigation" data-nav aria-label="Principal">
-      <a class="nav-link is-current" aria-current="page" href="demo-corporativa.html" data-veil-name="Inicio" data-veil-folio="Folio I">Inicio</a>
       <a class="nav-link" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II">Cartera</a>
       <a class="nav-link" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III">Registro</a>
       <a class="nav-link" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV">Presencia</a>
@@ -84,136 +83,95 @@
   </header>
 
   <main id="main-content">
-<section class="hero" id="inicio" aria-labelledby="hero-title" data-hero>
-      <!--
-        HIGGSFIELD / ASSET PENDIENTE:
-        Plano arquitectónico cinematográfico de 8–12 s, sin cortes rápidos, movimiento de avance casi imperceptible.
-        Mantener assets/atlas/hero.jpg como poster y fallback; no cargar el video hasta que esté producido y optimizado.
-      -->
-      <div class="hero-media" data-hero-media aria-hidden="true">
-        <img src="assets/atlas/hero.jpg" alt="" width="2000" height="1116" fetchpriority="high" />
-      </div>
+    <section class="hero ax-hero" id="inicio" aria-labelledby="hero-title" data-hero>
+      <div class="hero-media" data-hero-media aria-hidden="true"><img src="assets/atlas/hero.jpg" alt="" width="2000" height="1116" fetchpriority="high" /></div>
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="hero-inner">
-        <p class="eyebrow hero-eyebrow">Grupo de capital privado · capital permanente</p>
+        <p class="eyebrow hero-eyebrow">Capital permanente · desde 1993</p>
         <h1 id="hero-title">Las compañías que perduran <em>no tienen prisa.</em></h1>
-        <div class="hero-lower">
-          <div>
-            <p class="hero-copy">ATLAS es propietario, no intermediario. Adquirimos y sostenemos negocios esenciales durante décadas, no trimestres.</p>
-            <div class="hero-actions">
-              <a class="button button--gold" href="atlas-cartera.html">Explorar el sistema</a>
-              <a class="button" href="atlas-presencia.html#contacto">Abrir conversación</a>
-            </div>
-          </div>
-          <p class="hero-meta">Capital permanente<br />Cuatro sectores esenciales<br />Quito · Houston · Róterdam · Singapur</p>
-        </div>
-      </div>
-      <a class="hero-scroll" href="#tesis">Descubrir la tesis<span></span></a>
-    </section>
-
-<section class="section thesis" id="tesis" aria-labelledby="thesis-title">
-      <div class="wrap thesis-inner">
-        <div class="thesis-rule" aria-hidden="true"></div>
-        <p class="eyebrow" data-reveal>La tesis</p>
-        <h2 class="display" id="thesis-title" data-reveal>No perseguimos retornos. <em>Perseguimos permanencia.</em></h2>
-        <p class="lead" data-reveal>El mercado premia lo rápido. Nosotros buscamos lo que seguirá en pie cuando lo rápido ya haya pasado: activos esenciales, equipos que permanecen y operaciones capaces de atravesar ciclos completos.</p>
-
-        <div class="time-field" data-reveal aria-label="Enfoque de inversión a largo plazo">
-          <div class="time-point"><b>Origen</b>Comprender antes de adquirir</div>
-          <div class="time-point"><b>Operación</b>Mejorar sin ruido</div>
-          <div class="time-point"><b>Permanencia</b>Sostener con perspectiva</div>
+        <div class="hero-actions">
+          <a class="button button--gold" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II">Ver la cartera</a>
+          <a class="ax-link" href="atlas-presencia.html#contacto">Solicitar una conversación</a>
         </div>
       </div>
     </section>
 
-<section class="system-bridge" aria-labelledby="system-title" data-system-bridge>
-      <div class="wrap bridge-head">
-        <div data-reveal>
-          <p class="eyebrow">La arquitectura del grupo</p>
-          <h2 class="display" id="system-title">Un sistema de <em>activos esenciales.</em></h2>
-        </div>
-        <p class="lead" data-reveal>La escala no se comunica con volumen, sino mostrando cómo cada operación fortalece la siguiente.</p>
-      </div>
-      <div class="wrap bridge-map" data-reveal>
-        <div class="bridge-node"><b>Energía</b><span>activa</span></div>
-        <div class="bridge-node"><b>Marítimo</b><span>conecta</span></div>
-        <div class="bridge-node"><b>Recursos</b><span>abastece</span></div>
-        <div class="bridge-node"><b>Infraestructura</b><span>sostiene</span></div>
+    <section class="figures ax-figures" id="cifras" aria-label="El grupo en cifras">
+      <div class="wrap fig-grid">
+        <div class="figure"><strong>$6.400 <small>MM</small></strong><span>Capital gestionado</span></div>
+        <div class="figure"><strong>24</strong><span>Compañías en propiedad</span></div>
+        <div class="figure"><strong>13</strong><span>Países</span></div>
+        <div class="figure"><strong>0</strong><span>Ventas forzadas en 33 años</span></div>
       </div>
     </section>
 
-<section class="section figures" id="cifras" aria-labelledby="figures-title">
-      <div class="wrap">
-        <p class="eyebrow" id="figures-title" data-reveal>El grupo en cifras</p>
-        <div class="fig-grid" data-reveal>
-          <div class="figure"><strong>$6.400 <small>MM</small></strong><span>Capital gestionado</span></div>
-          <div class="figure"><strong>24</strong><span>Compañías en propiedad</span></div>
-          <div class="figure"><strong>33 <small>años</small></strong><span>Horizonte medio de tenencia</span></div>
-          <div class="figure"><strong>0</strong><span>Ventas forzadas · en 33 años</span></div>
+    <section class="ax-seq" data-ax-seq aria-label="Los cuatro sectores">
+      <div class="ax-seq__stage">
+        <figure class="ax-seq__frame is-on" data-n="01" data-verb="Activar" data-word="Energía" data-sub="6 compañías · desde 1998" data-href="atlas-cartera.html#energia"><img src="assets/atlas/energia.jpg" alt="Infraestructura energética a gran escala" loading="eager" decoding="async" /></figure>
+        <figure class="ax-seq__frame" data-n="02" data-verb="Conectar" data-word="Marítimo" data-sub="6 compañías · desde 1999" data-href="atlas-cartera.html#maritimo"><img src="assets/atlas/maritimo.jpg" alt="Terminal marítima y red logística" loading="lazy" decoding="async" /></figure>
+        <figure class="ax-seq__frame" data-n="03" data-verb="Abastecer" data-word="Recursos" data-sub="6 compañías · desde 2000" data-href="atlas-cartera.html#mineria"><img src="assets/atlas/mineria.jpg" alt="Operación de recursos y capas geológicas" loading="lazy" decoding="async" /></figure>
+        <figure class="ax-seq__frame" data-n="04" data-verb="Sostener" data-word="Infraestructura" data-sub="6 compañías · desde 2002" data-href="atlas-cartera.html#infraestructura"><img src="assets/atlas/infraestructura.jpg" alt="Infraestructura de conectividad de larga vida" loading="lazy" decoding="async" /></figure>
+        <div class="ax-seq__cap is-in">
+          <span class="ax-seq__n" data-ax-n>01 / 04 · Activar</span>
+          <b data-ax-word>Energía</b>
+          <i data-ax-sub>6 compañías · desde 1998</i>
+          <a class="ax-link" data-ax-go href="atlas-cartera.html#energia">Ver el sector</a>
         </div>
-      </div>
-    </section>
-
-    <section class="section atx-criteria" aria-labelledby="criteria-title">
-      <div class="wrap">
-        <div class="section-head">
-          <div data-reveal><p class="eyebrow">Criterios de adquisición</p><h2 class="display" id="criteria-title">Lo que compramos. <em>Y lo que no.</em></h2></div>
-          <p class="lead" data-reveal>Cuatro condiciones, sin excepciones. Si una compañía no cumple las cuatro, no hay precio que la haga entrar al grupo.</p>
-        </div>
-        <ol class="atx-criteria__grid">
-          <li data-reveal><span>01</span><b>Esencialidad</b><p>Servicios sin los cuales una región deja de funcionar: energía, puertos, minerales críticos, redes.</p><small>Demanda no discrecional</small></li>
-          <li data-reveal><span>02</span><b>Escala</b><p>Valor empresa entre US$150 y US$900 MM, con flujo de caja probado durante al menos un ciclo completo.</p><small>EBITDA positivo · 7+ años</small></li>
-          <li data-reveal><span>03</span><b>Control</b><p>Participación mayoritaria, o control conjunto con la familia fundadora. Nunca minoritaria pasiva.</p><small>Asiento en el directorio</small></li>
-          <li data-reveal><span>04</span><b>Horizonte</b><p>Sin fecha de salida, sin fondo que liquidar y sin necesidad de vender para devolver capital.</p><small>Tenencia indefinida</small></li>
-        </ol>
-        <p class="atx-criteria__no" data-reveal><b>No invertimos en</b> apuestas tecnológicas sin flujo · reestructuraciones hostiles · activos sin licencia social</p>
+        <ol class="ax-seq__index" aria-hidden="true"><li class="is-on">Energía</li><li>Marítimo</li><li>Recursos</li><li>Infraestructura</li></ol>
       </div>
     </section>
 
     <section class="section atx-letter" aria-labelledby="letter-title">
       <div class="wrap">
-        <p class="eyebrow" id="letter-title" data-reveal>Carta anual a los socios · 2026</p>
-        <blockquote data-reveal>«En treinta y tres años no hemos vendido una sola compañía por necesidad. No es prudencia: es diseño. Un propietario al que nadie puede obligar a vender es un propietario que puede permitirse <em>pensar en décadas.</em>»</blockquote>
-        <div class="atx-letter__sign" data-reveal><b>Tomás Albán Mora</b><span>Presidente del Consejo · Quito</span></div>
+        <p class="eyebrow" id="letter-title" data-reveal>Carta anual · 2026</p>
+        <blockquote data-reveal>«Un propietario al que nadie puede obligar a vender puede permitirse <em>pensar en décadas.</em>»</blockquote>
+        <div class="atx-letter__sign" data-reveal><b>Tomás Albán Mora</b><span>Presidente del Consejo</span></div>
       </div>
     </section>
 
-    <section class="section atlas-next-sec">
+    <section class="section atx-criteria ax-criteria" aria-labelledby="criteria-title">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>Continuar</p>
-        <div class="atlas-next">
-        <a class="atlas-next__card" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II" data-reveal>
-          <b>Cartera</b>
-          <span>Cuatro sectores, un mismo criterio de propiedad.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        <a class="atlas-next__card" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III" data-reveal>
-          <b>Registro</b>
-          <span>Veinticuatro folios de propiedad con acceso controlado.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        <a class="atlas-next__card" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV" data-reveal>
-          <b>Presencia</b>
-          <span>Cuatro oficinas operando como una sola mesa.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        </div>
+        <div data-reveal><p class="eyebrow">Criterios</p><h2 class="display" id="criteria-title">Lo que compramos. <em>Y lo que no.</em></h2></div>
+        <ol class="atx-criteria__grid">
+          <li data-reveal><span>01</span><b>Esencial</b><p>Servicios sin los que una región se detiene.</p></li>
+          <li data-reveal><span>02</span><b>Escala</b><p>US$150–900 MM de valor empresa.</p></li>
+          <li data-reveal><span>03</span><b>Control</b><p>Mayoría, o control con la familia fundadora.</p></li>
+          <li data-reveal><span>04</span><b>Para siempre</b><p>Sin fecha de salida.</p></li>
+        </ol>
       </div>
     </section>
 
+    <section class="ax-cities" aria-labelledby="cities-title">
+      <div class="wrap">
+        <div class="ax-head" data-reveal><h2 class="display" id="cities-title">Cuatro oficinas. <em>Una sola mesa.</em></h2><a class="ax-link" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV">Presencia</a></div>
+        <ul class="ax-cities__list">
+          <li data-tz="America/Guayaquil"><b>Quito</b><span>Sede · 0°13′ S</span><time data-clock>--:--</time><em data-status></em></li>
+          <li data-tz="America/Chicago"><b>Houston</b><span>Energía · 29°45′ N</span><time data-clock>--:--</time><em data-status></em></li>
+          <li data-tz="Europe/Amsterdam"><b>Róterdam</b><span>Marítimo · 51°55′ N</span><time data-clock>--:--</time><em data-status></em></li>
+          <li data-tz="Asia/Singapore"><b>Singapur</b><span>Asia-Pacífico · 1°17′ N</span><time data-clock>--:--</time><em data-status></em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section contact ax-contact" aria-labelledby="contact-title">
+      <div class="contact-media" aria-hidden="true"><img src="assets/atlas/infraestructura.jpg" alt="" loading="lazy" decoding="async" /></div>
+      <div class="wrap contact-inner" data-reveal>
+        <p class="eyebrow">Por presentación</p>
+        <h2 class="display" id="contact-title">Las mejores sociedades <em>empiezan por una conversación.</em></h2>
+        <a class="button button--gold" href="contacto.html">Solicitar una conversación</a>
+      </div>
+    </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-top">
-      <div class="footer-brand">ATLAS<span>Grupo de capital privado</span></div>
-      <div class="footer-columns">
-        <div><h3>Grupo</h3><a href="demo-corporativa.html">Tesis</a><a href="demo-corporativa.html#cifras">Cifras</a></div>
-        <div><h3>Sistema</h3><a href="atlas-cartera.html">Sectores</a><a href="atlas-registro.html">Compañías</a><a href="atlas-presencia.html">Presencia</a></div>
-        <div><h3>Acceso</h3><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a></div>
-      </div>
+  <footer class="footer ax-foot">
+    <div class="wrap ax-foot__top">
+      <a class="footer-brand" href="demo-corporativa.html">ATLAS<span>Capital permanente · desde 1993</span></a>
+      <nav class="ax-foot__nav" aria-label="Pie de página">
+        <a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html">Presencia</a><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a>
+      </nav>
     </div>
     <div class="wrap footer-bar">
-      <span>© <span data-year></span> ATLAS · Grupo de capital privado</span>
+      <span>© <span data-year></span> ATLAS</span>
       <span>Demo conceptual por <b>Pittahaya</b></span>
     </div>
     <p class="wrap footer-legal">ATLAS es una marca ficticia creada como demostración. Nada en este sitio constituye una oferta de valores, una solicitud de inversión ni una recomendación financiera.</p>
@@ -225,8 +183,8 @@
 
   <script src="assets/atlas-data.js?v=11" defer></script>
   <script src="assets/atlas.js?v=10" defer></script>
-  <script src="assets/atlas-immersive.js?v=1" defer></script>
-<script src="assets/carrete.js?v=1" defer></script>
+  <script src="assets/atlas-immersive.js?v=2" defer></script>
+  <script src="assets/atlas-lux.js?v=1" defer></script>
   <script src="assets/chatbot.js?v=v20" defer></script>
   <script src="assets/analytics.js?v=1" defer></script>
 </body>

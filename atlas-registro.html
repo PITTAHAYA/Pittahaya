@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="assets/atlas-immersive.css?v=1" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 <link rel="stylesheet" href="assets/atlas-plus.css?v=3" />
+  <link rel="stylesheet" href="assets/atlas-lux.css?v=2" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Saltar al contenido</a>
@@ -72,7 +73,6 @@
     </button>
 
     <nav class="site-nav" id="atlas-navigation" data-nav aria-label="Principal">
-      <a class="nav-link" href="demo-corporativa.html" data-veil-name="Inicio" data-veil-folio="Folio I">Inicio</a>
       <a class="nav-link" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II">Cartera</a>
       <a class="nav-link is-current" aria-current="page" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III">Registro</a>
       <a class="nav-link" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV">Presencia</a>
@@ -83,48 +83,27 @@
   </header>
 
   <main id="main-content">
-    <section class="section page-head">
+    <section class="section atlas-index ax-index" id="atlas-index" aria-labelledby="index-title">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>Registro de propiedad · ATLAS INDEX</p>
-        <h1 class="display" data-reveal>Una cartera. <em>Veinticuatro historias operativas.</em></h1>
-        <p class="lead" data-reveal>La cartera se presenta como un registro de propiedad, no como una vitrina. Los nombres y datos operativos se abren únicamente tras validación institucional.</p>
-      </div>
-    </section>
-
-<section class="section atlas-index" id="atlas-index" aria-labelledby="index-title">
-      <div class="wrap">
-        <header class="archive-intro" data-reveal>
-          <div>
-            <p class="eyebrow">Registro de propiedad · ATLAS INDEX</p>
-            <h2 class="display" id="index-title">Una cartera. <em>Veinticuatro historias operativas.</em></h2>
-            <p class="lead">La cartera se presenta como un registro de propiedad, no como una vitrina. Los nombres y datos operativos se abren únicamente tras validación institucional.</p>
-          </div>
-          <div class="archive-count" aria-label="24 folios de propiedad"><strong>24</strong><span>folios de propiedad<br />acceso controlado</span></div>
+        <header class="ax-index__head" data-reveal>
+          <div><p class="eyebrow">Registro de propiedad</p><h1 class="display" id="index-title">Veinticuatro compañías. <em>Un solo dueño.</em></h1></div>
+          <div class="archive-count" aria-label="24 folios de propiedad"><strong>24</strong><span>folios<br />cuatro volúmenes</span></div>
         </header>
 
         <div class="ownership-ledger" data-reveal>
           <div class="ownership-ledger__meta">
-            <span>ATLAS / REGISTRO DE PROPIEDAD</span>
-            <span>EDICIÓN 24 · ACCESO CONTROLADO</span>
+            <span>ATLAS / REGISTRO</span>
+            <span>EDICIÓN 24</span>
           </div>
           <div class="ownership-ledger__body">
-            <aside class="ownership-ledger__note">
-              <p class="archive-label">Índice institucional</p>
-              <h3>Veinticuatro participaciones. Una disciplina de propiedad.</h3>
-              <p>La vista pública confirma la dimensión del grupo sin convertir activos privados en piezas de exhibición.</p>
-              <div class="archive-sectors" aria-label="Sectores del grupo">
-                <span>01 Energía</span><span>02 Marítimo</span><span>03 Recursos</span><span>04 Infraestructura</span>
-              </div>
-            </aside>
             <div class="ownership-ledger__register">
-              <div class="archive-volumes" data-archive-ledger aria-label="Veinticuatro folios organizados en cuatro volúmenes"></div>
+              <div class="archive-volumes" data-archive-ledger aria-label="Veinticuatro folios en cuatro volúmenes"></div>
               <div class="archive-selection">
                 <div class="archive-selection__primary">
                   <span>Folio en consulta</span>
                   <output data-archive-readout aria-live="polite">ATLAS-01 · Folio energético andino</output>
-                  <p class="archive-selection__summary">Cada folio conserva identidad operativa sin revelar nombres, cifras sensibles ni contrapartes.</p>
                 </div>
-                <dl class="archive-selection__meta" data-archive-meta aria-label="Metadatos del folio seleccionado">
+                <dl class="archive-selection__meta" data-archive-meta aria-label="Datos del folio">
                   <div><dt>Sector</dt><dd>Energía</dd></div>
                   <div><dt>Región</dt><dd>Andes · generación distribuida</dd></div>
                   <div><dt>Entrada</dt><dd>1998</dd></div>
@@ -134,8 +113,8 @@
             </div>
           </div>
           <div class="ownership-ledger__footer">
-            <button class="archive-protocol-toggle" type="button" data-archive-toggle aria-expanded="false" aria-controls="archive-protocol">Protocolo de acceso <span aria-hidden="true">+</span></button>
-            <span>Propiedad / jurisdicción / año / capacidad</span>
+            <button class="archive-protocol-toggle" type="button" data-archive-toggle aria-expanded="false" aria-controls="archive-protocol">Ver el folio <span aria-hidden="true">+</span></button>
+            <span>Propiedad · jurisdicción · año · capacidad</span>
           </div>
           <div id="archive-protocol" class="archive-disclosure" data-archive-disclosure aria-hidden="true">
             <div><span>Sector</span><b>Energía</b></div>
@@ -145,41 +124,20 @@
             <p>Plataforma de continuidad eléctrica para corredores industriales andinos.</p>
           </div>
         </div>
-        <noscript><p class="index-noscript">Active JavaScript para consultar el índice institucional.</p></noscript>
+        <noscript><p class="index-noscript">Active JavaScript para consultar el registro.</p></noscript>
       </div>
     </section>
-
-    <section class="section atlas-next-sec">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal>Continuar</p>
-        <div class="atlas-next">
-        <a class="atlas-next__card" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II" data-reveal>
-          <b>Cartera</b>
-          <span>Los cuatro sectores en detalle.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        <a class="atlas-next__card" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV" data-reveal>
-          <b>Presencia</b>
-          <span>Dónde opera el grupo.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-top">
-      <div class="footer-brand">ATLAS<span>Grupo de capital privado</span></div>
-      <div class="footer-columns">
-        <div><h3>Grupo</h3><a href="demo-corporativa.html">Tesis</a><a href="demo-corporativa.html#cifras">Cifras</a></div>
-        <div><h3>Sistema</h3><a href="atlas-cartera.html">Sectores</a><a href="atlas-registro.html">Compañías</a><a href="atlas-presencia.html">Presencia</a></div>
-        <div><h3>Acceso</h3><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a></div>
-      </div>
+  <footer class="footer ax-foot">
+    <div class="wrap ax-foot__top">
+      <a class="footer-brand" href="demo-corporativa.html">ATLAS<span>Capital permanente · desde 1993</span></a>
+      <nav class="ax-foot__nav" aria-label="Pie de página">
+        <a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html">Presencia</a><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a>
+      </nav>
     </div>
     <div class="wrap footer-bar">
-      <span>© <span data-year></span> ATLAS · Grupo de capital privado</span>
+      <span>© <span data-year></span> ATLAS</span>
       <span>Demo conceptual por <b>Pittahaya</b></span>
     </div>
     <p class="wrap footer-legal">ATLAS es una marca ficticia creada como demostración. Nada en este sitio constituye una oferta de valores, una solicitud de inversión ni una recomendación financiera.</p>
@@ -191,7 +149,8 @@
 
   <script src="assets/atlas-data.js?v=11" defer></script>
   <script src="assets/atlas.js?v=10" defer></script>
-  <script src="assets/atlas-immersive.js?v=1" defer></script>
+  <script src="assets/atlas-immersive.js?v=2" defer></script>
+  <script src="assets/atlas-lux.js?v=1" defer></script>
   <script src="assets/chatbot.js?v=v20" defer></script>
   <script src="assets/analytics.js?v=1" defer></script>
 </body>

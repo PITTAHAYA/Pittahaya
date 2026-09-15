@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="assets/atlas-immersive.css?v=1" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 <link rel="stylesheet" href="assets/atlas-plus.css?v=3" />
+  <link rel="stylesheet" href="assets/atlas-lux.css?v=2" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Saltar al contenido</a>
@@ -72,7 +73,6 @@
     </button>
 
     <nav class="site-nav" id="atlas-navigation" data-nav aria-label="Principal">
-      <a class="nav-link" href="demo-corporativa.html" data-veil-name="Inicio" data-veil-folio="Folio I">Inicio</a>
       <a class="nav-link" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II">Cartera</a>
       <a class="nav-link" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III">Registro</a>
       <a class="nav-link is-current" aria-current="page" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV">Presencia</a>
@@ -83,73 +83,43 @@
   </header>
 
   <main id="main-content">
-    <section class="section page-head">
+    <section class="section page-head ax-page-head">
       <div class="wrap">
         <p class="eyebrow" data-reveal>Presencia</p>
-        <h1 class="display" data-reveal>Cuatro puntos. <em>Una sola operación.</em></h1>
-        <p class="lead" data-reveal>Una red compacta de relaciones locales conecta los cuatro sectores con una misma disciplina de propiedad.</p>
+        <h1 class="display" data-reveal>Cuatro oficinas. <em>Una sola mesa.</em></h1>
       </div>
     </section>
 
-<section class="presence" id="presencia" aria-labelledby="presence-title" data-presence>
-      <div class="wrap presence-head" data-reveal>
-        <div>
-          <p class="eyebrow">Presencia</p>
-          <h2 class="display" id="presence-title">Cuatro puntos. <em>Una sola operación.</em></h2>
-        </div>
-        <p class="lead">Una red compacta de relaciones locales conecta los cuatro sectores con una misma disciplina de propiedad.</p>
-      </div>
-      <div class="wrap presence-route" data-reveal>
-        <div class="office"><b>Quito</b><span>00°13′S · Sede · Andes</span></div>
-        <div class="office"><b>Houston</b><span>29°45′N · Energía</span></div>
-        <div class="office"><b>Róterdam</b><span>51°55′N · Marítimo</span></div>
-        <div class="office"><b>Singapur</b><span>01°17′N · Asia-Pacífico</span></div>
+    <section class="ax-cities ax-cities--page" aria-label="Oficinas">
+      <div class="wrap">
+        <ul class="ax-cities__list">
+          <li data-tz="America/Guayaquil"><b>Quito</b><span>Sede · 0°13′ S · 78°30′ O</span><time data-clock>--:--</time><em data-status></em></li>
+          <li data-tz="America/Chicago"><b>Houston</b><span>Energía · 29°45′ N · 95°22′ O</span><time data-clock>--:--</time><em data-status></em></li>
+          <li data-tz="Europe/Amsterdam"><b>Róterdam</b><span>Marítimo · 51°55′ N · 4°28′ E</span><time data-clock>--:--</time><em data-status></em></li>
+          <li data-tz="Asia/Singapore"><b>Singapur</b><span>Asia-Pacífico · 1°17′ N · 103°51′ E</span><time data-clock>--:--</time><em data-status></em></li>
+        </ul>
       </div>
     </section>
 
-<section class="section contact" id="contacto" aria-labelledby="contact-title">
-      <div class="contact-media" aria-hidden="true">
-        <img src="assets/atlas/hero.jpg" alt="" width="2000" height="1116" loading="lazy" decoding="async" />
-      </div>
+    <section class="section contact ax-contact" id="contacto" aria-labelledby="contact-title">
+      <div class="contact-media" aria-hidden="true"><img src="assets/atlas/hero.jpg" alt="" width="2000" height="1116" loading="lazy" decoding="async" /></div>
       <div class="wrap contact-inner" data-reveal>
         <p class="eyebrow">Por presentación</p>
         <h2 class="display" id="contact-title">Las mejores sociedades <em>empiezan por una conversación.</em></h2>
-        <p class="lead">ATLAS trabaja con un círculo reducido de propietarios, familias e instituciones. Cada conversación comienza con criterio y reserva.</p>
         <a class="button button--gold" href="contacto.html">Solicitar una conversación</a>
       </div>
     </section>
-
-    <section class="section atlas-next-sec">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal>Continuar</p>
-        <div class="atlas-next">
-        <a class="atlas-next__card" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II" data-reveal>
-          <b>Cartera</b>
-          <span>Los cuatro sectores en detalle.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        <a class="atlas-next__card" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III" data-reveal>
-          <b>Registro</b>
-          <span>Veinticuatro folios de propiedad.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-top">
-      <div class="footer-brand">ATLAS<span>Grupo de capital privado</span></div>
-      <div class="footer-columns">
-        <div><h3>Grupo</h3><a href="demo-corporativa.html">Tesis</a><a href="demo-corporativa.html#cifras">Cifras</a></div>
-        <div><h3>Sistema</h3><a href="atlas-cartera.html">Sectores</a><a href="atlas-registro.html">Compañías</a><a href="atlas-presencia.html">Presencia</a></div>
-        <div><h3>Acceso</h3><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a></div>
-      </div>
+  <footer class="footer ax-foot">
+    <div class="wrap ax-foot__top">
+      <a class="footer-brand" href="demo-corporativa.html">ATLAS<span>Capital permanente · desde 1993</span></a>
+      <nav class="ax-foot__nav" aria-label="Pie de página">
+        <a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html">Presencia</a><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a>
+      </nav>
     </div>
     <div class="wrap footer-bar">
-      <span>© <span data-year></span> ATLAS · Grupo de capital privado</span>
+      <span>© <span data-year></span> ATLAS</span>
       <span>Demo conceptual por <b>Pittahaya</b></span>
     </div>
     <p class="wrap footer-legal">ATLAS es una marca ficticia creada como demostración. Nada en este sitio constituye una oferta de valores, una solicitud de inversión ni una recomendación financiera.</p>
@@ -161,7 +131,8 @@
 
   <script src="assets/atlas-data.js?v=11" defer></script>
   <script src="assets/atlas.js?v=10" defer></script>
-  <script src="assets/atlas-immersive.js?v=1" defer></script>
+  <script src="assets/atlas-immersive.js?v=2" defer></script>
+  <script src="assets/atlas-lux.js?v=1" defer></script>
   <script src="assets/chatbot.js?v=v20" defer></script>
   <script src="assets/analytics.js?v=1" defer></script>
 </body>

@@ -29,9 +29,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/atlas.css?v=10" />
   <link rel="stylesheet" href="assets/atlas-immersive.css?v=1" />
-  <link rel="stylesheet" href="assets/carrete.css?v=1" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
 <link rel="stylesheet" href="assets/atlas-plus.css?v=3" />
+  <link rel="stylesheet" href="assets/atlas-lux.css?v=2" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Saltar al contenido</a>
@@ -73,7 +73,6 @@
     </button>
 
     <nav class="site-nav" id="atlas-navigation" data-nav aria-label="Principal">
-      <a class="nav-link" href="demo-corporativa.html" data-veil-name="Inicio" data-veil-folio="Folio I">Inicio</a>
       <a class="nav-link is-current" aria-current="page" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II">Cartera</a>
       <a class="nav-link" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III">Registro</a>
       <a class="nav-link" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV">Presencia</a>
@@ -84,119 +83,65 @@
   </header>
 
   <main id="main-content">
-    <section class="section page-head">
+    <section class="section page-head ax-page-head">
       <div class="wrap">
         <p class="eyebrow" data-reveal>La cartera</p>
-        <h1 class="display" data-reveal>Cuatro sectores. <em>Un mismo criterio.</em></h1>
-        <p class="lead" data-reveal>No son categorías aisladas. Son capas de un mismo sistema operativo: energía que activa, logística que conecta, recursos que abastecen e infraestructura que sostiene.</p>
+        <h1 class="display" data-reveal>Cuatro sectores. <em>Un criterio.</em></h1>
       </div>
     </section>
 
-<section class="holdings" id="cartera" aria-labelledby="holdings-title">
-      <!-- HIGGSFIELD: movimiento vertical de energía, 6–8 s, loop discreto. Mantener JPG como fallback. -->
-      <article class="sector" data-sector="energia" data-motion="energy">
+    <section class="holdings" id="cartera" aria-label="Sectores">
+      <article class="sector" id="energia" data-sector="energia" data-motion="energy">
         <div class="sector-media"><img src="assets/atlas/energia.jpg" alt="Infraestructura energética a gran escala" width="1800" height="1004" loading="lazy" decoding="async" /></div>
         <div class="sector-signal" aria-hidden="true"></div>
         <div class="sector-inner wrap">
-          <div>
-            <p class="eyebrow">Activar</p>
-            <h2>Energía</h2>
-            <p>Activos de generación y redes que sostienen industria, ciudades y continuidad operativa. Inversiones pensadas para funcionar con disciplina durante ciclos completos.</p>
-          </div>
-          <span class="sector-tag">Generación · transmisión</span>
+          <div><p class="eyebrow">01 · Activar</p><h2>Energía</h2><p>Generación y redes para industria y ciudades.</p></div>
+          <span class="sector-tag">6 compañías · desde 1998</span>
         </div>
       </article>
-
-      <!-- HIGGSFIELD: recorrido horizontal de rutas y terminales, 6–8 s, sin timelapse. Mantener JPG como fallback. -->
-      <article class="sector" data-sector="maritimo" data-motion="maritime">
-        <div class="sector-media"><img src="assets/atlas/maritimo.jpg" alt="Terminal marítima y red logística internacional" width="1800" height="1004" loading="lazy" decoding="async" /></div>
+      <article class="sector" id="maritimo" data-sector="maritimo" data-motion="maritime">
+        <div class="sector-media"><img src="assets/atlas/maritimo.jpg" alt="Terminal marítima y red logística" width="1800" height="1004" loading="lazy" decoding="async" /></div>
         <div class="sector-signal" aria-hidden="true"></div>
         <div class="sector-inner wrap">
-          <div>
-            <p class="eyebrow">Conectar</p>
-            <h2>Marítimo &amp; logística</h2>
-            <p>Puertos y cadenas logísticas que mantienen en movimiento materias primas, mercancías y economías. Infraestructura operada con precisión y perspectiva de largo plazo.</p>
-          </div>
-          <span class="sector-tag">Puertos · cadenas logísticas</span>
+          <div><p class="eyebrow">02 · Conectar</p><h2>Marítimo &amp; logística</h2><p>Puertos y cadenas que mueven la economía.</p></div>
+          <span class="sector-tag">6 compañías · desde 1999</span>
         </div>
       </article>
-
-      <!-- HIGGSFIELD: descenso lento por capas geológicas, 6–8 s, sin dramatismo publicitario. Mantener JPG como fallback. -->
-      <article class="sector" data-sector="mineria" data-motion="mining">
+      <article class="sector" id="mineria" data-sector="mineria" data-motion="mining">
         <div class="sector-media"><img src="assets/atlas/mineria.jpg" alt="Operación de recursos y capas geológicas" width="1800" height="1004" loading="lazy" decoding="async" /></div>
         <div class="sector-signal" aria-hidden="true"></div>
         <div class="sector-inner wrap">
-          <div>
-            <p class="eyebrow">Abastecer</p>
-            <h2>Minería &amp; recursos</h2>
-            <p>Operaciones y recursos críticos que hacen posible la industria contemporánea. Activos evaluados por calidad, disciplina operativa y permanencia.</p>
-          </div>
-          <span class="sector-tag">Recursos críticos · reservas</span>
+          <div><p class="eyebrow">03 · Abastecer</p><h2>Minería &amp; recursos</h2><p>Recursos críticos para la industria.</p></div>
+          <span class="sector-tag">6 compañías · desde 2000</span>
         </div>
       </article>
-
-      <!-- HIGGSFIELD: ascenso arquitectónico lento, 6–8 s, enfatizar escala y vida útil. Mantener JPG como fallback. -->
-      <article class="sector" data-sector="infraestructura" data-motion="infrastructure">
+      <article class="sector" id="infraestructura" data-sector="infraestructura" data-motion="infrastructure">
         <div class="sector-media"><img src="assets/atlas/infraestructura.jpg" alt="Infraestructura de conectividad de larga vida" width="1800" height="1004" loading="lazy" decoding="async" /></div>
         <div class="sector-signal" aria-hidden="true"></div>
         <div class="sector-inner wrap">
-          <div>
-            <p class="eyebrow">Sostener</p>
-            <h2>Infraestructura</h2>
-            <p>Activos de conectividad y servicios esenciales que permiten que ciudades y empresas funcionen. Capital paciente aplicado a sistemas de larga vida.</p>
-          </div>
-          <span class="sector-tag">Conectividad · servicios esenciales</span>
+          <div><p class="eyebrow">04 · Sostener</p><h2>Infraestructura</h2><p>Conectividad y servicios esenciales.</p></div>
+          <span class="sector-tag">6 compañías · desde 2002</span>
         </div>
       </article>
     </section>
 
-<section class="system-bridge" aria-labelledby="system-title" data-system-bridge>
-      <div class="wrap bridge-head">
-        <div data-reveal>
-          <p class="eyebrow">La arquitectura del grupo</p>
-          <h2 class="display" id="system-title">Un sistema de <em>activos esenciales.</em></h2>
-        </div>
-        <p class="lead" data-reveal>La escala no se comunica con volumen, sino mostrando cómo cada operación fortalece la siguiente.</p>
-      </div>
-      <div class="wrap bridge-map" data-reveal>
-        <div class="bridge-node"><b>Energía</b><span>activa</span></div>
-        <div class="bridge-node"><b>Marítimo</b><span>conecta</span></div>
-        <div class="bridge-node"><b>Recursos</b><span>abastece</span></div>
-        <div class="bridge-node"><b>Infraestructura</b><span>sostiene</span></div>
+    <section class="ax-cta">
+      <div class="wrap ax-cta__in" data-reveal>
+        <h2 class="display">Veinticuatro compañías, <em>una por una.</em></h2>
+        <a class="button button--gold" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III">Abrir el registro</a>
       </div>
     </section>
-
-    <section class="section atlas-next-sec">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal>Continuar</p>
-        <div class="atlas-next">
-        <a class="atlas-next__card" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III" data-reveal>
-          <b>Registro</b>
-          <span>Veinticuatro folios de propiedad.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        <a class="atlas-next__card" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV" data-reveal>
-          <b>Presencia</b>
-          <span>Dónde opera el grupo.</span>
-          <i aria-hidden="true">Abrir →</i>
-        </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-top">
-      <div class="footer-brand">ATLAS<span>Grupo de capital privado</span></div>
-      <div class="footer-columns">
-        <div><h3>Grupo</h3><a href="demo-corporativa.html">Tesis</a><a href="demo-corporativa.html#cifras">Cifras</a></div>
-        <div><h3>Sistema</h3><a href="atlas-cartera.html">Sectores</a><a href="atlas-registro.html">Compañías</a><a href="atlas-presencia.html">Presencia</a></div>
-        <div><h3>Acceso</h3><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a><a href="index.html">Pittahaya</a></div>
-      </div>
+  <footer class="footer ax-foot">
+    <div class="wrap ax-foot__top">
+      <a class="footer-brand" href="demo-corporativa.html">ATLAS<span>Capital permanente · desde 1993</span></a>
+      <nav class="ax-foot__nav" aria-label="Pie de página">
+        <a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html">Presencia</a><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a>
+      </nav>
     </div>
     <div class="wrap footer-bar">
-      <span>© <span data-year></span> ATLAS · Grupo de capital privado</span>
+      <span>© <span data-year></span> ATLAS</span>
       <span>Demo conceptual por <b>Pittahaya</b></span>
     </div>
     <p class="wrap footer-legal">ATLAS es una marca ficticia creada como demostración. Nada en este sitio constituye una oferta de valores, una solicitud de inversión ni una recomendación financiera.</p>
@@ -208,8 +153,8 @@
 
   <script src="assets/atlas-data.js?v=11" defer></script>
   <script src="assets/atlas.js?v=10" defer></script>
-  <script src="assets/atlas-immersive.js?v=1" defer></script>
-<script src="assets/carrete.js?v=1" defer></script>
+  <script src="assets/atlas-immersive.js?v=2" defer></script>
+  <script src="assets/atlas-lux.js?v=1" defer></script>
   <script src="assets/chatbot.js?v=v20" defer></script>
   <script src="assets/analytics.js?v=1" defer></script>
 </body>
