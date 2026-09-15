@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="assets/orbital.css?v=4" />
 <link rel="stylesheet" href="assets/orbital-immersive.css?v=2" />
 <link rel="stylesheet" href="assets/orbital-plus.css?v=3" />
+<link rel="stylesheet" href="assets/orbital-lux.css?v=1" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
@@ -60,7 +61,6 @@
     <i></i><i></i><i></i>
   </button>
   <nav class="nav" id="nav-main" data-nav aria-label="Principal">
-    <a href="demo-startup.html" class="is-here" aria-current="page">Inicio</a>
     <a href="orbital-constelacion.html">Constelación</a>
     <a href="orbital-nodo.html">El nodo</a>
     <a href="orbital-mision.html">Misión</a>
@@ -70,88 +70,49 @@
 </header>
 
 <main id="main">
-<section class="hero">
-  <div class="hero-bg" aria-hidden="true"><img src="assets/orbital/array.jpg" alt="" /></div>
+<section class="hero ob-hero" aria-labelledby="hero-title">
+  <div class="ob-hero__sky" data-tracker aria-hidden="true"><canvas></canvas></div>
   <div class="hero-in">
-    <p class="eyebrow">Constelación ECU-1 · operativa</p>
-    <h1 class="d1">El centro de datos que <em class="hl">nunca toca el suelo.</em></h1>
-    <p data-corto="La IA ya no cabe en la Tierra. Cómputo en órbita baja: sol permanente, frío del vacío, cero agua." class="lede">La inteligencia artificial dejó de caber en la Tierra. ORBITAL construye y opera cómputo en órbita baja: sol permanente, refrigeración contra el vacío a 3 K, cero hectáreas, cero agua.</p>
+    <p class="eyebrow">Constelación ECU-1 · en vivo</p>
+    <h1 class="d1" id="hero-title">El centro de datos que <em class="hl">nunca toca el suelo.</em></h1>
+    <div class="ob-hero__cta">
+      <a class="btn btn--fill" href="#capacidad">Reservar capacidad</a>
+      <a class="ob-link" href="orbital-constelacion.html">Ver la constelación →</a>
+    </div>
   </div>
-  <div class="hero-hud" aria-label="Estado de la constelación">
+  <div class="ob-hud">
+    <div><small><span class="ob-hud__live" aria-hidden="true"></span>Nodo</small><b data-sat-id>ECU-1-01</b></div>
+    <div><small>Altitud</small><b data-sat-alt>—</b></div>
+    <div><small>Velocidad</small><b data-sat-vel>—</b></div>
+    <div><small>UTC</small><b data-hud-time>—</b></div>
+    <div class="ob-hud__wide"><small data-hud-count>24 nodos · 3 planos</small><b data-hud-sun>—</b></div>
+  </div>
+</section>
+
+<section class="ob-figs" aria-label="La constelación en cifras">
+  <div class="wrap ob-figs__in">
     <div><b><span data-count="24">24</span></b><small>Nodos en órbita</small></div>
-    <div><b><span data-count="28.8" data-dec="1">28,8</span><span class="u">PFLOP</span></b><small>Cómputo desplegado</small></div>
-    <div><b><span data-count="11">11</span><span class="u">ms</span></b><small>Latencia · Quito</small></div>
-    <div><b><span data-count="100">100</span><span class="u">%</span></b><small>Energía solar</small></div>
+    <div><b><span data-count="28.8" data-dec="1">28,8</span><i>PF</i></b><small>Cómputo desplegado</small></div>
+    <div><b><span data-count="11">11</span><i>ms</i></b><small>Latencia · Quito</small></div>
+    <div><b><span data-count="0">0</span><i>L</i></b><small>Agua al año</small></div>
   </div>
-  <div class="scroll-cue" aria-hidden="true"><i></i><span>Descender</span></div>
 </section>
 
-<section class="sec">
-  <div class="sec-head">
-    <p class="eyebrow" data-reveal>La tesis</p>
-    <h2 class="d2" data-reveal>La Tierra se quedó sin<br>energía, agua y terreno.</h2>
-    <p data-corto="Un gigavatio consume como una ciudad y evapora millones de litros. En órbita, nada de eso ocurre." class="lede" data-reveal>Un centro de datos de gigavatio consume la electricidad de una ciudad mediana y evapora millones de litros al año para enfriarse. En órbita baja, los tres problemas desaparecen a la vez.</p>
-  </div>
-  <div class="wrap">
-    <div class="thesis">
-      <article data-reveal>
-        <span class="n">Energía</span>
-        <h3>Sol sin noche</h3>
-        <p data-corto="Irradiancia constante, sin atmósfera. No hay noche, ni nubes, ni estaciones.">En una órbita sincrónica al Sol, los paneles reciben irradiancia constante sin atmósfera que la filtre. No hay ciclo diurno, no hay nubes, no hay estacionalidad.</p>
-        <div class="fig"><b>1 361</b><span>W/m² · constante solar</span></div>
-      </article>
-      <article data-reveal>
-        <span class="n">Refrigeración</span>
-        <h3>El vacío es el disipador</h3>
-        <p data-corto="El espacio está a 2,7 K. Los radiadores emiten el calor al vacío. Cero agua.">El espacio profundo está a 2,7 K. Los radiadores desplegables emiten el calor residual por radiación infrarroja directa. Sin torres, sin chillers, sin una sola gota de agua.</p>
-        <div class="fig"><b>0</b><span>litros de agua al año</span></div>
-      </article>
-      <article data-reveal>
-        <span class="n">Latencia</span>
-        <h3>La luz corre más rápido en el vacío</h3>
-        <p data-corto="En fibra la luz va al 67% de c. En el vacío, al 100%.">En fibra de sílice la luz viaja al 67% de <em class="ice">c</em>. En el vacío, al 100%. Sobre distancias continentales, el enlace óptico intersatelital gana a la fibra terrestre.</p>
-        <div class="fig"><b>+47</b><span>% más rápido que la fibra</span></div>
-      </article>
+<section class="ob-seq" data-ob-seq aria-label="Por qué en órbita">
+  <div class="ob-seq__stage">
+    <figure class="ob-seq__frame is-on" data-v="1 361" data-u="W/m²" data-k="Sol sin noche"><img src="assets/orbital/array.jpg" alt="Paneles solares de un nodo orbital" loading="eager" decoding="async" /></figure>
+    <figure class="ob-seq__frame" data-v="2,7" data-u="K" data-k="El vacío es el disipador"><img src="assets/orbital/radiator.jpg" alt="Ala radiadora dorada bajo luz solar" loading="lazy" decoding="async" /></figure>
+    <figure class="ob-seq__frame" data-v="1,2" data-u="PFLOP" data-k="Un solo nodo"><img src="assets/orbital/node.jpg" alt="Nodo de cómputo orbital con aletas de disipación" loading="lazy" decoding="async" /></figure>
+    <figure class="ob-seq__frame" data-v="11" data-u="semanas" data-k="Sala limpia ISO 5, por nodo"><img src="assets/orbital/cleanroom.jpg" alt="Ingenieros en sala limpia frente a un módulo orbital" loading="lazy" decoding="async" /></figure>
+    <figure class="ob-seq__frame" data-v="4 180" data-u="m" data-k="Estación Quito, sobre las nubes"><img src="assets/orbital/ground.jpg" alt="Antenas de la estación terrestre bajo la Vía Láctea" loading="lazy" decoding="async" /></figure>
+    <figure class="ob-seq__frame" data-v="15" data-u="pasos / día" data-k="Sobre la línea ecuatorial"><img src="assets/orbital/earth.jpg" alt="Sudamérica de noche vista desde órbita baja" loading="lazy" decoding="async" /></figure>
+    <span class="ob-corner tl" aria-hidden="true"></span><span class="ob-corner tr" aria-hidden="true"></span><span class="ob-corner bl" aria-hidden="true"></span><span class="ob-corner br" aria-hidden="true"></span>
+    <div class="ob-seq__cap is-in">
+      <span class="ob-seq__n" data-ob-n>01 / 06</span>
+      <b><span data-ob-v>1 361</span><i data-ob-u>W/m²</i></b>
+      <em data-ob-k>Sol sin noche</em>
     </div>
-  </div>
-</section>
-
-<figure class="plate" data-plate>
-  <img src="assets/orbital/earth.jpg" alt="Sudamérica de noche vista desde órbita baja, con las constelaciones de luz de las ciudades." />
-  <figcaption><b>Órbita 4 812 · 21:14 UTC</b>Paso sobre Sudamérica. Cada nodo cruza el ecuador quince veces al día.</figcaption>
-</figure>
-
-<section class="sec">
-  <div class="wrap">
-    <div class="split">
-      <div class="split-media" data-reveal>
-        <img src="assets/orbital/node.jpg" alt="Nodo de cómputo orbital: módulo negro anodizado con aletas de disipación y manta térmica dorada." />
-      </div>
-      <div class="split-body">
-        <p class="eyebrow" data-reveal>La unidad</p>
-        <h2 class="d3" data-reveal>Un nodo. 1,2 petaflops.<br>Catorce años sin mantenimiento.</h2>
-        <p data-corto="Un módulo cerrado: cómputo, potencia, térmica y enlace. Se despliega en 90 s y no se toca más." class="lede" data-reveal>Cada nodo es un sistema cerrado: cómputo, potencia, control térmico y enlace óptico en un único módulo tolerante a radiación. Se lanza plegado, se despliega en 90 segundos y no vuelve a tocarse.</p>
-        <dl class="specs" data-reveal>
-          <div><dt>Cómputo</dt><dd>1,2 PFLOP · FP8</dd></div>
-          <div><dt>Potencia</dt><dd>19,2 kW pico</dd></div>
-          <div><dt>Enlace</dt><dd>Óptico · 400 Gb/s</dd></div>
-          <div><dt>Vida útil</dt><dd>14 años</dd></div>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--line">
-  <div class="sec-head">
-    <p class="eyebrow" data-reveal>Escala</p>
-    <h2 class="d2" data-reveal>Lo que ya está arriba.</h2>
-  </div>
-  <div class="figs" style="margin-top:56px">
-    <div data-reveal><b><span data-count="24">24</span></b><small>Nodos operativos</small><p data-corto="Tres planos orbitales.">Tres planos orbitales: ecuatorial, polar y sincrónico al Sol.</p></div>
-    <div data-reveal><b><span data-count="28.8" data-dec="1">28,8</span><span class="u">PF</span></b><small>Cómputo desplegado</small><p data-corto="Como 34 MW en tierra.">Equivalente a un centro de datos terrestre de 34 MW.</p></div>
-    <div data-reveal><b><span data-count="4">4</span></b><small>Estaciones terrestres</small><p data-corto="Cobertura continua.">Quito, Singapur, Nairobi y Svalbard. Cobertura continua.</p></div>
-    <div data-reveal><b><span data-count="99.98" data-dec="2">99,98</span><span class="u">%</span></b><small>Disponibilidad · 12 meses</small><p data-corto="Sin una sola interrupción.">Sin una sola interrupción atribuible al segmento espacial.</p></div>
+    <div class="ob-seq__rail" aria-hidden="true"><i data-ob-bar></i></div>
   </div>
 </section>
 
@@ -159,7 +120,6 @@
   <div class="sec-head">
     <p class="eyebrow" data-reveal>Capacidad</p>
     <h2 class="d2" id="cap-title" data-reveal>Reserve cómputo<br>en órbita.</h2>
-    <p class="lede" data-reveal>Elija cuánta capacidad necesita, desde dónde la consume y por cuánto tiempo. La estimación usa los mismos parámetros que nuestro equipo comercial.</p>
   </div>
   <div class="wrap">
     <div class="cap" data-cap-calc data-reveal>
@@ -187,29 +147,14 @@
   </div>
 </section>
 
-<section class="sec sec--line" style="padding-bottom:0">
-  <div class="sec-head"><p class="eyebrow" data-reveal>Continuar</p></div>
-  <div class="next" style="margin-top:34px">
-    <a href="orbital-constelacion.html" data-reveal>
-      <h3>La constelación</h3>
-      <p data-corto="Los 24 nodos en vivo.">Rastreador en vivo de los 24 nodos, segmento terrestre y latencia comparada por ciudad.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a href="orbital-nodo.html" data-reveal>
-      <h3>El nodo</h3>
-      <p data-corto="Dentro del módulo.">Arquitectura, materiales y ensamblaje del módulo de cómputo orbital.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a href="orbital-mision.html" data-reveal>
-      <h3>Control de misión</h3>
-      <p data-corto="Consola en vivo.">Consola de operaciones en vivo y manifiesto de lanzamientos.</p>
-      <span class="go">Abrir →</span>
-    </a>
-    <a href="orbital-compania.html" data-reveal>
-      <h3>La compañía</h3>
-      <p data-corto="Cronología y tesis.">Cronología, respaldo institucional y hacia dónde vamos.</p>
-      <span class="go">Abrir →</span>
-    </a>
+<section class="ob-close" aria-labelledby="close-title">
+  <div class="wrap">
+    <p class="eyebrow">Bloque II · 2026</p>
+    <h2 class="d1" id="close-title">Cien petaflops <em class="hl">antes de 2028.</em></h2>
+    <div class="ob-hero__cta">
+      <a class="btn btn--fill" href="contacto.html">Reservar capacidad</a>
+      <a class="ob-link" href="orbital-mision.html">Control de misión →</a>
+    </div>
   </div>
 </section>
 </main>
@@ -230,5 +175,6 @@
 <script src="assets/orbital-immersive.js?v=1" defer></script>
 <script src="assets/orbital-tracker.js?v=4" defer></script>
 <script src="assets/orbital-capacidad.js?v=1" defer></script>
+<script src="assets/orbital-lux.js?v=1" defer></script>
 </body>
 </html>
