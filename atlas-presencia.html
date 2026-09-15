@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0e12" />
+  <meta name="theme-color" content="#f1f0ec" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-src 'none'; child-src 'none'; worker-src 'none'; manifest-src 'self'; media-src 'self'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Presencia · ATLAS | Pittahaya</title>
@@ -26,114 +26,75 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&amp;family=Inter:wght@200;300;400;500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/atlas.css?v=10" />
-  <link rel="stylesheet" href="assets/atlas-immersive.css?v=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/chatbot.css?v=v4" />
-<link rel="stylesheet" href="assets/atlas-plus.css?v=3" />
-  <link rel="stylesheet" href="assets/atlas-lux.css?v=2" />
+  <link rel="stylesheet" href="assets/atlas-r.css?v=3" />
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Saltar al contenido</a>
-
-  <div class="atx-air" aria-hidden="true">
-    <div class="atx-air__glow"></div>
-    <div class="atx-air__grain"></div>
-  </div>
-
-  <div class="atx-veil" data-veil aria-hidden="true">
-    <div class="atx-veil__panel"></div><div class="atx-veil__panel"></div><div class="atx-veil__panel"></div>
-    <div class="atx-veil__panel"></div><div class="atx-veil__panel"></div><div class="atx-veil__panel"></div>
-    <div class="atx-veil__mark">
-      <i data-veil-folio>ATLAS</i>
-      <b data-veil-title>ATLAS</b>
-      <div class="atx-veil__rule"></div>
-    </div>
-  </div>
-
-  <div class="atx-dot" data-atx-dot aria-hidden="true"></div>
-  <div class="atx-ring" data-atx-ring aria-hidden="true"></div>
-
-  <nav class="atx-rail" aria-label="Folio">
-    <a href="demo-corporativa.html" data-veil-name="Inicio" data-veil-folio="Folio I"><span>Inicio</span><i aria-hidden="true"></i></a>
-    <a href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II"><span>Cartera</span><i aria-hidden="true"></i></a>
-    <a href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III"><span>Registro</span><i aria-hidden="true"></i></a>
-    <a href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV"><span>Presencia</span><i aria-hidden="true"></i></a>
-  </nav>
-  <div class="progress" data-progress aria-hidden="true"></div>
-
-  <header class="site-header" data-header>
-    <a class="brand" href="demo-corporativa.html" aria-label="ATLAS">
-      ATLAS
-      <span>Capital permanente</span>
-    </a>
-
-    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="atlas-navigation" aria-label="Menú">
-      <i aria-hidden="true"></i>
-    </button>
-
-    <nav class="site-nav" id="atlas-navigation" data-nav aria-label="Principal">
-      <a class="nav-link" href="atlas-cartera.html" data-veil-name="Cartera" data-veil-folio="Folio II">Cartera</a>
-      <a class="nav-link" href="atlas-registro.html" data-veil-name="Registro" data-veil-folio="Folio III">Registro</a>
-      <a class="nav-link is-current" aria-current="page" href="atlas-presencia.html" data-veil-name="Presencia" data-veil-folio="Folio IV">Presencia</a>
-      <a class="nav-link" href="en/demo-corporativa.html" lang="en" hreflang="en">EN</a>
-      <a class="nav-link" href="portafolio.html">← Demos</a>
-      <a class="button" href="atlas-presencia.html#contacto">Contacto</a>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+<header class="ar-hd">
+  <div class="ar-wrap ar-hd__in">
+    <a class="ar-brand" href="demo-corporativa.html" aria-label="ATLAS"><b>ATLAS</b><small>Capital permanente · 1993</small></a>
+    <button class="ar-burger" type="button" data-burger aria-expanded="false" aria-controls="ar-nav" aria-label="Abrir menú"><i></i></button>
+    <nav class="ar-nav" id="ar-nav" data-nav aria-label="Principal">
+      <a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html" aria-current="page">Presencia</a><a href="en/atlas-presencia.html" lang="en" hreflang="en">EN</a><a href="portafolio.html">← Demos</a>
+      <a class="ar-btn" href="atlas-presencia.html#contacto">Contacto</a>
     </nav>
-  </header>
-
-  <main id="main-content">
-    <section class="section page-head ax-page-head">
-      <div class="wrap">
-        <p class="eyebrow" data-reveal>Presencia</p>
-        <h1 class="display" data-reveal>Cuatro oficinas. <em>Una sola mesa.</em></h1>
-      </div>
-    </section>
-
-    <section class="ax-cities ax-cities--page" aria-label="Oficinas">
-      <div class="wrap">
-        <ul class="ax-cities__list">
-          <li data-tz="America/Guayaquil"><b>Quito</b><span>Sede · 0°13′ S · 78°30′ O</span><time data-clock>--:--</time><em data-status></em></li>
-          <li data-tz="America/Chicago"><b>Houston</b><span>Energía · 29°45′ N · 95°22′ O</span><time data-clock>--:--</time><em data-status></em></li>
-          <li data-tz="Europe/Amsterdam"><b>Róterdam</b><span>Marítimo · 51°55′ N · 4°28′ E</span><time data-clock>--:--</time><em data-status></em></li>
-          <li data-tz="Asia/Singapore"><b>Singapur</b><span>Asia-Pacífico · 1°17′ N · 103°51′ E</span><time data-clock>--:--</time><em data-status></em></li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section contact ax-contact" id="contacto" aria-labelledby="contact-title">
-      <div class="contact-media" aria-hidden="true"><img src="assets/atlas/hero.jpg" alt="" width="2000" height="1116" loading="lazy" decoding="async" /></div>
-      <div class="wrap contact-inner" data-reveal>
-        <p class="eyebrow">Por presentación</p>
-        <h2 class="display" id="contact-title">Las mejores sociedades <em>empiezan por una conversación.</em></h2>
-        <a class="button button--gold" href="contacto.html">Solicitar una conversación</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer ax-foot">
-    <div class="wrap ax-foot__top">
-      <a class="footer-brand" href="demo-corporativa.html">ATLAS<span>Capital permanente · desde 1993</span></a>
-      <nav class="ax-foot__nav" aria-label="Pie de página">
-        <a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html">Presencia</a><a href="atlas-presencia.html#contacto">Contacto</a><a href="portafolio.html">Más demos</a>
-      </nav>
-    </div>
-    <div class="wrap footer-bar">
-      <span>© <span data-year></span> ATLAS</span>
-      <span>Demo conceptual por <b>Pittahaya</b></span>
-    </div>
-    <p class="wrap footer-legal">ATLAS es una marca ficticia creada como demostración. Nada en este sitio constituye una oferta de valores, una solicitud de inversión ni una recomendación financiera.</p>
-  </footer>
-
-  <div class="demo-corner-logo" aria-hidden="true">
-    <img src="assets/pitahaya-logo.png" alt="" width="64" height="64" />
   </div>
+</header>
 
-  <script src="assets/atlas-data.js?v=11" defer></script>
-  <script src="assets/atlas.js?v=10" defer></script>
-  <script src="assets/atlas-immersive.js?v=2" defer></script>
-  <script src="assets/atlas-lux.js?v=1" defer></script>
-  <script src="assets/chatbot.js?v=v20" defer></script>
-  <script src="assets/analytics.js?v=1" defer></script>
+<main id="main">
+  <section class="ar-ph">
+    <div class="ar-wrap ar-ph__in">
+      <div><p class="ar-kicker">Folio IV · Presencia</p><h1 class="ar-h1">Cuatro oficinas. <span>Una sola mesa.</span></h1></div>
+      <div class="ar-ph__n"><b>4</b><span>husos horarios</span></div>
+    </div>
+  </section>
+
+  <section class="ar-sec" style="padding-top:clamp(28px,4vw,48px)">
+    <div class="ar-wrap">
+      <div class="ar-day" data-day>
+        <div class="ar-day__axis"><span></span><div><i style="left:0">00</i><i style="left:25%">06</i><i style="left:50%">12</i><i style="left:75%">18</i><i style="left:100%">24</i></div><output data-utc>UTC --:--</output></div>
+        <ul>
+          <li data-tz="America/Guayaquil"><div class="ar-day__city"><b>Quito</b><span>Sede</span></div><div class="ar-day__track"></div><div class="ar-day__clock"><time data-clock>--:--</time><em data-status></em></div></li>
+          <li data-tz="America/Chicago"><div class="ar-day__city"><b>Houston</b><span>Energía</span></div><div class="ar-day__track"></div><div class="ar-day__clock"><time data-clock>--:--</time><em data-status></em></div></li>
+          <li data-tz="Europe/Amsterdam"><div class="ar-day__city"><b>Róterdam</b><span>Marítimo</span></div><div class="ar-day__track"></div><div class="ar-day__clock"><time data-clock>--:--</time><em data-status></em></div></li>
+          <li data-tz="Asia/Singapore"><div class="ar-day__city"><b>Singapur</b><span>Asia-Pacífico</span></div><div class="ar-day__track"></div><div class="ar-day__clock"><time data-clock>--:--</time><em data-status></em></div></li>
+        </ul>
+        <p class="ar-day__legend"><span><i></i>Horario de oficina · 08–18 local</span><span><i></i>Ahora</span></p>
+      </div>
+      <div class="ar-offices">
+        <div><b>Quito</b><span>Sede<br />0°13′ S · 78°30′ O</span></div>
+        <div><b>Houston</b><span>Energía<br />29°45′ N · 95°22′ O</span></div>
+        <div><b>Róterdam</b><span>Marítimo<br />51°55′ N · 4°28′ E</span></div>
+        <div><b>Singapur</b><span>Asia-Pacífico<br />1°17′ N · 103°51′ E</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ar-cta" id="contacto">
+    <div class="ar-wrap ar-cta__in">
+      <div data-in><p class="ar-kicker">Por presentación</p><h2 class="ar-h2">Las mejores sociedades <span>empiezan por una conversación.</span></h2></div>
+      <a class="ar-btn" href="contacto.html">Solicitar una conversación →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="ar-ft">
+  <div class="ar-wrap">
+    <div class="ar-ft__in">
+      <a class="ar-brand" href="demo-corporativa.html"><b>ATLAS</b><small>Capital permanente · 1993</small></a>
+      <nav aria-label="Pie de página"><a href="atlas-cartera.html">Cartera</a><a href="atlas-registro.html">Registro</a><a href="atlas-presencia.html">Presencia</a><a href="contacto.html">Contacto</a><a href="portafolio.html">Más demos</a></nav>
+    </div>
+    <p class="ar-ft__legal">© <span data-year>2026</span> ATLAS · Demo conceptual por <b>Pittahaya</b>. ATLAS es una marca ficticia; nada en este sitio constituye una oferta de valores ni una recomendación financiera.</p>
+  </div>
+</footer>
+
+<div class="demo-corner-logo" aria-hidden="true"><img src="assets/pitahaya-logo.png" alt="" width="64" height="64" /></div>
+
+<script src="assets/atlas-data.js?v=11" defer></script>
+<script src="assets/atlas-r.js?v=1" defer></script>
+<script src="assets/chatbot.js?v=v20" defer></script>
+<script src="assets/analytics.js?v=1" defer></script>
 </body>
 </html>

@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="../assets/orbital.css?v=4" />
 <link rel="stylesheet" href="../assets/orbital-immersive.css?v=2" />
 <link rel="stylesheet" href="../assets/orbital-plus.css?v=3" />
+<link rel="stylesheet" href="../assets/orbital-orx.css?v=2" />
 </head>
 <body>
 <div class="tick" data-tick aria-hidden="true"></div>
@@ -75,7 +76,8 @@
   <div class="hero-in">
     <p class="eyebrow">ECU-1 constellation · operational</p>
     <h1 class="d1">The data center that <em class="hl">never touches the ground.</em></h1>
-    <p data-corto="AI no longer fits on Earth. Compute in low orbit: endless sun, vacuum cooling, zero water." class="lede">Artificial intelligence no longer fits on Earth. ORBITAL builds and operates computing infrastructure in low Earth orbit: permanent sunlight, radiative cooling into the vacuum at 3 K, zero hectares, zero water.</p>
+    <div class="orx-cta"><a class="btn btn--fill" href="#capacidad">Reserve capacity</a><a class="btn" href="orbital-constelacion.html">Watch live</a></div>
+    <div class="orx-tlm"><span><i class="orx-dot" aria-hidden="true"></i><b data-orx-utc>--:--:--</b> UTC</span><span>Orbit <b data-orx-orbit>4 812</b></span><span>Pass over Quito <b data-orx-pass>T−--:--</b></span></div>
   </div>
   <div class="hero-hud" aria-label="Constellation status">
     <div><b><span data-count="24">24</span></b><small>Nodes in orbit</small></div>
@@ -90,26 +92,25 @@
   <div class="sec-head">
     <p class="eyebrow" data-reveal>The thesis</p>
     <h2 class="d2" data-reveal>Earth has run out of<br>energy, water, and land.</h2>
-    <p data-corto="A gigawatt draws a city&#x27;s power and evaporates millions of liters. In orbit, none of that happens." class="lede" data-reveal>A gigawatt data center consumes as much electricity as a midsize city and evaporates millions of liters of water each year for cooling. In low Earth orbit, all three problems disappear at once.</p>
   </div>
   <div class="wrap">
     <div class="thesis">
       <article data-reveal>
         <span class="n">Energy</span>
         <h3>Sun without night</h3>
-        <p data-corto="Constant irradiance, no atmosphere. No night, no clouds, no seasons.">In a Sun-synchronous orbit, the panels receive constant irradiance with no atmosphere to filter it. No day-night cycle, no clouds, no seasonality.</p>
+        <div class="orx-ins orx-sun" aria-hidden="true"><div class="orx-sun__sys"><i class="orx-sun__earth"></i><i class="orx-sun__ring"><b></b></i></div><span>SSO plane<br>0 min of night</span></div>
         <div class="fig"><b>1,361</b><span>W/m² · solar constant</span></div>
       </article>
       <article data-reveal>
         <span class="n">Cooling</span>
         <h3>The vacuum is the heat sink</h3>
-        <p data-corto="Space is at 2.7 K. Radiators emit the heat into the vacuum. Zero water.">Deep space is at 2.7 K. Deployable radiators emit waste heat directly as infrared radiation. No cooling towers, no chillers, not a single drop of water.</p>
+        <div class="orx-ins orx-therm" aria-hidden="true"><div class="orx-therm__bar"><i></i></div><div class="orx-therm__lab"><span>39 °C · core</span><span>2.7 K · vacuum</span></div></div>
         <div class="fig"><b>0</b><span>liters of water per year</span></div>
       </article>
       <article data-reveal>
         <span class="n">Latency</span>
         <h3>Light travels faster in a vacuum</h3>
-        <p data-corto="In fiber light moves at 67% of c. In vacuum, 100%.">In silica fiber, light travels at 67% of <em class="ice">c</em>. In a vacuum, it travels at 100%. Across continental distances, intersatellite optical links beat terrestrial fiber.</p>
+        <div class="orx-ins orx-race" aria-hidden="true"><div class="orx-lane is-vac"><span>Vacuum · c</span><em><i></i></em></div><div class="orx-lane"><span>Fiber · 0.67 c</span><em><i></i></em></div></div>
         <div class="fig"><b>+47</b><span>% faster than fiber</span></div>
       </article>
     </div>
@@ -118,7 +119,7 @@
 
 <figure class="plate" data-plate>
   <img src="../assets/orbital/earth.jpg" alt="South America at night from low Earth orbit, with city lights forming constellations below." />
-  <figcaption><b>Orbit 4,812 · 21:14 UTC</b>Pass over South America. Each node crosses the equator fifteen times a day.</figcaption>
+  <figcaption><b>Orbit 4,812 · 21:14 UTC</b>Pass over South America · 15 equator crossings a day.</figcaption>
 </figure>
 
 <section class="sec">
@@ -130,7 +131,6 @@
       <div class="split-body">
         <p class="eyebrow" data-reveal>The unit</p>
         <h2 class="d3" data-reveal>One node. 1.2 petaflops.<br>Fourteen years without maintenance.</h2>
-        <p data-corto="One closed module: compute, power, thermal, link. Deploys in 90 s and is never touched again." class="lede" data-reveal>Each node is a closed system: compute, power, thermal control, and optical link in a single radiation-tolerant module. It launches folded, deploys in 90 seconds, and is never touched again.</p>
         <dl class="specs" data-reveal>
           <div><dt>Compute</dt><dd>1.2 PFLOP · FP8</dd></div>
           <div><dt>Power</dt><dd>19.2 kW peak</dd></div>
@@ -142,24 +142,10 @@
   </div>
 </section>
 
-<section class="sec sec--line">
-  <div class="sec-head">
-    <p class="eyebrow" data-reveal>Scale</p>
-    <h2 class="d2" data-reveal>What is already overhead.</h2>
-  </div>
-  <div class="figs" style="margin-top:56px">
-    <div data-reveal><b><span data-count="24">24</span></b><small>Operational nodes</small><p data-corto="Three orbital planes.">Three orbital planes: equatorial, polar, and Sun-synchronous.</p></div>
-    <div data-reveal><b><span data-count="28.8" data-dec="1">28.8</span><span class="u">PF</span></b><small>Compute deployed</small><p data-corto="Like 34 MW on the ground.">Equivalent to a 34 MW terrestrial data center.</p></div>
-    <div data-reveal><b><span data-count="4">4</span></b><small>Ground stations</small><p data-corto="Continuous coverage.">Quito, Singapore, Nairobi, and Svalbard. Continuous coverage.</p></div>
-    <div data-reveal><b><span data-count="99.98" data-dec="2">99.98</span><span class="u">%</span></b><small>Availability · 12 months</small><p data-corto="Not a single interruption.">Not a single interruption attributable to the space segment.</p></div>
-  </div>
-</section>
-
 <section class="sec sec--line" id="capacidad" aria-labelledby="cap-title">
   <div class="sec-head">
     <p class="eyebrow" data-reveal>Capacity</p>
     <h2 class="d2" id="cap-title" data-reveal>Reserve compute<br>in orbit.</h2>
-    <p class="lede" data-reveal>Choose how much capacity you need, where you consume it from, and for how long. The estimate uses the same parameters as our commercial team.</p>
   </div>
   <div class="wrap">
     <div class="cap" data-cap-calc data-reveal>
@@ -187,29 +173,14 @@
   </div>
 </section>
 
-<section class="sec sec--line" style="padding-bottom:0">
-  <div class="sec-head"><p class="eyebrow" data-reveal>Continue</p></div>
-  <div class="next" style="margin-top:34px">
-    <a href="orbital-constelacion.html" data-reveal>
-      <h3>The constellation</h3>
-      <p data-corto="All 24 nodes, live.">Live tracking of all 24 nodes, the ground segment, and comparative latency by city.</p>
-      <span class="go">Open →</span>
-    </a>
-    <a href="orbital-nodo.html" data-reveal>
-      <h3>The node</h3>
-      <p data-corto="Inside the module.">Architecture, materials, and assembly of the orbital computing module.</p>
-      <span class="go">Open →</span>
-    </a>
-    <a href="orbital-mision.html" data-reveal>
-      <h3>Mission control</h3>
-      <p data-corto="Live console.">Live operations console and launch manifest.</p>
-      <span class="go">Open →</span>
-    </a>
-    <a href="orbital-compania.html" data-reveal>
-      <h3>The company</h3>
-      <p data-corto="Timeline and thesis.">Timeline, institutional backing, and where we are headed.</p>
-      <span class="go">Open →</span>
-    </a>
+<section class="sec sec--line orx-dirsec">
+  <div class="wrap">
+    <nav class="orx-dir" aria-label="Explore ORBITAL">
+      <a href="orbital-constelacion.html"><code>/01</code><b>The constellation</b><span>All 24 nodes, live</span><i aria-hidden="true">→</i></a>
+      <a href="orbital-nodo.html"><code>/02</code><b>The node</b><span>Inside the module</span><i aria-hidden="true">→</i></a>
+      <a href="orbital-mision.html"><code>/03</code><b>Mission control</b><span>Live console</span><i aria-hidden="true">→</i></a>
+      <a href="orbital-compania.html"><code>/04</code><b>The company</b><span>Timeline and thesis</span><i aria-hidden="true">→</i></a>
+    </nav>
   </div>
 </section>
 </main>
@@ -230,5 +201,6 @@
 <script src="../assets/orbital-immersive.js?v=1" defer></script>
 <script src="../assets/orbital-tracker.js?v=4" defer></script>
 <script src="../assets/orbital-capacidad.js?v=1" defer></script>
+<script src="../assets/orbital-orx.js?v=2" defer></script>
 </body>
 </html>

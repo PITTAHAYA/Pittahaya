@@ -1,0 +1,104 @@
+/* ═══════════════════════════════════════════════════════════
+   ORBITAL · instrumentos
+   Telemetría viva bajo el titular, un instrumento por tesis
+   (órbita sin noche, gradiente térmico, carrera de la luz) y
+   un directorio de consola en lugar de tarjetas.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── héroe: acciones + cinta de telemetría ────────────────── */
+.orx-cta{ display:flex;flex-wrap:wrap;gap:12px;margin-top:34px; }
+.orx-tlm{
+  display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:30px;
+  font:400 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);
+}
+.orx-tlm span{ display:inline-flex;align-items:center;gap:8px; }
+.orx-tlm b{ font-weight:400;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:.08em; }
+.orx-tlm span:last-child b{ color:var(--solar); }
+.orx-dot{ width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 9px var(--ok);animation:blip 1.9s var(--ease) infinite; }
+
+/* ── instrumentos de la tesis ─────────────────────────────── */
+.orx-ins{ height:92px;margin:6px 0 4px;position:relative; }
+
+/* energía: el nodo en plano sincrónico nunca entra en la sombra */
+.orx-sun{ display:flex;align-items:center;gap:22px; }
+.orx-sun__sys{ position:relative;flex:none;width:84px;height:84px; }
+.orx-sun__sys::before{ /* luz solar desde la izquierda */
+  content:"";position:absolute;inset:-18px auto -18px -40px;width:70px;
+  background:radial-gradient(closest-side,rgba(255,157,77,.35),transparent);
+}
+.orx-sun__earth{
+  position:absolute;inset:24px;border-radius:50%;
+  background:radial-gradient(circle at 30% 50%,#1d3350,#070b12 70%);
+  box-shadow:inset -10px 0 14px rgba(0,0,0,.9),0 0 0 1px rgba(111,214,232,.25);
+}
+.orx-sun__ring{ position:absolute;inset:4px;border-radius:50%;border:1px dashed rgba(111,214,232,.3);animation:orbit 6s linear infinite; }
+.orx-sun__ring b{
+  position:absolute;top:-4px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;
+  background:var(--solar);box-shadow:0 0 12px var(--solar);
+}
+.orx-sun > span,.orx-therm__lab,.orx-lane span{ font:400 9.5px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint); }
+
+/* refrigeración: el calor sale del núcleo y se pierde en el vacío */
+.orx-therm{ display:flex;flex-direction:column;justify-content:center;gap:12px; }
+.orx-therm__bar{
+  position:relative;height:10px;border-radius:5px;overflow:hidden;
+  background:linear-gradient(90deg,var(--solar),#b35b8c 38%,var(--plasma) 62%,var(--ice) 88%,#02040a);
+}
+.orx-therm__bar i{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0 14px,rgba(4,6,10,.55) 14px 18px);
+  animation:orx-flow 1.6s linear infinite;
+}
+@keyframes orx-flow{ to{ transform:translateX(18px); } }
+.orx-therm__lab{ display:flex;justify-content:space-between;gap:10px; }
+.orx-therm__lab span:first-child{ color:var(--solar); }
+.orx-therm__lab span:last-child{ color:var(--ice); }
+
+/* latencia: dos pulsos salen juntos; el del vacío llega primero */
+.orx-race{ display:flex;flex-direction:column;justify-content:center;gap:14px; }
+.orx-lane{ display:grid;grid-template-columns:104px 1fr;align-items:center;gap:12px; }
+.orx-lane em{ position:relative;height:1px;background:rgba(180,205,240,.18); }
+.orx-lane em::after{ content:"";position:absolute;right:0;top:-3px;width:1px;height:7px;background:var(--line-2); }
+.orx-lane i{
+  position:absolute;top:-2px;left:0;width:26px;height:5px;border-radius:3px;
+  background:linear-gradient(90deg,transparent,rgba(180,205,240,.7));
+  animation:orx-run 2.4s linear infinite;
+}
+.orx-lane.is-vac span{ color:var(--ice); }
+.orx-lane.is-vac i{ background:linear-gradient(90deg,transparent,var(--ice));box-shadow:0 0 10px var(--ice);animation-name:orx-run-vac; }
+/* mismo ciclo de 2,4 s: el vacío cruza en 1,0 s, la fibra en 1,5 s (0,67 c) */
+@keyframes orx-run-vac{ 0%{ left:0;opacity:1 } 41.6%{ left:calc(100% - 26px);opacity:1 } 42%,100%{ left:calc(100% - 26px);opacity:0 } }
+@keyframes orx-run    { 0%{ left:0;opacity:1 } 62.4%{ left:calc(100% - 26px);opacity:1 } 63%,100%{ left:calc(100% - 26px);opacity:0 } }
+
+/* ── directorio de consola ────────────────────────────────── */
+.orx-dirsec{ padding:clamp(56px,7vw,96px) 0; }
+.orx-dir{ border-top:1px solid var(--line); }
+.orx-dir a{
+  display:grid;grid-template-columns:64px 1fr auto 32px;align-items:center;gap:20px;
+  padding:clamp(20px,2.4vw,30px) 0;border-bottom:1px solid var(--line);
+  transition:padding-left .45s var(--ease),background .45s var(--ease);
+}
+.orx-dir code{ font:400 11px/1 var(--mono);letter-spacing:.14em;color:var(--ice); }
+.orx-dir b{ font-size:clamp(22px,3vw,40px);font-weight:400;letter-spacing:-.03em;line-height:1.05; }
+.orx-dir span{ font:400 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--faint); }
+.orx-dir i{ font-style:normal;font-family:var(--mono);color:var(--faint);transition:transform .45s var(--ease),color .3s; }
+.orx-dir a:hover{ padding-left:14px;background:linear-gradient(90deg,rgba(111,214,232,.06),transparent 60%); }
+.orx-dir a:hover b{ color:var(--ice); }
+.orx-dir a:hover i{ color:var(--ice);transform:translateX(6px); }
+
+/* ── teléfono ─────────────────────────────────────────────── */
+@media (max-width:760px){
+  .orx-cta{ margin-top:24px; }
+  .orx-cta{ gap:10px; }
+  .orx-cta .btn{ flex:1 1 0;justify-content:center;padding-inline:10px;white-space:nowrap;font-size:10px;letter-spacing:.12em; }
+  .orx-tlm{ gap:8px 18px;margin-top:20px;font-size:9.5px; }
+  .hero-hud{ margin-top:26px; }
+  .scroll-cue{ display:none; }
+  .orx-ins{ height:78px; }
+  .orx-dir a{ grid-template-columns:40px 1fr 20px;gap:12px; }
+  .orx-dir span{ display:none; }
+  .orx-dir b{ font-size:21px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .orx-sun__ring,.orx-therm__bar i,.orx-lane i,.orx-dot{ animation:none; }
+}
