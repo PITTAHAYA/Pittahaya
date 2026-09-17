@@ -732,6 +732,31 @@
     meter.append(meterText, meterTrack);
     leadForm.prepend(meter);
 
+    // Arriving from a plan button (?plan=negocio): preselect the service and
+    // start the message with the chosen plan so the visitor doesn't repeat it.
+    // Values are the <option> positions, identical in ES and EN.
+    const PLAN_PREFILL = {
+      basico:      [1, "el Plan Básico", "the Starter plan"],
+      negocio:     [1, "el Plan Negocio", "the Business plan"],
+      premium:     [1, "el Plan Premium", "the Premium plan"],
+      chatbot:     [2, "el Chatbot Inteligente", "the Smart Chatbot"],
+      asistente:   [2, "el Asistente de Ventas", "the Sales Assistant"],
+      sistema:     [2, "el Sistema Completo de IA", "the Complete AI System"],
+      "web-ia":    [3, "combinar web + IA", "combining web + AI"],
+      fundador:    [1, "el programa de clientes fundadores", "the founding client program"],
+      orientacion: [6, "", ""]
+    };
+    const chosenPlan = PLAN_PREFILL[new URLSearchParams(window.location.search).get("plan") || ""];
+    if (chosenPlan) {
+      const planSelect = $("select[name='plan']", leadForm);
+      const planMessage = $("textarea[name='mensaje'], textarea[name='message']", leadForm);
+      if (planSelect && planSelect.options[chosenPlan[0]]) planSelect.selectedIndex = chosenPlan[0];
+      const label = inEn ? chosenPlan[2] : chosenPlan[1];
+      if (planMessage && label && !planMessage.value.trim()) {
+        planMessage.value = inEn ? `I'm interested in ${label}. ` : `Me interesa ${label}. `;
+      }
+    }
+
     const updateFormMeter = () => {
       const completed = fields.filter(field => field.type === "checkbox" ? field.checked : String(field.value || "").trim()).length;
       const percent = fields.length ? Math.round((completed / fields.length) * 100) : 0;

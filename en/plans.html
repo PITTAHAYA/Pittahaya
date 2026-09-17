@@ -33,10 +33,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/styles.css?v=m37" />
-  <link rel="stylesheet" href="../assets/casa.css?v=13" />
-  <link rel="stylesheet" href="../assets/carrete.css?v=1" />
-  <link rel="stylesheet" href="../assets/vivo.css?v=1" />
-  <link rel="stylesheet" href="../assets/puertas.css?v=1" />
+  <link rel="stylesheet" href="../assets/casa.css?v=14" />
+  <link rel="stylesheet" href="../assets/vivo.css?v=2" />
+  <link rel="stylesheet" href="../assets/planes.css?v=1" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
@@ -94,216 +93,333 @@
     </div>
   </div>
 </div>
-<main>
+<main class="pl-page">
 <section class="phead">
   <div class="phead-bg" aria-hidden="true"><img src="../assets/casa/planes.jpg" alt="" /></div>
   <div class="phead-in">
     <p class="phead-rotulo">Plans</p>
     <h1 class="phead-t">
-      <span class="phead-mask"><span>What we do</span></span>
-      <span class="phead-mask d1"><span><em>for your business.</em></span></span>
+      <span class="phead-mask"><span>Three levels.</span></span>
+      <span class="phead-mask d1"><span><em>One standard.</em></span></span>
     </h1>
+    <p class="phead-sub" data-corto="Everything custom. You choose how far to go; we define the investment together.">Everything is designed from scratch. You choose how far you want to go; we define the investment together in a free strategy call.</p>
   </div>
 </section>
-  <section class="section">
-    <div class="container">
-      <span class="badge reveal"><span class="dot"></span> Premium plans</span>
-      
-      <p class="section-lead reveal">Pick a web design plan for your digital presence, add AI automation so your business serves and sells on its own, or combine them into one complete system. No fine print: you see exactly what each plan includes before you decide.</p>
 
-      <div class="plans-divider reveal" style="margin-top:30px">
-        <span class="lbl">① Premium web design</span>
-        <span class="line"></span>
+<section class="pl" aria-label="Plans">
+  <div class="pl-wrap">
+    <div class="pl-bar">
+      <div class="pl-switch" role="tablist" aria-label="Plan type">
+        <span class="pl-switch__pill" aria-hidden="true"></span>
+        <button type="button" role="tab" id="tab-web" aria-controls="panel-web" aria-selected="true" data-hash="web">Web design</button>
+        <button type="button" role="tab" id="tab-ia" aria-controls="panel-ia" aria-selected="false" data-hash="ai">AI automation</button>
       </div>
-
-      <div class="pricing">
-        <div id="plan-basico" class="card price hover-lift reveal">
-          <div class="card-inner">
-            <div class="tag"><strong>Basic Plan</strong> • Elegant presence</div>
-            <h3>Start with authority</h3>
-            <p class="plan-note">A professional foundation so your business stops relying only on social media.</p>
-            <div class="plan-meta" aria-label="Plan summary">
-              <span><b>1</b>custom page</span>
-              <span><b>1</b>revision round</span>
-              <span><b>~1</b>week</span>
-              <span><b>15</b>days of support</span>
-            </div>
-            <ul class="plan-features">
-              <li>One-page landing designed from scratch — no templates</li>
-              <li>100% responsive on phone, tablet, and desktop</li>
-              <li>Contact form + direct WhatsApp button</li>
-              <li>SEO foundation so you start showing up on Google</li>
-              <li>SSL certificate and security included</li>
-              <li>Domain connection and final launch</li>
-            </ul>
-            <div class="cta"><a class="btn btn-gold" href="contact.html">I want this plan</a></div>
-          </div>
-        </div>
-
-        <div id="plan-negocio" class="card price featured hover-lift reveal" style="transition-delay:.06s">
-          <div class="card-inner">
-            <div class="tag"><strong>Business Plan</strong> • Recommended</div>
-            <h3>Convert more clients</h3>
-            <p class="plan-note">The ideal option to showcase services, proof, process, and a clear path to a quote.</p>
-            <div class="plan-meta" aria-label="Plan summary">
-              <span><b>5</b>pages</span>
-              <span><b>2</b>revision rounds</span>
-              <span><b>~2</b>weeks</span>
-              <span><b>30</b>days of support</span>
-            </div>
-            <ul class="plan-features">
-              <li class="carry">Everything in the Basic Plan, plus:</li>
-              <li>Up to 5 pages: Home, Services, About, Portfolio, and Contact</li>
-              <li>Conversion-focused copy — we help you write it</li>
-              <li>Extended SEO + Google Analytics set up</li>
-              <li>Integration with your social media</li>
-              <li>Gallery or portfolio to showcase your work</li>
-              <li>Load-speed optimization</li>
-            </ul>
-            <div class="cta"><a class="btn btn-gold" href="contact.html">I want this plan</a></div>
-          </div>
-        </div>
-
-        <div id="plan-premium" class="card price hover-lift reveal" style="transition-delay:.12s">
-          <div class="card-inner">
-            <div class="tag"><strong>Premium Plan</strong> • Full experience</div>
-            <h3>For a high-end brand</h3>
-            <p class="plan-note">More art direction, more detail, and an experience designed to feel memorable.</p>
-            <div class="plan-meta" aria-label="Plan summary">
-              <span><b>∞</b>pages</span>
-              <span><b>3</b>revision rounds</span>
-              <span><b>~3–4</b>weeks</span>
-              <span><b>60</b>days of support</span>
-            </div>
-            <ul class="plan-features">
-              <li class="carry">Everything in the Business Plan, plus:</li>
-              <li>Unlimited pages and sections</li>
-              <li>Custom art direction and animations</li>
-              <li>Visual identity: palette, typography, and signature style</li>
-              <li>Premium interactive experience (like this very site)</li>
-              <li style="color:rgba(196,239,150,.95)"><b>AI chatbot included</b> — serves your customers 24/7</li>
-              <li>Priority support for 60 days</li>
-            </ul>
-            <div class="cta"><a class="btn btn-gold" href="contact.html">I want this plan</a></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ════════════ AI AUTOMATION PLANS ════════════ -->
-      <div class="plans-divider reveal" style="margin-top:54px">
-        <span class="lbl" style="color:rgba(196,239,150,.95)">② AI automation</span>
-        <span class="line"></span>
-      </div>
-      <p class="section-lead reveal" style="margin:0 0 24px; max-width:64ch;">They answer, book and sell for you. On their own or added to any plan. <a href="automation.html" style="color:rgba(196,239,150,.95); text-decoration:underline;">How it works →</a></p>
-
-      <div class="pricing">
-        <div id="plan-chatbot" class="card price price-ai hover-lift reveal">
-          <div class="card-inner">
-            <div class="tag"><strong>Smart Chatbot</strong> • 24/7 support</div>
-            <h3>Your first line of support, automated</h3>
-            <p class="plan-note">An AI chatbot that never sleeps: it answers, informs, and captures customers while you do something else.</p>
-            <div class="plan-meta" aria-label="Plan summary">
-              <span><b>1</b>AI chatbot</span>
-              <span><b>24/7</b>support</span>
-              <span><b>~1</b>week</span>
-              <span><b>30</b>days of support</span>
-            </div>
-            <ul class="plan-features">
-              <li>AI chatbot trained on your business information</li>
-              <li>Answers common questions instantly, 24/7</li>
-              <li>Captures interested customers' details</li>
-              <li>Embedded on your website or WhatsApp</li>
-              <li>Hands off to a human when needed</li>
-            </ul>
-            <div class="cta"><a class="btn btn-gold" href="contact.html">Request a quote</a></div>
-          </div>
-        </div>
-
-        <div id="plan-asistente" class="card price price-ai featured hover-lift reveal" style="transition-delay:.06s">
-          <div class="card-inner">
-            <div class="tag"><strong>Sales Assistant</strong> • Recommended</div>
-            <h3>An assistant that sells and books for you</h3>
-            <p class="plan-note">It doesn't just reply: it qualifies leads, books appointments, and follows up until the sale closes.</p>
-            <div class="plan-meta" aria-label="Plan summary">
-              <span><b>+</b>Chatbot + Agent</span>
-              <span><b>Auto</b>booking &amp; follow-up</span>
-              <span><b>~2</b>weeks</span>
-              <span><b>45</b>days of support</span>
-            </div>
-            <ul class="plan-features">
-              <li class="carry">Everything in the Smart Chatbot, plus:</li>
-              <li>Books appointments and reservations automatically</li>
-              <li>Qualifies and prioritizes leads by interest</li>
-              <li>Automatic follow-up by email or WhatsApp</li>
-              <li>Recovers customers who didn't reply</li>
-              <li>Reports on conversations and conversions</li>
-            </ul>
-            <div class="cta"><a class="btn btn-gold" href="contact.html">Request a quote</a></div>
-          </div>
-        </div>
-
-        <div id="plan-sistema" class="card price price-ai hover-lift reveal" style="transition-delay:.12s">
-          <div class="card-inner">
-            <div class="tag"><strong>Full System</strong> • Total automation</div>
-            <h3>Your operation, running on its own</h3>
-            <p class="plan-note">For businesses that want to truly automate: multiple agents, internal processes, and custom integrations.</p>
-            <div class="plan-meta" aria-label="Plan summary">
-              <span><b>∞</b>AI agents</span>
-              <span><b>+</b>processes &amp; integrations</span>
-              <span><b>Custom</b>to your case</span>
-              <span><b>60</b>days of support</span>
-            </div>
-            <ul class="plan-features">
-              <li class="carry">Everything in the Sales Assistant, plus:</li>
-              <li>Multiple agents for different areas of your business</li>
-              <li>Internal process automation: invoices, reports</li>
-              <li>Integration with your tools: CRM, payments, calendar</li>
-              <li>Automatic generation of reports and content</li>
-              <li>Priority support and continuous optimization</li>
-            </ul>
-            <div class="cta"><a class="btn btn-gold" href="contact.html">Request a quote</a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hr reveal"></div>
-
-      <!-- FOUNDING CLIENT OFFER (relocated from homepage) -->
-      <div class="founding-card reveal" id="founding">
-        <div class="founding-glow" aria-hidden="true"></div>
-        <span class="founding-badge"><span class="founding-dot"></span> Limited spots</span>
-        <h2 class="founding-title">Our <em>founding client</em> program</h2>
-        <p data-corto="We open a select number of projects at launch pricing. In return, an honest testimonial and your project as a case study." class="founding-lead">We're opening a select number of projects at a special launch rate. In exchange, you help us with an honest testimonial and let us feature your project as a case study. You get premium work with full attention; we get a new success story to share.</p>
-        <ul class="founding-perks">
-          <li><b>Founder pricing</b> — special rate for joining the program</li>
-          <li><b>Priority attention</b> — limited spots, full focus on yours</li>
-          <li><b>Work directly</b> with the designer, start to finish</li>
-          <li><b>No risk</b> — revisions until you're genuinely happy</li>
-        </ul>
-        <div class="founding-cta">
-          <a class="btn btn-gold" href="contact.html">I want to be a founding client →</a>
-          <span class="founding-note">No commitment · tell us about your project first</span>
-        </div>
-      </div>
-
-      <div class="hr reveal"></div>
-
-      <div class="process-head reveal">
-        <h2 class="section-title" style="font-size: clamp(20px, 2.2vw, 27px); margin:0;">How we move forward</h2>
-        <span class="process-sub">From idea to a website ready to sell — in 4 steps.</span>
-      </div>
-      <ol class="process-strip reveal" aria-label="Our process">
-        <li><b>Diagnosis</b><small>Goal, audience and offer.</small></li>
-        <li><b>Design</b><small>A proposal tailored to your brand.</small></li>
-        <li><b>Review</b><small>We refine until it convinces.</small></li>
-        <li><b>Launch</b><small>Ready to share and sell.</small></li>
-      </ol>
-
-      <div style="margin-top:18px" class="reveal">
-        <a class="btn btn-gold" href="contact.html">Book a free strategy call</a>
-      </div>
+      <p class="pl-bar__note"><i aria-hidden="true"></i>Custom investment · free strategy call</p>
     </div>
-  </section>
+
+    <!-- ═══ Web design ═══ -->
+    <div class="pl-panel" id="panel-web" role="tabpanel" aria-labelledby="tab-web">
+      <p class="pl-lead" data-corto="Your website, designed so people find you, trust you and choose you.">Your digital presence, designed so people find you, trust you and choose you. No templates: you see exactly what each plan includes before you decide.</p>
+      <div class="pl-rail" data-rail>
+        <article class="pl-card" id="plan-basico">
+          <p class="pl-card__kicker">Elegant presence</p>
+          <h2 class="pl-card__name">Starter</h2>
+          <p class="pl-card__promise">So people find you — and trust you.</p>
+          <p class="pl-card__fit">A professional foundation so you stop relying only on social media.</p>
+          <dl class="pl-spec">
+            <div><dt>Pages</dt><dd>1</dd></div>
+            <div><dt>Revisions</dt><dd>1</dd></div>
+            <div><dt>Delivery</dt><dd>~1 week</dd></div>
+            <div><dt>Support</dt><dd>15 days</dd></div>
+          </dl>
+          <ul class="pl-list">
+            <li>One-page landing designed from scratch — no templates</li>
+            <li>100% responsive on phone, tablet and desktop</li>
+            <li>Contact form + direct WhatsApp button</li>
+            <li>SEO foundation so you start showing up on Google</li>
+            <li>SSL certificate and security included</li>
+            <li>Domain connection and final launch</li>
+          </ul>
+          <a class="pl-btn" href="contact.html?plan=basico">Start with Starter <i aria-hidden="true">→</i></a>
+        </article>
+
+        <article class="pl-card pl-card--star" id="plan-negocio">
+          <p class="pl-card__flag">Most popular</p>
+          <p class="pl-card__kicker">Convert more clients</p>
+          <h2 class="pl-card__name">Business</h2>
+          <p class="pl-card__promise">So it explains, convinces and brings in clients.</p>
+          <p class="pl-card__fit">To showcase services, proof, process and a clear path to a quote.</p>
+          <dl class="pl-spec">
+            <div><dt>Pages</dt><dd>Up to 5</dd></div>
+            <div><dt>Revisions</dt><dd>2</dd></div>
+            <div><dt>Delivery</dt><dd>~2 weeks</dd></div>
+            <div><dt>Support</dt><dd>30 days</dd></div>
+          </dl>
+          <ul class="pl-list">
+            <li class="pl-carry">Everything in Starter, plus:</li>
+            <li>Home, Services, About, Portfolio and Contact</li>
+            <li>Conversion-focused copy — we help you write it</li>
+            <li>Extended SEO + Google Analytics set up</li>
+            <li>Integration with your social media</li>
+            <li>Gallery or portfolio to showcase your work</li>
+            <li>Load-speed optimization</li>
+          </ul>
+          <a class="pl-btn pl-btn--solid" href="contact.html?plan=negocio">Start with Business <i aria-hidden="true">→</i></a>
+        </article>
+
+        <article class="pl-card" id="plan-premium">
+          <p class="pl-card__kicker">Full experience</p>
+          <h2 class="pl-card__name">Premium</h2>
+          <p class="pl-card__promise">And it answers and sells, even without you.</p>
+          <p class="pl-card__fit">More art direction and more detail, for a high-end brand.</p>
+          <dl class="pl-spec">
+            <div><dt>Pages</dt><dd>Unlimited</dd></div>
+            <div><dt>Revisions</dt><dd>3</dd></div>
+            <div><dt>Delivery</dt><dd>~3–4 weeks</dd></div>
+            <div><dt>Support</dt><dd>60 days</dd></div>
+          </dl>
+          <ul class="pl-list">
+            <li class="pl-carry">Everything in Business, plus:</li>
+            <li>Custom art direction and animations</li>
+            <li>Visual identity: palette, typography and signature style</li>
+            <li>Premium interactive experience, like this very site</li>
+            <li class="pl-hl"><b>AI chatbot included</b> — serves your customers 24/7</li>
+            <li>Priority support</li>
+          </ul>
+          <a class="pl-btn" href="contact.html?plan=premium">Start with Premium <i aria-hidden="true">→</i></a>
+        </article>
+      </div>
+      <div class="pl-dots" role="group" aria-label="Go to a plan">
+        <button type="button">Starter</button><button type="button">Business</button><button type="button">Premium</button>
+      </div>
+
+      <details class="pl-cmp">
+        <summary>Compare the plans in detail <span class="pl-plus" aria-hidden="true"></span></summary>
+        <div class="pl-cmp__scroll">
+          <table>
+            <thead><tr><th scope="col"><span class="pl-sr">What's included</span></th><th scope="col">Starter</th><th scope="col" class="is-star">Business</th><th scope="col">Premium</th></tr></thead>
+            <tbody>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Scope</th></tr>
+              <tr><th scope="row">Pages</th><td>1</td><td class="is-star">Up to 5</td><td>Unlimited</td></tr>
+              <tr><th scope="row">Revision rounds</th><td>1</td><td class="is-star">2</td><td>3</td></tr>
+              <tr><th scope="row">Delivery</th><td>~1 wk</td><td class="is-star">~2 wks</td><td>~3–4 wks</td></tr>
+              <tr><th scope="row">Support</th><td>15 days</td><td class="is-star">30 days</td><td>60 days</td></tr>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Foundation</th></tr>
+              <tr><th scope="row">Custom design, no templates</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Responsive on every device</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Contact form + WhatsApp</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">SSL, domain and launch</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">SEO</th><td>Foundation</td><td class="is-star">Extended</td><td>Extended</td></tr>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Growth</th></tr>
+              <tr><th scope="row">Conversion-focused copy</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Google Analytics</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Social media and portfolio</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Load-speed optimization</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">High end</th></tr>
+              <tr><th scope="row">Art direction and animations</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Signature visual identity</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">24/7 AI chatbot</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Priority support</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+
+    <!-- ═══ AI automation ═══ -->
+    <div class="pl-panel" id="panel-ia" role="tabpanel" aria-labelledby="tab-ia">
+      <p class="pl-lead" data-corto="They answer, book and sell for you. On their own or added to any web plan.">They answer, book and sell for you. On their own or added to any web plan. <a href="automation.html">How it works</a></p>
+      <div class="pl-rail" data-rail>
+        <article class="pl-card" id="plan-chatbot">
+          <p class="pl-card__kicker">24/7 support</p>
+          <h2 class="pl-card__name">Smart Chatbot</h2>
+          <p class="pl-card__promise">Your first line of support, automated.</p>
+          <p class="pl-card__fit">It answers, informs and captures customers while you do something else.</p>
+          <dl class="pl-spec">
+            <div><dt>AI agents</dt><dd>1</dd></div>
+            <div><dt>Availability</dt><dd>24/7</dd></div>
+            <div><dt>Delivery</dt><dd>~1 week</dd></div>
+            <div><dt>Support</dt><dd>30 days</dd></div>
+          </dl>
+          <ul class="pl-list">
+            <li>Trained on your business information</li>
+            <li>Answers common questions instantly</li>
+            <li>Captures interested customers' details</li>
+            <li>Embedded on your website or WhatsApp</li>
+            <li>Hands off to a human when needed</li>
+          </ul>
+          <a class="pl-btn" href="contact.html?plan=chatbot">Start with Chatbot <i aria-hidden="true">→</i></a>
+        </article>
+
+        <article class="pl-card pl-card--star" id="plan-asistente">
+          <p class="pl-card__flag">Most popular</p>
+          <p class="pl-card__kicker">Booking and follow-up</p>
+          <h2 class="pl-card__name">Sales Assistant</h2>
+          <p class="pl-card__promise">An assistant that sells and books for you.</p>
+          <p class="pl-card__fit">It doesn't just reply: it qualifies leads and follows up until the sale closes.</p>
+          <dl class="pl-spec">
+            <div><dt>AI agents</dt><dd>Chatbot + agent</dd></div>
+            <div><dt>Availability</dt><dd>24/7</dd></div>
+            <div><dt>Delivery</dt><dd>~2 weeks</dd></div>
+            <div><dt>Support</dt><dd>45 days</dd></div>
+          </dl>
+          <ul class="pl-list">
+            <li class="pl-carry">Everything in Chatbot, plus:</li>
+            <li>Books appointments and reservations automatically</li>
+            <li>Qualifies and prioritizes leads by interest</li>
+            <li>Automatic follow-up by email or WhatsApp</li>
+            <li>Recovers customers who didn't reply</li>
+            <li>Reports on conversations and conversions</li>
+          </ul>
+          <a class="pl-btn pl-btn--solid" href="contact.html?plan=asistente">Start with Assistant <i aria-hidden="true">→</i></a>
+        </article>
+
+        <article class="pl-card" id="plan-sistema">
+          <p class="pl-card__kicker">Full automation</p>
+          <h2 class="pl-card__name">Complete System</h2>
+          <p class="pl-card__promise">Your operation, running on its own.</p>
+          <p class="pl-card__fit">Multiple agents, internal processes and custom integrations.</p>
+          <dl class="pl-spec">
+            <div><dt>AI agents</dt><dd>Multiple</dd></div>
+            <div><dt>Availability</dt><dd>24/7</dd></div>
+            <div><dt>Delivery</dt><dd>Custom</dd></div>
+            <div><dt>Support</dt><dd>60 days</dd></div>
+          </dl>
+          <ul class="pl-list">
+            <li class="pl-carry">Everything in Assistant, plus:</li>
+            <li>Agents for different areas of your business</li>
+            <li>Automated internal processes: invoices, reports</li>
+            <li>Integration with your CRM, payments and calendar</li>
+            <li>Automatically generated reports and content</li>
+            <li>Priority support and ongoing optimization</li>
+          </ul>
+          <a class="pl-btn" href="contact.html?plan=sistema">Start with System <i aria-hidden="true">→</i></a>
+        </article>
+      </div>
+      <div class="pl-dots" role="group" aria-label="Go to a plan">
+        <button type="button">Chatbot</button><button type="button">Assistant</button><button type="button">System</button>
+      </div>
+
+      <details class="pl-cmp">
+        <summary>Compare the plans in detail <span class="pl-plus" aria-hidden="true"></span></summary>
+        <div class="pl-cmp__scroll">
+          <table>
+            <thead><tr><th scope="col"><span class="pl-sr">What's included</span></th><th scope="col">Chatbot</th><th scope="col" class="is-star">Assistant</th><th scope="col">System</th></tr></thead>
+            <tbody>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Scope</th></tr>
+              <tr><th scope="row">AI agents</th><td>1</td><td class="is-star">2</td><td>Multiple</td></tr>
+              <tr><th scope="row">Delivery</th><td>~1 wk</td><td class="is-star">~2 wks</td><td>Custom</td></tr>
+              <tr><th scope="row">Support</th><td>30 days</td><td class="is-star">45 days</td><td>60 days</td></tr>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Support</th></tr>
+              <tr><th scope="row">24/7 answers from your info</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Captures interested customers</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">On your website or WhatsApp</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Hand-off to a human</th><td class="si"><span class="pl-sr">Yes</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Sales</th></tr>
+              <tr><th scope="row">Books appointments</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Qualifies and prioritizes leads</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Automatic follow-up</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Conversion reports</th><td class="no"><span class="pl-sr">No</span></td><td class="si is-star"><span class="pl-sr">Yes</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr class="pl-cmp__g"><th colspan="4" scope="colgroup">Operations</th></tr>
+              <tr><th scope="row">Agents for each business area</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Automated internal processes</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">CRM, payments and calendar integration</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+              <tr><th scope="row">Ongoing optimization</th><td class="no"><span class="pl-sr">No</span></td><td class="no is-star"><span class="pl-sr">No</span></td><td class="si"><span class="pl-sr">Yes</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+
+    <aside class="pl-combo" data-pl-rev>
+      <svg class="pl-combo__art" viewBox="0 0 200 120" aria-hidden="true">
+        <defs><clipPath id="pl-clip-en"><circle cx="72" cy="60" r="46"/></clipPath></defs>
+        <circle class="c" cx="128" cy="60" r="46" clip-path="url(#pl-clip-en)"/>
+        <circle class="a" cx="72" cy="60" r="46"/>
+        <circle class="b" cx="128" cy="60" r="46"/>
+        <circle class="a orb" cx="100" cy="60" r="58"/>
+        <text x="46" y="63">Web</text><text x="140" y="63">AI</text>
+      </svg>
+      <div>
+        <p class="pl-kicker">Web + AI</p>
+        <h2 class="pl-h2">A website that attracts. <em>A system that responds.</em></h2>
+        <p class="pl-body" data-corto="The website brings the client in; the AI answers, books and follows up.">Pair any web plan with an automation plan: the website brings the client in, and the AI answers, books and follows up. One team, one proposal.</p>
+      </div>
+      <a class="pl-btn pl-btn--solid" href="contact.html?plan=web-ia">Build my system <i aria-hidden="true">→</i></a>
+    </aside>
+  </div>
+</section>
+
+<section class="pl-found" id="fundadores">
+  <div class="pl-wrap pl-found__grid">
+    <div data-pl-rev>
+      <p class="pl-kicker"><i class="pl-pulse" aria-hidden="true"></i>Limited spots</p>
+      <h2 class="pl-h2">Founding <em>client program</em></h2>
+      <p class="pl-body" data-corto="Select spots at launch pricing, in exchange for an honest testimonial and your project as a case study.">We're opening a select number of projects at launch pricing. In return, you give us an honest testimonial and let us feature your project as a case study.</p>
+      <a class="pl-link" href="contact.html?plan=fundador">Become a founding client <span aria-hidden="true">→</span></a>
+    </div>
+    <ul class="pl-perks" data-pl-rev style="--d:120ms">
+      <li><b>Founder pricing</b><span>A special rate for joining the program.</span></li>
+      <li><b>Priority attention</b><span>Limited spots, full focus on yours.</span></li>
+      <li><b>Direct contact</b><span>With the person designing, start to finish.</span></li>
+      <li><b>No risk</b><span>Revisions until you're convinced.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="pl-steps">
+  <div class="pl-wrap">
+    <div class="pl-sechead" data-pl-rev>
+      <p class="pl-kicker">After you choose</p>
+      <h2 class="pl-h2">From idea to <em>live</em>, in four steps.</h2>
+    </div>
+    <ol class="pl-path">
+      <li><b>Strategy call</b><span>Goal, audience and offer. <em>Free.</em></span></li>
+      <li><b>Design</b><span>A proposal tailored to your brand.</span></li>
+      <li><b>Review</b><span>We refine until you're convinced.</span></li>
+      <li><b>Launch</b><span>Ready to share and sell.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="pl-faq">
+  <div class="pl-wrap pl-faq__grid">
+    <div class="pl-sechead" data-pl-rev>
+      <p class="pl-kicker">Before you decide</p>
+      <h2 class="pl-h2">What <em>everyone</em> asks.</h2>
+      <a class="pl-link" href="faq.html">See all questions <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="pl-qs" data-pl-rev style="--d:100ms">
+      <details>
+        <summary>Why don't you publish prices? <span class="pl-plus" aria-hidden="true"></span></summary>
+        <p>Because every project is different: the number of pages, the type of design and the level of customization all change the investment. In the strategy call we define the scope and you receive a clear, no-strings-attached proposal.</p>
+      </details>
+      <details>
+        <summary>Do I need copy and images ready? <span class="pl-plus" aria-hidden="true"></span></summary>
+        <p>It's not required. If you don't have copy, we'll help you build the message: value proposition, benefits and calls to action. Images can come from licensed stock libraries or be combined with your own.</p>
+      </details>
+      <details>
+        <summary>Does it include domain and hosting? <span class="pl-plus" aria-hidden="true"></span></summary>
+        <p>It depends on the plan. In most cases we help you set up your domain and hosting, or connect the site to what you already have. We clarify this in the strategy call so everything is organized from day one.</p>
+      </details>
+      <details>
+        <summary>Can I add AI later? <span class="pl-plus" aria-hidden="true"></span></summary>
+        <p>Yes. Automation plans work on their own or added to any web plan, so you can start with your website and add the assistant when you need it. The Premium plan already includes an AI chatbot.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="pl-end">
+  <div class="pl-wrap" data-pl-rev>
+    <h2 class="pl-end__t">Not sure which to choose? <em>We'll guide you, free.</em></h2>
+    <p>Tell us about your business and we'll recommend the right plan, no strings attached. We reply in under 24 hours.</p>
+    <div class="pl-end__cta">
+      <a class="pl-btn pl-btn--solid" href="contact.html?plan=orientacion">Book a free strategy call <i aria-hidden="true">→</i></a>
+      <a class="pl-btn" href="https://wa.me/593994484612?text=Hi%20Pittahaya!%20I%E2%80%99d%20like%20help%20choosing%20a%20plan." target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
+    </div>
+  </div>
+</section>
 </main>
 <footer class="footer">
   <div class="container footer-grid">
@@ -332,11 +448,10 @@
   </div>
 </footer>
 <script src="../assets/analytics.js?v=1" defer></script>
-<script src="../assets/app.js?v=m20" defer></script>
+<script src="../assets/app.js?v=m21" defer></script>
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/casa.js?v=7" defer></script>
-<script src="../assets/carrete.js?v=1" defer></script>
 <script src="../assets/vivo.js?v=1" defer></script>
-<script src="../assets/puertas.js?v=3" defer></script>
+<script src="../assets/planes.js?v=1" defer></script>
 </body>
 </html>
