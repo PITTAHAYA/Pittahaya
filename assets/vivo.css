@@ -8,10 +8,10 @@
 
 /* ── 1. Titulares: la palabra sube desde su renglón ────────── */
 .vv-w{ display:inline-block;overflow:hidden;vertical-align:bottom;
-       padding-bottom:.1em;margin-bottom:-.1em; }
+       padding:.08em 0 .24em;margin:-.08em 0 -.24em; }
 .vv-w > span{
   display:inline-block;
-  transform:translateY(108%) rotate(1.6deg);
+  transform:translateY(140%) rotate(1.6deg);
   opacity:0;
   transition:transform 1s cubic-bezier(.16,.78,.16,1),opacity .62s ease;
   transition-delay:var(--d,0ms);

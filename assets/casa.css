@@ -56,8 +56,8 @@
 .casa [data-rev]{opacity:0;transform:translateY(24px);
   transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .casa [data-rev].vis{opacity:1;transform:none}
-.casa .mask{display:block;overflow:hidden}
-.casa .mask > span{display:block;transform:translateY(105%);transition:transform 1.15s var(--ease)}
+.casa .mask{display:block;overflow:hidden;padding:.08em 0 .24em;margin:-.08em 0 -.24em}
+.casa .mask > span{display:block;transform:translateY(135%);transition:transform 1.15s var(--ease)}
 .casa .mask.vis > span{transform:none}
 .casa .mask.d1 > span{transition-delay:.08s}
 .casa .mask.d2 > span{transition-delay:.16s}
@@ -110,7 +110,7 @@
 @keyframes casa-tachar{to{transform:scaleX(1)}}
 /* las máscaras recortan a la caja de línea: sin holgura los
    descendentes (y, g, p) se cortan y chocan con la línea previa */
-.casa-disp .mask{padding-bottom:.08em;margin-bottom:-.02em}
+.casa-disp .mask{padding:.08em 0 .24em;margin:-.08em 0 -.24em}
 .casa-heroe .plomo{margin-top:28px}
 .casa-heroe-pie{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:42px}
 
@@ -287,8 +287,10 @@
 .phead h1 em,.phead .phead-t em{font-style:normal;color:var(--champan)}
 .phead-sub{margin:24px 0 0;font-family:var(--sans);font-size:clamp(16px,1.5vw,20px);
   color:var(--marfil-2);max-width:56ch;line-height:1.6}
-.phead-mask{display:block;overflow:hidden}
-.phead-mask > span{display:block;transform:translateY(105%);transition:transform 1.1s var(--ease)}
+/* holgura para descendentes (g, j, y, p) y tildes de mayúscula: la máscara
+   recorta a la caja de línea y con interlineado < 1 se comía las letras */
+.phead-mask{display:block;overflow:hidden;padding:.08em 0 .24em;margin:-.08em 0 -.24em}
+.phead-mask > span{display:block;transform:translateY(135%);transition:transform 1.1s var(--ease)}
 .phead-mask.vis > span{transform:none}
 .phead-mask.d1 > span{transition-delay:.08s}
 @media (prefers-reduced-motion:reduce){.phead-mask > span{transform:none;transition:none}}
