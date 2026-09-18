@@ -88,3 +88,22 @@
 .aw-open__bg img{object-position:50% 60%}
 /* un contenedor con overflow:hidden anulaba el sticky de las puertas */
 .collection{overflow:visible;overflow-x:clip}
+
+/* ── teléfono: la misma casa, menos recorrido ──────────────── */
+@media (max-width:760px){
+  .threshold{height:430vh}
+  .aw-open__foot{display:none}
+  .reveal.aw-open{min-height:88svh}
+  .ax-land__stats{display:none}
+  .ax-land{padding:56px 0}
+  .ax-land__head{margin-bottom:20px}
+  .worldHead .lead{display:none}
+  .world{padding:56px 0}
+  .ax-tour__stage{padding:56px 0 8px}
+  .collection.sec{padding-top:56px}
+  .manifesto{min-height:560px}
+  .access.sec{padding:80px 0}
+  .fcols{grid-template-columns:1fr 1fr;gap:4px 18px}
+  .fcols a{min-height:40px;font-size:12.5px}
+  .foot .top{margin-bottom:28px}
+}
