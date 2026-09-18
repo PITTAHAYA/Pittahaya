@@ -104,3 +104,20 @@
   .thCap{bottom:clamp(64px,9vh,90px)}
   .thCap b{font-size:32px}
 }
+
+/* revisión: la ficha del plano tenía texto claro sobre fondo claro de noche,
+   y los puntos altos (el yate) la empujaban fuera del marco */
+.ax-card,.ax-card b{color:#14110d}
+.ax-card span{color:rgba(20,17,13,.62)}
+.ax-card.below{transform:translate(-50%,30px)}
+.ax-card.below.on{transform:translate(-50%,22px)}
+.ax-card.right{transform:translate(calc(-100% + 20px),calc(-100% - 30px))}
+.ax-card.right.on{transform:translate(calc(-100% + 20px),calc(-100% - 22px))}
+.ax-card.right.below{transform:translate(calc(-100% + 20px),30px)}
+.ax-card.right.below.on{transform:translate(calc(-100% + 20px),22px)}
+.ax-land__stats div b{color:var(--ivory)}
+/* cierre: una sola puerta */
+.access .aw-ask{margin-top:38px;min-height:56px;padding:0 38px;border-color:var(--bronze2)}
+.access .aw-ask:hover{background:var(--bronze2);border-color:var(--bronze2);color:#14110d}
+.access.sec{padding:clamp(110px,18vh,190px) 0}
+@media (max-width:760px){.ax-card,.ax-card.on,.ax-card.below,.ax-card.right,.ax-card.below.on,.ax-card.right.on,.ax-card.right.below.on{transform:none!important}}

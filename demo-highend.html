@@ -308,8 +308,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   </style></noscript>
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="stylesheet" href="assets/aurelia-consulta.css?v=4" />
-<link rel="stylesheet" href="assets/aurelia-x.css?v=5" />
-<link rel="stylesheet" href="assets/aurelia-w.css?v=3" />
+<link rel="stylesheet" href="assets/aurelia-x.css?v=6" />
+<link rel="stylesheet" href="assets/aurelia-w.css?v=4" />
 <link rel="stylesheet" href="assets/aurelia-v.css?v=3" />
 </head>
 <body>
@@ -419,7 +419,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/02-vestibulo.jpg" alt="Vestíbulo · Escalera flotante, doble altura" loading="lazy" decoding="async"></div><figcaption><small>02</small><b>Vestíbulo<i>Escalera flotante, doble altura</i></b><span>9 m de altura</span></figcaption></figure>
         <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/02b-giro-galeria.jpg" alt="Patio de olivos · Un olivo centenario bajo el cielo" loading="lazy" decoding="async"></div><figcaption><small>03</small><b>Patio de olivos<i>Un olivo centenario bajo el cielo</i></b><span>Luz cenital</span></figcaption></figure>
         <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/02c-galeria.jpg" alt="Galería · Arte entre piedra y roble" loading="lazy" decoding="async"></div><figcaption><small>04</small><b>Galería<i>Arte entre piedra y roble</i></b><span>42 m lineales</span></figcaption></figure>
-        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/03-sala.jpg" alt="Salón · El mar entra sin marco" loading="lazy" decoding="async"></div><figcaption><small>05</small><b>Salón<i>El mar entra sin marco</i></b><span>180 m²</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/scene2-sala.jpg" alt="Salón · El mar entra sin marco" loading="lazy" decoding="async"></div><figcaption><small>05</small><b>Salón<i>El mar entra sin marco</i></b><span>180 m²</span></figcaption></figure>
         <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/04-escaleras.jpg" alt="Descenso · Hacia la piscina infinita" loading="lazy" decoding="async"></div><figcaption><small>06</small><b>Descenso<i>Hacia la piscina infinita</i></b><span>Poniente</span></figcaption></figure>
       </div>
       <div class="ax-tour__rail" aria-hidden="true"><i data-ax-bar></i></div>
@@ -525,51 +525,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div class="wrap">
       <span class="label" data-r style="color:var(--bronze2)">Private Client Desk</span>
       <h2 class="h2" data-r style="margin-top:18px">Algunas puertas <em>solo se abren al preguntar.</em></h2>
-      <form class="inq" data-inq data-r novalidate aria-label="Consulta privada">
-        <div class="inqTop" data-inq-chrome><span data-inq-count>Paso 1 de 3</span><span class="inqBar" aria-hidden="true"><i data-inq-bar></i></span><span>Confidencial</span></div>
-        <fieldset class="inqStep" data-inq-step>
-          <legend>¿Qué le trae a AURELIA?</legend>
-          <div class="inqChoices">
-            <label class="inqChoice"><input type="radio" name="intent" value="adquirir" checked><span><b>Adquirir</b><small>Busco una residencia de la colección o fuera de mercado.</small></span></label>
-            <label class="inqChoice"><input type="radio" name="intent" value="representar"><span><b>Representar</b><small>Deseo presentar una propiedad con discreción.</small></span></label>
-            <label class="inqChoice"><input type="radio" name="intent" value="horizontes"><span><b>Horizontes</b><small>Quiero acceso anticipado a las próximas aperturas.</small></span></label>
-          </div>
-        </fieldset>
-        <fieldset class="inqStep" data-inq-step hidden>
-          <legend>Cuéntenos un poco más.</legend>
-          <div class="inqFields">
-            <div class="inqField inqField--full" data-inq-residence-field><label for="inq-res">Residencia o destino de interés</label><select id="inq-res" name="residence" data-inq-residence><option value="">Aún no lo sé</option></select></div>
-            <div class="inqField inqField--full" data-inq-location-field hidden><label for="inq-loc">¿Dónde está la propiedad?</label><input id="inq-loc" name="location" autocomplete="off" placeholder="Ciudad, región o costa"></div>
-            <div class="inqField inqField--full"><span class="inqLabel" id="inq-when">Horizonte</span>
-              <div class="inqChoices inqChoices--chips" role="radiogroup" aria-labelledby="inq-when">
-                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="inmediato"><span>Inmediato</span></label>
-                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="6-12" checked><span>6 a 12 meses</span></label>
-                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="sin-prisa"><span>Sin prisa</span></label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset class="inqStep" data-inq-step hidden>
-          <legend>¿Cómo prefiere que le contactemos?</legend>
-          <div class="inqFields">
-            <div class="inqField"><label for="inq-name">Nombre</label><input id="inq-name" name="name" autocomplete="name" required></div>
-            <div class="inqField"><label for="inq-mail">Correo electrónico</label><input id="inq-mail" name="email" type="email" autocomplete="email" inputmode="email" required></div>
-            <div class="inqField"><label for="inq-country">País de residencia</label><input id="inq-country" name="country" autocomplete="country-name"></div>
-            <div class="inqField"><label for="inq-pref">Canal preferido</label><select id="inq-pref" name="channel"><option>Correo electrónico</option><option>Llamada</option><option>Mensaje</option></select></div>
-            <div class="inqField inqField--full"><label for="inq-note">Nota para el asesor (opcional)</label><textarea id="inq-note" name="note" placeholder="Fechas, preferencias, lo que no debería faltar…"></textarea></div>
-          </div>
-        </fieldset>
-        <p class="inqErr" data-inq-err role="alert" data-inq-chrome></p>
-        <div class="inqNav" data-inq-chrome><button class="inqBack" type="button" data-inq-back hidden>← Atrás</button><button class="btn" type="button" data-inq-next>Continuar →</button><button class="btn" type="submit" data-inq-submit hidden>Enviar consulta privada →</button></div>
-        <div class="inqDone" data-inq-done hidden tabindex="-1">
-          <span class="label">Invitación emitida</span>
-          <h3>Gracias. <em>La puerta está abierta.</em></h3>
-          <div class="aw-inv"><span>Para</span><b data-inq-to></b><i data-inq-date></i></div>
-          <p>Un asesor le escribirá en menos de 24 horas, por el canal que eligió.</p>
-          <span class="inqRef" data-inq-ref>AUR-0000</span>
-        </div>
-        <p class="inqNote">Demo conceptual: este formulario no envía ni guarda ningún dato.</p>
-      </form>
+      <a class="btn aw-ask" href="contacto.html" data-r>Solicitar una conversación →</a>
     </div>
   </section>
 
@@ -605,7 +561,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <h2 id="property-dialog-title" data-dialog-title></h2>
     <p data-dialog-description></p>
     <div class="dialogFacts" data-dialog-facts></div>
-    <div class="dialogCta"><a class="btn" href="#acceso" data-dossier>Solicitar dossier →</a></div>
+    <div class="dialogCta"><a class="btn" href="contacto.html" data-dossier>Solicitar dossier →</a></div>
     <div class="dialogNav"><button type="button" data-dialog-prev>← Anterior</button><span class="label" data-dialog-reference></span><button type="button" data-dialog-next>Siguiente →</button></div>
   </div>
 </dialog>
@@ -615,11 +571,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 </div>
 
 <script src="assets/aurelia-collection.js?v=11" defer></script>
-<script src="assets/aurelia-consulta.js?v=3" defer></script>
 <script src="assets/mare.js?v=12" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
-<script src="assets/aurelia-x.js?v=1" defer></script>
+<script src="assets/aurelia-x.js?v=2" defer></script>
 <script src="assets/aurelia-w.js?v=1" defer></script>
 <script src="assets/aurelia-v.js?v=3" defer></script>
 </body>

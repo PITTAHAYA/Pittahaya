@@ -308,8 +308,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   </style></noscript>
 <link rel="manifest" href="../site.webmanifest" />
 <link rel="stylesheet" href="../assets/aurelia-consulta.css?v=4" />
-<link rel="stylesheet" href="../assets/aurelia-x.css?v=5" />
-<link rel="stylesheet" href="../assets/aurelia-w.css?v=3" />
+<link rel="stylesheet" href="../assets/aurelia-x.css?v=6" />
+<link rel="stylesheet" href="../assets/aurelia-w.css?v=4" />
 <link rel="stylesheet" href="../assets/aurelia-v.css?v=3" />
 </head>
 <body>
@@ -419,7 +419,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <figure class="ax-room"><div class="ax-room__img"><img src="../assets/mare/02-vestibulo.jpg" alt="Hall · A floating stair, double height" loading="lazy" decoding="async"></div><figcaption><small>02</small><b>Hall<i>A floating stair, double height</i></b><span>9 m ceiling</span></figcaption></figure>
         <figure class="ax-room"><div class="ax-room__img"><img src="../assets/mare/02b-giro-galeria.jpg" alt="Olive court · A century-old olive under open sky" loading="lazy" decoding="async"></div><figcaption><small>03</small><b>Olive court<i>A century-old olive under open sky</i></b><span>Skylight</span></figcaption></figure>
         <figure class="ax-room"><div class="ax-room__img"><img src="../assets/mare/02c-galeria.jpg" alt="Gallery · Art between stone and oak" loading="lazy" decoding="async"></div><figcaption><small>04</small><b>Gallery<i>Art between stone and oak</i></b><span>42 linear m</span></figcaption></figure>
-        <figure class="ax-room"><div class="ax-room__img"><img src="../assets/mare/03-sala.jpg" alt="Salon · The sea comes in, unframed" loading="lazy" decoding="async"></div><figcaption><small>05</small><b>Salon<i>The sea comes in, unframed</i></b><span>180 m²</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="../assets/mare/scene2-sala.jpg" alt="Salon · The sea comes in, unframed" loading="lazy" decoding="async"></div><figcaption><small>05</small><b>Salon<i>The sea comes in, unframed</i></b><span>180 m²</span></figcaption></figure>
         <figure class="ax-room"><div class="ax-room__img"><img src="../assets/mare/04-escaleras.jpg" alt="Descent · Down to the infinity pool" loading="lazy" decoding="async"></div><figcaption><small>06</small><b>Descent<i>Down to the infinity pool</i></b><span>West-facing</span></figcaption></figure>
       </div>
       <div class="ax-tour__rail" aria-hidden="true"><i data-ax-bar></i></div>
@@ -525,51 +525,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div class="wrap">
       <span class="label" data-r style="color:var(--bronze2)">Private Client Desk</span>
       <h2 class="h2" data-r style="margin-top:18px">Some doors <em>open only when you ask.</em></h2>
-      <form class="inq" data-inq data-r novalidate aria-label="Private inquiry">
-        <div class="inqTop" data-inq-chrome><span data-inq-count>Step 1 of 3</span><span class="inqBar" aria-hidden="true"><i data-inq-bar></i></span><span>Confidential</span></div>
-        <fieldset class="inqStep" data-inq-step>
-          <legend>What brings you to AURELIA?</legend>
-          <div class="inqChoices">
-            <label class="inqChoice"><input type="radio" name="intent" value="adquirir" checked><span><b>Acquire</b><small>I am looking for a residence from the collection or off market.</small></span></label>
-            <label class="inqChoice"><input type="radio" name="intent" value="representar"><span><b>Represent</b><small>I would like to present a property with discretion.</small></span></label>
-            <label class="inqChoice"><input type="radio" name="intent" value="horizontes"><span><b>Horizons</b><small>I want early access to upcoming openings.</small></span></label>
-          </div>
-        </fieldset>
-        <fieldset class="inqStep" data-inq-step hidden>
-          <legend>Tell us a little more.</legend>
-          <div class="inqFields">
-            <div class="inqField inqField--full" data-inq-residence-field><label for="inq-res">Residence or destination of interest</label><select id="inq-res" name="residence" data-inq-residence><option value="">Not sure yet</option></select></div>
-            <div class="inqField inqField--full" data-inq-location-field hidden><label for="inq-loc">Where is the property?</label><input id="inq-loc" name="location" autocomplete="off" placeholder="City, region, or coast"></div>
-            <div class="inqField inqField--full"><span class="inqLabel" id="inq-when">Timeline</span>
-              <div class="inqChoices inqChoices--chips" role="radiogroup" aria-labelledby="inq-when">
-                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="inmediato"><span>Immediate</span></label>
-                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="6-12" checked><span>6 to 12 months</span></label>
-                <label class="inqChoice inqChoice--chip"><input type="radio" name="when" value="sin-prisa"><span>No rush</span></label>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset class="inqStep" data-inq-step hidden>
-          <legend>How would you prefer we reach you?</legend>
-          <div class="inqFields">
-            <div class="inqField"><label for="inq-name">Name</label><input id="inq-name" name="name" autocomplete="name" required></div>
-            <div class="inqField"><label for="inq-mail">Email</label><input id="inq-mail" name="email" type="email" autocomplete="email" inputmode="email" required></div>
-            <div class="inqField"><label for="inq-country">Country of residence</label><input id="inq-country" name="country" autocomplete="country-name"></div>
-            <div class="inqField"><label for="inq-pref">Preferred channel</label><select id="inq-pref" name="channel"><option>Email</option><option>Call</option><option>Message</option></select></div>
-            <div class="inqField inqField--full"><label for="inq-note">Note for your advisor (optional)</label><textarea id="inq-note" name="note" placeholder="Dates, preferences, anything that must not be missing…"></textarea></div>
-          </div>
-        </fieldset>
-        <p class="inqErr" data-inq-err role="alert" data-inq-chrome></p>
-        <div class="inqNav" data-inq-chrome><button class="inqBack" type="button" data-inq-back hidden>← Back</button><button class="btn" type="button" data-inq-next>Continue →</button><button class="btn" type="submit" data-inq-submit hidden>Send private inquiry →</button></div>
-        <div class="inqDone" data-inq-done hidden tabindex="-1">
-          <span class="label">Invitation issued</span>
-          <h3>Thank you. <em>The door is open.</em></h3>
-          <div class="aw-inv"><span>For</span><b data-inq-to></b><i data-inq-date></i></div>
-          <p>An advisor will write to you within 24 hours, through the channel you chose.</p>
-          <span class="inqRef" data-inq-ref>AUR-0000</span>
-        </div>
-        <p class="inqNote">Concept demo: this form does not send or store any data.</p>
-      </form>
+      <a class="btn aw-ask" href="contact.html" data-r>Request a conversation →</a>
     </div>
   </section>
 
@@ -605,7 +561,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <h2 id="property-dialog-title" data-dialog-title></h2>
     <p data-dialog-description></p>
     <div class="dialogFacts" data-dialog-facts></div>
-    <div class="dialogCta"><a class="btn" href="#acceso" data-dossier>Request dossier →</a></div>
+    <div class="dialogCta"><a class="btn" href="contact.html" data-dossier>Request dossier →</a></div>
     <div class="dialogNav"><button type="button" data-dialog-prev>← Previous</button><span class="label" data-dialog-reference></span><button type="button" data-dialog-next>Next →</button></div>
   </div>
 </dialog>
@@ -615,11 +571,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 </div>
 
 <script src="../assets/aurelia-collection.js?v=11" defer></script>
-<script src="../assets/aurelia-consulta.js?v=3" defer></script>
 <script src="../assets/mare.js?v=12" defer></script>
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/analytics.js?v=1" defer></script>
-<script src="../assets/aurelia-x.js?v=1" defer></script>
+<script src="../assets/aurelia-x.js?v=2" defer></script>
 <script src="../assets/aurelia-w.js?v=1" defer></script>
 <script src="../assets/aurelia-v.js?v=3" defer></script>
 </body>

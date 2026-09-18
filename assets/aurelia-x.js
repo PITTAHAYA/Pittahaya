@@ -60,6 +60,9 @@
       legend.forEach(function (x, n) { x.setAttribute("aria-pressed", String(n === i)); });
       card.style.setProperty("--x", p.style.getPropertyValue("--x"));
       card.style.setProperty("--y", p.style.getPropertyValue("--y"));
+      var px = parseFloat(p.style.getPropertyValue("--x")), py = parseFloat(p.style.getPropertyValue("--y"));
+      card.classList.toggle("below", py < 34);
+      card.classList.toggle("right", px > 80);
       card.querySelector("small").textContent = p.getAttribute("data-k");
       card.querySelector("b").textContent = p.getAttribute("data-t");
       card.querySelector("span").textContent = p.getAttribute("data-v");
