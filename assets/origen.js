@@ -232,12 +232,20 @@
       doc.body.classList.toggle("nav-open", open);
       navToggle.setAttribute("aria-expanded", String(open));
     });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
-        nav.classList.remove("is-open");
-        doc.body.classList.remove("nav-open");
-        navToggle.setAttribute("aria-expanded", "false");
-      }
+    var closeNav = function () {
+      nav.classList.remove("is-open");
+      doc.body.classList.remove("nav-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    };
+    nav.addEventListener("click", function (e) { if (e.target.closest("a")) closeNav(); });
+    /* tocar fuera del panel o pulsar Escape también lo cierra */
+    doc.addEventListener("click", function (e) {
+      if (!nav.classList.contains("is-open")) return;
+      if (e.target.closest("[data-nav]") || e.target.closest("[data-nav-toggle]")) return;
+      closeNav();
+    });
+    doc.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) { closeNav(); navToggle.focus(); }
     });
   }
 
