@@ -1,0 +1,203 @@
+/* ═══════════════════════════════════════════════════════════
+   AURELIA · un mundo propio
+   La luz de la página sigue la hora de quien la visita, el
+   plano de la villa dice en qué estancia está, cada residencia
+   se abre como una visita y la consulta es una invitación.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. la luz sigue su hora ──────────────────────────────── */
+:root{transition:none}
+html[data-light="alba"]{--paper:#f2f1ec;--sand:#e4e3dc;--stone:#d3d0c6;--glow:rgba(170,190,205,.16)}
+html[data-light="dia"]{--glow:rgba(198,164,115,.1)}
+html[data-light="oro"]{--paper:#f6ecdb;--sand:#ecdcc0;--stone:#dcc6a2;--glow:rgba(214,150,70,.22)}
+html[data-light="noche"]{
+  --paper:#15120e;--sand:#1b1712;--stone:#2b251d;--ink:#f1ebe0;--ivory:#faf8f3;
+  --dim:rgba(241,235,224,.62);--faint:rgba(241,235,224,.58);--hair:rgba(241,235,224,.14);--glow:rgba(214,160,90,.16)
+}
+body,.reveal,.world{transition:background-color 1.4s ease,color 1.4s ease}
+.reveal{background:radial-gradient(70% 60% at 50% 0%,var(--glow,transparent),transparent 70%),var(--paper)}
+html[data-light="noche"] body::before{opacity:.05;mix-blend-mode:screen}
+html[data-light="noche"] .site{background:rgba(21,18,14,.86);box-shadow:0 1px 0 var(--hair)}
+html[data-light="noche"] .foot{background:#0b0906}
+html[data-light="noche"] .btn.ink:hover{background:var(--bronze2);border-color:var(--bronze2);color:#14110d}
+html[data-light="noche"] .world{background:radial-gradient(circle at 84% 18%,rgba(177,137,80,.14),transparent 30%),linear-gradient(135deg,#1b1712,#15120e 50%,#191510)}
+html[data-light="oro"] .world{background:radial-gradient(circle at 84% 18%,rgba(214,150,70,.2),transparent 32%),linear-gradient(135deg,var(--sand),var(--paper) 50%,#f1e2c8)}
+
+.aw-light{margin:26px 0 0;font:italic 300 clamp(17px,1.5vw,21px)/1.4 "Cormorant Garamond",Georgia,serif;color:var(--bronze)}
+.aw-light b{font-style:normal;font-weight:400;letter-spacing:1px;color:var(--ink)}
+
+/* el reloj de la casa, en la cabecera */
+.aw-hour{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 4px;border:0;background:none;color:var(--dim);font:400 10px/1 "Inter",system-ui,sans-serif;letter-spacing:2.2px;text-transform:uppercase;cursor:pointer;transition:color .4s}
+.aw-hour:hover{color:var(--ink)}
+.aw-hour i{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff7e6,var(--bronze2));box-shadow:0 0 12px var(--bronze2)}
+html[data-light="noche"] .aw-hour i{background:radial-gradient(circle at 60% 40%,transparent 38%,#e9e2d4 40%);box-shadow:0 0 10px rgba(233,226,212,.5)}
+html[data-light="alba"] .aw-hour i{background:radial-gradient(circle at 35% 35%,#fff,#b7c7d3);box-shadow:0 0 12px #b7c7d3}
+.aw-sound{display:inline-flex;align-items:flex-end;justify-content:center;gap:2px;width:44px;height:44px;padding:0 0 15px;border:0;background:none;cursor:pointer}
+.aw-sound i{display:block;width:2px;height:4px;background:var(--dim);transition:background .3s}
+.aw-sound[aria-pressed="true"] i{background:var(--bronze);animation:awWave 1.4s ease-in-out infinite}
+.aw-sound[aria-pressed="true"] i:nth-child(2){animation-delay:.2s}
+.aw-sound[aria-pressed="true"] i:nth-child(3){animation-delay:.4s}
+@keyframes awWave{0%,100%{height:4px}50%{height:13px}}
+
+/* ── 2. el plano de la villa ──────────────────────────────── */
+.aw-plan{position:fixed;z-index:65;left:22px;bottom:22px;width:216px;padding:14px 14px 12px;background:rgba(13,11,8,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(250,248,243,.14);color:var(--ivory);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.aw-plan.on{opacity:1;transform:none;pointer-events:auto}
+.aw-plan__top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-size:8px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.5)}
+.aw-plan svg{display:block;width:100%;height:auto;overflow:visible}
+.aw-plan .room{fill:rgba(250,248,243,.02);stroke:rgba(250,248,243,.34);stroke-width:.8;cursor:pointer;transition:fill .6s ease,stroke .6s ease}
+.aw-plan .room:hover{fill:rgba(198,164,115,.16)}
+.aw-plan .room.on{fill:rgba(198,164,115,.34);stroke:var(--bronze2)}
+.aw-plan .rn{font:400 5.4px "Inter",sans-serif;letter-spacing:.6px;fill:rgba(250,248,243,.5);pointer-events:none;text-transform:uppercase}
+.aw-plan .rn.on{fill:#fff}
+.aw-plan .sea{fill:none;stroke:rgba(198,164,115,.5);stroke-width:.7}
+.aw-plan .you{fill:var(--bronze2)}
+.aw-plan .you-ring{fill:none;stroke:var(--bronze2);stroke-width:.6;animation:awRing 2.4s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes awRing{0%{transform:scale(1);opacity:1}100%{transform:scale(3.2);opacity:0}}
+.aw-plan__now{display:flex;gap:10px;align-items:baseline;margin-top:10px;padding-top:9px;border-top:1px solid rgba(250,248,243,.12)}
+.aw-plan__now small{font-size:8px;letter-spacing:2px;color:var(--bronze2)}
+.aw-plan__now b{font:400 17px/1 "Cormorant Garamond",serif;letter-spacing:.2px}
+.aw-plan__toggle{display:none}
+.demo-corner-logo{display:none}
+
+/* ── 3. la visita privada ─────────────────────────────────── */
+.propertyDialog.vw{width:100vw;max-width:none;height:100vh;height:100dvh;max-height:none;margin:0;inset:0;padding:0;border:0;background:#0d0b08;color:var(--ivory);overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) min(440px,34vw);animation:none;clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.76,0,.24,1)}
+.propertyDialog.vw.vw--from{clip-path:inset(var(--ct) var(--cr) var(--cb) var(--cl));transition:none}
+.propertyDialog.vw:not([open]){display:none}
+.propertyDialog.vw::backdrop{background:rgba(10,8,6,.9);backdrop-filter:none}
+.vw-stage{position:relative;overflow:hidden;background:#15120e;touch-action:pan-y}
+.vw-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1.1s ease,transform 6s cubic-bezier(.2,.6,.2,1)}
+.vw-stage img.on{opacity:1;transform:scale(1)}
+.vw-stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(13,11,8,.45),transparent 22%,transparent 72%,rgba(13,11,8,.62))}
+.vw-plate{position:absolute;z-index:2;left:clamp(22px,3vw,40px);top:clamp(22px,3vw,36px);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,248,243,.82)}
+.vw-arrows{position:absolute;z-index:2;right:clamp(22px,3vw,40px);bottom:clamp(22px,3vw,36px);display:flex;gap:8px}
+.vw-arrows button{width:52px;height:52px;border:1px solid rgba(250,248,243,.4);border-radius:50%;background:rgba(13,11,8,.35);backdrop-filter:blur(8px);color:#fff;font-size:18px;cursor:pointer;transition:background .4s,color .4s}
+.vw-arrows button:hover{background:var(--ivory);color:#14110d}
+.vw--single .vw-arrows,.vw--single .vw-thumbs{display:none}
+.vw-thumbs{position:absolute;z-index:2;left:clamp(22px,3vw,40px);bottom:clamp(22px,3vw,36px);display:flex;gap:6px;margin:0;padding:0;list-style:none}
+.vw-thumbs button{width:58px;height:40px;padding:0;border:1px solid transparent;background:none;cursor:pointer;opacity:.55;transition:opacity .4s,border-color .4s}
+.vw-thumbs button img{width:100%;height:100%;object-fit:cover;display:block}
+.vw-thumbs button[aria-current="true"]{opacity:1;border-color:var(--bronze2)}
+.vw-info{position:relative;display:flex;flex-direction:column;padding:clamp(80px,11vh,120px) clamp(28px,3vw,48px) clamp(26px,4vh,40px);overflow:auto;border-left:1px solid rgba(250,248,243,.1);background:linear-gradient(180deg,#14110d,#0d0b08)}
+.vw-info .label{color:var(--bronze2)}
+.vw-info h2{margin:14px 0 0;font:300 clamp(44px,4.4vw,72px)/.95 "Cormorant Garamond",serif;letter-spacing:-.8px}
+.vw-info p{margin:22px 0 0;color:rgba(250,248,243,.66);font-size:14px;line-height:1.85}
+.vw-info .dialogFacts{margin-top:30px;border-top:1px solid rgba(250,248,243,.14)}
+.vw-info .dialogFact{border-bottom:1px solid rgba(250,248,243,.14)}
+.vw-info .dialogFact span{color:rgba(250,248,243,.5)}
+.vw-info .dialogFact b{font:400 20px/1 "Cormorant Garamond",serif;letter-spacing:0;text-transform:none}
+.vw-info .dialogCta{margin-top:auto;padding-top:30px}
+.vw-info .dialogCta .btn{width:100%;border-color:var(--bronze2);color:var(--ivory)}
+.vw-info .dialogCta .btn:hover{background:var(--bronze2);color:#14110d}
+.vw-info .dialogNav{border-top:1px solid rgba(250,248,243,.14)}
+.vw-info .dialogNav button{color:rgba(250,248,243,.6)}
+.vw-info .dialogNav button:hover{color:#fff}
+.vw-info .dialogNav .label{color:rgba(250,248,243,.5)}
+.propertyDialog.vw .dialogClose{position:absolute;top:24px;right:24px;border-color:rgba(250,248,243,.3);background:transparent}
+.propertyDialog.vw .dialogClose:hover{background:var(--ivory);color:#14110d}
+.vw-info > *{opacity:0;transform:translateY(14px);transition:opacity .8s ease .45s,transform 1s var(--ease) .45s}
+.propertyDialog.vw[open]:not(.vw--from) .vw-info > *{opacity:1;transform:none}
+
+/* colección: seis residencias, la última a lo ancho */
+.propertyCard:nth-child(6){grid-column:1/-1;aspect-ratio:21/8}
+.propertyStatus{display:none}
+
+/* ── 4. la consulta es una invitación ─────────────────────── */
+.access .inq{position:relative;max-width:760px;padding:clamp(52px,6vw,72px) clamp(24px,4.4vw,60px) clamp(28px,4vw,48px);background:#f4efe5;color:#14110d;border:0;box-shadow:0 60px 140px -40px rgba(0,0,0,.8),inset 0 0 0 1px rgba(152,118,74,.35),inset 0 0 0 8px #f4efe5,inset 0 0 0 9px rgba(152,118,74,.28);backdrop-filter:none}
+.access .inq::before{content:"A";position:absolute;left:50%;top:0;width:58px;height:58px;margin:-29px 0 0 -29px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c9a574,#8a6534 72%);box-shadow:0 10px 26px rgba(0,0,0,.35),inset 0 0 0 3px rgba(255,236,200,.25);color:#f8ecd6;font:italic 400 28px/1 "Cormorant Garamond",serif}
+.inqTop{color:rgba(20,17,13,.55)}
+.inqBar{background:rgba(20,17,13,.14)}
+.inqBar i{background:var(--bronze)}
+.inqStep legend{color:#14110d;text-align:center;width:100%}
+.inqChoice span{border-color:rgba(20,17,13,.18)}
+.inqChoice:hover span{border-color:rgba(20,17,13,.4)}
+.inqChoice b{color:#14110d}
+.inqChoice small{color:rgba(20,17,13,.6)}
+.inqChoice input:checked+span{border-color:var(--bronze);background:rgba(152,118,74,.1)}
+.inqChoice--chip span{color:rgba(20,17,13,.72)}
+.inqField label,.inqLabel{color:rgba(20,17,13,.6)}
+.inqField input,.inqField select,.inqField textarea{border:0;border-bottom:1px solid rgba(20,17,13,.28);background:transparent;color:#14110d;padding-left:2px}
+.inqField input:focus,.inqField select:focus,.inqField textarea:focus{background:rgba(152,118,74,.06);border-color:var(--bronze)}
+.inqField select{background-image:linear-gradient(45deg,transparent 50%,var(--bronze) 50%),linear-gradient(135deg,var(--bronze) 50%,transparent 50%)}
+.inq button.btn{color:#14110d;border-color:rgba(20,17,13,.35)}
+.inq button.btn:hover{background:#14110d;color:#f4efe5;border-color:#14110d}
+.inqBack{color:rgba(20,17,13,.6)}
+.inqBack:hover{color:#14110d}
+.access .inq .inqNote{color:rgba(20,17,13,.45);border-top-color:rgba(20,17,13,.1)}
+.access .inq .inqErr{color:#a34a1c}
+
+/* la invitación emitida */
+.inqDone{padding:10px 0 0}
+.inqDone .label{color:var(--bronze)!important}
+.inqDone h3{color:#14110d}
+.inqDone h3 em{color:var(--bronze)}
+.aw-inv{margin:26px auto 0;max-width:420px;padding:22px 0;border-block:1px solid rgba(20,17,13,.14)}
+.aw-inv span{display:block;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(20,17,13,.5)}
+.aw-inv b{display:block;margin-top:8px;font:italic 300 clamp(34px,4vw,48px)/1.05 "Cormorant Garamond",serif;color:#14110d}
+.aw-inv i{display:block;margin-top:10px;font-style:normal;font-size:11px;letter-spacing:1.4px;color:rgba(20,17,13,.6)}
+.inqRef{color:var(--bronze);border-color:rgba(152,118,74,.5)}
+.inqDone:not([hidden]){animation:awIssue 1.2s var(--ease) both}
+@keyframes awIssue{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.access .inq.is-sealed::before{animation:awSeal .9s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes awSeal{0%{transform:scale(2.2) rotate(-18deg);opacity:0}100%{transform:none;opacity:1}}
+
+/* ── teléfono ─────────────────────────────────────────────── */
+@media (max-width:760px){
+  .aw-hour span{display:none}
+  .aw-hour{padding:0 8px}
+  .siteR{gap:4px}
+  .aw-plan{left:12px;bottom:14px;width:auto;padding:0;background:rgba(13,11,8,.78)}
+  .aw-plan__toggle{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px 0 12px;border:0;background:none;color:var(--ivory);cursor:pointer}
+  .aw-plan__toggle small{font-size:8px;letter-spacing:2px;color:var(--bronze2)}
+  .aw-plan__toggle b{font:400 16px/1 "Cormorant Garamond",serif}
+  .aw-plan__toggle svg{width:18px;height:12px}
+  .aw-plan__sheet{display:none;width:min(260px,calc(100vw - 110px));padding:12px 12px 10px}
+  .aw-plan.open .aw-plan__sheet{display:block}
+  .aw-plan__now{display:none}
+  .propertyDialog.vw{grid-template-columns:1fr;grid-template-rows:58vh auto;overflow:auto;overscroll-behavior:contain}
+  .vw-stage{height:58vh}
+  .vw-info{overflow:visible;border-left:0;padding:26px 22px 30px}
+  .vw-info h2{font-size:44px}
+  .vw-thumbs{display:none}
+  .vw-arrows button{width:44px;height:44px}
+  .propertyDialog.vw .dialogClose{position:fixed;top:14px;right:14px;z-index:5;background:rgba(13,11,8,.55)}
+  .propertyCard:nth-child(6){aspect-ratio:4/3}
+  .access .inq{padding:48px 18px 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .propertyDialog.vw{transition:none}
+  .vw-stage img{transition:opacity .01s}
+  .aw-plan .you-ring,.aw-sound i{animation:none}
+}
+
+/* la escena y sus controles comparten la misma celda */
+.vw-stage,.vw-over{grid-column:1;grid-row:1}
+.vw-info{grid-column:2;grid-row:1}
+.vw-over{position:relative;z-index:2;pointer-events:none}
+.vw-over > *{pointer-events:auto}
+.futureFooter p:empty{display:none}
+@media (max-width:760px){
+  .vw-info{grid-column:1;grid-row:2}
+}
+
+/* ── revisión ─────────────────────────────────────────────── */
+/* tarjetas estrechas: la etiqueta de ubicación chocaba con el tipo */
+.propertyCard:nth-child(n+3):not(:nth-child(6)) .propertyMeta .eyebrow span:last-child{display:none}
+.propertyCard:nth-child(n+3):not(:nth-child(6)) .propertyIndex{display:none}
+/* el texto de la invitación quedaba en marfil sobre marfil */
+.access .inq .inqDone p{color:rgba(20,17,13,.66)}
+/* el plano: plegado en una etiqueta, se despliega al pasar o tocar */
+.aw-plan{width:auto;padding:0}
+.aw-plan__toggle{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 16px 0 14px;border:0;background:none;color:var(--ivory);cursor:pointer}
+.aw-plan__toggle small{font-size:8px;letter-spacing:2px;color:var(--bronze2)}
+.aw-plan__toggle b{font:400 17px/1 "Cormorant Garamond",serif}
+.aw-plan__sheet{display:none;width:236px;padding:0 14px 12px}
+.aw-plan.open .aw-plan__sheet{display:block}
+@media (hover:hover){.aw-plan.on:hover .aw-plan__sheet,.aw-plan.on:focus-within .aw-plan__sheet{display:block}}
+.aw-plan__now{display:none}
+.aw-plan__top{white-space:nowrap;letter-spacing:1.8px}
+@media (max-width:760px){
+  .siteR .btn{padding:10px 12px;font-size:8.5px;letter-spacing:1.6px;white-space:nowrap;min-height:40px}
+  .brand{font-size:16px;letter-spacing:5px}
+}
+
+html[data-light="noche"] .btn.ink{border-color:rgba(241,235,224,.34)}

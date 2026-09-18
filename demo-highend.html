@@ -308,6 +308,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   </style></noscript>
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="stylesheet" href="assets/aurelia-consulta.css?v=4" />
+<link rel="stylesheet" href="assets/aurelia-x.css?v=5" />
+<link rel="stylesheet" href="assets/aurelia-w.css?v=3" />
 </head>
 <body>
 
@@ -320,9 +322,12 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <a class="lnk" href="#representacion">Representación</a>
     <a class="lnk" href="#espacios">Horizontes</a>
     <a class="lnk" href="portafolio.html">← Demos</a>
+    <button class="aw-hour" type="button" data-aw-hour><i aria-hidden="true"></i><span data-aw-hour-t></span></button><button class="aw-sound" type="button" data-aw-sound aria-pressed="false" aria-label="Sonido del mar"><i></i><i></i><i></i></button>
     <a class="btn ink" href="#acceso">Consulta privada</a>
   </div>
 </header>
+
+<nav class="aw-plan" data-aw-plan aria-label="Plano de la villa"></nav>
 
 <main>
 
@@ -331,18 +336,27 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div class="thStage">
 
       <div class="thClip" data-clip>
+        <i class="thBg" aria-hidden="true" style="background-image:url(assets/mare/scene1-frente.jpg)"></i>
         <video muted playsinline preload="auto" poster="assets/mare/scene1-frente.jpg" aria-label="Llegada a Villa Mare Alta">
-          <source src="assets/mare/walk1.mp4?v=2" type="video/mp4">
+          <source src="assets/mare/walk1-m.mp4?v=4" type="video/mp4" media="(max-width: 760px)">
+          <source src="assets/mare/walk1-hd.mp4?v=4" type="video/mp4" media="(min-width: 1600px), (min-resolution: 2dppx) and (min-width: 1200px)">
+          <source src="assets/mare/walk1.mp4?v=4" type="video/mp4">
         </video>
       </div>
       <div class="thClip" data-clip>
+        <i class="thBg" aria-hidden="true" style="background-image:url(assets/mare/scene2-sala.jpg)"></i>
         <video muted playsinline preload="auto" poster="assets/mare/scene2-sala.jpg" aria-label="El salón principal">
-          <source src="assets/mare/walk2.mp4?v=2" type="video/mp4">
+          <source src="assets/mare/walk2-m.mp4?v=4" type="video/mp4" media="(max-width: 760px)">
+          <source src="assets/mare/walk2-hd.mp4?v=4" type="video/mp4" media="(min-width: 1600px), (min-resolution: 2dppx) and (min-width: 1200px)">
+          <source src="assets/mare/walk2.mp4?v=4" type="video/mp4">
         </video>
       </div>
       <div class="thClip" data-clip>
+        <i class="thBg" aria-hidden="true" style="background-image:url(assets/mare/scene3-piscina.jpg)"></i>
         <video muted playsinline preload="auto" poster="assets/mare/scene3-piscina.jpg" aria-label="Descenso a la piscina infinita">
-          <source src="assets/mare/walk3.mp4?v=2" type="video/mp4">
+          <source src="assets/mare/walk3-m.mp4?v=4" type="video/mp4" media="(max-width: 760px)">
+          <source src="assets/mare/walk3-hd.mp4?v=4" type="video/mp4" media="(min-width: 1600px), (min-resolution: 2dppx) and (min-width: 1200px)">
+          <source src="assets/mare/walk3.mp4?v=4" type="video/mp4">
         </video>
       </div>
 
@@ -383,14 +397,33 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   <section class="reveal">
     <div class="wrap">
       <div class="mark serif" data-r>AURELIA</div>
+      <p class="aw-light" data-aw-light data-r></p>
       <div class="rule" data-r aria-hidden="true"></div>
       <h1 class="serif" data-r>Una colección privada, <em>no un catálogo.</em></h1>
-      <p data-r>AURELIA representa residencias singulares con una mirada internacional y profundamente selectiva. Villa Mare Alta abre la experiencia; detrás de ella existe una colección construida con criterio, contexto y discreción.</p>
       <div class="revealLedger" data-r>
         <div><b>Mandatos privados</b><span>Exposición controlada</span></div>
         <div><b>Perspectiva global</b><span>Selección sin fronteras</span></div>
         <div><b>Un solo interlocutor</b><span>Asesoría individual</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ EL RECORRIDO ═══════════ -->
+  <section class="ax-tour" data-ax-tour aria-label="Recorrido por Villa Mare Alta">
+    <div class="ax-tour__stage">
+      <div class="ax-tour__head">
+        <div><span class="label">Villa Mare Alta · el recorrido</span><h2 class="h2" style="margin-top:14px">Seis estancias. <em>Una sola luz.</em></h2></div>
+        <span class="ax-tour__count"><b data-ax-n>01</b>de 06</span>
+      </div>
+      <div class="ax-track" data-ax-track>
+        <figure class="ax-room is-on"><div class="ax-room__img"><img src="assets/mare/01-entrada.jpg" alt="Llegada · Piedra y espejo de agua" loading="lazy" decoding="async"></div><figcaption><small>01</small><b>Llegada<i>Piedra y espejo de agua</i></b><span>Acceso · oriente</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/02-vestibulo.jpg" alt="Vestíbulo · Escalera flotante, doble altura" loading="lazy" decoding="async"></div><figcaption><small>02</small><b>Vestíbulo<i>Escalera flotante, doble altura</i></b><span>9 m de altura</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/02b-giro-galeria.jpg" alt="Patio de olivos · Un olivo centenario bajo el cielo" loading="lazy" decoding="async"></div><figcaption><small>03</small><b>Patio de olivos<i>Un olivo centenario bajo el cielo</i></b><span>Luz cenital</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/02c-galeria.jpg" alt="Galería · Arte entre piedra y roble" loading="lazy" decoding="async"></div><figcaption><small>04</small><b>Galería<i>Arte entre piedra y roble</i></b><span>42 m lineales</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/03-sala.jpg" alt="Salón · El mar entra sin marco" loading="lazy" decoding="async"></div><figcaption><small>05</small><b>Salón<i>El mar entra sin marco</i></b><span>180 m²</span></figcaption></figure>
+        <figure class="ax-room"><div class="ax-room__img"><img src="assets/mare/04-escaleras.jpg" alt="Descenso · Hacia la piscina infinita" loading="lazy" decoding="async"></div><figcaption><small>06</small><b>Descenso<i>Hacia la piscina infinita</i></b><span>Poniente</span></figcaption></figure>
+      </div>
+      <div class="ax-tour__rail" aria-hidden="true"><i data-ax-bar></i></div>
     </div>
   </section>
 
@@ -401,7 +434,6 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
           <span class="label" data-r>Colección privada</span>
           <h2 class="h2" data-r style="margin-top:16px;color:var(--ivory)">Residencias con <em>presencia propia.</em></h2>
         </div>
-        <p data-r>Cada propiedad responde a un paisaje y una forma distinta de habitar. No publicamos inventario masivo: presentamos una selección concisa y acompañamos cada conversación de forma individual.</p>
       </div>
       <div class="filters" role="group" aria-label="Filtrar propiedades" data-r>
         <button class="filter is-active" type="button" data-property-filter="all">Todas</button>
@@ -410,7 +442,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <button class="filter" type="button" data-property-filter="desierto">Desierto</button>
       </div>
       <div class="propertyGrid" data-property-grid aria-live="polite"></div>
-      <div class="collectionFoot" data-r><span>5 residencias · representación selectiva</span><span>Información ampliada disponible bajo consulta</span></div>
+      <div class="collectionFoot" data-r><span>6 residencias · representación selectiva</span><span>Información ampliada disponible bajo consulta</span></div>
     </div>
   </section>
 
@@ -422,9 +454,29 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <h2 id="manifesto-title" data-r>Una propiedad excepcional no se publica. <em>Se presenta.</em></h2>
       </div>
       <div class="manifestoFoot" data-r>
-        <p>El trabajo de AURELIA comienza antes de una visita: comprender el activo, construir el contexto correcto y abrir la puerta únicamente cuando la conversación lo merece.</p>
         <span class="manifestoCode">Private Office · A/01</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ LECTURA DEL TERRENO ═══════════ -->
+  <section class="ax-land" data-ax-land aria-label="Lectura del terreno">
+    <div class="wrap">
+      <div class="ax-land__head">
+        <div><span class="label" style="color:var(--bronze2)">Lectura del terreno</span><h2 class="h2" style="margin-top:14px">Todo lo que la mirada <em>no alcanza.</em></h2></div>
+        <div class="ax-land__stats"><div><b>2,1 ha</b><span>Terreno</span></div><div><b>7</b><span>Suites</span></div><div><b>180 m</b><span>Frente de mar</span></div></div>
+      </div>
+      <div class="ax-map">
+        <img src="assets/mare/aerial.jpg" alt="Vista aérea de Villa Mare Alta sobre la costa, con piscina infinita y cala privada" loading="lazy" decoding="async">
+        <button class="ax-pt" type="button" style="--x:36%;--y:24%" data-k="Residencia" data-t="Casa principal" data-v="1 240 m² · cubiertas vegetales" aria-label="Casa principal · 1 240 m² · cubiertas vegetales" aria-pressed="false"></button>
+        <button class="ax-pt" type="button" style="--x:57%;--y:52%" data-k="Agua" data-t="Piscina infinita" data-v="38 m hacia el horizonte" aria-label="Piscina infinita · 38 m hacia el horizonte" aria-pressed="false"></button>
+        <button class="ax-pt" type="button" style="--x:68%;--y:36%" data-k="Paisaje" data-t="Jardines en terraza" data-v="Tres niveles de olivos y lavanda" aria-label="Jardines en terraza · Tres niveles de olivos y lavanda" aria-pressed="false"></button>
+        <button class="ax-pt" type="button" style="--x:12%;--y:60%" data-k="Invitados" data-t="Pabellón" data-v="Tres suites independientes" aria-label="Pabellón · Tres suites independientes" aria-pressed="false"></button>
+        <button class="ax-pt" type="button" style="--x:72%;--y:82%" data-k="Mar" data-t="Cala privada" data-v="Acceso directo desde la casa" aria-label="Cala privada · Acceso directo desde la casa" aria-pressed="false"></button>
+        <button class="ax-pt" type="button" style="--x:91%;--y:10%" data-k="Fondeadero" data-t="Muelle privado" data-v="Para embarcaciones de hasta 40 m" aria-label="Muelle privado · Para embarcaciones de hasta 40 m" aria-pressed="false"></button>
+        <div class="ax-card" data-ax-card aria-live="polite"><small></small><b></b><span></span></div>
+      </div>
+      <div class="ax-land__legend" data-ax-legend><button type="button" aria-pressed="false">Casa principal</button><button type="button" aria-pressed="false">Piscina infinita</button><button type="button" aria-pressed="false">Jardines en terraza</button><button type="button" aria-pressed="false">Pabellón</button><button type="button" aria-pressed="false">Cala privada</button><button type="button" aria-pressed="false">Muelle privado</button></div>
     </div>
   </section>
 
@@ -462,7 +514,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
             <div class="futureMeta"><small>Riviera privada</small><h3>Mónaco</h3><p>Una posición excepcional sobre el Mediterráneo, presentada fuera de mercado.</p></div>
           </article>
         </div>
-        <div class="futureFooter"><p>Las próximas aperturas se presentan primero a nuestra red privada. Sin listados públicos, sin exposición innecesaria.</p><a href="#acceso" data-intent="horizontes">Registrar interés →</a></div>
+        <div class="futureFooter"><p></p><a href="#acceso" data-intent="horizontes">Registrar interés →</a></div>
       </div>
       <span class="worldSwipe" aria-hidden="true">Deslice para descubrir</span>
     </div>
@@ -474,7 +526,6 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
     <div class="wrap">
       <span class="label" data-r style="color:var(--bronze2)">Private Client Desk</span>
       <h2 class="h2" data-r style="margin-top:18px">Algunas puertas <em>solo se abren al preguntar.</em></h2>
-      <p data-r>Cuéntenos qué busca o qué propiedad desea representar. La primera conversación es breve, privada y diseñada para determinar si existe un encaje real.</p>
       <form class="inq" data-inq data-r novalidate aria-label="Consulta privada">
         <div class="inqTop" data-inq-chrome><span data-inq-count>Paso 1 de 3</span><span class="inqBar" aria-hidden="true"><i data-inq-bar></i></span><span>Confidencial</span></div>
         <fieldset class="inqStep" data-inq-step>
@@ -512,9 +563,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <p class="inqErr" data-inq-err role="alert" data-inq-chrome></p>
         <div class="inqNav" data-inq-chrome><button class="inqBack" type="button" data-inq-back hidden>← Atrás</button><button class="btn" type="button" data-inq-next>Continuar →</button><button class="btn" type="submit" data-inq-submit hidden>Enviar consulta privada →</button></div>
         <div class="inqDone" data-inq-done hidden tabindex="-1">
-          <span class="label" style="color:var(--bronze2)">Consulta recibida</span>
+          <span class="label">Invitación emitida</span>
           <h3>Gracias. <em>La puerta está abierta.</em></h3>
-          <p>Un asesor de Private Client Desk le escribirá en menos de 24 horas, por el canal que eligió. Nadie más verá su consulta.</p>
+          <div class="aw-inv"><span>Para</span><b data-inq-to></b><i data-inq-date></i></div>
+          <p>Un asesor le escribirá en menos de 24 horas, por el canal que eligió.</p>
           <span class="inqRef" data-inq-ref>AUR-0000</span>
         </div>
         <p class="inqNote">Demo conceptual: este formulario no envía ni guarda ningún dato.</p>
@@ -543,20 +595,19 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   </div>
 </footer>
 
-<dialog class="propertyDialog" data-property-dialog aria-labelledby="property-dialog-title">
-  <button class="dialogClose" type="button" data-dialog-close aria-label="Cerrar ficha">×</button>
-  <div class="dialogHero">
-    <img data-dialog-image src="assets/casas/mare-costa.jpg" alt="">
-    <span class="dialogView" data-dialog-view>Vista interior · A/01</span>
-    <div class="dialogTitle"><span data-dialog-location></span><h2 id="property-dialog-title" data-dialog-title></h2></div>
-  </div>
-  <div class="dialogBody">
-    <div><span class="label">Nota de curaduría</span><p data-dialog-description style="margin-top:18px"></p></div>
-    <div>
-      <div class="dialogFacts" data-dialog-facts></div>
-      <div class="dialogCta"><a class="btn ink" href="#acceso" data-dossier>Solicitar dossier →</a></div>
-      <div class="dialogNav"><button type="button" data-dialog-prev>← Anterior</button><span class="label" data-dialog-reference></span><button type="button" data-dialog-next>Siguiente →</button></div>
-    </div>
+<dialog class="propertyDialog vw" data-property-dialog aria-labelledby="property-dialog-title">
+  <div class="vw-stage" data-vw-stage></div>
+  <div class="vw-over"><span class="vw-plate" data-vw-plate></span>
+  <div class="vw-thumbs" data-vw-thumbs></div>
+  <div class="vw-arrows"><button type="button" data-vw-prev aria-label="Lámina anterior">←</button><button type="button" data-vw-next aria-label="Lámina siguiente">→</button></div></div>
+  <div class="vw-info">
+    <button class="dialogClose" type="button" data-dialog-close aria-label="Cerrar la visita">×</button>
+    <span class="label" data-dialog-location></span>
+    <h2 id="property-dialog-title" data-dialog-title></h2>
+    <p data-dialog-description></p>
+    <div class="dialogFacts" data-dialog-facts></div>
+    <div class="dialogCta"><a class="btn" href="#acceso" data-dossier>Solicitar dossier →</a></div>
+    <div class="dialogNav"><button type="button" data-dialog-prev>← Anterior</button><span class="label" data-dialog-reference></span><button type="button" data-dialog-next>Siguiente →</button></div>
   </div>
 </dialog>
 
@@ -564,10 +615,12 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/aurelia-collection.js?v=8" defer></script>
-<script src="assets/aurelia-consulta.js?v=2" defer></script>
+<script src="assets/aurelia-collection.js?v=10" defer></script>
+<script src="assets/aurelia-consulta.js?v=3" defer></script>
 <script src="assets/mare.js?v=11" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
+<script src="assets/aurelia-x.js?v=1" defer></script>
+<script src="assets/aurelia-w.js?v=1" defer></script>
 </body>
 </html>

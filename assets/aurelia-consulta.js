@@ -104,7 +104,14 @@
     e.preventDefault();
     if (!validate()) return;
     var code = "AUR-" + new Date().getFullYear() + "-" + String(Math.floor(1000 + Math.random() * 9000));
-    if (ref) ref.textContent = t("Referencia ", "Reference ") + code;
+    if (ref) ref.textContent = t("Invitación ", "Invitation ") + code;
+    /* la invitación lleva el nombre de quien la pidió y la fecha de hoy */
+    var to = form.querySelector("[data-inq-to]");
+    var nameField = form.querySelector('[name="name"]');
+    if (to && nameField) to.textContent = nameField.value.trim();
+    var when = form.querySelector("[data-inq-date]");
+    if (when) when.textContent = new Date().toLocaleDateString(isEnglish ? "en-GB" : "es-ES", { day: "numeric", month: "long", year: "numeric" });
+    form.classList.add("is-sealed");
     steps.forEach(function (s) { s.hidden = true; });
     chrome.forEach(function (c) { c.hidden = true; });
     if (done) { done.hidden = false; done.focus(); }

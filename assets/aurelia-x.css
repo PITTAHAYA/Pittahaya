@@ -1,0 +1,106 @@
+/* ═══════════════════════════════════════════════════════════
+   AURELIA · la visita privada
+   Tras el umbral, un recorrido horizontal por las estancias de
+   Villa Mare Alta y la lectura del terreno desde el aire.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── el recorrido: seis estancias que avanzan con el scroll ── */
+.ax-tour{position:relative;height:calc(var(--n,6) * 62vh + 60vh);background:#12100d;color:var(--ivory)}
+.ax-tour__stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.ax-tour__head{position:absolute;z-index:3;top:clamp(88px,13vh,128px);left:5vw;right:5vw;display:flex;justify-content:space-between;align-items:flex-end;gap:30px}
+.ax-tour__head .h2{color:var(--ivory);font-size:clamp(30px,3.6vw,54px)}
+.ax-tour__head .h2 em{color:var(--bronze2)}
+.ax-tour__count{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(250,248,243,.55);white-space:nowrap}
+.ax-tour__count b{font:300 30px/1 "Cormorant Garamond";letter-spacing:0;color:var(--ivory);margin-right:6px}
+.ax-track{display:flex;gap:2.4vw;padding:0 5vw;margin-top:clamp(80px,12vh,120px);will-change:transform}
+.ax-room{position:relative;flex:0 0 min(62vw,1040px);margin:0}
+.ax-room__img{position:relative;overflow:hidden;aspect-ratio:16/9;background:#201c17}
+.ax-room__img img{width:100%;height:100%;object-fit:cover;transform:scale(1.14);transition:transform 1.8s var(--ease),filter 1.2s ease;filter:saturate(.8) brightness(.82)}
+.ax-room.is-on .ax-room__img img{transform:scale(1);filter:saturate(.95) brightness(1)}
+.ax-room figcaption{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:18px;margin-top:18px;padding-top:14px;border-top:1px solid rgba(250,248,243,.16)}
+.ax-room figcaption small{font-size:9px;letter-spacing:3px;color:var(--bronze2)}
+.ax-room figcaption b{font:300 clamp(24px,2.4vw,36px)/1 "Cormorant Garamond";letter-spacing:-.2px}
+.ax-room figcaption b i{font-style:italic;color:rgba(250,248,243,.55);font-size:.62em;margin-left:12px}
+.ax-room figcaption span{font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.55);white-space:nowrap}
+.ax-tour__rail{position:absolute;z-index:3;left:5vw;right:5vw;bottom:clamp(26px,5vh,48px);height:1px;background:rgba(250,248,243,.14)}
+.ax-tour__rail i{position:absolute;inset:0;background:var(--bronze2);transform:scaleX(0);transform-origin:left}
+
+/* ── lectura del terreno: la finca desde el aire ─────────── */
+.ax-land{position:relative;background:#0d0b08;color:var(--ivory);padding:clamp(90px,14vh,160px) 0}
+.ax-land__head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-bottom:clamp(34px,5vh,56px)}
+.ax-land__head .h2{color:var(--ivory);max-width:15ch}
+.ax-land__head .h2 em{color:var(--bronze2)}
+.ax-land__stats{display:flex;gap:clamp(24px,4vw,56px)}
+.ax-land__stats div b{display:block;font:300 clamp(34px,3.6vw,52px)/1 "Cormorant Garamond"}
+.ax-land__stats div span{display:block;margin-top:8px;font-size:9px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.55)}
+.ax-map{position:relative;overflow:hidden;aspect-ratio:2400/1339;background:#1c1914}
+.ax-map img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 2.4s var(--ease)}
+.ax-map.in img{transform:scale(1)}
+.ax-map::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 100% at 50% 50%,transparent 55%,rgba(13,11,8,.55))}
+.ax-pt{position:absolute;z-index:2;left:var(--x);top:var(--y);width:44px;height:44px;margin:-22px 0 0 -22px;padding:0;border:0;background:none;cursor:pointer}
+.ax-pt::before{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--ivory);box-shadow:0 0 0 1px rgba(13,11,8,.3)}
+.ax-pt::after{content:"";position:absolute;inset:6px;border-radius:50%;border:1px solid rgba(250,248,243,.8);animation:axPulse 2.6s ease-out infinite}
+.ax-pt[aria-pressed="true"]::before{background:var(--bronze2)}
+@keyframes axPulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(1.7);opacity:0}}
+.ax-card{position:absolute;z-index:3;left:var(--x);top:var(--y);width:max-content;max-width:260px;padding:14px 16px;background:rgba(247,244,238,.95);color:var(--ink);transform:translate(-50%,calc(-100% - 30px));pointer-events:none;box-shadow:0 20px 60px rgba(0,0,0,.35);opacity:0;transition:opacity .45s ease,transform .6s var(--ease)}
+.ax-card.on{opacity:1;transform:translate(-50%,calc(-100% - 22px))}
+.ax-card small{display:block;font-size:8.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--bronze)}
+.ax-card b{display:block;margin-top:6px;font:400 22px/1.05 "Cormorant Garamond"}
+.ax-card span{display:block;margin-top:6px;font-size:11px;color:var(--dim)}
+.ax-land__legend{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:18px;font-size:9px;letter-spacing:2.4px;text-transform:uppercase;color:rgba(250,248,243,.5)}
+.ax-land__legend button{border:0;background:none;padding:0;min-height:36px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;cursor:pointer;transition:color .3s}
+.ax-land__legend button:hover,.ax-land__legend button[aria-pressed="true"]{color:var(--bronze2)}
+
+/* ── menos palabras ───────────────────────────────────────── */
+.collectionIntro{align-items:end}
+.revealLedger{margin-top:clamp(48px,8vh,80px)}
+
+/* ── teléfono: el recorrido se desliza con el dedo ─────────── */
+@media (max-width:760px){
+  .ax-tour{height:auto}
+  .ax-tour__stage{position:relative;height:auto;padding:80px 0 60px}
+  .ax-tour__head{position:static;padding:0 22px;margin-bottom:26px;flex-direction:column;align-items:flex-start;gap:14px}
+  .ax-track{margin:0;padding:0 22px;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:22px;scrollbar-width:none;transform:none!important}
+  .ax-track::-webkit-scrollbar{display:none}
+  .ax-room{flex:0 0 84vw;scroll-snap-align:start}
+  .ax-room__img{aspect-ratio:4/3}
+  .ax-room__img img{transform:none;filter:none}
+  .ax-room figcaption{grid-template-columns:auto 1fr;gap:6px 12px}
+  .ax-room figcaption span{grid-column:1/-1}
+  .ax-room figcaption b i{display:block;margin:6px 0 0}
+  .ax-tour__rail{display:none}
+  .ax-land{padding:70px 0}
+  .ax-land__stats{width:100%;justify-content:space-between}
+  .ax-map{margin-inline:-5vw;aspect-ratio:4/3}
+  .ax-card{max-width:200px;padding:10px 12px}
+  .ax-card b{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ax-room__img img,.ax-map img{transform:none!important;transition:none}
+  .ax-pt::after{animation:none}
+}
+
+/* revisión: en el teléfono la ficha va fija abajo del plano y el plano conserva su proporción */
+@media (max-width:760px){
+  .ax-map{aspect-ratio:2400/1339}
+  .ax-card,.ax-card.on{left:12px!important;top:auto!important;bottom:12px;transform:none;max-width:70%}
+  .ax-card{transform:translateY(8px)}
+  .ax-land__legend{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-5vw;padding-inline:5vw}
+  .ax-land__legend::-webkit-scrollbar{display:none}
+  .ax-land__legend button{flex:none}
+  .ax-tour__stage{padding:70px 0 20px}
+}
+
+/* ── la entrada en el teléfono ────────────────────────────────
+   el video es horizontal: recortado a vertical sólo quedaba un 30 %
+   estirado tres veces. Ahora se ve completo y nítido, a todo el
+   ancho, y la misma escena desenfocada llena el resto de la pantalla */
+.thBg{display:none}
+@media (max-width:760px){
+  .thBg{display:block;position:absolute;inset:-8%;background-size:cover;background-position:center;filter:blur(28px) saturate(1.1) brightness(.62);transform:translateZ(0)}
+  .thClip video{position:relative;z-index:1;height:auto;aspect-ratio:4/5;top:50%;transform:translateY(-50%);object-fit:cover;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .thVeil{background:linear-gradient(180deg,rgba(13,11,8,.55),transparent 30%,transparent 66%,rgba(13,11,8,.7))}
+  .thFrame{display:none}
+  .thCap{bottom:clamp(64px,9vh,90px)}
+  .thCap b{font-size:32px}
+}
