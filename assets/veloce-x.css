@@ -123,3 +123,13 @@
 
 /* la burbuja del chat tapaba el crédito del pie */
 @media (min-width:761px){.footBar{padding-right:84px}}
+
+/* despiece en 4K: en pantallas grandes va contenido y se funde con el fondo,
+   así nunca se estira de más */
+@media (min-width:761px){
+  .vx-exp__stage{background:radial-gradient(90% 70% at 50% 50%,#1a1b20,#050507 75%)}
+  .vx-exp__stage video{inset:9vh 5vw 14vh;width:90vw;height:77vh;object-fit:contain;-webkit-mask-image:radial-gradient(ellipse 50% 56% at 50% 50%,#000 42%,transparent 100%);mask-image:radial-gradient(ellipse 50% 56% at 50% 50%,#000 42%,transparent 100%)}
+}
+@media (max-width:760px){
+  .vx-exp__stage video{-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
+}
