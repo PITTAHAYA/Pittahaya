@@ -192,7 +192,7 @@
       if (rect.bottom < 0 || rect.top > innerHeight) return;
       var progress = (innerHeight - rect.top) / (innerHeight + rect.height);
       var shift = (progress - 0.5) * -54;
-      manifestoImage.style.setProperty("--manifesto-shift", shift.toFixed(1) + "px");
+      manifesto.style.setProperty("--manifesto-shift", shift.toFixed(1) + "px");
     };
     addEventListener("scroll", onManifesto, { passive: true });
     addEventListener("resize", onManifesto, { passive: true });

@@ -155,8 +155,49 @@
     else dialog.removeAttribute("open");
   }
 
+  /* la colección son puertas: la fachada se parte en dos hojas que se abren
+     y detrás aparece el interior de esa misma casa */
+  var INTERIOR = { "mare-alta": "casas/mare-interior.jpg", levante: "aurelia/interior.jpg", solene: "casas/solene-interior.jpg", solar: "casas/solar-interior.jpg", aster: "casas/aster-interior.jpg", lumen: "casas/lumen-interior.jpg" };
+  function renderDoors() {
+    var fragment = document.createDocumentFragment();
+    properties.forEach(function (property, index) {
+      var ch = element("article", "dr");
+      ch.dataset.region = property.region;
+      ch.dataset.slug = property.slug;
+      var stageEl = element("div", "dr-stage");
+      var inside = element("img", "dr-in");
+      inside.src = A + INTERIOR[property.slug];
+      inside.alt = t("Interior de ", "Interior of ") + property.name;
+      inside.loading = "lazy"; inside.decoding = "async";
+      stageEl.appendChild(inside);
+      ["l", "r"].forEach(function (side) {
+        var door = element("div", "dr-door " + side);
+        door.setAttribute("aria-hidden", "true");
+        var im = element("img");
+        im.src = property.image; im.alt = ""; im.loading = "lazy"; im.decoding = "async";
+        im.style.objectPosition = property.focus || "50% 50%";
+        door.appendChild(im);
+        stageEl.appendChild(door);
+      });
+      stageEl.appendChild(element("span", "dr-seam"));
+      var meta = element("div", "dr-meta");
+      meta.append(element("span", "dr-n", "A/" + pad(index + 1) + " — " + pad(properties.length)), element("span", "dr-k", property.type + " · " + property.location), element("h3", "", property.name));
+      var go = element("button", "dr-go", t("Entrar en la residencia", "Enter the residence"));
+      go.type = "button";
+      go.appendChild(element("i", "", "→"));
+      go.addEventListener("click", function () { openProperty(property, stageEl); });
+      meta.appendChild(go);
+      stageEl.appendChild(meta);
+      ch.appendChild(stageEl);
+      fragment.appendChild(ch);
+    });
+    grid.className = "dr-track";
+    grid.replaceChildren(fragment);
+  }
+
   function render() {
     if (!grid) return;
+    if (grid.hasAttribute("data-doors")) { renderDoors(); return; }
     var fragment = document.createDocumentFragment();
     properties.forEach(function (property, index) {
       var card = element("article", "propertyCard");

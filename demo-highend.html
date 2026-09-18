@@ -310,6 +310,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
 <link rel="stylesheet" href="assets/aurelia-consulta.css?v=4" />
 <link rel="stylesheet" href="assets/aurelia-x.css?v=5" />
 <link rel="stylesheet" href="assets/aurelia-w.css?v=3" />
+<link rel="stylesheet" href="assets/aurelia-v.css?v=3" />
 </head>
 <body>
 
@@ -394,18 +395,16 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   </section>
 
   <!-- ═══════════ EL UMBRAL SE ABRE ═══════════ -->
-  <section class="reveal">
-    <div class="wrap">
-      <div class="mark serif" data-r>AURELIA</div>
-      <p class="aw-light" data-aw-light data-r></p>
-      <div class="rule" data-r aria-hidden="true"></div>
-      <h1 class="serif" data-r>Una colección privada, <em>no un catálogo.</em></h1>
-      <div class="revealLedger" data-r>
-        <div><b>Mandatos privados</b><span>Exposición controlada</span></div>
-        <div><b>Perspectiva global</b><span>Selección sin fronteras</span></div>
-        <div><b>Un solo interlocutor</b><span>Asesoría individual</span></div>
-      </div>
+  <section class="reveal aw-open" data-aw-open>
+    <picture class="aw-open__bg" aria-hidden="true"><source media="(max-width: 760px)" srcset="assets/mare/end-m.jpg"><img src="assets/mare/end.jpg" alt="" decoding="async"></picture>
+    <div class="aw-open__in">
+      <div class="mark serif">AURELIA</div>
+      <p class="aw-light" data-aw-light></p>
+      <h1 class="serif">Una colección privada, <em>no un catálogo.</em></h1>
     </div>
+    <div class="aw-open__foot"><div><b>Mandatos privados</b><span>Exposición controlada</span></div>
+        <div><b>Perspectiva global</b><span>Selección sin fronteras</span></div>
+        <div><b>Un solo interlocutor</b><span>Asesoría individual</span></div></div>
   </section>
 
   <!-- ═══════════ EL RECORRIDO ═══════════ -->
@@ -441,13 +440,13 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
         <button class="filter" type="button" data-property-filter="montana">Montaña</button>
         <button class="filter" type="button" data-property-filter="desierto">Desierto</button>
       </div>
-      <div class="propertyGrid" data-property-grid aria-live="polite"></div>
+      <div class="propertyGrid" data-property-grid data-doors aria-live="polite"></div>
       <div class="collectionFoot" data-r><span>6 residencias · representación selectiva</span><span>Información ampliada disponible bajo consulta</span></div>
     </div>
   </section>
 
   <section class="manifesto" id="representacion" aria-labelledby="manifesto-title">
-    <div class="manifestoMedia" aria-hidden="true"><img src="assets/casas/mare-llegada.jpg" alt="" loading="lazy" data-manifesto-image></div>
+    <div class="manifestoMedia" aria-hidden="true"><img src="assets/casas/mare-llegada.jpg" alt="" loading="lazy" data-manifesto-image><img class="aw-lamp" src="assets/casas/mare-llegada.jpg" alt="" loading="lazy"></div>
     <div class="wrap manifestoInner">
       <div class="manifestoCopy">
         <span class="label" data-r style="color:var(--bronze2)">El arte de la presentación</span>
@@ -615,12 +614,13 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
   <img src="assets/pitahaya-logo.png" alt="Pittahaya logo">
 </div>
 
-<script src="assets/aurelia-collection.js?v=10" defer></script>
+<script src="assets/aurelia-collection.js?v=11" defer></script>
 <script src="assets/aurelia-consulta.js?v=3" defer></script>
-<script src="assets/mare.js?v=11" defer></script>
+<script src="assets/mare.js?v=12" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
 <script src="assets/aurelia-x.js?v=1" defer></script>
 <script src="assets/aurelia-w.js?v=1" defer></script>
+<script src="assets/aurelia-v.js?v=3" defer></script>
 </body>
 </html>

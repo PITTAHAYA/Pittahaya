@@ -1,0 +1,90 @@
+/* ═══════════════════════════════════════════════════════════
+   AURELIA · la casa sigue
+   La entrada no termina en papel: el último cuadro del recorrido
+   sostiene el titular; la colección son puertas que se abren; la
+   presentación se descubre a la luz de una linterna.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. el titular sobre el último cuadro del recorrido ───── */
+.reveal.aw-open{position:relative;min-height:100vh;min-height:100svh;padding:0;display:flex;flex-direction:column;justify-content:center;background:#0d0b08;color:var(--ivory);overflow:hidden;isolation:isolate}
+.aw-open__bg{position:absolute;inset:0;z-index:-2}
+.aw-open__bg img{width:100%;height:100%;object-fit:cover;transform:scale(calc(1 + var(--o,0) * .08));will-change:transform}
+.reveal.aw-open::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(80% 60% at 50% 46%,rgba(13,11,8,.18),rgba(13,11,8,.62) 78%),linear-gradient(180deg,rgba(13,11,8,.55),transparent 30%,transparent 62%,rgba(13,11,8,.9))}
+.aw-open__in{position:relative;padding:18vh 6vw 0;text-align:center}
+.reveal.aw-open .mark{color:var(--ivory)}
+.reveal.aw-open .aw-light{color:rgba(250,248,243,.8);text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.reveal.aw-open .aw-light b{color:#fff}
+.reveal.aw-open h1{margin-top:clamp(28px,5vh,52px);max-width:14ch;font-size:clamp(46px,7.4vw,124px);line-height:.98;letter-spacing:-1.5px;color:#fff;text-shadow:0 6px 60px rgba(0,0,0,.35)}
+.reveal.aw-open h1 em{color:#f0d6a8}
+.aw-open__foot{position:relative;display:grid;grid-template-columns:repeat(3,1fr);width:min(1080px,88vw);margin:auto auto 0;border-top:1px solid rgba(250,248,243,.28)}
+.aw-open__foot div{padding:22px 12px 34px;text-align:center}
+.aw-open__foot b{display:block;font:300 22px/1.1 "Cormorant Garamond",serif;color:#fff}
+.aw-open__foot span{display:block;margin-top:8px;font-size:8.5px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(250,248,243,.62)}
+
+/* ── 2. la colección: puertas que se abren ───────────────── */
+.collection{padding-bottom:0}
+.collection .filters{display:none}
+.collectionFoot{display:none}
+.dr-track{display:block;margin-top:clamp(40px,7vh,72px)}
+.dr{position:relative;height:100vh;height:100svh;min-height:620px;margin:0 calc(-1 * (100vw - min(1340px,90vw)) / 2)}
+.dr-stage{position:absolute;inset:0;overflow:hidden;perspective:2200px;background:#0d0b08}
+.dr-in{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(calc(1.2 - var(--p,0) * .2));filter:brightness(calc(.35 + var(--p,0) * .65)) saturate(calc(.6 + var(--p,0) * .4))}
+.dr-door{position:absolute;top:0;bottom:0;width:50%;overflow:hidden;backface-visibility:hidden;will-change:transform}
+.dr-door.l{left:0;transform-origin:0 50%;transform:rotateY(calc(var(--p,0) * -84deg))}
+.dr-door.r{right:0;transform-origin:100% 50%;transform:rotateY(calc(var(--p,0) * 84deg))}
+.dr-door img{position:absolute;top:0;height:100%;width:200%;max-width:none;object-fit:cover}
+.dr-door.l img{left:0}.dr-door.r img{right:0}
+.dr-door::after{content:"";position:absolute;inset:0;pointer-events:none}
+.dr-door.l::after{background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,calc(.15 + var(--p,0) * .7)))}
+.dr-door.r::after{background:linear-gradient(270deg,rgba(0,0,0,0),rgba(0,0,0,calc(.15 + var(--p,0) * .7)))}
+.dr-seam{position:absolute;z-index:2;left:50%;top:0;bottom:0;width:1px;margin-left:-.5px;background:linear-gradient(180deg,transparent,rgba(240,214,168,.9) 30%,rgba(240,214,168,.9) 70%,transparent);opacity:calc(1 - var(--p,0) * 3);box-shadow:0 0 18px rgba(240,214,168,.8)}
+.dr-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(0deg,rgba(13,11,8,.85),transparent 42%),linear-gradient(180deg,rgba(13,11,8,.5),transparent 22%)}
+.dr-meta{position:absolute;z-index:3;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);bottom:clamp(40px,8vh,90px);display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px 40px;color:#fff}
+.dr-n{grid-column:1/-1;font-size:9px;letter-spacing:3.2px;color:var(--bronze2)}
+.dr-k{grid-column:1/-1;font-size:9px;letter-spacing:2.8px;text-transform:uppercase;color:rgba(250,248,243,.66)}
+.dr-meta h3{margin:4px 0 0;font:300 clamp(56px,9vw,150px)/.88 "Cormorant Garamond",serif;letter-spacing:-2px}
+.dr-go{display:inline-flex;align-items:center;gap:14px;min-height:54px;padding:0 26px;border:1px solid rgba(250,248,243,.5);background:rgba(13,11,8,.25);backdrop-filter:blur(8px);color:#fff;font:400 10px/1 "Inter",sans-serif;letter-spacing:3px;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .5s var(--ease),color .5s var(--ease),border-color .5s}
+.dr-go:hover{background:var(--ivory);color:#14110d;border-color:var(--ivory)}
+.dr-go i{font-style:normal;transition:transform .5s var(--ease)}
+.dr-go:hover i{transform:translateX(5px)}
+.dr-meta > *{opacity:calc(var(--p,0) * 1.6 - .5);transform:translateY(calc((1 - var(--p,0)) * 26px))}
+
+/* ── 3. la presentación, a la luz de una linterna ─────────── */
+.manifestoMedia img{filter:saturate(.5) brightness(.32) contrast(1.05)}
+.manifestoMedia .aw-lamp{position:absolute;inset:0;filter:saturate(1.05) brightness(1.05);transform:translateY(var(--manifesto-shift,0));-webkit-mask-image:radial-gradient(circle var(--lr,300px) at var(--lx,62%) var(--ly,42%),#000 0,rgba(0,0,0,.55) 45%,transparent 100%);mask-image:radial-gradient(circle var(--lr,300px) at var(--lx,62%) var(--ly,42%),#000 0,rgba(0,0,0,.55) 45%,transparent 100%)}
+.manifesto{cursor:none}
+.manifesto a,.manifesto button{cursor:pointer}
+
+/* ── teléfono ─────────────────────────────────────────────── */
+@media (max-width:760px){
+  .aw-open__in{padding:16vh 22px 0}
+  .reveal.aw-open h1{font-size:46px;letter-spacing:-.5px}
+  .aw-open__foot{grid-template-columns:1fr 1fr 1fr;width:calc(100% - 36px)}
+  .aw-open__foot div{padding:16px 4px 26px}
+  .aw-open__foot b{font-size:15px}
+  .aw-open__foot span{font-size:7px;letter-spacing:1.4px}
+  .dr-track{display:flex;gap:10px;margin:28px -5vw 0;padding:0 5vw 70px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:5vw;scrollbar-width:none}
+  .dr-track::-webkit-scrollbar{display:none}
+  .dr{flex:0 0 86vw;height:auto;min-height:0;aspect-ratio:3/4;margin:0;scroll-snap-align:start}
+  .dr-door,.dr-in,.dr-seam,.dr-meta > *{transition:transform 1.8s cubic-bezier(.7,0,.2,1),filter 1.8s ease,opacity 1.2s ease}
+  .dr-meta{left:18px;right:18px;bottom:20px;grid-template-columns:1fr}
+  .dr-meta h3{font-size:46px;letter-spacing:-.5px}
+  .dr-go{min-height:46px;padding:0 18px;justify-self:start}
+  .manifesto{cursor:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .dr{--p:1!important}
+}
+
+/* revisión: la puerta se queda fija mientras se abre */
+@media (min-width:761px){
+  .dr{height:190vh;min-height:0}
+  .dr-stage{position:sticky;top:0;bottom:auto;height:100vh;height:100svh}
+}
+/* linterna con más contraste: la casa casi a oscuras, el círculo cálido */
+.manifestoMedia img{filter:saturate(.35) brightness(.2) contrast(1.05)}
+.manifestoMedia .aw-lamp{filter:saturate(1.15) brightness(1.18) sepia(.12)}
+.manifestoMedia::after{background:linear-gradient(90deg,rgba(12,10,8,.55),rgba(12,10,8,.05) 56%,transparent),linear-gradient(0deg,rgba(12,10,8,.7),transparent 50%)}
+.aw-open__bg img{object-position:50% 60%}
+/* un contenedor con overflow:hidden anulaba el sticky de las puertas */
+.collection{overflow:visible;overflow-x:clip}
