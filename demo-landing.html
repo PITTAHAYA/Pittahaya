@@ -222,6 +222,7 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important}.reserveBar{display:none}</style></noscript>
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="stylesheet" href="assets/veloce-reserva.css?v=3" />
+<link rel="stylesheet" href="assets/veloce-x.css?v=6" />
 </head>
 <body>
 
@@ -246,24 +247,25 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 <main>
   <!-- ═ HERO · el film ═ -->
   <section class="hero" data-reserve-after>
-    <video data-hero-video autoplay muted loop playsinline poster="assets/veloce/hero-poster.jpg">
-      <source src="assets/veloce/hero.mp4" type="video/mp4">
+    <video data-hero-video autoplay muted loop playsinline poster="assets/veloce/hero-poster.jpg?v=2">
+      <source src="assets/veloce/hero.mp4?v=2" type="video/mp4">
     </video>
-    <img class="heroPoster" src="assets/veloce/hero-poster.jpg" alt="" aria-hidden="true" style="display:none">
+    <img class="heroPoster" src="assets/veloce/hero-poster.jpg?v=2" alt="" aria-hidden="true" style="display:none">
+    <div class="vx-letterbox" aria-hidden="true"><i></i><i></i></div>
     <div class="heroInner">
+      <p class="vx-mark" aria-hidden="true">VEL<i>O</i>CE</p>
       <span class="eyebrow">Série Uno · edición de 50</span>
       <h1>El último auto que vas a <em>desear.</em></h1>
-      <p class="heroLead">Un gran turismo eléctrico construido cincuenta veces y nunca más. Cuando el último chasis salga del atelier, la serie se cierra para siempre.</p>
       <div class="heroActions">
         <a class="pill" href="#reservar">Reservar mi chasis →</a>
         <a class="pill ghost" href="#silueta">Ver el auto</a>
       </div>
-      <div class="heroMeta">
+    </div>
+    <div class="heroMeta vx-strip">
         <div><b>1.9<span class="mono" style="font-size:.5em;color:var(--sig)">s</span></b><span>0–100 km/h</span></div>
         <div><b>1,340<span class="mono" style="font-size:.4em;color:var(--sig)"> hp</span></b><span>dos motores</span></div>
         <div><b>50</b><span>unidades · jamás más</span></div>
       </div>
-    </div>
     <div class="scrollCue" aria-hidden="true"><span>la historia continúa</span><i></i></div>
   </section>
 
@@ -272,7 +274,6 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
     <img src="assets/veloce/hero-A.jpg" alt="Veloce Série Uno emergiendo de la oscuridad">
     <div class="wrap">
       <h2 data-reveal>Cincuenta. Y después, <em>nunca.</em></h2>
-      <p data-reveal>No hacemos modelos. Hacemos una serie, la firmamos, y cerramos los moldes. Tu Veloce no envejece: se vuelve el único.</p>
     </div>
   </section>
 
@@ -299,7 +300,6 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
       <div>
         <span class="kicker" data-reveal>01 — Silueta</span>
         <h3 data-reveal>Una línea de luz que <em>nunca se rompe.</em></h3>
-        <p data-reveal>Una sola firma lumínica recorre el auto de faro a faro: la marca no va en un logo, va en la luz. De día, escultura de obsidiana; de noche, una firma que reconoces a cien metros.</p>
         <ul class="feats">
           <li data-reveal>Carrocería monocasco de fibra de carbono</li>
           <li data-reveal>Firma lumínica continua LED, personalizable</li>
@@ -309,35 +309,40 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
     </div>
   </section>
 
+  <!-- ═ LA LÍNEA ═ -->
+  <section class="vx-line" data-vx-line>
+    <img src="assets/veloce/profile.jpg" alt="Veloce Série Uno de perfil con su firma lumínica continua" loading="lazy" decoding="async">
+    <p class="vx-line__t">Una sola línea. <em>De faro a faro.</em></p>
+  </section>
+
   <!-- ═ SPEC BAND ═ -->
-  <section class="specBand sec" id="poder">
-    <div class="wrap" style="text-align:center">
-      <span class="kicker" data-reveal style="display:inline-flex">02 — Rendimiento</span>
-      <h2 class="h2" data-reveal>La física, <em>convencida.</em></h2>
+  <section class="vx-exp" id="poder" data-vx-exp aria-label="Despiece del Veloce Série Uno">
+    <div class="vx-exp__stage">
+      <video data-vx-exp-video muted playsinline preload="none" poster="assets/veloce/exploded-start.jpg"><source src="assets/veloce/exploded.mp4?v=2" type="video/mp4"></video>
+      <div class="vx-exp__head"><span class="kicker">02 — Rendimiento</span><h2 class="h2">La física, <em>convencida.</em></h2></div>
+      <ol class="vx-exp__specs">
+        <li data-at="0.12"><b>1.9<i>s</i></b><span>0 – 100 km/h</span></li>
+        <li data-at="0.32"><b>350<i>km/h</i></b><span>velocidad máx.</span></li>
+        <li data-at="0.52"><b>1,340<i>hp</i></b><span>potencia total</span></li>
+        <li data-at="0.72"><b>640<i>km</i></b><span>autonomía WLTP</span></li>
+      </ol>
+      <div class="vx-exp__bar" aria-hidden="true"><i data-vx-exp-bar></i></div>
+      <span class="mediaLabel">Despiece integral · desplaza</span>
     </div>
-    <div class="specHero partsReveal framed" data-reveal data-framed>
-      <img src="assets/veloce/exploded-poster.jpg" alt="Despiece integral del Veloce Série Uno — monocasco de carbono, doble motor, batería y ruedas" loading="lazy">
-      <span class="mediaLabel">Despiece integral</span>
-      <div class="capCard">
-        <h3>Cada pieza, real.</h3>
-        <p>Monocasco de carbono, doble motor, batería estructural — 1,340 hp desarmados ante ti.</p>
-      </div>
-    </div>
+  </section>
+
+  <section class="vx-tech">
     <div class="wrap">
-      <div class="specGrid">
-        <div class="cell"><b><span data-count="1.9" data-dec="1">1.9</span><i>s</i></b><span>0 – 100 km/h</span></div>
-        <div class="cell"><b><span data-count="350">350</span><i>km/h</i></b><span>velocidad máx.</span></div>
-        <div class="cell"><b><span data-count="1340">1,340</span><i>hp</i></b><span>potencia total</span></div>
-        <div class="cell"><b><span data-count="640">640</span><i>km</i></b><span>autonomía WLTP</span></div>
-      </div>
-      <div class="techTable" data-reveal>
+      <details><summary>Ficha técnica completa <span aria-hidden="true">+</span></summary>
+        <div class="techTable">
         <div class="row"><small>Tren motriz</small><b>Doble motor, tracción integral vectorial</b></div>
         <div class="row"><small>Batería</small><b>120 kWh · arquitectura 900 V</b></div>
         <div class="row"><small>Carga 10 → 80%</small><b><em>18 min</em> en carga ultrarrápida</b></div>
         <div class="row"><small>0 – 200 km/h</small><b>4.9 s</b></div>
         <div class="row"><small>Peso</small><b>1,940 kg</b></div>
         <div class="row"><small>Producción</small><b><em>50</em> chasis numerados · certificado firmado</b></div>
-      </div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -351,7 +356,6 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
       <div>
         <span class="kicker" data-reveal>03 — Cabina</span>
         <h3 data-reveal>Un habitáculo que <em>desaparece.</em></h3>
-        <p data-reveal>Cuero acolchado, aluminio anodizado y una sola línea de luz cálida que respira contigo. Todo lo que no necesitas, no está. Lo que queda, está hecho a mano — y a tu medida.</p>
         <ul class="feats">
           <li data-reveal>Asientos envolventes en cuero cosido a mano</li>
           <li data-reveal>Instrumentación flotante sin distracciones</li>
@@ -366,11 +370,11 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
     <div class="wrap">
       <span class="kicker" data-reveal style="display:inline-flex">A medida</span>
       <h2 class="h2" data-reveal>Elige tu <em>firma.</em></h2>
-      <p class="lead" data-reveal style="margin-left:auto;margin-right:auto;text-align:center">Cada Veloce se entrega con una firma lumínica única. Elige la tuya — la verás en cada túnel, en cada retrovisor, en cada llegada.</p>
     </div>
     <div class="configStage framed" data-framed data-reveal>
       <img data-config-img src="assets/veloce/rear.jpg" alt="Veloce Série Uno con firma lumínica configurable" loading="lazy">
       <div class="configGlow"></div>
+      <b class="vx-sigName" data-sig-name-big aria-hidden="true">Oro Fundido</b>
       <span class="mediaLabel">Firma lumínica</span>
     </div>
     <div class="swatches">
@@ -444,8 +448,9 @@ a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}
 </div>
 
 <script src="assets/demo-landing-fx.js?v=14" defer></script>
-<script src="assets/veloce.js?v=17" defer></script>
+<script src="assets/veloce.js?v=18" defer></script>
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/analytics.js?v=1" defer></script>
+<script src="assets/veloce-x.js?v=3" defer></script>
 </body>
 </html>

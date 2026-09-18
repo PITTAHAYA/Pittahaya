@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════
+   VELOCE · capa hyper-GT
+   El nombre como monumento, telón de cine al abrir, el auto
+   que se desarma con el scroll, la línea de luz que recorre el
+   perfil y la firma elegida escrita sobre el auto.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── héroe: nombre monumental, centrado ───────────────────── */
+.hero{align-items:center;justify-content:center;flex-direction:column;text-align:center}
+.hero::after{background:radial-gradient(60% 34% at 50% 58%,rgba(8,8,10,.55),transparent 100%),radial-gradient(120% 90% at 50% 45%,rgba(8,8,10,.18) 0%,rgba(8,8,10,.6) 62%,rgba(8,8,10,.92) 100%),linear-gradient(0deg,rgba(8,8,10,.95),transparent 38%)}
+.hero .eyebrow,.hero h1{text-shadow:0 2px 24px rgba(0,0,0,.65)}
+.hero .heroInner{display:flex;flex-direction:column;align-items:center;padding:0 20px;margin-top:6vh}
+.vx-mark{margin:0 0 6px;font-weight:200;font-size:clamp(64px,15.5vw,250px);line-height:.86;letter-spacing:.16em;text-indent:.16em;background:linear-gradient(180deg,var(--bone) 30%,rgba(244,240,231,.18));-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
+.vx-mark i{font-style:normal;background:linear-gradient(180deg,var(--sig2),var(--sig));-webkit-background-clip:text;background-clip:text;color:transparent;transition:filter .6s ease}
+.hero .eyebrow{margin:0 0 18px}
+.hero .eyebrow::after{content:"";width:30px;height:1px;background:var(--sig)}
+.hero h1{max-width:none;margin:0;font-weight:300;font-size:clamp(20px,2.4vw,34px);letter-spacing:-.3px;line-height:1.2;color:var(--bone)}
+.hero .heroActions{justify-content:center;margin-top:30px}
+.heroInner .vx-mark{animation:vxMark 1.8s cubic-bezier(.16,.7,.2,1) .3s both}
+@keyframes vxMark{from{opacity:0;letter-spacing:.42em;filter:blur(14px)}to{opacity:1;letter-spacing:.16em;filter:none}}
+
+/* franja de cifras al pie del héroe */
+.vx-strip{position:absolute;left:0;right:0;bottom:0;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);margin:0;border-top:1px solid var(--line);background:linear-gradient(0deg,rgba(8,8,10,.7),rgba(8,8,10,0))}
+.vx-strip div{padding:22px 16px 26px;text-align:center;border-right:1px solid var(--line)}
+.vx-strip div:last-child{border-right:0}
+.hero .scrollCue{display:none}
+
+/* telón de cine: dos bandas que se retiran al abrir */
+.vx-letterbox{position:absolute;inset:0;z-index:3;pointer-events:none}
+.vx-letterbox i{position:absolute;left:0;right:0;height:50%;background:#000;animation:vxLid 1.5s cubic-bezier(.76,0,.24,1) .1s forwards}
+.vx-letterbox i:first-child{top:0;transform-origin:top}
+.vx-letterbox i:last-child{bottom:0;transform-origin:bottom}
+@keyframes vxLid{0%{transform:scaleY(1)}55%{transform:scaleY(.22)}100%{transform:scaleY(0)}}
+
+/* ── despiece: el auto se desarma con el scroll ──────────── */
+.vx-exp{position:relative;height:280vh;background:#050507;border-top:1px solid var(--line)}
+.vx-exp__stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.vx-exp__stage video,.vx-exp__stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vx-exp__stage img{transform:scale(1.12);will-change:transform}
+.vx-exp__stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,7,.85),transparent 26%,transparent 62%,rgba(5,5,7,.92))}
+.vx-exp__head{position:absolute;z-index:2;top:clamp(84px,12vh,120px);left:0;right:0;text-align:center}
+.vx-exp__head .kicker{display:inline-flex}
+.vx-exp__specs{position:absolute;z-index:2;left:0;right:0;bottom:clamp(40px,8vh,80px);display:grid;grid-template-columns:repeat(4,1fr);margin:0 auto;padding:0;width:min(1280px,calc(100% - 48px));list-style:none}
+.vx-exp__specs li{padding:0 18px;text-align:center;border-left:1px solid var(--line);opacity:.18;transform:translateY(14px);transition:opacity .7s ease,transform .9s cubic-bezier(.16,.7,.2,1)}
+.vx-exp__specs li:first-child{border-left:0}
+.vx-exp__specs li.is-on{opacity:1;transform:none}
+.vx-exp__specs b{display:block;font-weight:700;font-size:clamp(34px,4.4vw,64px);letter-spacing:-2px;line-height:1}
+.vx-exp__specs b i{margin-left:4px;font-style:normal;font-size:.4em;letter-spacing:0;color:var(--sig)}
+.vx-exp__specs span{display:block;margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint)}
+.vx-exp__bar{position:absolute;z-index:2;left:50%;bottom:18px;width:min(240px,50vw);height:1px;margin-left:calc(min(240px,50vw) / -2);background:var(--line)}
+.vx-exp__bar i{position:absolute;inset:0;background:linear-gradient(90deg,var(--sig2),var(--sig));transform:scaleX(0);transform-origin:left}
+.vx-exp .mediaLabel{top:auto;bottom:30px;left:clamp(20px,4vw,44px);z-index:2}
+
+.reserveBar{transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .4s ease,visibility .4s}
+.vx-in-exp .reserveBar{opacity:0;visibility:hidden;pointer-events:none}
+
+/* ficha técnica: plegada, se abre si se pide */
+.vx-tech{padding:clamp(40px,6vh,64px) 0 0}
+.vx-tech details{max-width:760px;margin:0 auto;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.vx-tech summary{display:flex;justify-content:space-between;align-items:center;min-height:60px;cursor:pointer;list-style:none;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:var(--bone)}
+.vx-tech summary::-webkit-details-marker{display:none}
+.vx-tech summary span{font-size:18px;color:var(--sig);transition:transform .4s ease}
+.vx-tech details[open] summary span{transform:rotate(45deg)}
+.vx-tech .techTable{margin:0 0 18px}
+
+/* ── la línea de luz recorre el perfil ───────────────────── */
+.vx-line{position:relative;isolation:isolate;overflow:hidden;height:clamp(360px,62vw,760px);background:#08080a}
+.vx-line img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.72) contrast(1.08);transition:filter 1s ease}
+.vx-line::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;background:linear-gradient(100deg,transparent calc(var(--p,0) * 130% - 34%),color-mix(in srgb,var(--sig) 45%,transparent) calc(var(--p,0) * 130% - 16%),rgba(255,255,255,.35) calc(var(--p,0) * 130% - 15%),transparent calc(var(--p,0) * 130% - 4%))}
+.vx-line::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,var(--void),transparent 24%,transparent 70%,var(--void))}
+.vx-line__t{position:absolute;z-index:2;left:0;right:0;bottom:clamp(28px,6vh,64px);margin:0;text-align:center;font-weight:300;font-size:clamp(22px,3vw,44px);letter-spacing:-.5px}
+.vx-line__t em{font-style:normal;color:var(--sig)}
+
+/* ── firma: el auto a sangre y el nombre sobre él ─────────── */
+.config .configStage{width:100%;margin-top:40px;border-radius:0;border-left:0;border-right:0}
+.config .configStage img{aspect-ratio:21/9;object-fit:cover}
+.vx-sigName{position:absolute;z-index:4;left:clamp(20px,4vw,44px);bottom:clamp(18px,4vh,40px);font-weight:200;font-size:clamp(34px,6vw,96px);letter-spacing:-.02em;line-height:1;color:var(--bone);text-shadow:0 0 40px color-mix(in srgb,var(--sig) 60%,transparent);transition:text-shadow .6s ease}
+.vx-sigName.is-swap{animation:vxSwap .7s cubic-bezier(.16,.7,.2,1)}
+@keyframes vxSwap{from{opacity:0;transform:translateY(16px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+
+/* ── teléfono: todo cabe, nada se alarga ─────────────────── */
+@media (max-width:760px){
+  .hero .heroInner{margin-top:-4vh}
+  .vx-mark{font-size:19vw;letter-spacing:.1em;text-indent:.1em}
+  @keyframes vxMark{from{opacity:0;letter-spacing:.3em;filter:blur(10px)}to{opacity:1;letter-spacing:.1em;filter:none}}
+  .hero h1{font-size:19px;padding:0 10px}
+  .vx-strip div{padding:14px 6px 18px}
+  .vx-strip div b{font-size:19px}
+  .vx-strip div span{font-size:8px;letter-spacing:1.4px}
+  .vx-exp{height:190vh}
+  .vx-exp__stage video,.vx-exp__stage img{object-fit:contain;height:auto;position:absolute;top:28%;bottom:auto}
+  .vx-exp__head{top:86px}
+  .vx-exp__specs{grid-template-columns:1fr 1fr;row-gap:18px;bottom:54px}
+  .vx-exp__specs li:nth-child(3){border-left:0}
+  .vx-exp__specs b{font-size:34px}
+  .vx-exp .mediaLabel{display:none}
+  .vx-line{height:56vw;min-height:230px}
+  .vx-line__t{font-size:18px;bottom:14px}
+  .config .configStage img{aspect-ratio:16/10}
+  .vx-sigName{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  .vx-letterbox{display:none}
+  .heroInner .vx-mark{animation:none}
+  .vx-exp__specs li{opacity:1;transform:none}
+}
+
+/* ── revisión en el teléfono ─────────────────────────────── */
+@media (max-width:760px){
+  .vx-strip div span{white-space:nowrap;letter-spacing:.8px}
+  /* el auto que se abre dejaba media pantalla negra: en el teléfono va directo */
+  .expand{height:auto}
+  .expandSticky{position:relative;height:auto;padding:40px 0}
+  .expandMedia{--ew:100vw!important;--er:0px!important}
+  .sec{padding:64px 0}
+  .manifesto{min-height:70vh}
+  .own{scroll-padding-inline:24px}
+  .footCols{grid-template-columns:1fr 1fr;gap:24px 18px}
+  .footCols a{min-height:40px;font-size:13px}
+  .footer{padding:56px 0 110px}
+  .footTop{margin-bottom:32px}
+}
+
+/* la burbuja del chat tapaba el crédito del pie */
+@media (min-width:761px){.footBar{padding-right:84px}}

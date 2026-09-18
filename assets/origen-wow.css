@@ -92,3 +92,16 @@
   .lx-feature__img[data-reveal],.lx-split__img[data-reveal]{ clip-path:none; }
   .lx-feature__img[data-reveal] img,.lx-split__img[data-reveal] img{ transform:none; }
 }
+
+/* teléfono: la barra superior quedaba desordenada — el menú en medio y
+   la bolsa demasiado ancha. Marca a la izquierda; bolsa y menú juntos a la derecha */
+@media (max-width:900px){
+  .site-header{gap:8px}
+  .site-header .brand{margin-right:auto;min-width:0}
+  .site-header .nav-utils{order:2;gap:8px}
+  .site-header .nav-toggle{order:3;width:44px;height:44px;flex:none}
+  .bag-btn{padding:0 12px;min-height:44px;gap:7px}
+}
+@media (max-width:380px){
+  .site-header .brand{font-size:15px;letter-spacing:.2em}
+}
