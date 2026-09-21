@@ -67,6 +67,7 @@
     root.style.setProperty("--fruta", acc[1]);
     root.style.setProperty("--fruta-viva", acc[2]);
     pintarCodigo();
+    if (typeof medir === "function") setTimeout(medir, 60);
   }
 
   /* ── construir la consola ──────────────────────────────── */
@@ -137,6 +138,128 @@
   host.appendChild(nota);
   aplicar();
 
+
+  /* ── la auditoría: la página se mide a sí misma ─────────── */
+  var aud = d.querySelector("[data-aud]");
+  var medir = function () {};
+  if (aud) {
+    var rgb = function (c) {
+      c = (c || "").trim();
+      if (c.charAt(0) === "#") {
+        if (c.length === 4) c = "#" + c[1] + c[1] + c[2] + c[2] + c[3] + c[3];
+        return [parseInt(c.substr(1, 2), 16), parseInt(c.substr(3, 2), 16), parseInt(c.substr(5, 2), 16), 1];
+      }
+      var m = c.match(/[\d.]+/g) || [255, 255, 255];
+      return [+m[0], +m[1], +m[2], m[3] === undefined ? 1 : +m[3]];
+    };
+    var lum = function (c) {
+      return 0.2126 * canal(c[0]) + 0.7152 * canal(c[1]) + 0.0722 * canal(c[2]);
+    };
+    var canal = function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    var mezcla = function (frente, fondo) {
+      var a = frente[3];
+      return [frente[0] * a + fondo[0] * (1 - a), frente[1] * a + fondo[1] * (1 - a), frente[2] * a + fondo[2] * (1 - a), 1];
+    };
+    var ratio = function (a, b) { var l1 = lum(a), l2 = lum(b); return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); };
+    var px = function (v) { return Math.round(parseFloat(v)); };
+
+    var fila = function (k) {
+      var f = el("div", "aud__fila");
+      var kk = el("span", "aud__k", k);
+      var v = el("span", "aud__v");
+      var e = el("span", "aud__e");
+      e.appendChild(el("i"));
+      e.appendChild(el("u"));
+      e.querySelector("u").style.textDecoration = "none";
+      f.append(kk, v, e);
+      aud.appendChild(f);
+      return { v: v, e: e, t: e.querySelector("u") };
+    };
+    var marcar = function (r, ok, txt) { r.e.classList.toggle("ojo", !ok); r.t.textContent = txt; };
+    var val = function (r, texto, nota) {
+      r.v.replaceChildren(d.createTextNode(texto));
+      if (nota) r.v.appendChild(el("small", null, nota));
+    };
+
+    var rC = fila(T("Contraste · texto sobre fondo", "Contrast · text on background"));
+    var rA = fila(T("Contraste · acento sobre fondo", "Contrast · accent on background"));
+    var rR = fila(T("Retícula · medida en tu pantalla", "Grid · measured on your screen"));
+    var rE = fila(T("Escala · renderizada ahora", "Scale · rendered right now"));
+    var r8 = fila(T("Ritmo de 8 · espaciados auditados", "Rhythm of 8 · spacings audited"));
+    var rP = fila(T("Peso servido · esta página", "Payload · this page"));
+    var pie = el("div", "aud__pie");
+    aud.appendChild(pie);
+
+    medir = function () {
+      var cs = getComputedStyle(d.body);
+      var fondo = mezcla(rgb(cs.backgroundColor), [0, 0, 0, 1]);
+      var texto = mezcla(rgb(cs.color), fondo);
+      var rc = ratio(texto, fondo);
+      val(rC, rc.toFixed(2) + " : 1", T("mínimo AA 4.5 · AAA 7", "AA needs 4.5 · AAA 7"));
+      marcar(rC, rc >= 4.5, rc >= 7 ? "AAA" : rc >= 4.5 ? "AA" : T("revisar", "check"));
+
+      var acc = mezcla(rgb(getComputedStyle(root).getPropertyValue("--fruta-viva").trim() || "#fff"), fondo);
+      var ra = ratio(acc, fondo);
+      val(rA, ra.toFixed(2) + " : 1", T("mínimo 3 para rótulos", "3 minimum for labels"));
+      marcar(rA, ra >= 3, ra >= 4.5 ? "AA" : ra >= 3 ? T("rótulos", "labels") : T("solo adorno", "decor only"));
+
+      var env = d.querySelector(".env");
+      var ancho = env ? env.getBoundingClientRect().width : innerWidth;
+      var rej = d.querySelector(".sistema");
+      var gut = rej ? px(getComputedStyle(rej).columnGap) : 20;
+      var pad = env ? px(getComputedStyle(env).paddingLeft) : 0;
+      var col = Math.round((ancho - pad * 2 - gut * 11) / 12);
+      val(rR, "12 × " + col + " px", T("canal ", "gutter ") + gut + " px · " + T("margen ", "margin ") + pad + " px");
+      marcar(rR, col > 0, T("viva", "live"));
+
+      var h1 = d.querySelector(".heroe h1") || d.querySelector(".display");
+      var t1 = d.querySelector(".t1");
+      val(rE, (h1 ? px(getComputedStyle(h1).fontSize) : 0) + " / " + (t1 ? px(getComputedStyle(t1).fontSize) : 0) + " / " + px(cs.fontSize) + " px",
+        T("display · titular · cuerpo", "display · headline · body"));
+      marcar(rE, true, root.getAttribute("data-escala") || "estandar");
+
+      var muestras = [].slice.call(d.querySelectorAll(".mod, .lab, .aud__fila, .semilla-cuerpo, .sistema, .semillero")).slice(0, 24);
+      var total = 0, ok = 0;
+      muestras.forEach(function (m) {
+        var g = getComputedStyle(m);
+        [g.paddingTop, g.paddingBottom, g.rowGap, g.columnGap].forEach(function (x) {
+          var n = parseFloat(x);
+          if (!n || isNaN(n)) return;
+          total++;
+          if (Math.abs(Math.round(n / 8) * 8 - n) <= 1.2) ok++;
+        });
+      });
+      val(r8, ok + T(" fijos · ", " fixed · ") + (total - ok) + T(" fluidos", " fluid"),
+        T("múltiplos de 8 px · el resto, clamp()", "multiples of 8 px · the rest, clamp()"));
+      var barra = el("span", "aud__barra");
+      var ib = el("i");
+      ib.style.setProperty("--w", (total ? ok / total * 100 : 0).toFixed(0) + "%");
+      barra.appendChild(ib);
+      r8.v.appendChild(barra);
+      marcar(r8, true, T("conforme", "conformant"));
+
+      var css = 0, js = 0, img = 0;
+      (performance.getEntriesByType ? performance.getEntriesByType("resource") : []).forEach(function (r) {
+        var kb = (r.encodedBodySize || r.transferSize || r.decodedBodySize || 0) / 1024;
+        if (r.initiatorType === "css" || /\.css/.test(r.name)) css += kb;
+        else if (r.initiatorType === "script") js += kb;
+        else if (r.initiatorType === "img" || r.initiatorType === "video") img += kb;
+      });
+      val(rP, Math.round(css) + " KB CSS · " + Math.round(js) + " KB JS", T("sin una sola biblioteca externa", "without a single external library"));
+      marcar(rP, js < 120, T("propio", "first-party"));
+
+      pie.replaceChildren();
+      var comps = d.querySelectorAll("[data-comp]").length;
+      var p1 = el("span"); p1.append(d.createTextNode(T("Componentes declarados: ", "Declared components: ")), el("b", null, String(comps)));
+      var p2 = el("span"); p2.append(d.createTextNode(T("Ventana: ", "Viewport: ")), el("b", null, innerWidth + " × " + innerHeight));
+      var p3 = el("span"); p3.append(d.createTextNode(T("Medido: ", "Measured: ")), el("b", null, new Date().toLocaleTimeString(en ? "en-GB" : "es-ES")));
+      pie.append(p1, p2, p3);
+    };
+    addEventListener("resize", function () { clearTimeout(aud.__t); aud.__t = setTimeout(medir, 260); }, { passive: true });
+    if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { medir(); });
+    setTimeout(medir, 200);
+  }
+
   /* ── vestir la página con el mundo de un demo ──────────── */
   var banda = el("div", "viste");
   var bandaTxt = el("span");
@@ -181,6 +304,7 @@
       bandaTxt.replaceChildren(d.createTextNode(T("Esta página, vestida con el sistema de ", "This page, wearing the system of ")), el("b", null, nombre.textContent));
       banda.classList.add("on");
       pintarCodigo();
+      setTimeout(medir, 80);
     });
     card.appendChild(b);
   });
