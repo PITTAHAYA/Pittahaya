@@ -1,0 +1,130 @@
+/* ═══════════════════════════════════════════════════════════
+   PITTAHAYA · el sistema en las manos de quien mira
+   Una consola que reescribe los tokens de ESTA página en vivo,
+   los mundos de los demos aplicados sobre ella, y la vitrina
+   del sistema fuera de la pantalla.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── tokens que la consola mueve ──────────────────────────── */
+:root{--radio:10px;--dens:1}
+html[data-voz="tecnica"]{--serif:"Space Grotesk",system-ui,sans-serif}
+html[data-escala="intima"]{--t-display:clamp(38px,6.4vw,104px);--t-1:clamp(30px,4.2vw,62px);--t-2:clamp(23px,2.8vw,38px);--t-3:clamp(18px,1.9vw,25px)}
+html[data-escala="monumental"]{--t-display:clamp(54px,12.5vw,210px);--t-1:clamp(42px,7.4vw,118px);--t-2:clamp(29px,4.2vw,64px);--t-3:clamp(21px,2.6vw,36px)}
+html[data-dens="compacta"]{--dens:.66}
+html[data-dens="amplia"]{--dens:1.34}
+.tramo{padding-block:calc(clamp(64px,11vh,132px) * var(--dens))}
+.semilla,.mod,.boton,.foto,.lab,.vit-lam{border-radius:var(--radio)}
+.tono{border-radius:calc(var(--radio) * .6)}
+
+/* ── la consola ───────────────────────────────────────────── */
+.lab{
+  position:relative;margin:clamp(28px,5vh,52px) 0 0;padding:clamp(18px,2.4vw,30px);
+  border:1px solid var(--linea-2);background:linear-gradient(180deg,rgba(244,239,230,.045),rgba(244,239,230,.012));
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(18px,2.6vw,38px);
+}
+.lab__head{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--linea)}
+.lab__head b{font-family:var(--serif);font-weight:340;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.02em}
+.lab__head span{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--marfil-3)}
+.lab__ctrl{display:grid;gap:10px;align-content:start}
+.lab__ctrl > b{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--marfil-3);font-weight:400}
+.lab__row{display:grid;gap:14px}
+.lab__opts{display:flex;flex-wrap:wrap;gap:6px}
+.lab__opt{
+  min-height:40px;padding:0 14px;border:1px solid var(--linea-2);border-radius:var(--radio);
+  font:400 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--marfil-2);
+  transition:color .3s,border-color .3s,background .3s;
+}
+.lab__opt:hover{color:var(--marfil);border-color:var(--marfil-3)}
+.lab__opt[aria-pressed="true"]{background:var(--marfil);border-color:var(--marfil);color:var(--negro)}
+.lab__opt i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:-1px;background:var(--c)}
+.lab__code{
+  display:flex;flex-direction:column;min-width:0;border:1px solid var(--linea);background:rgba(8,7,10,.6);
+  border-radius:var(--radio);overflow:hidden;
+}
+.lab__code header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--linea);font:400 9.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--marfil-3)}
+.lab__code pre{margin:0;padding:14px;overflow:auto;font:400 11.5px/1.75 var(--mono);color:var(--marfil-2);white-space:pre;max-height:270px}
+.lab__code pre b{color:var(--lima);font-weight:400}
+.lab__code pre em{color:var(--fruta-viva);font-style:normal}
+.lab__copy{min-height:34px;padding:0 12px;border:1px solid var(--linea-2);border-radius:6px;font:400 9.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--marfil-2);transition:.3s}
+.lab__copy:hover{color:var(--negro);background:var(--lima);border-color:var(--lima)}
+.lab__note{grid-column:1/-1;margin:0;font-family:var(--mono);font-size:10.5px;color:var(--marfil-3)}
+
+/* ── vestir la página con el mundo de un demo ─────────────── */
+.semilla-probar{
+  position:absolute;z-index:4;right:16px;bottom:16px;min-height:38px;padding:0 14px;
+  border:1px solid var(--m-linea,var(--linea-2));border-radius:var(--radio);
+  background:color-mix(in srgb,var(--m-fondo,var(--negro)) 72%,transparent);backdrop-filter:blur(8px);
+  font:400 9.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--m-texto,var(--marfil));
+  opacity:0;transform:translateY(8px);transition:opacity .4s,transform .5s var(--ease),background .3s,color .3s;
+}
+.semilla:hover .semilla-probar,.semilla:focus-within .semilla-probar{opacity:1;transform:none}
+.semilla-probar:hover{background:var(--m-acento,var(--lima));color:var(--m-fondo,var(--negro));border-color:var(--m-acento,var(--lima))}
+@media (hover:none){.semilla-probar{opacity:1;transform:none}}
+
+.viste{
+  position:fixed;z-index:80;left:50%;bottom:22px;transform:translate(-50%,160%);
+  display:flex;align-items:center;gap:18px;padding:12px 12px 12px 20px;
+  border:1px solid var(--linea-2);border-radius:999px;background:rgba(8,7,10,.86);backdrop-filter:blur(14px);
+  font:400 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--marfil-2);
+  transition:transform .7s var(--ease);box-shadow:0 26px 70px rgba(0,0,0,.6);
+}
+.viste.on{transform:translate(-50%,0)}
+.viste b{color:var(--marfil);font-weight:400}
+.viste button{min-height:38px;padding:0 16px;border:1px solid var(--linea-2);border-radius:999px;font:inherit;color:var(--marfil);transition:.3s}
+.viste button:hover{background:var(--marfil);color:var(--negro);border-color:var(--marfil)}
+
+/* ── la vitrina: el sistema fuera de la pantalla ─────────── */
+.vit{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(12px,1.6vw,22px);margin-top:clamp(28px,5vh,56px)}
+.vit-lam{position:relative;overflow:hidden;margin:0;background:var(--carbon);isolation:isolate}
+.vit-lam:nth-child(1){grid-column:span 7;aspect-ratio:16/11}
+.vit-lam:nth-child(2){grid-column:span 5;aspect-ratio:4/3}
+.vit-lam:nth-child(3){grid-column:span 5;aspect-ratio:4/3}
+.vit-lam:nth-child(4){grid-column:span 7;aspect-ratio:16/11}
+.vit-lam img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),filter .8s ease}
+.vit-lam:hover img{transform:scale(1.03)}
+.vit-lam figcaption{
+  position:absolute;z-index:3;left:0;right:0;bottom:0;padding:clamp(16px,2vw,26px);
+  display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+  background:linear-gradient(0deg,rgba(8,7,10,.92),transparent);
+}
+.vit-lam figcaption b{display:block;font-family:var(--serif);font-weight:340;font-size:clamp(19px,2vw,27px);letter-spacing:-.02em}
+.vit-lam figcaption span{display:block;margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--marfil-3)}
+.vit-lam figcaption em{font-family:var(--mono);font-style:normal;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--fruta-viva);white-space:nowrap}
+/* las anotaciones: pequeñas fichas de especificación sobre la foto */
+.vit-pin{position:absolute;z-index:2;left:var(--x);top:var(--y);display:flex;align-items:center;gap:8px;transform:translate(-50%,-50%)}
+.vit-pin i{width:9px;height:9px;border-radius:50%;border:1px solid var(--lima);background:rgba(159,206,58,.25);flex:none}
+.vit-pin span{
+  padding:5px 9px;border:1px solid rgba(159,206,58,.34);border-radius:6px;background:rgba(8,7,10,.7);
+  font:400 9px/1.2 var(--mono);letter-spacing:.1em;color:rgba(230,243,205,.92);white-space:nowrap;
+  opacity:0;transform:translateX(-6px);transition:opacity .45s ease,transform .6s var(--ease);
+}
+.vit-lam:hover .vit-pin span,body.xray .vit-pin span{opacity:1;transform:none}
+@media (hover:none){.vit-pin span{opacity:1;transform:none}}
+
+/* ── teléfono ─────────────────────────────────────────────── */
+@media (max-width:860px){
+  .lab{grid-template-columns:minmax(0,1fr);padding:16px}
+  .lab__code pre{max-height:180px;font-size:10.5px}
+  .vit{display:flex;gap:10px;margin-inline:calc(-1 * var(--margen));padding-inline:var(--margen);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--margen);scrollbar-width:none}
+  .vit::-webkit-scrollbar{display:none}
+  .vit-lam,.vit-lam:nth-child(n){flex:0 0 82vw;aspect-ratio:4/3;scroll-snap-align:start}
+  .vit-pin span{font-size:8px;padding:4px 7px}
+  .viste{left:12px;right:12px;bottom:14px;transform:translateY(160%);justify-content:space-between;gap:10px;padding:10px 10px 10px 14px}
+  .viste.on{transform:none}
+  .viste b{display:block}
+}
+@media (prefers-reduced-motion:reduce){
+  .vit-lam img,.semilla-probar,.viste{transition:none}
+}
+
+/* revisión: las anotaciones se leen siempre, y suben de contraste al pasar */
+.vit-pin span{opacity:.5;transform:none}
+.vit-lam:hover .vit-pin span,body.xray .vit-pin span{opacity:1}
+/* teléfono: la marca y el interruptor no se pisan */
+@media (max-width:620px){
+  .barra{gap:8px}
+  .firma img{width:26px;height:26px}
+  .firma b{font-size:14px;letter-spacing:.12em}
+  .firma span span{display:none}
+  .xray-sw{padding:0 12px;min-height:40px;font-size:9px;letter-spacing:.14em;white-space:nowrap}
+}

@@ -26,7 +26,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/firma.css?v=7" />
+<link rel="stylesheet" href="../assets/firma.css?v=8" />
+<link rel="stylesheet" href="../assets/firma-live.css?v=2" />
 </head>
 <body>
 <!-- telón de entrada -->
@@ -308,6 +309,7 @@
   </div>
 
   <div class="env">
+    <div class="lab" data-lab data-comp="modulo/consola"></div>
     <div class="sistema">
 
       <div class="mod m-7" data-comp="module/scale">
@@ -371,6 +373,46 @@
   </div>
 </section>
 
+<!-- ═══════════════ FUERA DE LA PANTALLA ═══════════════ -->
+<section class="tramo tramo--linea" id="vitrina">
+  <div class="tramo-cab">
+    <span class="num" data-rev>03 — Off the screen</span>
+    <h2 class="t1" data-comp="seccion/titular">
+      <span class="mask"><span>The system does not live</span></span>
+      <span class="mask d1"><span>in the browser alone.</span></span>
+    </h2>
+    <p class="plomo" data-rev>The same tokens travel to paper, board, and other people's screens: the accent rules the embossing, the rhythm of 8 sets the margins, and the grid orders the whole kit.</p>
+  </div>
+  <div class="env">
+    <div class="vit" data-comp="grid/vitrina">
+      <figure class="vit-lam" data-rev>
+        <img src="../assets/marca/packaging.jpg" alt="Packaging — Embossed monogram · copper foil" loading="lazy" decoding="async" />
+        <span class="vit-pin" style="--x:28%;--y:52%" aria-hidden="true"><i></i><span>--accent</span></span>
+        <span class="vit-pin" style="--x:66%;--y:74%" aria-hidden="true"><i></i><span>rhythm 8 mm</span></span>
+        <figcaption><span><b>Packaging</b><span>Embossed monogram · copper foil</span></span><em>01 / 04</em></figcaption>
+      </figure>
+      <figure class="vit-lam" data-rev>
+        <img src="../assets/marca/materials.jpg" alt="Materials — 320 g cotton paper · matte ink" loading="lazy" decoding="async" />
+        <span class="vit-pin" style="--x:30%;--y:30%" aria-hidden="true"><i></i><span>grid 12</span></span>
+        <span class="vit-pin" style="--x:62%;--y:66%" aria-hidden="true"><i></i><span>--line</span></span>
+        <figcaption><span><b>Materials</b><span>320 g cotton paper · matte ink</span></span><em>02 / 04</em></figcaption>
+      </figure>
+      <figure class="vit-lam" data-rev>
+        <img src="../assets/marca/devices.jpg" alt="Digital product — The same type scale on screen" loading="lazy" decoding="async" />
+        <span class="vit-pin" style="--x:34%;--y:30%" aria-hidden="true"><i></i><span>--t-1</span></span>
+        <span class="vit-pin" style="--x:72%;--y:46%" aria-hidden="true"><i></i><span>--accent</span></span>
+        <figcaption><span><b>Digital product</b><span>The same type scale on screen</span></span><em>03 / 04</em></figcaption>
+      </figure>
+      <figure class="vit-lam" data-rev>
+        <img src="../assets/marca/ecosystem.jpg" alt="The full kit — Eighteen pieces, one hand" loading="lazy" decoding="async" />
+        <span class="vit-pin" style="--x:24%;--y:58%" aria-hidden="true"><i></i><span>--col 12</span></span>
+        <span class="vit-pin" style="--x:70%;--y:34%" aria-hidden="true"><i></i><span>rhythm 8</span></span>
+        <figcaption><span><b>The full kit</b><span>Eighteen pieces, one hand</span></span><em>04 / 04</em></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════ LA CARTA ═══════════════ -->
 <section class="carta" id="carta">
   <div class="carta-in">
@@ -411,5 +453,6 @@
 </footer>
 
 <script src="../assets/firma.js?v=3" defer></script>
+<script src="../assets/firma-live.js?v=1" defer></script>
 </body>
 </html>
