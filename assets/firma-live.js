@@ -255,6 +255,7 @@
       var p3 = el("span"); p3.append(d.createTextNode(T("Medido: ", "Measured: ")), el("b", null, new Date().toLocaleTimeString(en ? "en-GB" : "es-ES")));
       pie.append(p1, p2, p3);
     };
+    window.__firmaMedir = function () { clearTimeout(aud.__t); aud.__t = setTimeout(medir, 80); };
     addEventListener("resize", function () { clearTimeout(aud.__t); aud.__t = setTimeout(medir, 260); }, { passive: true });
     if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { medir(); });
     setTimeout(medir, 200);
@@ -277,6 +278,13 @@
     banda.classList.remove("on");
   }
   volver.addEventListener("click", desvestir);
+  /* los mundos generados por el sistema usan la misma banda */
+  window.__firmaViste = function (nombre) {
+    base = true;
+    bandaTxt.replaceChildren(d.createTextNode(T("Esta página, vestida con el sistema de ", "This page, wearing the system of ")), el("b", null, nombre));
+    banda.classList.add("on");
+    pintarCodigo();
+  };
 
   [].forEach.call(d.querySelectorAll(".semilla"), function (card) {
     var nombre = card.querySelector(".semilla-nombre");

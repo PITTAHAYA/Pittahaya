@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════════════════════
+   PITTAHAYA · los módulos dejan de explicar y se dejan tocar,
+   y el sistema demuestra que genera mundos nuevos.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── controles comunes ────────────────────────────────────── */
+.ins{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin:18px 0 0;padding-top:16px;border-top:1px solid var(--linea)}
+.ins__k{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--marfil-3)}
+.ins__v{font-family:var(--mono);font-size:12px;color:var(--lima);min-width:84px}
+.ins input[type=range]{flex:1 1 180px;min-width:140px;height:28px;accent-color:var(--fruta);cursor:pointer;background:none}
+.ins__seg{display:flex;gap:6px}
+.ins__seg button{min-height:38px;padding:0 13px;border:1px solid var(--linea-2);border-radius:var(--radio,8px);font:400 10.5px/1 var(--mono);letter-spacing:.1em;color:var(--marfil-2);transition:.3s}
+.ins__seg button[aria-pressed="true"]{background:var(--marfil);border-color:var(--marfil);color:var(--negro)}
+.ins__seg button:hover{color:var(--marfil);border-color:var(--marfil-3)}
+
+/* la paleta se vuelve una fila de botones con su contraste medido */
+.paleta .tono{position:relative;cursor:pointer;border:0;padding:0;text-align:left;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.paleta .tono:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.paleta .tono.es-acento{box-shadow:0 0 0 2px var(--marfil)}
+.tono__r{position:absolute;right:8px;bottom:8px;font-family:var(--mono);font-size:9px;letter-spacing:.06em;opacity:.78}
+.tono__mar{position:absolute;left:8px;top:8px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+
+/* ── el generador de mundos ───────────────────────────────── */
+.gen{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin:clamp(22px,4vh,40px) 0 0;padding:clamp(14px,2vw,22px);border:1px dashed var(--linea-2);border-radius:var(--radio,10px)}
+.gen__t{flex:1 1 320px;margin:0;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--marfil-3)}
+.gen__t b{color:var(--marfil);font-weight:400}
+.gen__b{min-height:46px;padding:0 20px;border:1px solid var(--lima);border-radius:var(--radio,8px);color:var(--lima);font:400 10.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;transition:.3s}
+.gen__b:hover{background:var(--lima);color:var(--negro)}
+.semilla--nueva{animation:genEntra .9s var(--ease) both}
+@keyframes genEntra{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:none}}
+.semilla-mec em{font-style:normal;color:var(--m-acento)}
+
+@media (max-width:760px){
+  .ins{gap:10px 12px}
+  .ins__v{min-width:70px;font-size:11px}
+  .gen{flex-direction:column;align-items:stretch}
+  .gen__b{width:100%}
+}
+
+/* la banda del mundo vestido, legible en el teléfono */
+@media (max-width:760px){
+  .viste{left:12px;right:12px;bottom:14px;transform:translateY(160%);justify-content:space-between;
+    gap:8px;padding:8px 8px 8px 12px;font-size:8.5px;letter-spacing:.1em}
+  .viste.on{transform:none}
+  .viste span:first-child{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .viste button{flex:none;min-height:36px;padding:0 12px;font-size:8.5px;white-space:nowrap}
+}
