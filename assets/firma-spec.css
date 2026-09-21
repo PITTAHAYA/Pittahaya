@@ -1,0 +1,62 @@
+/* ═══════════════════════════════════════════════════════════
+   PITTAHAYA · la compilación y la hoja de obra
+   La página se arma delante de quien llega, y los Rayos X
+   dejan de ser una rejilla: son cotas, cajas medidas y
+   contrastes calculados sobre la página real.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. la compilación ────────────────────────────────────── */
+.comp{position:fixed;inset:0;z-index:210;background:var(--negro);pointer-events:none;transition:opacity .9s var(--ease),visibility .9s}
+.comp.fuera{opacity:0;visibility:hidden}
+.comp__malla{position:absolute;inset:0;opacity:0;
+  background-image:linear-gradient(90deg,rgba(224,53,123,.18) 1px,transparent 1px);
+  background-size:calc(100% / 12) 100%;
+  transition:opacity .5s ease}
+.comp.p1 .comp__malla{opacity:1}
+.comp.p3 .comp__malla{opacity:.35}
+.comp__ritmo{position:absolute;inset:0;opacity:0;background-image:linear-gradient(180deg,rgba(159,206,58,.16) 1px,transparent 1px);background-size:100% 8px;transition:opacity .5s ease}
+.comp.p2 .comp__ritmo{opacity:1}
+.comp.p3 .comp__ritmo{opacity:.25}
+.comp__bloques{position:absolute;left:var(--margen);right:var(--margen);top:44%;display:grid;gap:12px;transform:translateY(-50%)}
+.comp__bloques i{display:block;height:clamp(28px,5.4vw,74px);background:linear-gradient(90deg,rgba(244,239,230,.16),rgba(244,239,230,.04));transform:scaleX(0);transform-origin:0 50%;border-radius:2px}
+.comp.p2 .comp__bloques i{animation:compBloque .5s var(--ease) forwards}
+.comp.p2 .comp__bloques i:nth-child(2){animation-delay:.1s;width:72%}
+.comp.p2 .comp__bloques i:nth-child(3){animation-delay:.2s;width:44%;height:18px}
+@keyframes compBloque{to{transform:none}}
+.comp.p3 .comp__bloques i{opacity:0;transition:opacity .4s ease}
+.comp__log{position:absolute;left:var(--margen);bottom:clamp(28px,7vh,64px);display:grid;gap:6px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--marfil-3)}
+.comp__log span{opacity:0;transform:translateY(4px);transition:opacity .35s ease,transform .45s var(--ease)}
+.comp__log span.on{opacity:1;transform:none}
+.comp__log b{color:var(--lima);font-weight:400;margin-right:8px}
+.comp__marca{position:absolute;left:var(--margen);top:clamp(28px,6vh,54px);display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--marfil-2)}
+.comp__marca img{width:26px;height:26px}
+@media (prefers-reduced-motion:reduce){.comp{display:none}}
+
+/* ── 2. la hoja de obra: Rayos X con cotas y cajas ────────── */
+.obra{position:fixed;inset:0;z-index:66;pointer-events:none;opacity:0;transition:opacity .5s ease}
+body.xray .obra{opacity:1}
+.obra__caja{position:absolute;border:1px solid rgba(159,206,58,.5);border-radius:2px}
+.obra__caja b{position:absolute;top:-1px;left:-1px;padding:3px 7px;background:rgba(159,206,58,.92);color:#0a0c06;
+  font:400 9px/1 var(--mono);letter-spacing:.08em;white-space:nowrap;border-radius:2px 2px 2px 0}
+.obra__caja u{position:absolute;right:-1px;bottom:-1px;padding:3px 6px;background:rgba(8,7,10,.86);border:1px solid rgba(159,206,58,.4);
+  color:rgba(211,240,163,.95);font:400 9px/1 var(--mono);text-decoration:none;letter-spacing:.06em;white-space:nowrap}
+.obra__cota{position:absolute;display:flex;align-items:center;justify-content:center;
+  border-left:1px dashed rgba(224,53,123,.7);border-right:1px dashed rgba(224,53,123,.7)}
+.obra__cota::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed rgba(224,53,123,.55)}
+.obra__cota span{position:relative;padding:2px 7px;background:rgba(224,53,123,.92);color:#12030a;
+  font:400 9px/1 var(--mono);letter-spacing:.06em;border-radius:2px}
+.obra__tipo{position:absolute;padding:3px 7px;background:rgba(8,7,10,.9);border:1px solid rgba(217,195,160,.45);
+  color:var(--champan);font:400 9px/1.3 var(--mono);letter-spacing:.06em;white-space:nowrap;border-radius:2px}
+.obra__tipo em{font-style:normal;color:var(--lima)}
+.obra__tipo em.ojo{color:#ffb35c}
+body.xray .xray-aviso{z-index:68}
+@media (max-width:760px){
+  .obra__caja u,.obra__tipo{display:none}
+  .obra__caja b{font-size:8px;padding:2px 5px}
+  .obra__cota span{font-size:8px}
+}
+
+/* la hoja de obra sustituye a la etiqueta punteada anterior */
+body.xray [data-comp]{outline:0!important}
+body.xray [data-comp]::before{display:none!important}
