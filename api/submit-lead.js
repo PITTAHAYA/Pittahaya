@@ -356,6 +356,7 @@ const sendLeadConfirmation = async (lead) => {
           <a href="https://www.pittahaya.com" style="color:#c9943a;text-decoration:none;font-size:13px;font-weight:600">pittahaya.com</a>
           <span style="color:#cabfac;font-size:12px"> &nbsp;·&nbsp; </span>
           <span style="color:#b0a690;font-size:12px">${t.foot}</span>
+          <div style="color:#b0a690;font-size:11px;margin-top:6px">Pittahaya · Vancouver, BC V5X 0H3, Canada</div>
         </div>
       </div>
     </div>
@@ -369,7 +370,8 @@ const sendLeadConfirmation = async (lead) => {
     t.p3,
     "",
     t.sign,
-    "pittahaya.com"
+    "pittahaya.com",
+    "Pittahaya · Vancouver, BC V5X 0H3, Canada"
   ].filter(Boolean).join("\n");
 
   try {
