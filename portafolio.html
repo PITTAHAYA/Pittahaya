@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=m37" />
-  <link rel="stylesheet" href="assets/casa.css?v=15" />
+  <link rel="stylesheet" href="assets/casa.css?v=16" />
   <link rel="stylesheet" href="assets/carrete.css?v=1" />
   <link rel="stylesheet" href="assets/vivo.css?v=2" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -95,145 +95,94 @@
     </div>
   </div>
 </div>
-<main>
-<section class="phead">
-  <div class="phead-bg" aria-hidden="true"><img src="assets/casa/sistema.jpg" alt="" /></div>
-  <div class="phead-in">
-    <p class="phead-rotulo">Portafolio</p>
-    <h1 class="phead-t">
-      <span class="phead-mask"><span>Elige la sensación que quieres</span></span>
-      <span class="phead-mask d1"><span><em>que tu cliente tenga al entrar.</em></span></span>
-    </h1>
-    <p class="phead-sub">Cada demo es una marca completa que diseñamos y programamos. Entra y compruébalo.</p>
-  </div>
+<main class="casa sala">
+<section class="sala-intro">
+  <p class="sala-rot">Portafolio</p>
+  <h1 class="sala-t"><span class="phead-mask"><span>Siete mundos.</span></span><span class="phead-mask d1"><span><em>Ninguno se parece.</em></span></span></h1>
+  <span class="sala-baja" aria-hidden="true"><i></i>Desliza</span>
 </section>
-<div class="casa caso-casa">
-<!-- ═══════════════ CASO REAL ═══════════════ -->
-<section class="casa-tramo caso-real" id="caso-real">
-  <div class="casa-tramo-cab">
-    <span class="casa-num" data-rev><i class="caso-pulso"></i>Caso real · En línea</span>
-    <h2 class="casa-t1">
-      <span class="mask"><span>Esta ya no es una demo.</span></span>
-      <span class="mask d1"><span>Es la tienda de un cliente, <em class="champan">abierta 24/7.</em></span></span>
-    </h2>
-    <p class="plomo" data-rev>Calzatodos Group, cadena de calzado familiar en Ecuador. Les diseñamos y programamos una tienda a la altura de sus marcas — y hoy atiende clientes todos los días.</p>
+<nav class="sala-indice" aria-hidden="true"><i data-i="0"></i><i data-i="1"></i><i data-i="2"></i><i data-i="3"></i><i data-i="4"></i><i data-i="5"></i><i data-i="6"></i></nav>
+<div class="sala-pista">
+<article class="sala-mundo sala-real" id="caso-real" data-i="0">
+  <div class="sala-fondo"><img src="assets/clientes/calzatodos/heroe.jpg?v=2" alt="" loading="eager" /></div>
+  <a class="sala-marco" href="https://www.calzatodos.com" target="_blank" rel="noopener" aria-label="calzatodos.com">
+    <span class="caso-nav"><span class="caso-luces"><i></i><i></i><i></i></span><span class="caso-url">calzatodos.com</span></span>
+    <img src="assets/clientes/calzatodos/heroe.jpg?v=2" alt="Web de Calzatodos Group diseñada por Pittahaya" width="1800" height="1127" />
+  </a>
+  <div class="sala-texto">
+    <span class="sala-vivo"><i></i>Cliente real · En línea</span>
+    <h2 class="sala-n">Calzatodos <em>Group</em></h2>
+    <p class="sala-l">La tienda de un cliente, abierta 24/7.</p>
+    <a class="sala-ir" href="https://www.calzatodos.com" target="_blank" rel="noopener">Visitar ↗</a>
   </div>
-  <div class="env">
-    <div class="caso-grid">
-      <a class="caso-escena" href="https://www.calzatodos.com" target="_blank" rel="noopener" data-rev aria-label="Visitar la web en vivo: calzatodos.com">
-        <span class="caso-nav">
-          <span class="caso-luces"><i></i><i></i><i></i></span>
-          <span class="caso-url"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11V8a5 5 0 0 1 10 0v3M6 11h12v9H6z" fill="none" stroke="currentColor" stroke-width="2"/></svg>calzatodos.com</span>
-          <span class="caso-vivo"><i></i>En línea ahora</span>
-        </span>
-        <span class="caso-pantalla">
-          <img src="assets/clientes/calzatodos/heroe.jpg?v=2" alt="Portada de calzatodos.com diseñada por Pittahaya" loading="lazy" width="1800" height="1125" />
-        </span>
-        <span class="caso-flota">
-          <img src="assets/clientes/calzatodos/categorias.jpg" alt="Categorías de calzado de calzatodos.com" loading="lazy" width="1440" height="780" />
-        </span>
-      </a>
-      <div class="caso-ficha" data-rev>
-        <span class="vitrina-sector">Retail · Calzado</span>
-        <span class="caso-nombre">Calzatodos <em>Group</em></span>
-        <span class="caso-rotulo">Lo que hicimos</span>
-        <ul class="caso-lista"><li>Dirección de arte y diseño a medida</li><li>Catálogo por categorías y marcas</li><li>Buscador por nombre, marca o código</li><li>Pedidos y consultas directas por WhatsApp</li><li>Sección para mayoristas y 4 locales</li></ul>
-        <div class="caso-acciones">
-          <a class="btn2 btn2--lleno" href="https://www.calzatodos.com" target="_blank" rel="noopener">Visitar la web en vivo ↗</a>
-          <a class="btn2" href="contacto.html">Quiero algo así</a>
-        </div>
-      </div>
-    </div>
+  <span class="sala-num">01<small>/07</small></span>
+</article>
+<a class="sala-mundo" href="demo-landing.html" data-i="1" data-m="veloce">
+  <div class="sala-fondo"><img src="assets/veloce/hero-A.jpg" alt="" loading="lazy" /><video data-src="assets/veloce/hero.mp4" muted loop playsinline preload="none" poster="assets/veloce/hero-A.jpg"></video></div>
+  <div class="sala-texto">
+    <span class="sala-sector">Automotriz · Lanzamiento</span>
+    <h2 class="sala-n">Veloce</h2>
+    <p class="sala-l">Un hyper-GT que se arma frente a ti.</p>
+    <span class="sala-ir">Entrar →</span>
   </div>
-</section>
+  <span class="sala-num">02<small>/07</small></span>
+</a>
+<a class="sala-mundo" href="demo-highend.html" data-i="2" data-m="aurelia">
+  <div class="sala-fondo"><img src="assets/aurelia/facade.jpg" alt="" loading="lazy" /><video data-src="assets/aurelia/walk-2.mp4" muted loop playsinline preload="none" poster="assets/aurelia/facade.jpg"></video></div>
+  <div class="sala-texto">
+    <span class="sala-sector">Inmobiliario de lujo</span>
+    <h2 class="sala-n">Aurelia</h2>
+    <p class="sala-l">Recorres la casa y la cámara avanza contigo.</p>
+    <span class="sala-ir">Entrar →</span>
+  </div>
+  <span class="sala-num">03<small>/07</small></span>
+</a>
+<a class="sala-mundo" href="demo-startup.html" data-i="3" data-m="orbital">
+  <div class="sala-fondo"><img src="assets/orbital/array.jpg" alt="" loading="lazy" /></div>
+  <div class="sala-texto">
+    <span class="sala-sector">Tecnología</span>
+    <h2 class="sala-n">Orbital</h2>
+    <p class="sala-l">Una constelación que reacciona en vivo.</p>
+    <span class="sala-ir">Entrar →</span>
+  </div>
+  <span class="sala-num">04<small>/07</small></span>
+</a>
+<a class="sala-mundo" href="demo-servicios.html" data-i="4" data-m="origen">
+  <div class="sala-fondo"><img src="assets/origen/hero-pod.jpg" alt="" loading="lazy" /></div>
+  <div class="sala-texto">
+    <span class="sala-sector">Tienda online</span>
+    <h2 class="sala-n">Origen 0°</h2>
+    <p class="sala-l">Una tienda con carrito real.</p>
+    <span class="sala-ir">Entrar →</span>
+  </div>
+  <span class="sala-num">05<small>/07</small></span>
+</a>
+<a class="sala-mundo" href="demo-corporativa.html" data-i="5" data-m="atlas">
+  <div class="sala-fondo"><img src="assets/atlas/hero.jpg" alt="" loading="lazy" /></div>
+  <div class="sala-texto">
+    <span class="sala-sector">Capital privado</span>
+    <h2 class="sala-n">Atlas</h2>
+    <p class="sala-l">Autoridad sin decir una palabra de más.</p>
+    <span class="sala-ir">Entrar →</span>
+  </div>
+  <span class="sala-num">06<small>/07</small></span>
+</a>
+<a class="sala-mundo" href="demo-marca.html" data-i="6" data-m="marca">
+  <div class="sala-fondo"><img src="assets/marca/muro.jpg" alt="" loading="lazy" /><video data-src="assets/marca/muro.mp4" muted loop playsinline preload="none" poster="assets/marca/muro.jpg"></video></div>
+  <div class="sala-texto">
+    <span class="sala-sector">Estudio de marca</span>
+    <h2 class="sala-n">Marca &amp; Diseño</h2>
+    <p class="sala-l">Nuestro sistema, por dentro.</p>
+    <span class="sala-ir">Entrar →</span>
+  </div>
+  <span class="sala-num">07<small>/07</small></span>
+</a>
 </div>
-  <section class="section">
-    <div class="container">
-      <span class="badge reveal"><span class="dot"></span> Galería de experiencias</span>
-      
-      <p data-corto="Cada demo es una dirección visual completa y distinta." class="section-lead reveal">Cada demo representa una dirección visual completa: conversión, autoridad, creatividad, servicios, tecnología o lujo editorial.</p>
-
-      <div class="portfolio-toolbar reveal" data-portfolio-filter data-target=".portfolio-gallery" aria-label="Filtrar demos por intención">
-        <button type="button" class="active" data-filter="all" aria-pressed="true">Todo</button>
-        <button type="button" data-filter="ventas" aria-pressed="false">Ventas</button>
-        <button type="button" data-filter="confianza" aria-pressed="false">Confianza</button>
-        <button type="button" data-filter="marca" aria-pressed="false">Marca</button>
-        <button type="button" data-filter="tech" aria-pressed="false">Tech</button>
-        <button type="button" data-filter="lujo" aria-pressed="false">Lujo</button>
-      </div>
-
-      <div class="gallery portfolio-gallery">
-        <div class="project featured reveal" data-url="demo-landing.html" data-category="ventas confianza" role="link" aria-label="Demo: Landing Premium">
-          <img width="1400" height="933" src="assets/veloce/hero-A.jpg" alt="Equipo preparando una campaña de conversión premium" loading="lazy">
-          <div class="meta"><div><span class="project-type">Sprint de Conversión</span><h4>Landing Premium</h4><span>Para ofertas que necesitan convertir atención en deseo y leads calientes.</span></div><span class="pill">Ver demo</span></div>
-        </div>
-        <div class="project reveal" data-url="demo-corporativa.html" data-category="confianza ventas" role="link" aria-label="Demo: Web Corporativa">
-          <img width="1400" height="933" src="assets/atlas/hero.jpg" alt="Oficina ejecutiva para una web corporativa premium" loading="lazy">
-          <div class="meta"><div><span class="project-type">Confianza Ejecutiva</span><h4>Web Corporativa</h4><span>Para empresas que venden confianza, trayectoria y decisiones de alto valor.</span></div><span class="pill">Ver demo</span></div>
-        </div>
-        <div class="project reveal" data-url="demo-marca.html" data-category="marca lujo" role="link" aria-label="Demo: Marca & Diseño">
-          <img width="1400" height="933" src="assets/marca/muro.jpg" alt="Marca y diseño para una experiencia visual premium" loading="lazy">
-          <div class="meta"><div><span class="project-type">Estudio de Marca</span><h4>Marca & Diseño</h4><span>Para marcas creativas que necesitan una identidad imposible de copiar.</span></div><span class="pill">Ver demo</span></div>
-        </div>
-        <div class="project reveal" data-url="demo-servicios.html" data-category="ventas confianza" role="link" aria-label="Demo: Sitio de Servicios">
-          <img width="1400" height="933" src="assets/origen/hero-pod.jpg" alt="Cliente y equipo ordenando una oferta de servicios" loading="lazy">
-          <div class="meta"><div><span class="project-type">Menú de Servicios</span><h4>Sitio de Servicios</h4><span>Para ordenar paquetes, proceso y valor antes de que el cliente pida precio.</span></div><span class="pill">Ver demo</span></div>
-        </div>
-        <div class="project reveal" data-url="demo-startup.html" data-category="tech confianza" role="link" aria-label="Demo: Startup Tech">
-          <img width="1400" height="933" src="assets/orbital/array.jpg" alt="Producto tecnológico con estética SaaS moderna" loading="lazy">
-          <div class="meta"><div><span class="project-type">Vitrina SaaS</span><h4>Startup Tech</h4><span>Para apps y productos digitales que necesitan verse listos para escalar.</span></div><span class="pill">Ver demo</span></div>
-        </div>
-        <div class="project reveal" data-url="demo-highend.html" data-category="lujo marca" role="link" aria-label="Demo: Diseño High-End">
-          <img width="1400" height="933" src="assets/aurelia/facade.jpg" alt="Joyería premium con estética editorial" loading="lazy">
-          <div class="meta"><div><span class="project-type">Lujo Editorial</span><h4>Diseño High-End</h4><span>Para marcas que necesitan sentirse caras sin decir demasiado.</span></div><span class="pill">Ver demo</span></div>
-        </div>
-      </div>
-
-      <div class="hr reveal"></div>
-
-      <!-- ════════════ CASO DE ESTUDIO: ESTE SITIO ════════════ -->
-      <section class="casestudy reveal" aria-label="Caso de estudio: este sitio">
-        <div class="cs-head">
-          <span class="cs-eyebrow"><span class="cs-dot"></span> Nuestro caso insignia</span>
-          <h2 class="section-title">Antes de pedirte que confíes, mira lo que construimos para nosotros</h2>
-          <p data-corto="Este sitio es la muestra: es el estándar con el que trabajamos." class="section-lead">Este mismo sitio es nuestra mejor muestra: cada detalle que ves es exactamente el estándar con el que trabajamos. Si esto es lo que hacemos para nuestra propia marca, imagina lo que haremos para la tuya.</p>
-        </div>
-        <div class="cs-grid">
-          <article class="cs-side cs-before">
-            <div class="cs-tag">Una web común</div>
-            <ul class="cs-points">
-              <li>Un solo idioma, sin alcance internacional</li>
-              <li>Nadie responde fuera del horario de oficina</li>
-              <li>Plantilla genérica, lenta y olvidable</li>
-              <li>Formularios que se pierden en un correo</li>
-            </ul>
-          </article>
-          <div class="cs-arrow" aria-hidden="true">→</div>
-          <article class="cs-side cs-after">
-            <div class="cs-tag cs-tag--after">Este sitio</div>
-            <ul class="cs-points">
-              <li>Totalmente bilingüe: español e inglés</li>
-              <li>Asistente con IA que responde 24/7</li>
-              <li>Diseño a medida, veloz y con animación cuidada</li>
-              <li>Cada contacto entra directo a un CRM seguro</li>
-            </ul>
-          </article>
-        </div>
-        <div class="cs-results">
-          <div class="cs-result"><b>2</b><span>idiomas completos (español e inglés)</span></div>
-          <div class="cs-result"><b>24/7</b><span>asistente con IA respondiendo</span></div>
-          <div class="cs-result"><b>0</b><span>plantillas — 100% a medida</span></div>
-        </div>
-        <blockquote class="cs-quote">
-          “Construimos este sitio con el mismo cuidado con el que construiremos el tuyo. Es nuestra carta de presentación — y nuestra promesa.”
-          <cite>— Pittahaya</cite>
-        </blockquote>
-        <div class="cs-cta">
-          <a class="btn btn-gold" href="contacto.html">Quiero algo así para mi marca</a>
-        </div>
-      </section>
-    </div>
-  </section>
+<section class="sala-cierre">
+  <p class="sala-rot">Y este sitio también</p>
+  <h2 class="sala-t sala-t--cierre">El próximo mundo<br><em>es el tuyo.</em></h2>
+  <a class="btn2 btn2--lleno" href="contacto.html">Empezar mi proyecto</a>
+</section>
 </main>
 <footer class="footer">
   <div class="container footer-grid">
@@ -267,5 +216,6 @@
 <script src="assets/casa.js?v=5" defer></script>
 <script src="assets/carrete.js?v=1" defer></script>
 <script src="assets/vivo.js?v=1" defer></script>
+<script src="assets/sala.js?v=1" defer></script>
 </body>
 </html>
