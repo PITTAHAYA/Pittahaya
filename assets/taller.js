@@ -18,7 +18,7 @@
       var on = j === i, v = c.querySelector("video");
       c.classList.toggle("on", on);
       if (!v || reduce) return;
-      if (on && innerWidth > 860) {
+      if (on) {
         v.muted = true;
         if (!v.src) v.src = v.getAttribute("data-src");
         var p = v.play();
@@ -30,19 +30,30 @@
   }
   var actual = -1;
   function elige() {
-    var mitad = innerHeight / 2, mejor = 0, dist = 1e9;
-    caps.forEach(function (c, j) {
-      var r = c.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mitad);
-      if (d < dist) { dist = d; mejor = j; }
-    });
+    var mejor = 0;
+    if (innerWidth <= 860) {
+      /* teléfono/tablet: el avance dentro de la obra decide el capítulo */
+      var r = obra.getBoundingClientRect();
+      var p = Math.min(.999, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
+      mejor = Math.floor(p * caps.length);
+    } else {
+      var mitad = innerHeight / 2, dist = 1e9;
+      caps.forEach(function (c, j) {
+        var b = c.getBoundingClientRect(), d = Math.abs(b.top + b.height / 2 - mitad);
+        if (d < dist) { dist = d; mejor = j; }
+      });
+    }
     if (mejor !== actual) { actual = mejor; activa(mejor); }
   }
   elige();
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) { actual = -1; pinta(); } });
 
   var pend = false;
   function pinta() {
     pend = false;
     elige();
+    var cv = capas[actual] && capas[actual].querySelector("video");
+    if (cv && cv.src && cv.paused && !reduce) { var q = cv.play(); if (q && q.catch) q.catch(function () {}); }
     if (!prog) return;
     var r = obra.getBoundingClientRect(), h = innerHeight;
     var p = Math.min(1, Math.max(0, -r.top / (r.height - h)));
@@ -51,4 +62,21 @@
   addEventListener("scroll", function () { if (!pend) { pend = true; requestAnimationFrame(pinta); } }, { passive: true });
   addEventListener("resize", function () { actual = -1; pinta(); });
   pinta();
+})();
+
+/* teléfono y tablet: cada capítulo reproduce su video solo mientras se ve */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll(".tl-movil video"));
+  if (!vids.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var io = new IntersectionObserver(function (ent) {
+    ent.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting && innerWidth <= 860) {
+        v.muted = true;
+        if (!v.src) v.src = v.getAttribute("data-src");
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+      } else v.pause();
+    });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) { io.observe(v); });
 })();
