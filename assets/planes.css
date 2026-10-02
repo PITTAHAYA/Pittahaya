@@ -339,3 +339,46 @@ details[open] > summary .pl-plus{transform:rotate(45deg);border-color:var(--cham
   .pl-path::after{transition:none;transform:none}
   .pl-switch__pill,.pl-btn,.pl-btn::before{transition:none}
 }
+
+/* ═══ v2: menos texto, elegir como en una plataforma ═══ */
+.pl-page .phead{min-height:0;padding-top:calc(76px + clamp(36px,7vh,80px));padding-bottom:clamp(24px,4vh,40px)}
+.pl-page .phead-t{font-size:clamp(40px,6.4vw,96px)}
+/* tres puntos clave en todas las pantallas; el resto a un toque */
+.pl-card:not(.is-full) .pl-list li:not(.pl-carry):nth-child(n+5),
+.pl-card:not(.is-full) .pl-list li:first-child:not(.pl-carry) ~ li:nth-child(4){display:none}
+.pl-more{display:inline-flex;align-items:center;min-height:36px;margin:-6px 0 18px;padding:0;border:0;background:none;
+  color:var(--champan);font-family:var(--sans);font-size:13.5px;cursor:pointer;
+  text-decoration:underline;text-decoration-color:var(--champan-2);text-underline-offset:4px}
+.pl-card .pl-list{flex:0 0 auto;margin-bottom:14px}
+.pl-card .pl-btn{margin-top:auto}
+/* tocar una tarjeta = elegirla */
+.pl-js .pl-card{cursor:pointer;transition:border-color .4s var(--ease),box-shadow .5s var(--ease),transform .5s var(--ease)}
+.pl-card.is-pick{border-color:var(--champan)!important;box-shadow:0 0 0 1px var(--champan),0 30px 80px -30px rgba(217,195,160,.35)}
+.pl-card::after{content:"✓";position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--negro);background:var(--champan);
+  transform:scale(0);transition:transform .45s var(--ease)}
+.pl-card.is-pick::after{transform:scale(1)}
+.pl-elige{position:fixed;left:50%;bottom:18px;z-index:60;display:flex;align-items:center;gap:18px;
+  padding:8px 8px 8px 22px;border-radius:999px;border:1px solid var(--linea-2);
+  background:rgba(14,11,14,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 20px 60px -20px rgba(0,0,0,.9);
+  transform:translate(-50%,140%);opacity:0;transition:transform .6s var(--ease),opacity .4s ease;pointer-events:none}
+.pl-elige.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.pl-elige__t{display:flex;flex-direction:column;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--marfil-3)}
+.pl-elige__t b{font-family:var(--serif);font-weight:400;font-size:20px;letter-spacing:-.01em;text-transform:none;color:var(--marfil)}
+.pl-elige .pl-btn{width:auto;min-height:48px;padding:0 22px}
+@media (max-width:860px){
+  .pl-page .phead{padding-top:96px;padding-bottom:12px}
+  .pl-page .phead-t{font-size:clamp(36px,11vw,54px)}
+  .pl-elige{left:12px;right:12px;bottom:12px;transform:translateY(140%);justify-content:space-between}
+  .pl-elige.on{transform:none}
+  .pl-card::after{top:14px;right:14px}
+}
+.pl-elige.lejos{opacity:0;pointer-events:none}
+@media (min-width:861px){
+  .pl-page .phead{padding-top:calc(76px + 34px);padding-bottom:18px}
+  .pl-page .phead-mask{display:inline-block;vertical-align:top}
+  .pl-page .phead-mask.d1{margin-left:.24em}
+  .pl-page .phead-t{font-size:clamp(40px,4.6vw,72px)}
+}
+@media (max-width:860px){.pl-elige{display:none}}

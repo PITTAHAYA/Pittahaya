@@ -32,7 +32,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=m37" />
-  <link rel="stylesheet" href="assets/casa.css?v=14" />
+  <link rel="stylesheet" href="assets/casa.css?v=16" />
+  <link rel="stylesheet" href="assets/faq.css?v=1" />
   <link rel="stylesheet" href="assets/vivo.css?v=2" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
@@ -107,7 +108,7 @@
       "name": "¿Cuántas revisiones incluye el proceso?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "El proceso incluye rondas de revisión para ajustar textos, estructura y detalles visuales hasta que el resultado represente tu marca con precisión. Lo que importa es que la entrega se sienta convincente y lista para vender."
+        "text": "Depende del plan: 1 ronda en Básico, 2 en Negocio y 3 en Premium. Cada ronda cubre textos, estructura y detalles visuales, así sabes desde el inicio exactamente qué incluye tu proyecto."
       }
     }
   ]
@@ -167,70 +168,58 @@
     </div>
   </div>
 </div>
-<main>
-<section class="phead">
-  <div class="phead-bg" aria-hidden="true"><img src="assets/casa/sistema.jpg" alt="" /></div>
-  <div class="phead-in">
-    <p class="phead-rotulo">Preguntas</p>
-    <h1 class="phead-t">
-      <span class="phead-mask"><span>Las dudas más comunes</span></span>
-      <span class="phead-mask d1"><span><em>antes de iniciar.</em></span></span>
-    </h1>
-    <p class="phead-sub">Plazos, precios, propiedad del código y qué pasa después de la entrega.</p>
+<main class="casa fq">
+<section class="fq-cab">
+  <p class="fq-rot">Preguntas</p>
+  <h1 class="fq-t"><span class="phead-mask"><span>¿Qué quieres</span></span><span class="phead-mask d1"><span><em>saber?</em></span></span></h1>
+  <label class="fq-buscar"><span class="fq-sr">Buscar una pregunta</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <input type="search" placeholder="Escribe: precio, tiempo, dominio…" data-fq-buscar autocomplete="off">
+  </label>
+  <div class="fq-chips"><button type="button" class="fq-chip" data-k="cuesta|precio|cost|price">Precio</button><button type="button" class="fq-chip" data-k="tiempo|lista|long|ready">Tiempo</button><button type="button" class="fq-chip" data-k="textos|content|text">Textos</button><button type="button" class="fq-chip" data-k="dominio|hosting|domain">Dominio</button><button type="button" class="fq-chip" data-k="revisi">Revisiones</button><button type="button" class="fq-chip" data-k="países|countries|otros pa">Otros países</button></div>
+</section>
+<section class="fq-lista">
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">01</span><span class="fq-q">¿Cuánto cuesta una web premium?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>El precio varía según el alcance: número de páginas, tipo de diseño y nivel de personalización. La manera más directa de saberlo es completar el formulario de diagnóstico: recibes una propuesta clara, sin compromiso ni letra pequeña.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">02</span><span class="fq-q">¿En cuánto tiempo está lista mi web?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Depende del alcance y la velocidad de revisiones. Una landing de alto impacto puede estar lista en pocos días; una web completa con múltiples páginas puede tomar un par de semanas. Definimos tiempos reales desde el inicio para que no haya sorpresas.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">03</span><span class="fq-q">¿Necesito tener los textos e imágenes listos?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>No es obligatorio. Si no tienes textos, te ayudamos a construir el mensaje: propuesta de valor, beneficios y llamadas a la acción. Las imágenes pueden salir de bancos de imágenes con licencia o combinarse con las tuyas.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">04</span><span class="fq-q">¿Voy a poder editar mi web después?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Sí. Podemos definir una entrega con instrucciones claras para editar el contenido básico, o establecer un plan de soporte para cambios periódicos. Lo ajustamos según tu capacidad técnica y necesidades.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">05</span><span class="fq-q">¿Incluye dominio y hosting?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Depende del plan elegido. En la mayoría de los casos te acompañamos en la configuración del dominio y hosting, o conectar la web a lo que ya tengas. Lo aclaramos desde el diagnóstico inicial para que todo quede ordenado desde el día uno.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">06</span><span class="fq-q">¿En qué se diferencia Pittahaya de otras opciones?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>En que el diseño es a medida y desde cero, no una plantilla rellenada con tus datos. Cada web está pensada para tu oferta, tu cliente ideal y el resultado que necesitas provocar. El objetivo no es "tener una web", sino tener una herramienta de ventas que trabaje las 24 horas.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">07</span><span class="fq-q">¿Trabajan con clientes de otros países?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Sí. Trabajamos desde Ecuador con emprendedores y empresas de todo el mundo. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega por medios digitales, sin importar tu ubicación.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">08</span><span class="fq-q">¿Cuántas revisiones incluye el proceso?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Depende del plan: 1 ronda en Básico, 2 en Negocio y 3 en Premium. Cada ronda cubre textos, estructura y detalles visuales, así sabes desde el inicio exactamente qué incluye tu proyecto.</p></div>
+    </details>
+    <p class="fq-nada" hidden>No encontramos esa pregunta. Pregúntale a nuestro asistente ↓</p>
+</section>
+<section class="fq-fin">
+  <h2 class="fq-t fq-t--fin">¿No está tu pregunta?<br><em>Te respondemos ya.</em></h2>
+  <div class="fq-acc">
+    <button type="button" class="btn2 btn2--lleno" data-fq-chat>Preguntarle al asistente</button>
+    <a class="btn2" href="contacto.html">Escribirnos</a>
   </div>
 </section>
-  <section class="section">
-    <div class="container">
-      <span class="badge reveal"><span class="dot"></span> Preguntas frecuentes</span>
-      
-      <p class="section-lead reveal">Respuestas directas para que avances con seguridad, sin sorpresas.</p>
-
-      <div class="faq reveal">
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿Cuánto cuesta una web premium? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">El precio varía según el alcance: número de páginas, tipo de diseño y nivel de personalización. La manera más directa de saberlo es completar el formulario de diagnóstico: recibes una propuesta clara, sin compromiso ni letra pequeña.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿En cuánto tiempo está lista mi web? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Depende del alcance y la velocidad de revisiones. Una landing de alto impacto puede estar lista en pocos días; una web completa con múltiples páginas puede tomar un par de semanas. Definimos tiempos reales desde el inicio para que no haya sorpresas.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿Necesito tener los textos e imágenes listos? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">No es obligatorio. Si no tienes textos, te ayudamos a construir el mensaje: propuesta de valor, beneficios y llamadas a la acción. Las imágenes pueden salir de bancos de imágenes con licencia o combinarse con las tuyas.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿Voy a poder editar mi web después? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Sí. Podemos definir una entrega con instrucciones claras para editar el contenido básico, o establecer un plan de soporte para cambios periódicos. Lo ajustamos según tu capacidad técnica y necesidades.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿Incluye dominio y hosting? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Depende del plan elegido. En la mayoría de los casos te acompañamos en la configuración del dominio y hosting, o conectar la web a lo que ya tengas. Lo aclaramos desde el diagnóstico inicial para que todo quede ordenado desde el día uno.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿En qué se diferencia Pittahaya de otras opciones? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">En que el diseño es a medida y desde cero, no una plantilla rellenada con tus datos. Cada web está pensada para tu oferta, tu cliente ideal y el resultado que necesitas provocar. El objetivo no es "tener una web", sino tener una herramienta de ventas que trabaje las 24 horas.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿Trabajan con clientes de otros países? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Sí. Trabajamos desde Ecuador con emprendedores y empresas de todo el mundo. El proceso es 100% remoto: diagnóstico, diseño, revisiones y entrega por medios digitales, sin importar tu ubicación.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">¿Cuántas revisiones incluye el proceso? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">El proceso incluye rondas de revisión para ajustar textos, estructura y detalles visuales hasta que el resultado represente tu marca con precisión. Lo que importa es que la entrega se sienta convincente y lista para vender.</div>
-        </div>
-      </div>
-
-      <div class="hr reveal"></div>
-
-      <div class="conversion-panel reveal">
-        <div>
-          <h2 class="section-title">¿Tienes más preguntas?</h2>
-          <p>El diagnóstico gratis es la forma más rápida de resolver cualquier duda específica sobre tu proyecto.</p>
-        </div>
-        <a class="btn btn-gold" href="contacto.html">Solicitar diagnóstico gratis</a>
-      </div>
-    </div>
-  </section>
 </main>
 <footer class="footer">
   <div class="container footer-grid">
@@ -263,5 +252,6 @@
 <script src="assets/chatbot.js?v=v20" defer></script>
 <script src="assets/casa.js?v=5" defer></script>
 <script src="assets/vivo.js?v=1" defer></script>
+<script src="assets/faq.js?v=1" defer></script>
 </body>
 </html>

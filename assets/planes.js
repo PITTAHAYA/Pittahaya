@@ -137,6 +137,32 @@
     if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(moverPill);
   }
 
+  /* ── Elegir un plan tocando su tarjeta ─────────────────────── */
+  var barra = doc.querySelector(".pl-elige");
+  if (barra) {
+    var bn = barra.querySelector("[data-elige-n]"), ba = barra.querySelector("[data-elige-a]");
+    page.addEventListener("click", function (e) {
+      if (e.target.closest("a,button,summary")) return;
+      var c = e.target.closest(".pl-card");
+      if (!c) return;
+      var ya = c.classList.contains("is-pick");
+      Array.prototype.forEach.call(page.querySelectorAll(".pl-card.is-pick"), function (x) { x.classList.remove("is-pick"); });
+      if (ya) { barra.classList.remove("on"); return; }
+      c.classList.add("is-pick");
+      var nom = c.querySelector(".pl-card__name"), btn = c.querySelector(".pl-btn");
+      bn.textContent = nom ? nom.textContent : "";
+      if (btn) ba.href = btn.getAttribute("href");
+      barra.classList.add("on");
+    });
+    /* la barra se esconde al llegar al final (allí ya hay botones) */
+    var fin = doc.querySelector(".pl-end");
+    if (fin && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (ent) {
+        barra.classList.toggle("lejos", ent[0].isIntersecting);
+      }).observe(fin);
+    }
+  }
+
   /* ── Brillo que sigue al puntero ─────────────────────────── */
   if (!reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     page.addEventListener("pointermove", function (e) {

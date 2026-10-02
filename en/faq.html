@@ -33,7 +33,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/styles.css?v=m37" />
-  <link rel="stylesheet" href="../assets/casa.css?v=14" />
+  <link rel="stylesheet" href="../assets/casa.css?v=16" />
+  <link rel="stylesheet" href="../assets/faq.css?v=1" />
   <link rel="stylesheet" href="../assets/vivo.css?v=2" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
@@ -108,7 +109,7 @@
       "name": "How many revisions does the process include?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The process includes review rounds to adjust copy, structure, and visual details until the result represents your brand accurately. What matters is that the delivery feels convincing and ready to sell."
+        "text": "It depends on the plan: 1 round on Starter, 2 on Business and 3 on Premium. Each round covers copy, structure and visual details, so you know from day one exactly what your project includes."
       }
     }
   ]
@@ -165,70 +166,58 @@
     </div>
   </div>
 </div>
-<main>
-<section class="phead">
-  <div class="phead-bg" aria-hidden="true"><img src="../assets/casa/sistema.jpg" alt="" /></div>
-  <div class="phead-in">
-    <p class="phead-rotulo">Questions</p>
-    <h1 class="phead-t">
-      <span class="phead-mask"><span>What people</span></span>
-      <span class="phead-mask d1"><span><em>usually ask us.</em></span></span>
-    </h1>
-    <p class="phead-sub">Timelines, pricing, who owns the code, and what happens after launch.</p>
+<main class="casa fq">
+<section class="fq-cab">
+  <p class="fq-rot">Questions</p>
+  <h1 class="fq-t"><span class="phead-mask"><span>What would you</span></span><span class="phead-mask d1"><span><em>like to know?</em></span></span></h1>
+  <label class="fq-buscar"><span class="fq-sr">Search a question</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <input type="search" placeholder="Type: price, time, domain…" data-fq-buscar autocomplete="off">
+  </label>
+  <div class="fq-chips"><button type="button" class="fq-chip" data-k="cuesta|precio|cost|price">Price</button><button type="button" class="fq-chip" data-k="tiempo|lista|long|ready">Time</button><button type="button" class="fq-chip" data-k="textos|content|text">Content</button><button type="button" class="fq-chip" data-k="dominio|hosting|domain">Domain</button><button type="button" class="fq-chip" data-k="revisi">Revisions</button><button type="button" class="fq-chip" data-k="países|countries|otros pa">Other countries</button></div>
+</section>
+<section class="fq-lista">
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">01</span><span class="fq-q">How much does a premium website cost?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Pricing depends on scope: number of pages, design type, and level of customization. The fastest way to know is to fill out the strategy call form — you'll receive a clear, no-strings-attached proposal.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">02</span><span class="fq-q">How long until my site is ready?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>It depends on scope and review pace. A high-impact landing can be ready in a few days; a full multi-page site can take a couple of weeks. We define real timelines from the start so there are no surprises.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">03</span><span class="fq-q">Do I need to have copy and images ready?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>It's not required. If you don't have copy, we'll help you build the message: value proposition, benefits, and calls to action. Images can come from licensed stock libraries or be combined with your own.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">04</span><span class="fq-q">Will I be able to edit my site afterwards?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Yes. We can deliver clear instructions to edit basic content, or set up an ongoing support plan for periodic changes. We adapt it to your technical comfort and needs.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">05</span><span class="fq-q">Does it include domain and hosting?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>It depends on the plan you choose. In most cases we help you set up your domain and hosting, or connect the site to what you already have. We clarify this in the initial strategy call so everything is organized from day one.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">06</span><span class="fq-q">What makes Pittahaya different?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>The design is custom from scratch — not a template filled with your data. Every site is built around your offer, your ideal client, and the result you need to achieve. The goal isn't "to have a website," it's to have a sales tool that works 24/7.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">07</span><span class="fq-q">Do you work with clients in other countries?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>Yes. We work with entrepreneurs and companies across Latin America, Canada, and the US. The process is 100% remote: diagnosis, design, revisions, and delivery happen digitally, regardless of your location.</p></div>
+    </details>
+    <details class="fq-item" data-fq>
+      <summary><span class="fq-n">08</span><span class="fq-q">How many revisions does the process include?</span><span class="fq-mas" aria-hidden="true"></span></summary>
+      <div class="fq-a"><p>It depends on the plan: 1 round on Starter, 2 on Business and 3 on Premium. Each round covers copy, structure and visual details, so you know from day one exactly what your project includes.</p></div>
+    </details>
+    <p class="fq-nada" hidden>We couldn't find that one. Ask our assistant ↓</p>
+</section>
+<section class="fq-fin">
+  <h2 class="fq-t fq-t--fin">Not on the list?<br><em>We'll answer now.</em></h2>
+  <div class="fq-acc">
+    <button type="button" class="btn2 btn2--lleno" data-fq-chat>Ask the assistant</button>
+    <a class="btn2" href="contact.html">Write to us</a>
   </div>
 </section>
-  <section class="section">
-    <div class="container">
-      <span class="badge reveal"><span class="dot"></span> Frequently asked</span>
-      
-      <p class="section-lead reveal">Direct answers so you can move forward confidently — no surprises.</p>
-
-      <div class="faq reveal">
-        <div class="faq-item">
-          <button type="button" class="faq-question">How much does a premium website cost? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Pricing depends on scope: number of pages, design type, and level of customization. The fastest way to know is to fill out the strategy call form — you'll receive a clear, no-strings-attached proposal.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">How long until my site is ready? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">It depends on scope and review pace. A high-impact landing can be ready in a few days; a full multi-page site can take a couple of weeks. We define real timelines from the start so there are no surprises.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">Do I need to have copy and images ready? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">It's not required. If you don't have copy, we'll help you build the message: value proposition, benefits, and calls to action. Images can come from licensed stock libraries or be combined with your own.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">Will I be able to edit my site afterwards? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Yes. We can deliver clear instructions to edit basic content, or set up an ongoing support plan for periodic changes. We adapt it to your technical comfort and needs.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">Does it include domain and hosting? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">It depends on the plan you choose. In most cases we help you set up your domain and hosting, or connect the site to what you already have. We clarify this in the initial strategy call so everything is organized from day one.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">What makes Pittahaya different? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">The design is custom from scratch — not a template filled with your data. Every site is built around your offer, your ideal client, and the result you need to achieve. The goal isn't "to have a website," it's to have a sales tool that works 24/7.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">Do you work with clients in other countries? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">Yes. We work with entrepreneurs and companies across Latin America, Canada, and the US. The process is 100% remote: diagnosis, design, revisions, and delivery happen digitally, regardless of your location.</div>
-        </div>
-        <div class="faq-item">
-          <button type="button" class="faq-question">How many revisions does the process include? <span class="faq-chevron" aria-hidden="true">+</span></button>
-          <div class="faq-answer">The process includes review rounds to adjust copy, structure, and visual details until the result represents your brand accurately. What matters is that the delivery feels convincing and ready to sell.</div>
-        </div>
-      </div>
-
-      <div class="hr reveal"></div>
-
-      <div class="conversion-panel reveal">
-        <div>
-          <h2 class="section-title">Have more questions?</h2>
-          <p>The free strategy call is the fastest way to resolve any specific question about your project.</p>
-        </div>
-        <a class="btn btn-gold" href="contact.html">Book a free strategy call</a>
-      </div>
-    </div>
-  </section>
 </main>
 <footer class="footer">
   <div class="container footer-grid">
@@ -261,5 +250,6 @@
 <script src="../assets/chatbot.js?v=v20" defer></script>
 <script src="../assets/casa.js?v=7" defer></script>
 <script src="../assets/vivo.js?v=1" defer></script>
+<script src="../assets/faq.js?v=1" defer></script>
 </body>
 </html>

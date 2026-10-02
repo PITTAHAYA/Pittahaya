@@ -1,0 +1,57 @@
+/* Pittahaya · FAQ: pregunta y encuentra */
+.fq{background:var(--negro)}
+.fq-cab{max-width:1100px;margin:0 auto;padding:calc(76px + clamp(50px,10vh,110px)) var(--margen) clamp(30px,5vh,50px)}
+.fq-rot{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--fruta-viva);margin:0 0 20px}
+.fq-t{margin:0;font-family:var(--serif);font-weight:300;font-size:clamp(50px,8vw,130px);line-height:.92;letter-spacing:-.045em}
+.fq-t em{font-style:italic;color:var(--champan)}
+.fq-buscar{display:flex;align-items:center;gap:14px;margin-top:clamp(30px,5vh,50px);padding:0 4px 14px;border-bottom:1px solid var(--linea-2);transition:border-color .4s var(--ease)}
+.fq-buscar:focus-within{border-color:var(--fruta-viva)}
+.fq-buscar svg{width:26px;height:26px;color:var(--marfil-3);flex:none}
+.fq .fq-buscar input{flex:1;min-width:0;background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;padding:0!important;
+  color:var(--marfil);font:400 clamp(20px,2.4vw,30px) var(--sans)}
+.fq-buscar input::placeholder{color:var(--marfil-3)}
+.fq-buscar input::-webkit-search-cancel-button{filter:invert(1);opacity:.5}
+.fq-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.fq-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.fq-chip{appearance:none;cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid var(--linea-2);background:none;
+  color:var(--marfil-2);font:500 13px var(--sans);transition:all .35s var(--ease)}
+.fq-chip:hover,.fq-chip.on{background:var(--marfil);color:var(--negro);border-color:var(--marfil)}
+
+.fq-lista{max-width:1100px;margin:0 auto;padding:0 var(--margen)}
+.fq-item{border-top:1px solid var(--linea)}
+.fq-item:last-of-type{border-bottom:1px solid var(--linea)}
+.fq-item summary{list-style:none;display:grid;grid-template-columns:56px 1fr 34px;align-items:center;gap:14px;padding:clamp(20px,3vh,30px) 0;cursor:pointer}
+.fq-item summary::-webkit-details-marker{display:none}
+.fq-n{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--marfil-3)}
+.fq-q{font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.6vw,36px);line-height:1.12;letter-spacing:-.02em;color:var(--marfil);transition:color .3s}
+.fq-item summary:hover .fq-q,.fq-item[open] .fq-q{color:var(--champan)}
+.fq-mas{position:relative;width:34px;height:34px;border-radius:50%;border:1px solid var(--linea-2);transition:transform .5s var(--ease),background .4s}
+.fq-mas::before,.fq-mas::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--marfil);transform:translate(-50%,-50%)}
+.fq-mas::after{transform:translate(-50%,-50%) rotate(90deg)}
+.fq-item[open] .fq-mas{transform:rotate(45deg);background:var(--fruta);border-color:var(--fruta)}
+.fq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.fq-item[open] .fq-a{grid-template-rows:1fr}
+.fq-a > p{overflow:hidden;margin:0;padding-left:70px;max-width:68ch;font-size:clamp(15px,1.3vw,18px);line-height:1.65;color:var(--marfil-2)}
+.fq-item[open] .fq-a > p{padding-bottom:28px}
+.fq-item.fuera{display:none}
+.fq-nada{padding:30px 0;color:var(--marfil-3);font-size:15px}
+mark.fq-luz{background:rgba(224,53,123,.28);color:inherit;border-radius:3px;padding:0 2px}
+
+.fq-fin{max-width:1100px;margin:0 auto;padding:clamp(80px,14vh,160px) var(--margen) clamp(90px,14vh,160px)}
+.fq-t--fin{font-size:clamp(42px,6.4vw,104px);margin-bottom:38px}
+.fq-acc{display:flex;flex-wrap:wrap;gap:12px}
+
+@media (max-width:760px){
+  .fq-cab{padding:110px var(--margen) 22px}
+  .fq-t{font-size:clamp(46px,14vw,70px)}
+  .fq-chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(var(--margen) * -1);padding:0 var(--margen);scrollbar-width:none}
+  .fq-chips::-webkit-scrollbar{display:none}
+  .fq-chip{flex:none}
+  .fq-item summary{grid-template-columns:32px 1fr 30px;gap:10px;padding:18px 0}
+  .fq-mas{width:30px;height:30px}
+  .fq-q{font-size:20px}
+  .fq-a > p{padding-left:0;font-size:15px}
+  .fq-fin{padding:60px var(--margen) 90px}
+  .fq-t--fin{font-size:clamp(40px,12vw,60px);margin-bottom:26px}
+}
+@media (prefers-reduced-motion:reduce){.fq-a,.fq-mas{transition:none}}
