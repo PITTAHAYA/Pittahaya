@@ -28,7 +28,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&amp;family=Space+Grotesk:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css?v=m37" />
-  <link rel="stylesheet" href="assets/casa.css?v=14" />
+  <link rel="stylesheet" href="assets/casa.css?v=16" />
+  <link rel="stylesheet" href="assets/envivo.css?v=2" />
   <link rel="stylesheet" href="assets/carrete.css?v=1" />
   <link rel="stylesheet" href="assets/vivo.css?v=2" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -86,192 +87,31 @@
   </div>
 </div>
 
-<main>
-<section class="phead">
-  <div class="phead-bg" aria-hidden="true"><img src="assets/casa/ia.jpg" alt="" /></div>
-  <div class="phead-in">
-    <p class="phead-rotulo">Inteligencia artificial</p>
-    <h1 class="phead-t">
-      <span class="phead-mask"><span>Tu negocio, vendiendo solo</span></span>
-      <span class="phead-mask d1"><span><em>24 horas al día.</em></span></span>
-    </h1>
-    <p class="phead-sub">Atención automática, captación y procesos que dejan de comerte el día.</p>
+<main class="casa envivo">
+<section class="ev-pista" data-horas="3:07,3:07,3:07,3:08,3:09,3:09">
+  <div class="ev-escena">
+    <video class="ev-fondo" src="assets/ia/noche.mp4" poster="assets/ia/noche.jpg" muted loop playsinline autoplay preload="metadata"></video>
+    <div class="ev-izq">
+      <p class="ev-rot"><i></i>Inteligencia artificial · En vivo</p>
+      <span class="ev-reloj" aria-hidden="true"><b>3:07</b><small>a. m.</small></span>
+      <div class="ev-caps" aria-live="polite"><p class="ev-cap" data-p="0">Son las 3 de la mañana.</p><p class="ev-cap" data-p="1">Un cliente escribe.</p><p class="ev-cap" data-p="2">Tu IA responde en 2 segundos.</p><p class="ev-cap" data-p="3">Resuelve, aparta y agenda.</p><p class="ev-cap" data-p="4">Y cierra la venta.</p><p class="ev-cap" data-p="5">Mientras tú dormías.</p></div>
+    </div>
+    <div class="ev-tel" aria-hidden="true">
+      <div class="ev-tel-cab"><span class="ev-av">P</span><span><b>Tu negocio</b><small>en línea</small></span></div>
+      <div class="ev-tel-cuerpo"><div class="ev-paso" data-p="1"><div class="ev-m ev-m--el">Hola, ¿tienen el combo premium? ¿Hacen envíos a Guayaquil?<small>3:07</small></div></div><div class="ev-paso" data-p="2"><div class="ev-m ev-m--ia">¡Hola! 👋 Sí, lo tenemos: $89 con envío gratis. Llega en 24–48 h. ¿Te lo aparto?<small>3:07 ✓✓</small></div></div><div class="ev-paso" data-p="3"><div class="ev-m ev-m--el">Sí, para el viernes<small>3:08</small></div><div class="ev-tarjeta"><b>📦 Pedido apartado</b><span>Combo premium · entrega vie 10:00</span></div></div><div class="ev-paso" data-p="4"><div class="ev-tarjeta ev-tarjeta--ok"><b>✓ Venta confirmada</b><span>$89.00</span></div></div></div>
+    </div>
+    <span class="ev-sigue" aria-hidden="true">Desliza</span>
   </div>
 </section>
-  <!-- ════════ HERO con feed en vivo ════════ -->
-  <section class="aiHero">
-    <div class="container aiHero-grid">
-      <div data-air>
-        <span class="ai-eyebrow"><span class="live-dot" aria-hidden="true"></span> Automatización con IA · Trabajando ahora</span>
-        
-        <p data-corto="Mientras duermes o atiendes a otro cliente, la IA responde, agenda y cierra por ti." class="lead">Mientras duermes, comes o atiendes a otro cliente, la inteligencia artificial responde, agenda, hace seguimiento y cierra ventas por ti. No es ciencia ficción: es un sistema que construimos para tu negocio y trabaja sin descanso.</p>
-        <div class="hero-actions">
-          <a class="btn btn-gold" href="contacto.html">Quiero automatizar mi negocio</a>
-          <a class="btn" href="#como">Ver cómo funciona</a>
-        </div>
-      </div>
-
-      <div data-air style="transition-delay:.1s">
-        <div class="aiFeed">
-          <div class="aiFeed__head">
-            <span class="dots"><i></i><i></i><i></i></span>
-            <b>Pittahaya&nbsp;AI</b>
-            <span class="pulse">en vivo</span>
-          </div>
-          <div class="aiFeed__list" data-ai-feed='[
-            {"i":"💬","t":"Respondió a {name} en 2 segundos"},
-            {"i":"📅","t":"Agendó una cita para el viernes 3:00pm"},
-            {"i":"🎯","t":"Calificó un lead caliente y lo notificó"},
-            {"i":"📧","t":"Envió seguimiento automático a {name}"},
-            {"i":"🛒","t":"Recuperó un carrito abandonado"},
-            {"i":"⚙️","t":"Generó la factura del pedido #1042"},
-            {"i":"📊","t":"Preparó el reporte semanal de ventas"},
-            {"i":"🔔","t":"Envió recordatorio de cita a {name}"},
-            {"i":"💬","t":"Resolvió 3 dudas frecuentes sin intervención"},
-            {"i":"🤝","t":"Derivó un caso complejo a un humano"}
-          ]'></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ EL PROBLEMA ════════ -->
-  <section class="ai-sec" id="como">
-    <div class="container">
-      <div class="ai-head" data-air>
-        <div class="kicker">El costo de no automatizar</div>
-        <h2>Cada minuto sin responder, <em>un cliente se enfría.</em></h2>
-        <p data-corto="Casi siempre compra quien responde primero. La IA responde al instante.">La mayoría de la gente compra en el primer negocio que le responde. Si tardas horas — o respondes al día siguiente — ya perdiste. La IA elimina ese problema para siempre: responde en segundos, a cualquier hora, sin cansarse y sin que tengas que estar pendiente del teléfono.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ QUÉ AUTOMATIZAMOS ════════ -->
-  <section class="ai-sec" style="padding-top:0">
-    <div class="container">
-      <div class="ai-head" data-air>
-        <div class="kicker">Qué automatizamos por ti</div>
-        <h2>Un sistema completo que trabaja sin descanso.</h2>
-      </div>
-      <div class="ai-serv" data-air>
-        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/smart-chatbot.png" alt="" decoding="async" /></div><h3>Chatbots inteligentes</h3><p>Atención instantánea 24/7: responden preguntas, califican interesados, agendan citas y derivan a una persona solo cuando hace falta.</p></div>
-        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/ai-agent.png" alt="" loading="lazy" decoding="async" /></div><h3>Agentes de IA</h3><p>Asistentes autónomos entrenados con tu información: seguimiento de leads, respuestas por correo, cotizaciones y tareas repetitivas.</p></div>
-        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/process-automation.png" alt="" loading="lazy" decoding="async" /></div><h3>Automatización de procesos</h3><p>Conectamos tus herramientas (correo, agenda, CRM, pagos) y eliminamos lo manual: facturas, reportes y flujos internos.</p></div>
-        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/lead-followup.png" alt="" loading="lazy" decoding="async" /></div><h3>Captación &amp; seguimiento</h3><p>Cada contacto recibe respuesta inmediata y seguimiento automático. Ningún cliente se enfría por falta de respuesta.</p></div>
-        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/booking-scheduling.png" alt="" loading="lazy" decoding="async" /></div><h3>Reservas &amp; agendamiento</h3><p>Tus clientes reservan solos y reciben confirmación y recordatorios automáticos. Menos citas perdidas, cero coordinación manual.</p></div>
-        <div class="ai-card"><div class="ai-ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/reports-content.png" alt="" loading="lazy" decoding="async" /></div><h3>Reportes &amp; contenido</h3><p>Generación automática de reportes, descripciones de producto y publicaciones — listos para revisar y publicar en minutos.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ DEMO DE CHATBOT EN VIVO ════════ -->
-  <section class="ai-sec" style="padding-top:0">
-    <div class="container">
-      <div class="aiChatWrap">
-        <div data-air>
-          <div class="ai-head" style="margin-bottom:24px">
-            <div class="kicker">Míralo en acción</div>
-            <h2>Así responde a tus clientes — <em>al instante.</em></h2>
-            <p data-corto="Una conversación real: tu tono, tu información, a cualquier hora.">Esta es una conversación real de chatbot. Responde como tú lo harías: con tu tono, tu información y tu oferta. Pero a cualquier hora, sin esperas y sin perder la paciencia.</p>
-          </div>
-          <a class="btn btn-gold" href="contacto.html">Quiero uno para mi negocio</a>
-        </div>
-
-        <div data-air style="transition-delay:.1s">
-          <div class="aiChat" data-ai-chat='[
-            {"from":"user","text":"Hola, ¿hacen envíos a Guayaquil?"},
-            {"from":"bot","text":"¡Hola! 👋 Sí, enviamos a todo Ecuador. A Guayaquil llega en 24–48h. ¿Qué producto te interesa?"},
-            {"from":"user","text":"El combo premium, ¿cuánto cuesta?"},
-            {"from":"bot","text":"El Combo Premium está en $89, con envío gratis. ¿Quieres que te aparte uno y agende la entrega? 📦"},
-            {"from":"user","text":"Sí, perfecto"},
-            {"from":"bot","text":"¡Listo! Te aparté el combo. ¿Para qué día te coordino la entrega? Tengo disponible jueves o viernes. 📅"}
-          ]'>
-            <div class="aiChat__top">
-              <div class="aiChat__av" aria-hidden="true">⚡</div>
-              <div><b>Asistente de Tienda</b><small>responde al instante</small></div>
-            </div>
-            <div class="aiChat__body"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ POR TIPO DE NEGOCIO ════════ -->
-  <section class="ai-sec movil-oculto" style="padding-top:0">
-    <div class="container">
-      <div class="ai-head" data-air>
-        <div class="kicker">No importa tu negocio</div>
-        <h2>Lo automatizamos para <em>cualquier industria.</em></h2>
-      </div>
-      <div class="ai-uses" data-air>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-restaurant.png" alt="" loading="lazy" decoding="async" /></div><h4>Restaurantes</h4><p>Reservas automáticas, pedidos por chat y confirmaciones sin que nadie conteste el teléfono.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-health.png" alt="" loading="lazy" decoding="async" /></div><h4>Clínicas &amp; salud</h4><p>Agenda de citas, recordatorios automáticos y respuestas a dudas comunes 24/7.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-ecommerce.png" alt="" loading="lazy" decoding="async" /></div><h4>Tiendas &amp; e-commerce</h4><p>Atención de ventas, recuperación de carritos y seguimiento postventa automático.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-consulting.png" alt="" loading="lazy" decoding="async" /></div><h4>Servicios &amp; consultoría</h4><p>Calificación de leads, cotizaciones automáticas y agendamiento de llamadas.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-real-estate.png" alt="" loading="lazy" decoding="async" /></div><h4>Inmobiliarias</h4><p>Respuesta inmediata a interesados, filtrado de prospectos y coordinación de visitas.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-fitness.png" alt="" loading="lazy" decoding="async" /></div><h4>Gimnasios &amp; estudios</h4><p>Inscripciones, reservas de clases y recordatorios para reducir ausencias.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-education.png" alt="" loading="lazy" decoding="async" /></div><h4>Educación &amp; cursos</h4><p>Inscripción de alumnos, respuestas frecuentes y seguimiento de pagos.</p></div>
-        <div class="ai-use"><div class="ico ai-ico--image" aria-hidden="true"><img src="assets/ai-icons/industry-saas.png" alt="" loading="lazy" decoding="async" /></div><h4>Startups &amp; SaaS</h4><p>Onboarding automático, soporte 24/7 y calificación de usuarios para tu equipo.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ ANTES / DESPUÉS ════════ -->
-  <section class="ai-sec movil-oculto" style="padding-top:0">
-    <div class="container">
-      <div class="ai-head" data-air>
-        <div class="kicker">La transformación</div>
-        <h2>Tu negocio, antes y después de la IA.</h2>
-      </div>
-      <div class="ai-ba" data-air>
-        <div class="col before">
-          <span class="tag">Sin automatización</span>
-          <ul>
-            <li>Respondes horas después — el cliente ya compró en otro lado</li>
-            <li>Pierdes mensajes en la noche y los fines de semana</li>
-            <li>Tareas repetitivas te quitan horas cada semana</li>
-            <li>Olvidas seguimientos y se enfrían los interesados</li>
-            <li>Para crecer, tienes que contratar más gente</li>
-          </ul>
-        </div>
-        <div class="col after">
-          <span class="tag">Con Pittahaya AI</span>
-          <ul>
-            <li>Respondes en segundos, a cualquier hora del día</li>
-            <li>Atiendes 24/7, incluso mientras duermes</li>
-            <li>Lo repetitivo se hace solo — tú te enfocas en crecer</li>
-            <li>Cada lead recibe seguimiento automático hasta cerrar</li>
-            <li>Escalas sin contratar más personal</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ LOS NÚMEROS ════════ -->
-  <section class="ai-sec" style="padding-top:0">
-    <div class="container">
-      <div class="ai-nums" data-air>
-        <div class="ai-num"><b data-ai-count="0" data-ai-suffix=" seg">0</b><span>Tiempo de respuesta a tus clientes</span></div>
-        <div class="ai-num"><b>24/7</b><span>Atención sin descanso, todos los días</span></div>
-        <div class="ai-num"><b data-ai-count="15" data-ai-prefix="+" data-ai-suffix="h">0</b><span>Horas que ahorras cada semana</span></div>
-        <div class="ai-num"><b data-ai-count="100" data-ai-suffix="%">0</b><span>De tus contactos atendidos al instante</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ CTA FINAL ════════ -->
-  <section class="ai-sec" style="padding-top:0">
-    <div class="container">
-      <div class="ai-final" data-air>
-        <span class="ai-eyebrow"><span class="live-dot" aria-hidden="true"></span> Tu turno</span>
-        <h2 style="margin-top:18px">Deja que la IA trabaje, mientras tú <em>haces crecer tu negocio.</em></h2>
-        <p data-corto="Dinos qué te quita más tiempo y diseñamos la automatización para tu caso.">Cuéntanos qué parte de tu negocio te quita más tiempo, y diseñamos la automatización ideal para tu caso — chatbot, agente, reservas o todo el sistema completo.</p>
-        <a class="btn btn-gold" href="contacto.html">Empezar con un diagnóstico gratis</a>
-      </div>
-    </div>
-  </section>
+<section class="ev-cifras">
+  <div><b>2<small> s</small></b><span>para responder</span></div>
+  <div><b>24/7</b><span>sin descanso</span></div>
+  <div><b>0</b><span>mensajes perdidos</span></div>
+</section>
+<section class="ev-cierre">
+  <h2 class="ev-t">Tu negocio también<br><em>puede trabajar de noche.</em></h2>
+  <a class="btn2 btn2--lleno" href="contacto.html">Quiero mi IA</a>
+</section>
 </main>
 
 <footer class="footer">
@@ -306,5 +146,6 @@
 <script src="assets/casa.js?v=5" defer></script>
 <script src="assets/carrete.js?v=1" defer></script>
 <script src="assets/vivo.js?v=1" defer></script>
+<script src="assets/envivo.js?v=1" defer></script>
 </body>
 </html>
