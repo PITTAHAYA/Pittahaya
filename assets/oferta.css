@@ -380,3 +380,23 @@ a{ color:inherit; }
   .of__fija{ transition:none; }
   .of__obra img,.of__puerta,.of__wa,.of__btn2,.of__ig{ transition:none!important; }
 }
+
+/* ── En simple: tres pasos que entiende cualquiera ── */
+.of__simple{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.of__simple li{position:relative;padding:28px 24px 26px;border:1px solid rgba(244,239,230,.12);border-radius:20px;background:rgba(244,239,230,.025)}
+.of__simple b{display:block;font-family:"Fraunces",Georgia,serif;font-weight:300;font-size:56px;line-height:1;color:#ff5c9c;margin-bottom:14px}
+.of__simple span{display:block;font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:clamp(22px,2.2vw,28px);line-height:1.15;letter-spacing:-.02em;color:#f4efe6}
+.of__simple small{display:block;margin-top:8px;font-size:15px;color:rgba(244,239,230,.62)}
+@media (max-width:760px){
+  .of__simple{grid-template-columns:1fr;gap:10px}
+  .of__simple li{display:grid;grid-template-columns:44px 1fr;column-gap:14px;align-items:baseline;padding:18px 18px}
+  .of__simple b{font-size:38px;margin:0;grid-row:span 2}
+  .of__simple span{font-size:21px}
+  .of__simple small{margin-top:4px;font-size:14px}
+}
+/* ── Cliente real dentro de la prueba ── */
+.of__obra--real{outline:1px solid rgba(159,206,58,.55);outline-offset:-1px}
+.of__vivo{position:absolute;top:12px;left:12px;z-index:2;display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;
+  background:rgba(8,7,10,.72);backdrop-filter:blur(8px);font:500 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#9fce3a}
+.of__vivo i{width:6px;height:6px;border-radius:50%;background:#9fce3a;box-shadow:0 0 8px #9fce3a}
+.of__obra--real img{object-position:12% 50%}

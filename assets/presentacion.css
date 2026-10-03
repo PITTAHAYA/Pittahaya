@@ -374,3 +374,7 @@ a{ color:inherit; }
   .pr__fijo.is-visible{ transform:none!important; }
   .pr__hilo{ display:none; }
 }
+
+/* lo que hacemos, dicho en simple (para que lo entienda cualquiera) */
+.pr__claro{margin:18px 0 0;max-width:34ch;font-size:clamp(17px,2vw,21px);line-height:1.5;color:rgba(244,239,230,.78)}
+.pr__claro b{font-weight:600;color:#f4efe6}
