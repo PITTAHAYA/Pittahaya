@@ -1100,6 +1100,93 @@ async function getAutopilotStats(req, res) {
   });
 }
 
+// ── Documentos del cliente (facturas, contratos, propuestas…) ──
+// Bucket PRIVADO de Supabase Storage. Nada es público: subir y descargar se
+// hace con URLs firmadas de vida corta que solo emite este API (solo admin).
+// Ruta: <leadId>/<timestamp>__<categoría>__<nombre-seguro>
+const FILES_BUCKET = 'client-files';
+const FILE_CATS = ['invoice', 'contract', 'proposal', 'receipt', 'id', 'other'];
+const FILE_EXT_OK = ['pdf','png','jpg','jpeg','webp','heic','gif','doc','docx','xls','xlsx','csv','txt','ppt','pptx','zip'];
+const FILE_MAX_BYTES = 20 * 1024 * 1024;
+let filesBucketReady = false;
+
+async function ensureFilesBucket() {
+  if (filesBucketReady) return;
+  const { data } = await supabase.storage.getBucket(FILES_BUCKET);
+  if (!data) {
+    const { error } = await supabase.storage.createBucket(FILES_BUCKET, { public: false, fileSizeLimit: FILE_MAX_BYTES });
+    if (error && !/exist/i.test(error.message || '')) throw error;
+  }
+  filesBucketReady = true;
+}
+function safeFileName(name) {
+  const base = String(name || 'archivo').normalize('NFKD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^A-Za-z0-9._-]+/g, '-').replace(/-+/g, '-').replace(/^[-.]+/, '').slice(-120);
+  return base || 'archivo';
+}
+// La ruta debe pertenecer al lead y no tener trucos de directorio.
+function validLeadPath(leadId, path) {
+  return isUuid(leadId) && typeof path === 'string' && path.startsWith(leadId + '/') &&
+    !path.includes('..') && /^[0-9a-f-]{36}\/[A-Za-z0-9._-]+$/i.test(path);
+}
+function parseFileEntry(leadId, item) {
+  const m = /^(\d+)__([a-z]+)__(.+)$/.exec(item.name) || [];
+  return {
+    path: `${leadId}/${item.name}`,
+    name: m[3] || item.name,
+    category: FILE_CATS.includes(m[2]) ? m[2] : 'other',
+    uploaded_at: m[1] ? new Date(Number(m[1])).toISOString() : (item.created_at || null),
+    size: (item.metadata && item.metadata.size) || 0,
+    mime: (item.metadata && item.metadata.mimetype) || ''
+  };
+}
+
+async function listLeadFiles(req, res, leadId) {
+  if (!isUuid(leadId)) return res.status(400).json({ error: 'id de lead inválido' });
+  await ensureFilesBucket();
+  const { data, error } = await supabase.storage.from(FILES_BUCKET).list(leadId, { limit: 200, sortBy: { column: 'name', order: 'desc' } });
+  if (error) return res.status(500).json({ error: error.message });
+  const files = (data || []).filter(f => f.name && f.id).map(f => parseFileEntry(leadId, f));
+  return res.status(200).json({ files });
+}
+
+async function signFileUpload(req, res) {
+  const b = req.body || {};
+  const leadId = b.lead_id;
+  if (!isUuid(leadId)) return res.status(400).json({ error: 'id de lead inválido' });
+  const cat = FILE_CATS.includes(b.category) ? b.category : 'other';
+  const name = safeFileName(b.name);
+  const ext = (name.split('.').pop() || '').toLowerCase();
+  if (!FILE_EXT_OK.includes(ext)) return res.status(400).json({ error: 'Tipo de archivo no permitido (' + ext + ').' });
+  const size = Number(b.size) || 0;
+  if (size <= 0 || size > FILE_MAX_BYTES) return res.status(400).json({ error: 'El archivo debe pesar menos de 20 MB.' });
+  // El lead debe existir.
+  const { data: lead } = await supabase.from('leads').select('id').eq('id', leadId).maybeSingle();
+  if (!lead) return res.status(404).json({ error: 'Lead no encontrado' });
+  await ensureFilesBucket();
+  const path = `${leadId}/${Date.now()}__${cat}__${name}`;
+  const { data, error } = await supabase.storage.from(FILES_BUCKET).createSignedUploadUrl(path);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ path, signedUrl: data.signedUrl });
+}
+
+async function signFileDownload(req, res) {
+  const { lead_id: leadId, path } = req.query;
+  if (!validLeadPath(leadId, path)) return res.status(400).json({ error: 'Ruta inválida' });
+  const nice = parseFileEntry(leadId, { name: path.slice(leadId.length + 1) }).name;
+  const { data, error } = await supabase.storage.from(FILES_BUCKET).createSignedUrl(path, 120, { download: req.query.dl === '1' ? nice : false });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ url: data.signedUrl });
+}
+
+async function deleteLeadFile(req, res) {
+  const b = { ...(req.query || {}), ...(req.body || {}) };
+  if (!validLeadPath(b.lead_id, b.path)) return res.status(400).json({ error: 'Ruta inválida' });
+  const { error } = await supabase.storage.from(FILES_BUCKET).remove([b.path]);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ ok: true });
+}
+
 // Pausar/reanudar el seguimiento automático de UN lead (desde el panel).
 async function setLeadAutofollow(req, res) {
   const id = req.query.id || (req.body && req.body.id);
@@ -1326,6 +1413,11 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET'   && action === 'autopilot') return await getAutopilot(req, res);
     if (req.method === 'GET'   && action === 'autopilot-stats') return await getAutopilotStats(req, res);
     if (req.method === 'POST'  && action === 'lead-autofollow') return await setLeadAutofollow(req, res);
+    // Documentos del cliente (solo admin: no están en la lista del contador)
+    if (req.method === 'GET'    && action === 'files') return await listLeadFiles(req, res, req.query.lead_id);
+    if (req.method === 'POST'   && action === 'file-upload') return await signFileUpload(req, res);
+    if (req.method === 'GET'    && action === 'file-url') return await signFileDownload(req, res);
+    if (req.method === 'DELETE' && action === 'file') return await deleteLeadFile(req, res);
     if (req.method === 'PATCH' && action === 'autopilot') return await setAutopilot(req, res);
     if (req.method === 'POST'  && action === 'run-followups') return await runFollowupsNow(req, res);
     if (req.method === 'GET'   && action === 'settings') return await getSettings(req, res);

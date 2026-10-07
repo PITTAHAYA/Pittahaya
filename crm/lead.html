@@ -175,6 +175,40 @@
   }
   .toast.show { transform: translateY(0); opacity: 1; }
 
+  /* ── Documentos del cliente (bóveda) ── */
+  .vault-badge { font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: #8ee6bf; border: 1px solid rgba(52,211,153,.35); border-radius: 20px; padding: 2px 8px; }
+  .file-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .fchip { background: var(--onyx-3); border: 1px solid var(--border); color: var(--ash-light); border-radius: 20px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: inherit; display: inline-flex; gap: 5px; align-items: center; }
+  .fchip.on { border-color: rgba(201,148,58,.5); color: var(--gold-light); background: rgba(201,148,58,.08); }
+  .fchip .fcount { font-size: 10px; color: var(--ash); }
+  .fchip .fcount:empty { display: none; }
+  .dropzone { display: block; border: 1.5px dashed rgba(201,148,58,.35); border-radius: 10px; padding: 18px 12px; text-align: center; cursor: pointer; transition: all .15s; background: rgba(201,148,58,.03); }
+  .dropzone:hover, .dropzone.over { border-color: var(--gold); background: rgba(201,148,58,.09); }
+  .dropzone input { display: none; }
+  .dz-icon { font-size: 20px; color: var(--gold-light); }
+  .dz-text { font-size: 12.5px; color: #ddd; margin-top: 4px; }
+  .dz-sub { font-size: 10.5px; color: var(--ash); margin-top: 3px; }
+  .up-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 10px 0 4px; }
+  .up-row select { background: var(--onyx-3); border: 1px solid var(--border); color: #e0e0e0; padding: 6px 8px; border-radius: 6px; font-family: inherit; font-size: 12px; }
+  .up-line { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; color: var(--ash-light); padding: 5px 0; }
+  .up-line span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .up-st { white-space: nowrap; color: var(--ash); }
+  .file-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .file-row:last-child { border-bottom: none; }
+  .file-ext { flex-shrink: 0; width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 9.5px; font-weight: 700; letter-spacing: .04em; background: var(--onyx-3); color: var(--ash-light); border: 1px solid var(--border); }
+  .file-ext.ext-pdf { color: #f87171; border-color: rgba(248,113,113,.3); }
+  .file-ext.ext-img { color: #60a5fa; border-color: rgba(96,165,250,.3); }
+  .file-ext.ext-doc { color: #93c5fd; border-color: rgba(147,197,253,.3); }
+  .file-ext.ext-xls { color: #34d399; border-color: rgba(52,211,153,.3); }
+  .file-meta { flex: 1; min-width: 0; }
+  .file-name { font-size: 12.5px; color: #e6e6e6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .file-sub { font-size: 10.5px; color: var(--ash); margin-top: 2px; }
+  .file-acts { display: flex; gap: 4px; flex-shrink: 0; }
+  .file-acts button { background: var(--onyx-3); border: 1px solid var(--border); color: var(--ash-light); width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+  .file-acts button:hover { color: #fff; border-color: rgba(201,148,58,.4); }
+  .file-acts button.del:hover { color: #f87171; border-color: rgba(248,113,113,.4); }
+  .files-empty { font-size: 12px; color: var(--ash); padding: 10px 0 2px; text-align: center; }
+
   .loading { text-align: center; padding: 48px; color: var(--ash); }
   .loading-spinner { width: 24px; height: 24px; border: 1px solid var(--border-gold); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -230,6 +264,7 @@ let leadData  = null;
 let LANG = (() => { try { return localStorage.getItem('crm_lang') || 'es'; } catch { return 'es'; } })();
 const I18N = {
   es: {
+    files_title:'Documentos del cliente', files_private:'Privado', fc_all:'Todos', fc_invoice:'Factura', fc_contract:'Contrato', fc_proposal:'Propuesta', fc_receipt:'Comprobante', fc_id:'Identificación', fc_other:'Otro', files_drop:'Arrastra archivos aquí o haz clic para subir', files_as:'Guardar como:', files_loading:'Cargando documentos…', files_empty:'Aún no hay documentos. Sube facturas, contratos o propuestas de este cliente.', files_none_cat:'No hay documentos en esta categoría.', files_view:'Ver', files_download:'Descargar', files_delete:'Eliminar', files_uploading:'Subiendo…', files_uploaded:'archivo(s) guardado(s) 🔒', files_too_big:'Pesa más de 20 MB', files_err:'Error con los documentos', files_confirm_del:'¿Eliminar este documento para siempre?', files_deleted:'Documento eliminado', 
     crm_label:'CRM · Panel Admin', logout:'Cerrar sesión', loading_lead:'Cargando lead…',
     back:'Volver al dashboard', lead_since:(n)=>`Lead hace ${n} día${n!==1?'s':''}`,
     invoice_receipt:'Factura / Recibo', send_email:'Enviar email', delete:'Eliminar',
@@ -257,6 +292,7 @@ const I18N = {
     load_error:'Error al cargar el lead. ', back_dash:'Volver al dashboard', lang_btn:'EN'
   },
   en: {
+    files_title:'Client documents', files_private:'Private', fc_all:'All', fc_invoice:'Invoice', fc_contract:'Contract', fc_proposal:'Proposal', fc_receipt:'Receipt', fc_id:'ID', fc_other:'Other', files_drop:'Drop files here or click to upload', files_as:'Save as:', files_loading:'Loading documents…', files_empty:'No documents yet. Upload this client\'s invoices, contracts or proposals.', files_none_cat:'No documents in this category.', files_view:'View', files_download:'Download', files_delete:'Delete', files_uploading:'Uploading…', files_uploaded:'file(s) saved 🔒', files_too_big:'Larger than 20 MB', files_err:'Document error', files_confirm_del:'Delete this document forever?', files_deleted:'Document deleted', 
     crm_label:'CRM · Admin Panel', logout:'Sign out', loading_lead:'Loading lead…',
     back:'Back to dashboard', lead_since:(n)=>`Lead ${n} day${n!==1?'s':''} ago`,
     invoice_receipt:'Invoice / Receipt', send_email:'Send email', delete:'Delete',
@@ -294,7 +330,7 @@ function toggleLang(){
   LANG = LANG === 'es' ? 'en' : 'es';
   try { localStorage.setItem('crm_lang', LANG); } catch {}
   applySidebarI18n();
-  if (leadData) renderPage(leadData.lead, leadData.notes, leadData.tasks), loadLeadInvoices();
+  if (leadData) { renderPage(leadData.lead, leadData.notes, leadData.tasks); loadLeadInvoices(); wireDropzone(); renderLeadFiles(); }
 }
 
 async function loadCrmConfig() {
@@ -341,6 +377,8 @@ async function loadLead() {
     leadData = data;
     renderPage(data.lead, data.notes, data.tasks);
     loadLeadInvoices();
+    wireDropzone();
+    loadLeadFiles();
   } catch(e) {
     document.getElementById('main').innerHTML = `<div class="loading">${t('load_error')}<a href="/crm/index.html" style="color:var(--gold)">${t('back_dash')}</a></div>`;
   }
@@ -366,6 +404,123 @@ async function loadLeadInvoices() {
   } catch (e) {
     el.innerHTML = `<div style="font-size:12px;color:var(--ash)">${esc(String(e.message||e)).slice(0,80)}</div>`;
   }
+}
+
+// ── Documentos del cliente (bóveda privada en Supabase Storage) ──
+const FILE_CATS = ['invoice', 'contract', 'proposal', 'receipt', 'id', 'other'];
+const FILE_ICON = { invoice: '🧾', contract: '📝', proposal: '📊', receipt: '💳', id: '🪪', other: '📎' };
+const FILE_MAX = 20 * 1024 * 1024;
+let leadFiles = [], fileFilter = 'all';
+
+function fmtSize(b) { b = Number(b) || 0; return b < 1024 ? b + ' B' : b < 1048576 ? (b / 1024).toFixed(0) + ' KB' : (b / 1048576).toFixed(1) + ' MB'; }
+function fileExtIcon(name) {
+  const e = (String(name).split('.').pop() || '').toLowerCase();
+  if (e === 'pdf') return 'PDF';
+  if (['png','jpg','jpeg','webp','heic','gif'].includes(e)) return 'IMG';
+  if (['doc','docx'].includes(e)) return 'DOC';
+  if (['xls','xlsx','csv'].includes(e)) return 'XLS';
+  if (['ppt','pptx'].includes(e)) return 'PPT';
+  return e.slice(0, 3).toUpperCase() || 'FILE';
+}
+
+function setFileFilter(c) {
+  fileFilter = c;
+  document.querySelectorAll('#fileFilter .fchip').forEach(b => b.classList.toggle('on', b.dataset.cat === c));
+  renderLeadFiles();
+}
+
+function renderLeadFiles() {
+  const el = document.getElementById('leadFiles');
+  if (!el) return;
+  // contadores por categoría en los chips
+  document.querySelectorAll('#fileFilter .fchip').forEach(b => {
+    const c = b.dataset.cat, n = c === 'all' ? leadFiles.length : leadFiles.filter(f => f.category === c).length;
+    let s = b.querySelector('.fcount'); if (!s) { s = document.createElement('span'); s.className = 'fcount'; b.appendChild(s); }
+    s.textContent = n ? n : '';
+  });
+  const rows = fileFilter === 'all' ? leadFiles : leadFiles.filter(f => f.category === fileFilter);
+  if (!rows.length) { el.innerHTML = `<div class="files-empty">${leadFiles.length ? t('files_none_cat') : t('files_empty')}</div>`; return; }
+  const locale = LANG === 'en' ? 'en-CA' : 'es-EC';
+  el.innerHTML = rows.map((f, i) => `
+    <div class="file-row">
+      <div class="file-ext ext-${fileExtIcon(f.name).toLowerCase()}">${fileExtIcon(f.name)}</div>
+      <div class="file-meta">
+        <div class="file-name" title="${esc(f.name)}">${esc(f.name)}</div>
+        <div class="file-sub">${FILE_ICON[f.category]} ${t('fc_' + f.category)} · ${fmtSize(f.size)} · ${f.uploaded_at ? new Date(f.uploaded_at).toLocaleDateString(locale, { day: '2-digit', month: 'short', year: 'numeric' }) : ''}</div>
+      </div>
+      <div class="file-acts">
+        <button title="${t('files_view')}" onclick="openFile('${esc(f.path)}', false)">👁</button>
+        <button title="${t('files_download')}" onclick="openFile('${esc(f.path)}', true)">⬇</button>
+        <button class="del" title="${t('files_delete')}" onclick="deleteFile('${esc(f.path)}', '${esc(f.name).replace(/'/g, '')}')">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+async function loadLeadFiles() {
+  const el = document.getElementById('leadFiles');
+  if (!el) return;
+  try {
+    const { files } = await api({ action: 'files', lead_id: leadId });
+    leadFiles = files || [];
+    renderLeadFiles();
+  } catch (e) {
+    el.innerHTML = `<div class="files-empty">${t('files_err')}: ${esc(String(e.message || e)).slice(0, 90)}</div>`;
+  }
+}
+
+async function uploadFiles(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+  const cat = document.getElementById('fileCat').value;
+  const prog = document.getElementById('uploadProgress');
+  let ok = 0;
+  for (const file of files) {
+    const line = document.createElement('div');
+    line.className = 'up-line';
+    line.innerHTML = `<span>${esc(file.name)}</span><span class="up-st">${t('files_uploading')}</span>`;
+    prog.appendChild(line);
+    const st = line.querySelector('.up-st');
+    try {
+      if (file.size > FILE_MAX) throw new Error(t('files_too_big'));
+      const { signedUrl } = await api({ action: 'file-upload' }, 'POST', { lead_id: leadId, category: cat, name: file.name, size: file.size });
+      const r = await fetch(signedUrl, { method: 'PUT', headers: { 'Content-Type': file.type || 'application/octet-stream', 'x-upsert': 'false' }, body: file });
+      if (!r.ok) throw new Error((await r.text()).slice(0, 120) || 'HTTP ' + r.status);
+      st.textContent = '✓'; st.style.color = '#34d399'; ok++;
+    } catch (e) {
+      let msg = String(e.message || e); try { msg = JSON.parse(msg).error || msg; } catch {}
+      st.textContent = '✕ ' + msg.slice(0, 70); st.style.color = '#f87171';
+    }
+  }
+  document.getElementById('fileInput').value = '';
+  if (ok) { toast(ok + ' ' + t('files_uploaded')); await loadLeadFiles(); }
+  setTimeout(() => { prog.querySelectorAll('.up-line').forEach(l => { if (l.querySelector('.up-st').textContent === '✓') l.remove(); }); }, 2500);
+}
+
+async function openFile(path, download) {
+  // Abrimos la pestaña YA (antes del await) para que el navegador no la bloquee.
+  const win = download ? null : window.open('about:blank', '_blank');
+  try {
+    const { url } = await api({ action: 'file-url', lead_id: leadId, path, dl: download ? '1' : '0' });
+    if (win) { win.opener = null; win.location.href = url; } else { window.location.href = url; }
+  } catch (e) { if (win) win.close(); toast(t('files_err'), true); }
+}
+
+async function deleteFile(path, name) {
+  if (!confirm(t('files_confirm_del') + '\n\n' + name)) return;
+  try {
+    await api({ action: 'file', lead_id: leadId, path }, 'DELETE', { lead_id: leadId, path });
+    toast(t('files_deleted'));
+    await loadLeadFiles();
+  } catch (e) { toast(t('files_err'), true); }
+}
+
+function wireDropzone() {
+  const dz = document.getElementById('dropzone');
+  if (!dz || dz.dataset.wired) return;
+  dz.dataset.wired = '1';
+  ['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+  dz.addEventListener('drop', e => uploadFiles(e.dataTransfer.files));
 }
 
 // ── Asistente de seguimiento (IA + automatización) ──
@@ -635,6 +790,29 @@ function renderPage(lead, notes, tasks) {
           <div class="card-title">${t('invoices_title')}</div>
           <div id="leadInvoices"><div class="loading" style="padding:6px 0;font-size:12px;color:var(--ash)">${t('invoices_loading')}</div></div>
           <a href="/crm/invoice.html?id=${lead.id}" class="save-btn" style="display:block;text-align:center;text-decoration:none;margin-top:12px">${t('gen_invoice')}</a>
+        </div>
+
+        <!-- Documentos del cliente (bóveda privada) -->
+        <div class="card" id="filesCard">
+          <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <span>${t('files_title')}</span>
+            <span class="vault-badge">🔒 ${t('files_private')}</span>
+          </div>
+          <div class="file-chips" id="fileFilter">
+            ${['all', ...FILE_CATS].map(c => `<button class="fchip ${c === 'all' ? 'on' : ''}" data-cat="${c}" onclick="setFileFilter('${c}')">${c === 'all' ? t('fc_all') : FILE_ICON[c] + ' ' + t('fc_' + c)}</button>`).join('')}
+          </div>
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,.heic,.gif,.doc,.docx,.xls,.xlsx,.csv,.txt,.ppt,.pptx,.zip" onchange="uploadFiles(this.files)">
+            <div class="dz-icon">⬆</div>
+            <div class="dz-text">${t('files_drop')}</div>
+            <div class="dz-sub">PDF, Word, Excel, imágenes · máx. 20 MB</div>
+          </label>
+          <div class="up-row">
+            <span style="font-size:11px;color:var(--ash)">${t('files_as')}</span>
+            <select id="fileCat">${FILE_CATS.map(c => `<option value="${c}">${FILE_ICON[c]} ${t('fc_' + c)}</option>`).join('')}</select>
+          </div>
+          <div id="uploadProgress"></div>
+          <div id="leadFiles"><div style="padding:6px 0;font-size:12px;color:var(--ash)">${t('files_loading')}</div></div>
         </div>
 
         <!-- Tasks -->
