@@ -4,6 +4,7 @@
     { "source": "/:page(about|automation|contact|offer|plans|portfolio|privacy|services|terms){.html}?", "destination": "/en/:page.html", "permanent": false }
   ],
   "rewrites": [
+    { "source": "/api/chat", "destination": "https://pittahaya-chatbot.vercel.app/api/web-chat" },
     { "source": "/:page((?!api$|crm$|en$|assets$)[a-z0-9-]+)", "destination": "/:page.html" },
     { "source": "/en/:page([a-z0-9-]+)", "destination": "/en/:page.html" }
   ],
