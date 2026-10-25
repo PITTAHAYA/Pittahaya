@@ -108,7 +108,7 @@
     const item = make("div", `pitahaya-chat__message pitahaya-chat__message--${role}`);
     const bubble = make("div", "pitahaya-chat__bubble");
     // Las respuestas de la IA traen URLs en texto plano: las volvemos clicables sin usar innerHTML.
-    String(text).replace(/\*\*(.+?)\*\*/g, "$1").split(/(https?:\/\/[^\s)]+)/g).forEach((part, i) => {
+    String(text).replace(/\*\*(.+?)\*\*/g, "$1").replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, "$2").split(/(https?:\/\/[^\s)]+)/g).forEach((part, i) => {
       if (i % 2) {
         const link = make("a", "", part);
         link.href = part;
