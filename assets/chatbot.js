@@ -55,7 +55,7 @@
     placeholder:   "Type your question here…",
     inputAria:     "Type your message",
     sendLabel:     "Send",
-    privacyNote:   "Local assistant: your messages are not sent to external servers.",
+    privacyNote:   "AI assistant (the same one as our WhatsApp & Instagram). See our Privacy Policy.",
     initialPrompts:["How much does it cost?", "AI automation", "Show demos", "Why Pittahaya?"],
     altPrompts:    ["How long does it take?", "How many revisions?", "Is hosting included?", "Do you work worldwide?"],
     greeting:      "Hi! I'm Pittahaya's assistant. I can answer anything about web design, AI automation (chatbots & agents that work 24/7), pricing, plans, timelines, demos or the process — whatever you need to take the first step. How can I help?",
@@ -108,7 +108,7 @@
     placeholder:   "Escribe tu pregunta aquí...",
     inputAria:     "Escribe tu mensaje",
     sendLabel:     "Enviar",
-    privacyNote:   "Asistente local: tus mensajes no se envían a servidores externos.",
+    privacyNote:   "Asistente con IA (el mismo de WhatsApp e Instagram). Ver Política de Privacidad.",
     initialPrompts:["¿Cuánto cuesta?", "Automatización con IA", "Ver demos", "¿Por qué Pittahaya?"],
     altPrompts:    ["¿Cuánto tiempo toma?", "¿Cuántas revisiones incluye?", "¿Incluye hosting?", "¿Atienden a todo el mundo?"],
     greeting:      "¡Hola! Soy el asistente de Pittahaya. Puedo responder lo que necesites sobre diseño web, automatización con IA (chatbots y agentes que trabajan 24/7), precios, planes, tiempos, demos o el proceso. ¿En qué te ayudo?",
@@ -1260,7 +1260,23 @@
 
   const addMessage = (role, text, actions = []) => {
     const item = make("div", `pitahaya-chat__message pitahaya-chat__message--${role}`);
-    const bubble = make("div", "pitahaya-chat__bubble", text);
+    const bubble = make("div", "pitahaya-chat__bubble");
+    // La IA responde con markdown ligero y URLs en texto: limpiamos y volvemos los enlaces clicables, sin innerHTML.
+    String(text)
+      .replace(/\*\*(.+?)\*\*/g, "$1")
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, "$2")
+      .split(/(https?:\/\/[^\s)]+)/g)
+      .forEach((part, i) => {
+        if (i % 2) {
+          const link = make("a", "", part);
+          link.href = part;
+          link.target = "_blank";
+          link.rel = "noopener";
+          bubble.append(link);
+        } else if (part) {
+          bubble.append(document.createTextNode(part));
+        }
+      });
     item.append(bubble);
 
     if (actions.length) {
@@ -1293,18 +1309,70 @@
     messages.append(typingMsg);
     scrollMessages();
 
-    const response = replyFor(rawText);
-    const delay = Math.min(500 + response.text.length * 5, 1400);
-
-    window.setTimeout(() => {
-      typingMsg.remove();
-      addMessage("bot", response.text, response.actions);
-
+    const afterReply = () => {
       // After a few messages, suggest alternative quick prompts
       if (msgCount === 3) {
         renderQuickPrompts(T.altPrompts);
       }
-    }, delay);
+    };
+
+    // Cerebro real: el mismo bot de WhatsApp/Instagram vía /api/chat (rewrite en vercel.json).
+    // Si la red falla, caemos a las respuestas locales.
+    fetch(CHAT_API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId, text: rawText })
+    })
+      .then(res => { if (!res.ok) throw new Error(String(res.status)); return res.json(); })
+      .then(data => {
+        typingMsg.remove();
+        if (data.reply) addMessage("bot", data.reply);
+        shownAfterLastUser = data.reply ? 1 : 0;
+        if (data.paused) pollHuman();
+        afterReply();
+      })
+      .catch(() => {
+        const response = replyFor(rawText);
+        typingMsg.remove();
+        addMessage("bot", response.text, response.actions);
+        afterReply();
+      });
+  };
+
+  const CHAT_API = "/api/chat";
+  const sessionId = (() => {
+    const fresh = () => crypto.randomUUID
+      ? crypto.randomUUID()
+      : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    try {
+      const saved = localStorage.getItem("pitahaya-chat-session");
+      if (saved) return saved;
+      const id = fresh();
+      localStorage.setItem("pitahaya-chat-session", id);
+      return id;
+    } catch {
+      return fresh();
+    }
+  })();
+
+  // Si un humano toma el chat desde la bandeja, el bot se pausa y recogemos sus respuestas por polling.
+  // El historial viene recortado: contamos solo lo llegado tras el último mensaje del cliente.
+  let shownAfterLastUser = 0;
+  let pollTimer = null;
+  const pollHuman = () => {
+    if (pollTimer) return;
+    pollTimer = window.setInterval(async () => {
+      try {
+        const data = await (await fetch(`${CHAT_API}?sessionId=${sessionId}`)).json();
+        const turns = data.turns || [];
+        let lastUser = -1;
+        turns.forEach((t, i) => { if (t.role === "user") lastUser = i; });
+        const fresh = turns.slice(lastUser + 1).filter(t => t.role === "assistant");
+        fresh.slice(shownAfterLastUser).forEach(t => addMessage("bot", t.content));
+        shownAfterLastUser = Math.max(shownAfterLastUser, fresh.length);
+        if (!data.paused) { window.clearInterval(pollTimer); pollTimer = null; }
+      } catch { /* reintenta en el siguiente tick */ }
+    }, 6000);
   };
 
   function handleUserMessage(value) {

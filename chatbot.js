@@ -88,7 +88,7 @@
   send.type = "submit";
   form.append(input, send);
 
-  const privacy = make("div", "pitahaya-chat__privacy", "Asistente con IA (el mismo de WhatsApp e Instagram). Tus mensajes se procesan según nuestra Política de Privacidad.");
+  const privacy = make("div", "pitahaya-chat__privacy", "Recepción local: responde preguntas frecuentes en tu navegador y no envía tus mensajes a terceros.");
 
   panel.append(header, messages, quick, form, privacy);
   root.append(launcher, panel);
@@ -106,19 +106,7 @@
 
   const addMessage = (role, text, actions = []) => {
     const item = make("div", `pitahaya-chat__message pitahaya-chat__message--${role}`);
-    const bubble = make("div", "pitahaya-chat__bubble");
-    // Las respuestas de la IA traen URLs en texto plano: las volvemos clicables sin usar innerHTML.
-    String(text).replace(/\*\*(.+?)\*\*/g, "$1").replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, "$2").split(/(https?:\/\/[^\s)]+)/g).forEach((part, i) => {
-      if (i % 2) {
-        const link = make("a", "", part);
-        link.href = part;
-        link.target = "_blank";
-        link.rel = "noopener";
-        bubble.append(link);
-      } else if (part) {
-        bubble.append(document.createTextNode(part));
-      }
-    });
+    const bubble = make("div", "pitahaya-chat__bubble", text);
     item.append(bubble);
 
     if (actions.length) {
@@ -339,66 +327,17 @@
     };
   };
 
-  // Cerebro real: el mismo bot de WhatsApp/Instagram, vía /api/chat (rewrite en vercel.json).
-  // Si la red falla, cae a las respuestas locales de arriba.
-  const CHAT_API = "/api/chat";
-  const sessionId = (() => {
-    const fresh = () => (crypto.randomUUID ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)));
-    try {
-      const saved = localStorage.getItem("pitahaya-chat-session");
-      if (saved) return saved;
-      const id = fresh();
-      localStorage.setItem("pitahaya-chat-session", id);
-      return id;
-    } catch {
-      return fresh();
-    }
-  })();
-
-  // Si un humano toma el chat desde la bandeja, el bot se pausa y recogemos sus respuestas por polling.
-  let shownAfterLastUser = 0;
-  let pollTimer = null;
-  const pollHuman = () => {
-    if (pollTimer) return;
-    pollTimer = window.setInterval(async () => {
-      try {
-        const res = await fetch(`${CHAT_API}?sessionId=${sessionId}`);
-        const data = await res.json();
-        const turns = data.turns || [];
-        // El historial está recortado en el servidor: contamos solo lo que llegó tras el último mensaje del cliente.
-        let lastUser = -1;
-        turns.forEach((t, i) => { if (t.role === "user") lastUser = i; });
-        const fresh = turns.slice(lastUser + 1).filter(t => t.role === "assistant");
-        fresh.slice(shownAfterLastUser).forEach(t => addMessage("bot", t.content));
-        shownAfterLastUser = Math.max(shownAfterLastUser, fresh.length);
-        if (!data.paused) { window.clearInterval(pollTimer); pollTimer = null; }
-      } catch { /* reintenta en el siguiente tick */ }
-    }, 6000);
-  };
-
-  const showBotReply = async (text) => {
+  const showBotReply = (text) => {
     const typing = make("div", "pitahaya-chat__message pitahaya-chat__message--bot");
-    typing.append(make("div", "pitahaya-chat__bubble", "Escribiendo..."));
+    typing.append(make("div", "pitahaya-chat__bubble", "Preparando tu atención..."));
     messages.append(typing);
     scrollMessages();
 
-    try {
-      const res = await fetch(CHAT_API, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, text })
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      const data = await res.json();
-      typing.remove();
-      if (data.reply) addMessage("bot", data.reply);
-      shownAfterLastUser = data.reply ? 1 : 0;
-      if (data.paused) pollHuman();
-    } catch {
+    window.setTimeout(() => {
       typing.remove();
       const response = replyFor(text);
       addMessage("bot", response.text, response.actions);
-    }
+    }, 360);
   };
 
   function handleUserMessage(value) {
