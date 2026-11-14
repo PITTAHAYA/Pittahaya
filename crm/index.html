@@ -724,6 +724,51 @@
 .live-lead-toast.out{transition:all .6s;opacity:0;transform:translateY(20px)}
 @keyframes llIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:none}}
 @keyframes llPulse{70%{box-shadow:0 0 0 12px rgba(232,52,135,0)}100%{box-shadow:0 0 0 0 rgba(232,52,135,0)}}
+
+/* ── Interactividad visual ── */
+.metric-card,.finance-section,.fiscal-section,.rem-col,.ap-kpi,.chart-card,.kan-col{--mx:50%;--my:50%}
+.metric-card::before,.finance-section::before,.rem-col::before,.ap-kpi::before,.chart-card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;
+ background:radial-gradient(280px circle at var(--mx) var(--my),rgba(232,201,122,.13),rgba(232,52,135,.05) 40%,transparent 70%)}
+.metric-card:hover::before,.finance-section:hover::before,.rem-col:hover::before,.ap-kpi:hover::before,.chart-card:hover::before{opacity:1}
+.finance-section,.rem-col,.ap-kpi,.chart-card{position:relative}
+.metric-card{transform-style:preserve-3d;will-change:transform}
+.lux-hero .hero-fruit{position:absolute;right:-28px;bottom:-40px;width:190px!important;height:190px!important;opacity:.16;z-index:0;pointer-events:none}
+.hero-viz{display:flex;gap:14px;position:relative;z-index:1;flex-wrap:wrap}
+.hv-card{background:rgba(10,8,11,.55);border:1px solid rgba(232,201,122,.14);border-radius:16px;padding:14px 16px;backdrop-filter:blur(10px)}
+.hv-card:first-child{width:300px}
+.hv-head{display:flex;justify-content:space-between;align-items:baseline;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#a8977a;margin-bottom:6px}
+.hv-head b{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:0;color:#f6e3b4;font-weight:500;text-transform:none}
+#hvSpark{width:100%;height:80px;overflow:visible}
+#hvSpark .area{fill:url(#hvGrad);opacity:0;animation:hvFade 1.2s .5s forwards}
+#hvSpark .line{fill:none;stroke:url(#hvStroke);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:900;stroke-dashoffset:900;animation:hvDraw 1.6s cubic-bezier(.4,0,.2,1) forwards}
+#hvSpark .pt{fill:#fbf1d8;opacity:0;animation:hvFade .4s forwards;cursor:pointer}
+#hvSpark .pt:hover{r:5}
+.hv-donut-card{position:relative;width:150px;display:flex;align-items:center;justify-content:center}
+#hvDonut{width:120px;height:120px;transform:rotate(-90deg)}
+#hvDonut circle.seg{fill:none;stroke-width:13;cursor:pointer;transition:stroke-width .2s,opacity .2s;stroke-linecap:butt}
+#hvDonut circle.seg:hover{stroke-width:17}
+#hvDonut:hover circle.seg:not(:hover){opacity:.45}
+.hv-donut-center{position:absolute;text-align:center;pointer-events:none}
+.hv-donut-center b{display:block;font-family:'Cormorant Garamond',serif;font-size:22px;color:#f6e3b4;font-weight:500}
+.hv-donut-center span{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:#a8977a}
+@keyframes hvDraw{to{stroke-dashoffset:0}}@keyframes hvFade{to{opacity:1}}
+.hv-tip{position:fixed;z-index:9500;pointer-events:none;padding:7px 11px;border-radius:10px;font-size:11.5px;color:#fbf1d8;background:rgba(20,16,20,.95);border:1px solid rgba(232,201,122,.3);box-shadow:0 10px 30px -10px rgba(0,0,0,.8);transform:translate(-50%,-120%);white-space:nowrap}
+/* Cmd+K */
+.cmdk{position:fixed;inset:0;z-index:9800;background:rgba(5,4,6,.6);backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;padding-top:14vh}
+.cmdk[hidden]{display:none!important}
+.cmdk-box{width:min(620px,92vw);border-radius:20px;overflow:hidden;background:linear-gradient(160deg,rgba(30,25,31,.97),rgba(14,12,15,.97));border:1px solid rgba(232,201,122,.25);box-shadow:0 40px 100px -30px rgba(232,52,135,.55);animation:llIn .3s ease both}
+.cmdk-box input{width:100%;padding:20px 22px;font-size:16px;background:transparent;border:none;border-bottom:1px solid rgba(232,201,122,.14);color:#fbf1d8;outline:none;font-family:inherit}
+.cmdk-list{max-height:52vh;overflow:auto;padding:8px}
+.cmdk-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;cursor:pointer;color:#ddd;font-size:13px}
+.cmdk-item .ci-ic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(232,201,122,.08);flex-shrink:0}
+.cmdk-item .ci-sub{font-size:11px;color:#8b7d65}
+.cmdk-item.on{background:linear-gradient(90deg,rgba(201,148,58,.22),rgba(232,52,135,.10));color:#fbf1d8}
+.cmdk-sec{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#7d6f57;padding:10px 14px 4px}
+.cmdk-foot{padding:10px 18px;font-size:10.5px;color:#7d6f57;border-top:1px solid rgba(232,201,122,.1)}
+.cmdk-foot span{padding:2px 6px;border-radius:5px;border:1px solid rgba(232,201,122,.2);color:#c9b48a}
+.cmdk-fab{position:fixed;left:24px;bottom:24px;z-index:150;width:auto;padding:9px 14px;border-radius:999px;font-size:11px;letter-spacing:.1em;cursor:pointer;
+ color:#f6e3b4;background:rgba(20,16,20,.85);border:1px solid rgba(232,201,122,.3);backdrop-filter:blur(10px);display:none}
+@media (max-width:900px){.hv-card:first-child{width:100%}}
 /* ═════════ PITTAHAYA LUXURY SKIN ═════════ */
 :root{--magenta:#e83487;--glass:rgba(18,16,20,.62);--glass-b:rgba(232,201,122,.12);--glow-gold:0 0 0 1px rgba(232,201,122,.10),0 18px 50px -20px rgba(201,148,58,.35)}
 body{background:#070608;font-size:13.5px;letter-spacing:.005em}
@@ -837,6 +882,14 @@ tbody tr{transition:background .2s}tbody tr:hover{background:rgba(232,201,122,.0
 </nav>
 
 <!-- ── Main ── -->
+<div class="cmdk" id="cmdk" hidden onclick="if(event.target===this)closeCmdk()">
+  <div class="cmdk-box">
+    <input id="cmdkInput" placeholder="Buscar clientes o ir a… (↑↓ Enter)" autocomplete="off" oninput="renderCmdk()" onkeydown="cmdkKey(event)">
+    <div id="cmdkList" class="cmdk-list"></div>
+    <div class="cmdk-foot"><span>⌘K</span> abrir · <span>Esc</span> cerrar</div>
+  </div>
+</div>
+<button class="cmdk-fab" onclick="openCmdk()" title="Buscar (⌘K)">⌘K</button>
 <main class="main">
   <div class="demo-banner" id="demoBanner" hidden>🎬 <b>MODO DEMO</b> · <span id="demoBannerTxt">Datos ficticios — tus clientes reales están ocultos y nada se guarda</span></div>
   <div class="page-header">
@@ -878,6 +931,16 @@ tbody tr{transition:background .2s}tbody tr:hover{background:rgba(232,201,122,.0
         <div class="hs"><b id="hs-leads">—</b><span id="hs-l1">Leads</span></div>
         <div class="hs"><b id="hs-hot">—</b><span id="hs-l2">Calientes</span></div>
         <div class="hs"><b id="hs-conv">—</b><span id="hs-l3">Conversión</span></div>
+      </div>
+    </div>
+    <div class="hero-viz">
+      <div class="hv-card">
+        <div class="hv-head"><span id="hvRevTitle">Ingresos · 6 meses</span><b id="hvRevTotal">—</b></div>
+        <svg id="hvSpark" viewBox="0 0 300 90" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="hv-card hv-donut-card">
+        <svg id="hvDonut" viewBox="0 0 120 120"></svg>
+        <div class="hv-donut-center"><b id="hvDonutVal">—</b><span id="hvDonutLbl">Pipeline</span></div>
       </div>
     </div>
     <img class="hero-fruit" src="/assets/pitahaya-logo.png" alt="Pittahaya">
@@ -2402,6 +2465,126 @@ function heroStats(d){
   countUp(document.getElementById('hs-conv'), d.conversionRate, '%');
   ['m-total','m-week','m-hot'].forEach((id,i)=>countUp(document.getElementById(id), [d.total,d.newThisWeek,d.hot][i]));
 }
+
+// ══ Interactividad visual ══
+// Luz que sigue al cursor + inclinación 3D en las métricas.
+document.addEventListener('pointermove', e => {
+  const el = e.target.closest && e.target.closest('.metric-card,.finance-section,.fiscal-section,.rem-col,.ap-kpi,.chart-card');
+  if (!el) return;
+  const r = el.getBoundingClientRect();
+  el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  if (el.classList.contains('metric-card') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+    el.style.transform = `perspective(700px) rotateY(${px * 8}deg) rotateX(${-py * 8}deg) translateY(-3px)`;
+  }
+}, { passive: true });
+document.addEventListener('pointerout', e => { const el = e.target.closest && e.target.closest('.metric-card'); if (el && !el.contains(e.relatedTarget)) el.style.transform = ''; });
+
+let hvTipEl;
+function hvTip(e, html) { if (!hvTipEl) { hvTipEl = document.createElement('div'); hvTipEl.className = 'hv-tip'; document.body.appendChild(hvTipEl); } if (!html) { hvTipEl.style.display = 'none'; return; } hvTipEl.innerHTML = html; hvTipEl.style.display = 'block'; hvTipEl.style.left = e.clientX + 'px'; hvTipEl.style.top = e.clientY + 'px'; }
+
+async function renderHeroViz(d) {
+  const en = LANG === 'en';
+  document.getElementById('hvRevTitle').textContent = en ? 'Revenue · 6 months' : 'Ingresos · 6 meses';
+  // Curva de ingresos (suma de países)
+  try {
+    const { countries } = await api({ action: 'monthly' });
+    const months = (countries && countries[0] && countries[0].months || []).map((m, i) => ({ label: m.label || m.month, v: (countries || []).reduce((a, c) => a + (Number(c.months[i] && c.months[i].revenue) || 0), 0) }));
+    const svg = document.getElementById('hvSpark');
+    if (months.length > 1) {
+      const max = Math.max(...months.map(m => m.v), 1), W = 300, H = 80;
+      const pts = months.map((m, i) => [i * W / (months.length - 1), H - (m.v / max) * (H - 10) - 4]);
+      const path = pts.map((p, i) => {
+        if (!i) return `M${p[0]},${p[1]}`;
+        const q = pts[i - 1], cx = (q[0] + p[0]) / 2;
+        return `C${cx},${q[1]} ${cx},${p[1]} ${p[0]},${p[1]}`;
+      }).join(' ');
+      svg.innerHTML = `<defs><linearGradient id="hvGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8c97a" stop-opacity=".45"/><stop offset="1" stop-color="#e83487" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hvStroke" x1="0" x2="1"><stop offset="0" stop-color="#e8c97a"/><stop offset="1" stop-color="#e83487"/></linearGradient></defs>
+        <path class="area" d="${path} L${W},${H} L0,${H} Z"/><path class="line" d="${path}"/>
+        ${pts.map((p, i) => `<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="3.5" style="animation-delay:${1 + i * .12}s" data-i="${i}"/>`).join('')}`;
+      svg.querySelectorAll('.pt').forEach(c => {
+        const m = months[c.dataset.i];
+        c.addEventListener('pointermove', e => hvTip(e, `<b>${esc(m.label)}</b> · ${money(m.v)}`));
+        c.addEventListener('pointerleave', e => hvTip(e, null));
+      });
+      const total = months.reduce((a, m) => a + m.v, 0);
+      countUpMoney(document.getElementById('hvRevTotal'), total);
+    }
+  } catch (e) {}
+  // Dona del pipeline
+  const STG = [['new', '#60a5fa'], ['contacted', '#a78bfa'], ['qualified', '#fbbf24'], ['proposal_sent', '#fb923c'], ['won', '#34d399'], ['lost', '#f87171']];
+  const sc = d.statusCounts || {}, tot = STG.reduce((a, [k]) => a + (sc[k] || 0), 0) || 1;
+  const R = 46, C = 2 * Math.PI * R; let off = 0;
+  const donut = document.getElementById('hvDonut');
+  donut.innerHTML = `<circle cx="60" cy="60" r="${R}" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="13"/>` + STG.map(([k, col]) => {
+    const n = sc[k] || 0; if (!n) return '';
+    const len = n / tot * C, seg = `<circle class="seg" data-k="${k}" cx="60" cy="60" r="${R}" stroke="${col}" stroke-dasharray="0 ${C}" stroke-dashoffset="${-off}" data-len="${len}" data-c="${C}"/>`;
+    off += len; return seg;
+  }).join('');
+  requestAnimationFrame(() => donut.querySelectorAll('.seg').forEach((c, i) => {
+    c.style.transition = `stroke-dasharray 1s ${.15 + i * .1}s cubic-bezier(.4,0,.2,1), stroke-width .2s, opacity .2s`;
+    c.setAttribute('stroke-dasharray', `${Math.max(0, c.dataset.len - 1.5)} ${c.dataset.c}`);
+  }));
+  const val = document.getElementById('hvDonutVal'), lbl = document.getElementById('hvDonutLbl');
+  const reset = () => { val.textContent = tot === 1 && !sc.new ? '0' : String(STG.reduce((a, [k]) => a + (sc[k] || 0), 0)); lbl.textContent = 'Pipeline'; };
+  reset();
+  donut.querySelectorAll('.seg').forEach(c => {
+    c.addEventListener('pointerenter', () => { val.textContent = sc[c.dataset.k]; lbl.textContent = statusLabel(c.dataset.k); });
+    c.addEventListener('pointerleave', reset);
+    c.addEventListener('click', () => { const f = document.getElementById('filterStatus'); if (f) { f.value = c.dataset.k; } showView('leads'); loadLeads(); });
+  });
+}
+function countUpMoney(el, to) {
+  if (!el) return; const t0 = performance.now();
+  const step = t => { const p = Math.min(1, (t - t0) / 1300), e = 1 - Math.pow(1 - p, 3); el.innerHTML = money(Math.round(to * e)); if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+// ── Paleta de comandos ⌘K ──
+let cmdkItems = [], cmdkSel = 0, cmdkLeads = [];
+function openCmdk() {
+  document.getElementById('cmdk').hidden = false;
+  const i = document.getElementById('cmdkInput'); i.value = ''; i.focus();
+  api({ action: 'leads', limit: 200, offset: 0, sort: 'created_at', order: 'desc' }).then(r => { cmdkLeads = r.leads || []; renderCmdk(); }).catch(() => {});
+  renderCmdk();
+}
+function closeCmdk() { document.getElementById('cmdk').hidden = true; }
+function renderCmdk() {
+  const en = LANG === 'en', q = document.getElementById('cmdkInput').value.trim().toLowerCase();
+  const nav = [['resumen', '📊', en ? 'Overview' : 'Resumen'], ['leads', '👥', 'Leads'], ['autopilot', '✈️', en ? 'Follow-up AI' : 'Seguimiento IA'], ['finanzas', '💲', en ? 'Finance' : 'Finanzas'], ['facturas', '🧾', en ? 'Invoices' : 'Facturas'], ['impuestos', '🏛️', en ? 'Taxes' : 'Impuestos']]
+    .map(([v, ic, t]) => ({ ic, t, sub: en ? 'Go to section' : 'Ir a la sección', run: () => showView(v), sec: en ? 'Navigate' : 'Navegar' }));
+  const acts = [
+    { ic: '＋', t: en ? 'New lead' : 'Nuevo lead', sub: en ? 'Add a client manually' : 'Agregar cliente a mano', run: () => openAddLead() },
+    { ic: '🎬', t: (window.CRM_DEMO && CRM_DEMO.isOn()) ? (en ? 'Exit demo mode' : 'Salir del modo demo') : (en ? 'Demo mode' : 'Modo demo'), sub: en ? 'Fictional data for recording' : 'Datos ficticios para grabar', run: () => toggleDemo() },
+    { ic: '👁', t: en ? 'Hide / show amounts' : 'Ocultar / mostrar montos', sub: en ? 'Privacy for screen recording' : 'Privacidad al grabar', run: () => togglePrivacy() },
+    { ic: '🌐', t: en ? 'Switch to Spanish' : 'Cambiar a inglés', sub: 'ES / EN', run: () => toggleLang() }
+  ].map(a => ({ ...a, sec: en ? 'Actions' : 'Acciones' }));
+  const ls = cmdkLeads.filter(l => !q || (l.name + ' ' + (l.company || '') + ' ' + (l.email || '')).toLowerCase().includes(q)).slice(0, 8)
+    .map(l => ({ ic: flag(l.country), t: l.name, sub: (l.company || l.service || '') + ' · ' + statusLabel(l.status), run: () => location.href = '/crm/lead.html?id=' + l.id, sec: en ? 'Clients' : 'Clientes' }));
+  const f = x => !q || (x.t + ' ' + x.sub).toLowerCase().includes(q);
+  cmdkItems = [...ls, ...nav.filter(f), ...acts.filter(f)];
+  cmdkSel = Math.min(cmdkSel, Math.max(0, cmdkItems.length - 1));
+  let sec = '';
+  document.getElementById('cmdkList').innerHTML = cmdkItems.map((x, i) => {
+    const h = x.sec !== sec ? `<div class="cmdk-sec">${x.sec}</div>` : ''; sec = x.sec;
+    return h + `<div class="cmdk-item ${i === cmdkSel ? 'on' : ''}" onmouseenter="cmdkSel=${i};paintCmdkSel()" onclick="runCmdk(${i})"><span class="ci-ic">${x.ic}</span><div><div>${esc(x.t)}</div><div class="ci-sub">${esc(x.sub)}</div></div></div>`;
+  }).join('') || `<div class="cmdk-sec">${en ? 'No results' : 'Sin resultados'}</div>`;
+}
+function paintCmdkSel() { document.querySelectorAll('.cmdk-item').forEach((el, i) => el.classList.toggle('on', i === cmdkSel)); }
+function runCmdk(i) { const x = cmdkItems[i]; closeCmdk(); if (x) x.run(); }
+function cmdkKey(e) {
+  if (e.key === 'ArrowDown') { cmdkSel = Math.min(cmdkItems.length - 1, cmdkSel + 1); paintCmdkSel(); e.preventDefault(); }
+  else if (e.key === 'ArrowUp') { cmdkSel = Math.max(0, cmdkSel - 1); paintCmdkSel(); e.preventDefault(); }
+  else if (e.key === 'Enter') runCmdk(cmdkSel);
+  else if (e.key === 'Escape') closeCmdk();
+  else cmdkSel = 0;
+}
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); document.getElementById('cmdk').hidden ? openCmdk() : closeCmdk(); }
+  else if (e.key === 'Escape' && !document.getElementById('cmdk').hidden) closeCmdk();
+});
+
 async function loadMetrics() {
   try {
     const d = await api({ action: 'metrics' });
@@ -2409,7 +2592,7 @@ async function loadMetrics() {
     document.getElementById('m-week').textContent  = d.newThisWeek || 0;
     document.getElementById('m-hot').textContent   = d.hot || 0;
     document.getElementById('m-conv').textContent  = (d.conversionRate || 0) + '%';
-    paintHero(); heroStats(d);
+    paintHero(); heroStats(d); renderHeroViz(d);
     document.getElementById('m-service').textContent = d.topService ? `${LANG==='en'?'Most requested':'Más pedido'}: ${d.topService}` : '';
 
     // Las tarjetas de dinero y el P&L se llenan por país desde loadFiscal
