@@ -314,6 +314,13 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,201,122,.5)!import
 @media (max-width:700px){.ph-hero{padding:22px 18px}.ph-hero .lead-name-header{font-size:34px!important}.ph-stepper{overflow-x:auto}.ph-stats{width:100%;justify-content:space-between}.ph-lbl{font-size:9px}}
 .test-mail{float:right;background:none;border:none;color:#e8c97a;font-size:10px;cursor:pointer;font-family:inherit;letter-spacing:.04em;padding:0}
 .test-mail:hover{color:#e83487}
+.email-edit{cursor:pointer;color:var(--gold);border-bottom:1px dashed transparent;transition:border-color .2s}
+.email-edit i{font-style:normal;font-size:11px;opacity:.5;margin-left:4px}
+.email-edit:hover{border-bottom-color:var(--gold)}.email-edit:hover i{opacity:1}
+.email-inline{display:flex;gap:6px;align-items:center}
+.email-inline input{flex:1;min-width:0;background:var(--onyx-3);border:1px solid rgba(232,201,122,.4);color:#eee;padding:7px 10px;border-radius:8px;font-family:inherit;font-size:13px}
+.email-inline button{width:32px;height:32px;border-radius:8px;border:none;cursor:pointer;background:linear-gradient(120deg,#e8c97a,#c9943a);color:#1a1004;font-weight:700}
+.email-inline button.x{background:var(--onyx-3);color:#bbb;border:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -812,7 +819,7 @@ function renderPage(lead, notes, tasks) {
           <div class="card-title">${t('client_info')}</div>
           <div class="info-grid">
             <div class="info-item"><label>${t('f_name')}</label><div class="val">${esc(lead.name)}</div></div>
-            <div class="info-item"><label>${t('f_email')}</label><div class="val"><a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a></div></div>
+            <div class="info-item"><label>${t('f_email')}</label><div class="val" id="emailVal"><span class="email-edit" onclick="editEmailInline()" title="${LANG === 'en' ? 'Click to edit' : 'Clic para editar'}">${esc(lead.email)} <i>✎</i></span></div></div>
             ${lead.phone ? `<div class="info-item"><label>${t('f_phone')}</label><div class="val">${esc(lead.phone)}</div></div>` : ''}
             ${lead.company ? `<div class="info-item"><label>${t('f_company')}</label><div class="val">${esc(lead.company)}</div></div>` : ''}
             <div class="info-item"><label>${t('f_service')}</label><div class="val">${esc(lead.service) || '—'}</div></div>
@@ -1095,6 +1102,25 @@ async function saveStatus() {
   btn.disabled = false; btn.textContent = t('save_changes');
 }
 
+
+function editEmailInline() {
+  const box = document.getElementById('emailVal');
+  const cur = (leadData && leadData.lead.email) || '';
+  box.innerHTML = `<div class="email-inline"><input type="email" id="emailInline" value="${esc(cur)}" maxlength="200">
+    <button onclick="saveEmailInline()">✓</button><button class="x" onclick="renderPage(leadData.lead, leadData.notes, leadData.tasks); animateProfileHero(); loadLeadInvoices(); wireDropzone(); renderLeadFiles();">✕</button></div>`;
+  const i = document.getElementById('emailInline'); i.focus(); i.select();
+  i.onkeydown = e => { if (e.key === 'Enter') saveEmailInline(); if (e.key === 'Escape') i.nextElementSibling.nextElementSibling.click(); };
+}
+async function saveEmailInline() {
+  const email = document.getElementById('emailInline').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { toast(LANG === 'en' ? 'Invalid email' : 'Correo inválido', true); return; }
+  try {
+    await api({ action: 'lead', id: leadId }, 'PATCH', { email });
+    leadData.lead.email = email;
+    renderPage(leadData.lead, leadData.notes, leadData.tasks); animateProfileHero(); loadLeadInvoices(); wireDropzone(); renderLeadFiles();
+    toast(LANG === 'en' ? 'Email updated' : 'Correo actualizado');
+  } catch (e) { toast(t('t_error') + (e.message || e), true); }
+}
 function useTestEmail() {
   const n = (document.getElementById('cName').value || 'cliente').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z]+/g, '').slice(0, 12) || 'cliente';
   document.getElementById('cEmail').value = 'test+' + n + '@pittahaya.com';
