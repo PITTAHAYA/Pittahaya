@@ -1370,6 +1370,28 @@ async function exportCSV(req, res) {
 
 // ── Main router ───────────────────────────────────────────────
 
+
+// ── Límite de peticiones por IP (anti-abuso / fuerza bruta) ──
+const RL_WINDOW = 60 * 1000, RL_MAX = 240, RL_MAX_WRITE = 60;
+const rlHits = new Map();
+function clientIp(req) {
+  const f = req.headers['x-forwarded-for'];
+  return f ? String(f).split(',')[0].trim() : (req.headers['x-real-ip'] || 'unknown');
+}
+function rateLimited(req) {
+  const now = Date.now(), write = req.method !== 'GET';
+  const key = clientIp(req) + (write ? ':w' : ':r');
+  const arr = (rlHits.get(key) || []).filter(t => now - t < RL_WINDOW);
+  arr.push(now); rlHits.set(key, arr);
+  if (rlHits.size > 5000) rlHits.clear();
+  return arr.length > (write ? RL_MAX_WRITE : RL_MAX);
+}
+// Auditoría: toda acción que modifica datos queda en los logs de Vercel.
+function audit(req, user) {
+  if (req.method === 'GET') return;
+  console.log('[AUDIT]', JSON.stringify({ at: new Date().toISOString(), user: user && user.email, ip: clientIp(req), method: req.method, action: req.query.action || null, id: req.query.id || null }));
+}
+
 module.exports = async function handler(req, res) {
   setBaseHeaders(req, res);
 
@@ -1381,9 +1403,17 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: 'CRM no configurado. Revisa SUPABASE_URL y SUPABASE_SERVICE_KEY en Vercel.' });
   }
 
+  if (rateLimited(req)) return res.status(429).json({ error: 'Demasiadas solicitudes. Espera un minuto.' });
+  // Cuerpo máximo para escrituras (evita payloads gigantes).
+  if (req.method !== 'GET' && Number(req.headers['content-length'] || 0) > 200 * 1024) return res.status(413).json({ error: 'Solicitud demasiado grande' });
+
   try {
     const auth = await requireAuth(req);
-    if (!auth) return res.status(401).json({ error: 'No autorizado' });
+    if (!auth) {
+      console.warn('[AUTH-FAIL]', JSON.stringify({ at: new Date().toISOString(), ip: clientIp(req), action: req.query.action || null }));
+      return res.status(401).json({ error: 'No autorizado' });
+    }
+    audit(req, auth.user);
     const user = auth.user;
     req.crmRole  = auth.role;
     req.crmScope = auth.country;   // 'ec' | 'ca' para contador; null para admin

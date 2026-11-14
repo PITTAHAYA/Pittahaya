@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>Pittahaya CRM · Factura</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700&display=swap');
   *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -406,6 +406,19 @@ function renderSaved() {
 }
 
 init();
+</script>
+<script>
+// Seguridad: cierre de sesión automático tras 30 min sin actividad.
+(function(){
+  var LIMIT=30*60*1000, last=Date.now();
+  ['mousemove','keydown','click','scroll','touchstart'].forEach(function(e){addEventListener(e,function(){last=Date.now();},{passive:true});});
+  setInterval(function(){
+    if(Date.now()-last<LIMIT) return;
+    try{ if(window.sb&&sb.auth) sb.auth.signOut(); }catch(e){}
+    try{ Object.keys(localStorage).forEach(function(k){ if(/^sb-.*-auth-token$/.test(k)) localStorage.removeItem(k); }); }catch(e){}
+    location.href='/crm/login.html?timeout=1';
+  },30000);
+})();
 </script>
 </body>
 </html>
