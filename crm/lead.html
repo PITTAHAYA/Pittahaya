@@ -240,11 +240,21 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,201,122,.5)!import
 @keyframes luxFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
 ::-webkit-scrollbar{width:9px}::-webkit-scrollbar-thumb{background:linear-gradient(#c9943a,#e83487);border-radius:9px}::-webkit-scrollbar-track{background:#0b0a0c}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.nav-toggle{display:none}
+@media (max-width:900px){
+ .sidebar{transform:translateX(-100%);transition:transform .3s ease;z-index:150!important}
+ body.nav-open .sidebar{transform:none}
+ .nav-toggle{display:flex;position:fixed;top:14px;left:14px;z-index:200;width:42px;height:42px;border-radius:12px;align-items:center;justify-content:center;background:rgba(20,16,20,.9);border:1px solid rgba(232,201,122,.3);color:#f6e3b4;font-size:18px;cursor:pointer}
+ .main{margin-left:0!important;padding-top:68px!important}
+ .lead-grid{grid-template-columns:1fr!important}
+}
 </style>
 </head>
 <body>
 
 <!-- Sidebar -->
+<button class="nav-toggle" onclick="document.body.classList.toggle('nav-open')" aria-label="Menú">☰</button>
 <nav class="sidebar">
   <div class="sidebar-brand">
     <img class="lux-mark" src="/assets/pitahaya-logo.png" alt="">
