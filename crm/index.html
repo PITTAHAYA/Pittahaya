@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>Pittahaya CRM · Dashboard</title>
 <script src="https://unpkg.com/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
+<script src="/crm/demo-data.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
 
@@ -699,6 +700,20 @@
   body.hide-money .money { filter: blur(9px); -webkit-filter: blur(9px); user-select: none; }
   #privacyBtn.on { color: var(--gold-light); border-color: rgba(201,148,58,.45); }
 
+
+.demo-banner{position:sticky;top:0;z-index:60;margin:-6px 0 16px;padding:9px 16px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-align:center;color:#1a1004;
+ background:linear-gradient(90deg,#e8c97a,#e83487);box-shadow:0 10px 30px -12px rgba(232,52,135,.6)}
+#demoBtn.on{background:linear-gradient(90deg,rgba(232,201,122,.25),rgba(232,52,135,.25))!important;color:#fbf1d8!important;border-color:rgba(232,52,135,.5)!important}
+/* Kanban: arrastrar y soltar */
+.kan-col{border-radius:16px!important;transition:background .2s,box-shadow .2s;background:linear-gradient(180deg,rgba(28,24,30,.7),rgba(14,12,15,.7))!important;border:1px solid var(--glass-b)!important}
+.kan-col.drop{background:linear-gradient(180deg,rgba(201,148,58,.18),rgba(232,52,135,.10))!important;box-shadow:inset 0 0 0 1.5px rgba(232,201,122,.55)}
+.kan-card{border-radius:12px!important;cursor:grab;transition:transform .18s,box-shadow .18s,opacity .18s;background:linear-gradient(160deg,rgba(40,34,42,.9),rgba(22,19,24,.9))!important;border:1px solid rgba(232,201,122,.10)!important}
+.kan-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px -14px rgba(232,52,135,.55)}
+.kan-card.dragging{opacity:.45;transform:rotate(2deg) scale(.98);cursor:grabbing}
+.kan-card .kc-bar{height:3px;border-radius:3px;margin:-2px 0 8px;background:linear-gradient(90deg,#e8c97a,#e83487);opacity:.8}
+.kan-card.landed{animation:luxLand .6s ease}
+@keyframes luxLand{0%{transform:scale(.92);box-shadow:0 0 0 0 rgba(232,201,122,.8)}60%{transform:scale(1.03);box-shadow:0 0 0 10px rgba(232,201,122,0)}100%{transform:none}}
+.lux-confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
 /* ═════════ PITTAHAYA LUXURY SKIN ═════════ */
 :root{--magenta:#e83487;--glass:rgba(18,16,20,.62);--glass-b:rgba(232,201,122,.12);--glow-gold:0 0 0 1px rgba(232,201,122,.10),0 18px 50px -20px rgba(201,148,58,.35)}
 body{background:#070608;font-size:13.5px;letter-spacing:.005em}
@@ -813,6 +828,7 @@ tbody tr{transition:background .2s}tbody tr:hover{background:rgba(232,201,122,.0
 
 <!-- ── Main ── -->
 <main class="main">
+  <div class="demo-banner" id="demoBanner" hidden>🎬 <b>MODO DEMO</b> · <span id="demoBannerTxt">Datos ficticios — tus clientes reales están ocultos y nada se guarda</span></div>
   <div class="page-header">
     <div>
       <h1 class="page-title" id="pageTitle">Resumen</h1>
@@ -826,6 +842,10 @@ tbody tr{transition:background .2s}tbody tr:hover{background:rgba(232,201,122,.0
       <button class="btn" onclick="exportCSV()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
         <span data-i18n="btn_export">Exportar CSV</span>
+      </button>
+      <button class="btn" id="demoBtn" onclick="toggleDemo()" title="Datos ficticios para grabar / mostrar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <span id="demoLabel">Demo</span>
       </button>
       <button class="btn" id="privacyBtn" onclick="togglePrivacy()" title="Ocultar/mostrar montos (para grabar pantalla)">
         <svg id="privacyIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -1404,6 +1424,7 @@ function toggleLang() {
   applyI18n();
   paintViewTitle();
   paintPrivacy();
+  paintDemo();
   refreshAll();   // re-render dynamic content in the new language
 }
 
@@ -1422,6 +1443,21 @@ function showView(name) {
   paintViewTitle();
   try { localStorage.setItem('crm_view', name); } catch (e) {}
   window.scrollTo(0, 0);
+}
+
+
+// ── Modo demo (datos ficticios para grabar) ──
+function paintDemo() {
+  const on = !!(window.CRM_DEMO && CRM_DEMO.isOn()), en = LANG === 'en';
+  document.getElementById('demoBtn')?.classList.toggle('on', on);
+  const b = document.getElementById('demoBanner'); if (b) b.hidden = !on;
+  const t1 = document.getElementById('demoBannerTxt'); if (t1) t1.textContent = en ? 'Fictional data — your real clients are hidden and nothing is saved' : 'Datos ficticios — tus clientes reales están ocultos y nada se guarda';
+  const l = document.getElementById('demoLabel'); if (l) l.textContent = on ? (en ? 'Exit demo' : 'Salir demo') : 'Demo';
+}
+async function toggleDemo() {
+  CRM_DEMO.set(!CRM_DEMO.isOn());
+  paintDemo();
+  await refreshAll();
 }
 
 // ── Modo privacidad (ojito): oculta montos para grabar pantalla ──
@@ -1479,6 +1515,7 @@ async function init() {
   showView(savedView);    // aplica la vista guardada de la barra lateral
   try { moneyHidden = localStorage.getItem('crm_privacy') === '1'; } catch (e) {}
   paintPrivacy();         // aplica el modo privacidad guardado (ojito)
+  paintDemo();
   await refreshAll();
 }
 
@@ -1489,6 +1526,8 @@ async function logout() {
 
 // ── API helper ────────────────────────────────────────────────
 async function api(params, method = 'GET', body = null) {
+  // Modo demo: datos ficticios en memoria, nunca toca la base real.
+  if (window.CRM_DEMO && CRM_DEMO.isOn()) return CRM_DEMO.respond(params, method, body);
   const url = API_BASE + '?' + new URLSearchParams(params);
   const opts = {
     method,
@@ -2196,8 +2235,9 @@ async function loadPipeline() {
       const items = rows.filter(l => (l.status || 'new') === st.key);
       const sum = items.reduce((a, l) => a + (Number(l.deal_value) || 0), 0);
       const cards = items.map(l => `
-        <div class="kan-card">
-          <a href="/crm/lead.html?id=${l.id}" class="kc-name">${esc(l.name)}</a>
+        <div class="kan-card" draggable="true" data-id="${l.id}" ondragstart="kanDragStart(event)" ondragend="kanDragEnd(event)">
+          <div class="kc-bar"></div>
+          <a href="/crm/lead.html?id=${l.id}" class="kc-name" draggable="false">${flag(l.country)} ${esc(l.name)}</a>
           <div class="kc-sub">${esc(l.company) || esc(l.service) || '—'}</div>
           <div class="kc-foot">
             <span class="kc-val">${l.deal_value ? money(l.deal_value) : ''}</span>
@@ -2206,7 +2246,7 @@ async function loadPipeline() {
             </select>
           </div>
         </div>`).join('') || '<div style="font-size:11px;color:var(--ash);padding:6px 2px">—</div>';
-      return `<div class="kan-col">
+      return `<div class="kan-col" data-stage="${st.key}" ondragover="kanOver(event)" ondragleave="kanLeave(event)" ondrop="kanDrop(event)">
         <div class="kan-col-head"><b>${statusLabel(st.key)}</b><span>${items.length}${sum ? ' · ' + money(sum) : ''}</span></div>
         ${cards}
       </div>`;
@@ -2215,7 +2255,39 @@ async function loadPipeline() {
     board.innerHTML = `<div class="empty">${LANG==='en'?'Could not load pipeline':'No se pudo cargar el pipeline'}: ${esc(String(e.message || e)).slice(0, 120)}</div>`;
   }
 }
+// ── Kanban: arrastrar y soltar ──
+let kanDragId = null;
+function kanDragStart(e) { kanDragId = e.currentTarget.dataset.id; e.currentTarget.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; try { e.dataTransfer.setData('text/plain', kanDragId); } catch (_) {} }
+function kanDragEnd(e) { e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.kan-col.drop').forEach(c => c.classList.remove('drop')); }
+function kanOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; e.currentTarget.classList.add('drop'); }
+function kanLeave(e) { if (!e.currentTarget.contains(e.relatedTarget)) e.currentTarget.classList.remove('drop'); }
+async function kanDrop(e) {
+  e.preventDefault();
+  const col = e.currentTarget; col.classList.remove('drop');
+  const id = kanDragId || e.dataTransfer.getData('text/plain'); kanDragId = null;
+  const card = document.querySelector(`.kan-card[data-id="${id}"]`);
+  if (!id || !card || card.parentElement === col) return;
+  col.appendChild(card); card.classList.add('landed');           // feedback inmediato
+  await moveLead(id, col.dataset.stage);
+}
+
+// Confetti dorado/rosa al cerrar una venta.
+function luxConfetti() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = document.createElement('canvas'); c.className = 'lux-confetti'; document.body.appendChild(c);
+  const x = c.getContext('2d'); c.width = innerWidth; c.height = innerHeight;
+  const cols = ['#e8c97a', '#f6e3b4', '#c9943a', '#e83487', '#ffffff'];
+  const ps = Array.from({ length: 140 }, () => ({ x: innerWidth / 2 + (Math.random() - .5) * 200, y: innerHeight * .35, vx: (Math.random() - .5) * 14, vy: -Math.random() * 13 - 4, s: Math.random() * 6 + 3, r: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[Math.random() * cols.length | 0] }));
+  let t = 0;
+  (function f() {
+    x.clearRect(0, 0, c.width, c.height);
+    ps.forEach(p => { p.vy += .35; p.x += p.vx; p.y += p.vy; p.vx *= .99; p.r += p.vr; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.globalAlpha = Math.max(0, 1 - t / 160); x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); });
+    if (++t < 170) requestAnimationFrame(f); else c.remove();
+  })();
+}
+
 async function moveLead(id, status) {
+  if (status === 'won') luxConfetti();
   try {
     await api({ action: 'lead', id }, 'PATCH', { status });
     await Promise.all([loadPipeline(), loadMetrics(), loadLeads(), loadFinance()]);

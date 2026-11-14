@@ -8,6 +8,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <title>Pittahaya CRM · Lead</title>
 <script src="https://unpkg.com/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
+<script src="/crm/demo-data.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
 
@@ -212,6 +213,33 @@
   .loading { text-align: center; padding: 48px; color: var(--ash); }
   .loading-spinner { width: 24px; height: 24px; border: 1px solid var(--border-gold); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═════════ PITTAHAYA LUXURY SKIN (ficha) ═════════ */
+:root{--magenta:#e83487;--glass-b:rgba(232,201,122,.12)}
+body{background:#070608!important}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60vw 50vh at 85% -10%,rgba(232,52,135,.16),transparent 60%),radial-gradient(55vw 55vh at 10% 110%,rgba(201,148,58,.14),transparent 60%),#070608}
+.sidebar{background:linear-gradient(180deg,rgba(16,13,16,.92),rgba(10,9,11,.96))!important;backdrop-filter:blur(18px);border-right:1px solid var(--glass-b)!important}
+.sidebar-brand .lux-mark{width:42px;height:42px;display:block;margin-bottom:10px;filter:drop-shadow(0 6px 18px rgba(232,52,135,.45));animation:luxFloat 6s ease-in-out infinite}
+.sidebar-logo{font-family:'Cormorant Garamond',serif!important;font-size:26px!important;font-weight:600;background:linear-gradient(100deg,#f6e3b4,#e8c97a 40%,#e83487);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.nav-item{border-radius:10px!important}
+.nav-item:hover{background:rgba(232,201,122,.06)!important;color:#f3e6c6!important}
+.lead-name-header{font-family:'Cormorant Garamond',serif!important;font-size:46px!important;font-weight:400!important;background:linear-gradient(100deg,#fbf1d8,#e8c97a 55%,#e83487);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.card{background:linear-gradient(160deg,rgba(28,24,30,.72),rgba(14,12,15,.72))!important;backdrop-filter:blur(14px);border:1px solid var(--glass-b)!important;border-radius:18px!important;box-shadow:0 0 0 1px rgba(232,201,122,.06),0 18px 50px -24px rgba(201,148,58,.35);transition:transform .3s,box-shadow .3s;animation:luxIn .6s cubic-bezier(.2,.7,.2,1) both}
+.card:hover{box-shadow:0 0 0 1px rgba(232,201,122,.2),0 24px 60px -26px rgba(232,52,135,.4)}
+.lead-grid .card:nth-child(2){animation-delay:.06s}.lead-grid .card:nth-child(3){animation-delay:.12s}.lead-grid .card:nth-child(4){animation-delay:.18s}
+.card-title{letter-spacing:.28em!important;color:#a8977a!important;border-bottom-color:var(--glass-b)!important}
+.save-btn,.add-btn{background:linear-gradient(120deg,#e8c97a,#c9943a 55%,#b87a2a)!important;color:#1a1004!important;border:none!important;border-radius:999px!important;font-weight:600!important;box-shadow:0 8px 24px -10px rgba(201,148,58,.7);transition:all .2s!important}
+.save-btn:hover,.add-btn:hover{box-shadow:0 12px 30px -10px rgba(232,52,135,.55)!important;transform:translateY(-1px)}
+.btn{border-radius:999px!important;border:1px solid var(--glass-b)!important;transition:all .2s!important}
+.btn:hover{border-color:rgba(232,201,122,.45)!important;color:#f6e3b4!important}
+input,select,textarea{border-radius:10px!important}
+input:focus,select:focus,textarea:focus{border-color:rgba(232,201,122,.5)!important;box-shadow:0 0 0 3px rgba(201,148,58,.12)!important;outline:none}
+.stage-bar{border-radius:999px!important;overflow:hidden}
+.demo-banner{position:sticky;top:0;z-index:60;margin:0 0 16px;padding:9px 16px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-align:center;color:#1a1004;background:linear-gradient(90deg,#e8c97a,#e83487)}
+@keyframes luxIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes luxFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+::-webkit-scrollbar{width:9px}::-webkit-scrollbar-thumb{background:linear-gradient(#c9943a,#e83487);border-radius:9px}::-webkit-scrollbar-track{background:#0b0a0c}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -219,6 +247,7 @@
 <!-- Sidebar -->
 <nav class="sidebar">
   <div class="sidebar-brand">
+    <img class="lux-mark" src="/assets/pitahaya-logo.png" alt="">
     <div class="sidebar-logo">Pittahaya</div>
     <div class="sidebar-crm-label" data-i18n="crm_label">CRM · Panel Admin</div>
   </div>
@@ -363,6 +392,7 @@ async function logout() {
 }
 
 async function api(params, method = 'GET', body = null) {
+  if (window.CRM_DEMO && CRM_DEMO.isOn()) return CRM_DEMO.respond(params, method, body);
   const url = API_BASE + '?' + new URLSearchParams(params);
   const opts = { method, headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' } };
   if (body) opts.body = JSON.stringify(body);
@@ -376,6 +406,7 @@ async function loadLead() {
     const data = await api({ action: 'lead', id: leadId });
     leadData = data;
     renderPage(data.lead, data.notes, data.tasks);
+    if (window.CRM_DEMO && CRM_DEMO.isOn()) document.getElementById('main').insertAdjacentHTML('afterbegin', `<div class="demo-banner">🎬 <b>${LANG === 'en' ? 'DEMO MODE' : 'MODO DEMO'}</b> · ${LANG === 'en' ? 'Fictional data' : 'Datos ficticios'}</div>`);
     loadLeadInvoices();
     wireDropzone();
     loadLeadFiles();
@@ -471,6 +502,7 @@ async function loadLeadFiles() {
 async function uploadFiles(fileList) {
   const files = Array.from(fileList || []);
   if (!files.length) return;
+  if (window.CRM_DEMO && CRM_DEMO.isOn()) { toast(LANG === 'en' ? 'Demo mode: files are not saved' : 'Modo demo: los archivos no se guardan'); return; }
   const cat = document.getElementById('fileCat').value;
   const prog = document.getElementById('uploadProgress');
   let ok = 0;
@@ -497,6 +529,7 @@ async function uploadFiles(fileList) {
 }
 
 async function openFile(path, download) {
+  if (window.CRM_DEMO && CRM_DEMO.isOn()) { toast(LANG === 'en' ? 'Demo document' : 'Documento de demostración'); return; }
   // Abrimos la pestaña YA (antes del await) para que el navegador no la bloquee.
   const win = download ? null : window.open('about:blank', '_blank');
   try {
