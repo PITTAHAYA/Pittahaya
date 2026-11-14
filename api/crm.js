@@ -275,6 +275,13 @@ async function updateLead(req, res, id) {
   if (b.project_stage  !== undefined && PROJECT_STAGES.includes(b.project_stage))    updates.project_stage  = b.project_stage;
   if (b.next_followup  !== undefined) updates.next_followup = (b.next_followup && /^\d{4}-\d{2}-\d{2}$/.test(b.next_followup)) ? b.next_followup : null;
   if (b.social !== undefined) updates.social = sanitize(b.social, 400) || '';
+  // Nombre y correo editables (p. ej. para usar un correo de prueba al grabar).
+  if (b.name !== undefined) { const n = sanitize(b.name, 100); if (!n) return res.status(400).json({ error: 'El nombre no puede quedar vacío' }); updates.name = n; }
+  if (b.email !== undefined) {
+    const e = String(b.email || '').trim().toLowerCase().slice(0, 200);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)) return res.status(400).json({ error: 'Correo inválido' });
+    updates.email = e;
+  }
   // País → fija también la moneda para no mezclar CAD y USD.
   if (b.country      !== undefined) { updates.country = normCountry(b.country); updates.currency = currencyFor(b.country); }
   if (b.tax_amount   !== undefined) updates.tax_amount  = toMoney(b.tax_amount);

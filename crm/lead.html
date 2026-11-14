@@ -312,6 +312,8 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,201,122,.5)!import
 .card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(300px circle at var(--mx) var(--my),rgba(232,201,122,.09),transparent 65%)}
 .card:hover::after{opacity:1}
 @media (max-width:700px){.ph-hero{padding:22px 18px}.ph-hero .lead-name-header{font-size:34px!important}.ph-stepper{overflow-x:auto}.ph-stats{width:100%;justify-content:space-between}.ph-lbl{font-size:9px}}
+.test-mail{float:right;background:none;border:none;color:#e8c97a;font-size:10px;cursor:pointer;font-family:inherit;letter-spacing:.04em;padding:0}
+.test-mail:hover{color:#e83487}
 </style>
 </head>
 <body>
@@ -877,6 +879,14 @@ function renderPage(lead, notes, tasks) {
         <div class="card">
           <div class="card-title">${t('contact')}</div>
           <div class="select-group">
+            <label>${t('f_name')}</label>
+            <input type="text" id="cName" value="${esc(lead.name || '')}" maxlength="100">
+          </div>
+          <div class="select-group" style="margin-top:12px">
+            <label>${t('f_email')} <button type="button" class="test-mail" onclick="useTestEmail()">🎬 ${LANG === 'en' ? 'Use test email' : 'Usar correo de prueba'}</button></label>
+            <input type="email" id="cEmail" value="${esc(lead.email || '')}" maxlength="200">
+          </div>
+          <div class="select-group" style="margin-top:12px">
             <label>${t('f_phone')}</label>
             <input type="text" id="cPhone" value="${esc(lead.phone || '')}" placeholder="+593 99 999 9999">
           </div>
@@ -1085,14 +1095,26 @@ async function saveStatus() {
   btn.disabled = false; btn.textContent = t('save_changes');
 }
 
+function useTestEmail() {
+  const n = (document.getElementById('cName').value || 'cliente').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z]+/g, '').slice(0, 12) || 'cliente';
+  document.getElementById('cEmail').value = 'test+' + n + '@pittahaya.com';
+  document.getElementById('cPhone').value = '+593 99 000 0000';
+  toast(LANG === 'en' ? 'Test email set — press Save' : 'Correo de prueba listo — pulsa Guardar');
+}
 async function saveContact() {
   const btn = document.getElementById('saveContactBtn');
   btn.disabled = true; btn.textContent = t('t_saving');
   try {
-    await api({ action: 'lead', id: leadId }, 'PATCH', {
+    const body = {
+      name:   document.getElementById('cName').value.trim(),
+      email:  document.getElementById('cEmail').value.trim(),
       phone:  document.getElementById('cPhone').value,
       social: document.getElementById('cSocial').value
-    });
+    };
+    await api({ action: 'lead', id: leadId }, 'PATCH', body);
+    if (leadData) Object.assign(leadData.lead, body);
+    // refresca la ficha para que el encabezado muestre el nuevo nombre/correo
+    if (leadData) { renderPage(leadData.lead, leadData.notes, leadData.tasks); animateProfileHero(); loadLeadInvoices(); wireDropzone(); renderLeadFiles(); }
     toast(t('t_contact'));
   } catch (e) { toast(t('t_error') + (e.message || e), true); }
   btn.disabled = false; btn.textContent = t('save_contact');
