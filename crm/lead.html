@@ -249,6 +249,69 @@ input:focus,select:focus,textarea:focus{border-color:rgba(232,201,122,.5)!import
  .main{margin-left:0!important;padding-top:68px!important}
  .lead-grid{grid-template-columns:1fr!important}
 }
+
+/* ══ Ficha de perfil premium ══ */
+.back-link{display:inline-flex;margin-bottom:14px;color:#a8977a!important;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.back-link:hover{color:#f6e3b4!important}
+.ph-hero{--mx:50%;--my:50%;position:relative;overflow:hidden;border-radius:26px;padding:30px 32px 22px;margin-bottom:22px;
+ background:linear-gradient(125deg,rgba(201,148,58,.15),rgba(232,52,135,.10) 55%,rgba(16,13,17,.75)),rgba(14,12,15,.8);
+ border:1px solid rgba(232,201,122,.2);box-shadow:0 40px 90px -45px rgba(232,52,135,.6);animation:luxIn .7s cubic-bezier(.2,.7,.2,1) both}
+.ph-hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx) var(--my),rgba(232,201,122,.12),transparent 65%)}
+.ph-glow{position:absolute;width:460px;height:460px;right:-140px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(232,52,135,.32),transparent 65%);pointer-events:none;animation:phPulse 9s ease-in-out infinite}
+@keyframes phPulse{50%{transform:scale(1.1);opacity:.8}}
+.ph-top{position:relative;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.ph-avatar{position:relative;width:96px;height:96px;border-radius:50%;flex-shrink:0;padding:3px;background:conic-gradient(from 200deg,#e8c97a,#e83487,#c9943a,#e8c97a);animation:phSpin 10s linear infinite}
+.ph-avatar span{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 30% 25%,#2a2128,#0f0c10);
+ font-family:'Cormorant Garamond',serif;font-size:36px;color:#fbf1d8;animation:phSpin 10s linear infinite reverse}
+.ph-flag{position:absolute;right:-2px;bottom:2px;font-style:normal;font-size:20px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6))}
+@keyframes phSpin{to{transform:rotate(360deg)}}
+.ph-id{flex:1;min-width:240px}
+.ph-eyebrow{display:flex;align-items:center;gap:8px;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:#d8b77a}
+.ph-live{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:phBlink 1.8s infinite}
+@keyframes phBlink{50%{opacity:.3}}
+.ph-hero .lead-name-header{font-size:48px!important;line-height:1.05;margin:6px 0 4px}
+.ph-company{font-size:14px;color:#e6d6b5}.ph-company span{color:#a8977a}
+.ph-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ph-chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(232,201,122,.14);color:#cdbf9f}
+.ph-stats{display:flex;gap:22px;align-items:center}
+.ph-gauge{position:relative;width:104px;height:104px}
+.ph-gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ph-gauge .bg{fill:none;stroke:rgba(255,255,255,.07);stroke-width:7}
+.ph-gauge .fg{fill:none;stroke:url(#phG);stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(232,52,135,.5))}
+.ph-gauge-v{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ph-gauge-v b{font-family:'Cormorant Garamond',serif;font-size:30px;color:#fbf1d8;font-weight:500;line-height:1}
+.ph-gauge-v small{position:absolute;top:34px;right:22px;font-size:11px;color:#d8b77a}
+.ph-gauge-v span{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:#a8977a;margin-top:2px}
+.ph-money{min-width:170px}
+.ph-money>span{display:block;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#a8977a}
+.ph-money b{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:500;background:linear-gradient(100deg,#fbf1d8,#e8c97a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ph-money small{font-size:11px;color:#a8977a;margin-left:6px}
+.ph-paid{height:5px;border-radius:5px;background:rgba(255,255,255,.07);margin-top:8px;overflow:hidden}
+.ph-paid div{height:100%;border-radius:5px;background:linear-gradient(90deg,#e8c97a,#34d399);animation:phGrow 1.4s cubic-bezier(.4,0,.2,1) both}
+@keyframes phGrow{from{width:0}}
+.ph-money em{font-style:normal;font-size:10.5px;color:#8ee6bf}
+.ph-stepper{position:relative;display:flex;align-items:center;margin:26px 0 18px;padding:14px 18px;border-radius:18px;background:rgba(8,6,9,.45);border:1px solid rgba(232,201,122,.1)}
+.ph-step{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;min-width:64px}
+.ph-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:#8b7d65;border:1.5px solid rgba(232,201,122,.22);background:#120f13;transition:all .3s}
+.ph-lbl{font-size:10px;letter-spacing:.06em;color:#8b7d65;white-space:nowrap}
+.ph-step:hover .ph-dot{border-color:#e8c97a;color:#fbf1d8;transform:scale(1.1)}
+.ph-step.done .ph-dot{background:linear-gradient(135deg,#e8c97a,#c9943a);color:#1a1004;border:none}
+.ph-step.done .ph-lbl{color:#cdbf9f}
+.ph-step.cur .ph-dot{background:linear-gradient(135deg,#e8c97a,#e83487);color:#fff;border:none;box-shadow:0 0 0 6px rgba(232,52,135,.18),0 0 24px rgba(232,52,135,.55);animation:phRing 2s infinite}
+.ph-step.cur .ph-lbl{color:#fbf1d8;font-weight:600}
+@keyframes phRing{50%{box-shadow:0 0 0 10px rgba(232,52,135,.06),0 0 30px rgba(232,52,135,.7)}}
+.ph-line{flex:1;height:2px;margin:0 4px 18px;background:linear-gradient(90deg,rgba(232,201,122,.35),rgba(232,201,122,.1));border-radius:2px}
+.ph-stepper.is-lost{opacity:.5}
+.ph-actions{display:flex;flex-wrap:wrap;gap:8px}
+.ph-act{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;font-size:12px;font-family:inherit;cursor:pointer;text-decoration:none;
+ color:#e6d6b5;background:rgba(255,255,255,.035);border:1px solid rgba(232,201,122,.16);transition:all .2s}
+.ph-act i{font-style:normal}
+.ph-act:hover{color:#1a1004;background:linear-gradient(120deg,#e8c97a,#c9943a);border-color:transparent;transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(201,148,58,.8)}
+.ph-act.ph-danger:hover{background:rgba(248,113,113,.15);color:#f87171;box-shadow:none;border-color:rgba(248,113,113,.4)}
+.card{--mx:50%;--my:50%;position:relative}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(300px circle at var(--mx) var(--my),rgba(232,201,122,.09),transparent 65%)}
+.card:hover::after{opacity:1}
+@media (max-width:700px){.ph-hero{padding:22px 18px}.ph-hero .lead-name-header{font-size:34px!important}.ph-stepper{overflow-x:auto}.ph-stats{width:100%;justify-content:space-between}.ph-lbl{font-size:9px}}
 </style>
 </head>
 <body>
@@ -369,7 +432,7 @@ function toggleLang(){
   LANG = LANG === 'es' ? 'en' : 'es';
   try { localStorage.setItem('crm_lang', LANG); } catch {}
   applySidebarI18n();
-  if (leadData) { renderPage(leadData.lead, leadData.notes, leadData.tasks); loadLeadInvoices(); wireDropzone(); renderLeadFiles(); }
+  if (leadData) { renderPage(leadData.lead, leadData.notes, leadData.tasks); animateProfileHero(); loadLeadInvoices(); wireDropzone(); renderLeadFiles(); }
 }
 
 async function loadCrmConfig() {
@@ -416,6 +479,7 @@ async function loadLead() {
     const data = await api({ action: 'lead', id: leadId });
     leadData = data;
     renderPage(data.lead, data.notes, data.tasks);
+    animateProfileHero();
     if (window.CRM_DEMO && CRM_DEMO.isOn() && CRM_DEMO.isDemoId(leadId)) document.getElementById('main').insertAdjacentHTML('afterbegin', `<div class="demo-banner">🎬 <b>${LANG === 'en' ? 'DEMO MODE' : 'MODO DEMO'}</b> · ${LANG === 'en' ? 'Fictional data' : 'Datos ficticios'}</div>`);
     loadLeadInvoices();
     wireDropzone();
@@ -631,33 +695,112 @@ async function applyFollowupTasks() {
   } catch (e) { toast(t('t_error') + (e.message || e), true); }
 }
 
+
+// ══ Ficha de perfil premium ══
+const STAGES = ['new', 'contacted', 'qualified', 'proposal_sent', 'won'];
+function closeProbability(l) {
+  if (l.status === 'won') return 100;
+  if (l.status === 'lost') return 0;
+  let p = { new: 18, contacted: 32, qualified: 52, proposal_sent: 70 }[l.status] || 20;
+  p += { hot: 12, warm: 4, cold: -8 }[l.priority] || 0;
+  if (Number(l.deal_value) > 0) p += 4;
+  const days = (Date.now() - new Date(l.created_at)) / 864e5;
+  if (days > 21) p -= 8;
+  return Math.max(3, Math.min(97, Math.round(p)));
+}
+function initials(n) { return String(n || '?').trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase(); }
+function renderProfileHero(lead, since) {
+  const en = LANG === 'en';
+  const flagE = lead.country === 'ca' ? '🇨🇦' : '🇪🇨';
+  const prob = closeProbability(lead);
+  const idx = Math.max(0, STAGES.indexOf(lead.status));
+  const lost = lead.status === 'lost';
+  const cur = lead.currency || (lead.country === 'ca' ? 'CAD' : 'USD');
+  const dv = Number(lead.deal_value) || 0, paid = Number(lead.amount_paid) || 0;
+  const phone = String(lead.phone || '').replace(/[^\d+]/g, '');
+  const R = 34, C = 2 * Math.PI * R;
+  return `
+  <a href="/crm/index.html" class="back-link">← ${t('back')}</a>
+  <section class="ph-hero">
+    <div class="ph-glow"></div>
+    <div class="ph-top">
+      <div class="ph-avatar"><span>${esc(initials(lead.name))}</span><i class="ph-flag">${flagE}</i></div>
+      <div class="ph-id">
+        <div class="ph-eyebrow"><span class="ph-live"></span>${en ? 'Client profile' : 'Ficha del cliente'} · ${t('lead_since')(since)}</div>
+        <h1 class="lead-name-header">${esc(lead.name)}</h1>
+        <div class="ph-company">${esc(lead.company || lead.service || '')}${lead.company && lead.service ? ` <span>· ${esc(lead.service)}</span>` : ''}</div>
+        <div class="ph-chips">
+          <span class="badge badge-${lead.status}">${statusLabel(lead.status)}</span>
+          <span class="ph-chip"><span class="dot dot-${lead.priority}"></span>${priorityLabel(lead.priority)}</span>
+          ${lead.email ? `<span class="ph-chip">✉ ${esc(lead.email)}</span>` : ''}
+        </div>
+      </div>
+      <div class="ph-stats">
+        <div class="ph-gauge" title="${en ? 'Estimated closing probability' : 'Probabilidad estimada de cierre'}">
+          <svg viewBox="0 0 80 80"><defs><linearGradient id="phG" x1="0" x2="1"><stop offset="0" stop-color="#e8c97a"/><stop offset="1" stop-color="#e83487"/></linearGradient></defs>
+            <circle cx="40" cy="40" r="${R}" class="bg"/><circle cx="40" cy="40" r="${R}" class="fg" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-to="${C * (1 - prob / 100)}"/></svg>
+          <div class="ph-gauge-v"><b data-count="${prob}">0</b><small>%</small><span>${en ? 'Close' : 'Cierre'}</span></div>
+        </div>
+        <div class="ph-money">
+          <span>${en ? 'Deal value' : 'Valor del negocio'}</span>
+          <b class="money" data-money="${dv}">$0</b><small>${cur}</small>
+          ${dv ? `<div class="ph-paid"><div style="width:${Math.min(100, paid / dv * 100)}%"></div></div><em>${Math.round(paid / Math.max(dv, 1) * 100)}% ${en ? 'collected' : 'cobrado'}</em>` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="ph-stepper ${lost ? 'is-lost' : ''}">
+      ${STAGES.map((st, i) => `<button class="ph-step ${!lost && i < idx ? 'done' : ''} ${!lost && i === idx ? 'cur' : ''}" onclick="setStage('${st}')" title="${en ? 'Move to' : 'Mover a'} ${statusLabel(st)}">
+        <span class="ph-dot">${!lost && i < idx ? '✓' : i + 1}</span><span class="ph-lbl">${statusLabel(st)}</span></button>`).join('<span class="ph-line"></span>')}
+    </div>
+    <div class="ph-actions">
+      ${lead.email ? `<a class="ph-act" href="mailto:${esc(lead.email)}"><i>✉</i>${en ? 'Email' : 'Correo'}</a>` : ''}
+      ${phone ? `<a class="ph-act" href="https://wa.me/${phone.replace('+', '')}" target="_blank" rel="noopener"><i>💬</i>WhatsApp</a>` : ''}
+      ${phone ? `<a class="ph-act" href="tel:${esc(phone)}"><i>📞</i>${en ? 'Call' : 'Llamar'}</a>` : ''}
+      <a class="ph-act" href="/crm/invoice.html?id=${lead.id}"><i>🧾</i>${t('invoice_receipt')}</a>
+      <button class="ph-act" onclick="document.getElementById('aiCard')?.scrollIntoView({behavior:'smooth',block:'center'})"><i>✨</i>${en ? 'AI plan' : 'Plan IA'}</button>
+      <button class="ph-act ph-danger" onclick="deleteLead()"><i>✕</i>${t('delete')}</button>
+    </div>
+  </section>`;
+}
+function animateProfileHero() {
+  const fg = document.querySelector('.ph-gauge .fg');
+  if (fg) requestAnimationFrame(() => { fg.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)'; fg.setAttribute('stroke-dashoffset', fg.dataset.to); });
+  document.querySelectorAll('[data-count]').forEach(el => { const to = +el.dataset.count, t0 = performance.now(); const f = t => { const p = Math.min(1, (t - t0) / 1300); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+  document.querySelectorAll('[data-money]').forEach(el => { const to = +el.dataset.money, t0 = performance.now(); const f = t => { const p = Math.min(1, (t - t0) / 1300); el.textContent = '$' + Math.round(to * (1 - Math.pow(1 - p, 3))).toLocaleString('en-US'); if (p < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); });
+}
+async function setStage(status) {
+  if (!leadData || leadData.lead.status === status) return;
+  const prev = leadData.lead.status;
+  leadData.lead.status = status;
+  const sel = document.getElementById('selectStatus'); if (sel) sel.value = status;
+  const hero = document.querySelector('.ph-hero');
+  if (hero) { const since = Math.ceil((Date.now() - new Date(leadData.lead.created_at)) / 864e5); const tmp = document.createElement('div'); tmp.innerHTML = renderProfileHero(leadData.lead, since); hero.previousElementSibling?.remove(); hero.replaceWith(...tmp.children); animateProfileHero(); }
+  if (status === 'won') phConfetti();
+  try { await api({ action: 'lead', id: leadId }, 'PATCH', { status }); toast(t('t_status')); }
+  catch (e) { leadData.lead.status = prev; toast(t('t_error') + e.message, true); }
+}
+function phConfetti() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = document.createElement('canvas'); c.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999'; document.body.appendChild(c);
+  const x = c.getContext('2d'); c.width = innerWidth; c.height = innerHeight;
+  const cols = ['#e8c97a', '#f6e3b4', '#c9943a', '#e83487', '#fff'];
+  const ps = Array.from({ length: 140 }, () => ({ x: innerWidth / 2, y: innerHeight * .3, vx: (Math.random() - .5) * 15, vy: -Math.random() * 13 - 4, s: Math.random() * 6 + 3, r: 0, vr: (Math.random() - .5) * .3, c: cols[Math.random() * 5 | 0] }));
+  let k = 0; (function f() { x.clearRect(0, 0, c.width, c.height); ps.forEach(p => { p.vy += .35; p.x += p.vx; p.y += p.vy; p.r += p.vr; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.globalAlpha = Math.max(0, 1 - k / 160); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); }); if (++k < 170) requestAnimationFrame(f); else c.remove(); })();
+}
+// Luz al cursor + 3D suave en tarjetas
+document.addEventListener('pointermove', e => {
+  const el = e.target.closest && e.target.closest('.card,.ph-hero');
+  if (!el) return; const r = el.getBoundingClientRect();
+  el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}, { passive: true });
+
 function renderPage(lead, notes, tasks) {
   const main = document.getElementById('main');
   const priorityDot = `<span class="dot dot-${lead.priority}" style="margin-right:4px"></span>`;
   const since = Math.ceil((Date.now() - new Date(lead.created_at)) / (1000*60*60*24));
 
   main.innerHTML = `
-    <div class="page-header">
-      <div>
-        <a href="/crm/index.html" class="back-link">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-          ${t('back')}
-        </a>
-        <h1 class="lead-name-header">${esc(lead.name)}</h1>
-        <div class="lead-meta-header">
-          <span>${esc(lead.email)}</span>
-          ${lead.phone ? `<span>📞 ${esc(lead.phone)}</span>` : ''}
-          <span>${t('lead_since')(since)}</span>
-          <span><span class="badge badge-${lead.status}">${statusLabel(lead.status)}</span></span>
-          <span>${priorityDot}${priorityLabel(lead.priority)}</span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <a href="/crm/invoice.html?id=${lead.id}" class="btn">${t('invoice_receipt')}</a>
-        <a href="mailto:${esc(lead.email)}" class="btn">${t('send_email')}</a>
-        <button class="btn btn-danger" onclick="deleteLead()">${t('delete')}</button>
-      </div>
-    </div>
+    ${renderProfileHero(lead, since)}
 
     <div class="lead-grid">
       <!-- LEFT: Info + Message + Notes -->
