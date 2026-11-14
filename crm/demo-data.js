@@ -102,7 +102,8 @@
     return { ok: true, enabled: true, stats: { enrolled: up.filter(function (u) { return !u.paused; }).length, sentTotal: 36, sentThisWeek: 18, dueNow: up.filter(function (u) { return u.overdue; }).length, completed: 9, optedOut: 1 }, upcoming: up, recent: recent, perDay: perDay };
   }
   function leadDetail(id) {
-    var l = leads.filter(function (x) { return x.id === id; })[0] || leads[0];
+    var l = leads.filter(function (x) { return x.id === id; })[0];
+    if (!l) return null;
     return {
       lead: l,
       notes: [{ id: uid(700), author: 'Admin', content: 'Le encantó la propuesta visual. Quiere chatbot bilingüe para reservas.', created_at: iso(1) },
@@ -157,7 +158,7 @@
           { path: params.lead_id + '/4__other__Moodboard.png', name: 'Moodboard.png', category: 'other', uploaded_at: iso(5), size: 3420000 }
         ] };
       case 'ai-followup': {
-        var L = leadDetail(params.id).lead, en = L.country === 'ca', fn = L.name.split(' ')[0];
+        var LD = leadDetail(params.id); if (!LD) return null; var L = LD.lead, en = L.country === 'ca', fn = L.name.split(' ')[0];
         return { aiEnabled: true, plan: { source: 'ai', urgency: 'high', language: en ? 'en' : 'es',
           nextAction: en ? 'Close the proposal this week' : 'Cerrar la propuesta esta semana',
           reasoning: en ? 'High-intent lead, proposal viewed twice, budget confirmed — momentum is now.' : 'Lead de alta intención: vio la propuesta dos veces y confirmó presupuesto. El momento es ahora.',
@@ -174,8 +175,21 @@
   }
 
   window.CRM_DEMO = {
+    // Leads REALES que entran mientras grabas: se mezclan con los ficticios.
+    since: function () { try { return Number(localStorage.getItem('crm_demo_since')) || Date.now(); } catch (e) { return Date.now(); } },
+    isDemoId: function (id) { return /^00000000-0000-4000-8000-/.test(String(id || '')); },
+    addLive: function (list) {
+      var added = [];
+      (list || []).forEach(function (r) {
+        if (leads.some(function (l) { return l.id === r.id; })) return;
+        var l = Object.assign({ status: 'new', priority: 'hot', deal_value: 0, amount_paid: 0, payment_status: 'unpaid', followups_sent: 0, autofollow: true }, r, { live: true });
+        l.currency = l.currency || (l.country === 'ca' ? 'CAD' : 'USD');
+        leads.unshift(l); added.push(l);
+      });
+      return added;
+    },
     isOn: function () { try { return localStorage.getItem('crm_demo') === '1'; } catch (e) { return false; } },
-    set: function (on) { try { localStorage.setItem('crm_demo', on ? '1' : '0'); } catch (e) {} },
+    set: function (on) { try { localStorage.setItem('crm_demo', on ? '1' : '0'); if (on) localStorage.setItem('crm_demo_since', String(Date.now() - 10 * 60000)); } catch (e) {} },
     respond: function (params, method, body) {
       return new Promise(function (res) { setTimeout(function () { res(JSON.parse(JSON.stringify(respond(params, method || 'GET', body || {}) || {}))); }, 120); });
     }

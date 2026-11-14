@@ -714,6 +714,16 @@
 .kan-card.landed{animation:luxLand .6s ease}
 @keyframes luxLand{0%{transform:scale(.92);box-shadow:0 0 0 0 rgba(232,201,122,.8)}60%{transform:scale(1.03);box-shadow:0 0 0 10px rgba(232,201,122,0)}100%{transform:none}}
 .lux-confetti{position:fixed;inset:0;pointer-events:none;z-index:9999}
+
+.live-lead-toast{position:fixed;right:24px;bottom:24px;z-index:9000;display:flex;gap:12px;align-items:center;cursor:pointer;
+ padding:14px 18px;border-radius:16px;color:#fbf1d8;font-size:13px;min-width:260px;
+ background:linear-gradient(140deg,rgba(40,30,36,.95),rgba(18,14,18,.95));border:1px solid rgba(232,201,122,.35);
+ box-shadow:0 20px 50px -18px rgba(232,52,135,.7);animation:llIn .55s cubic-bezier(.2,.8,.2,1.2) both}
+.live-lead-toast .ll-sub{font-size:11px;color:#a8977a;margin-top:2px}
+.live-lead-toast .ll-dot{width:10px;height:10px;border-radius:50%;background:#e83487;box-shadow:0 0 0 0 rgba(232,52,135,.7);animation:llPulse 1.4s infinite}
+.live-lead-toast.out{transition:all .6s;opacity:0;transform:translateY(20px)}
+@keyframes llIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes llPulse{70%{box-shadow:0 0 0 12px rgba(232,52,135,0)}100%{box-shadow:0 0 0 0 rgba(232,52,135,0)}}
 /* ═════════ PITTAHAYA LUXURY SKIN ═════════ */
 :root{--magenta:#e83487;--glass:rgba(18,16,20,.62);--glass-b:rgba(232,201,122,.12);--glow-gold:0 0 0 1px rgba(232,201,122,.10),0 18px 50px -20px rgba(201,148,58,.35)}
 body{background:#070608;font-size:13.5px;letter-spacing:.005em}
@@ -1527,7 +1537,47 @@ async function logout() {
 // ── API helper ────────────────────────────────────────────────
 async function api(params, method = 'GET', body = null) {
   // Modo demo: datos ficticios en memoria, nunca toca la base real.
-  if (window.CRM_DEMO && CRM_DEMO.isOn()) return CRM_DEMO.respond(params, method, body);
+  if (window.CRM_DEMO && CRM_DEMO.isOn()) {
+    // Lead real abierto/editado en demo → va a la API real.
+    if (params.id && !CRM_DEMO.isDemoId(params.id)) return realApi(params, method, body);
+    if (params.action === 'leads' || params.action === 'metrics') await syncLiveLeads();
+    return CRM_DEMO.respond(params, method, body);
+  }
+  return realApi(params, method, body);
+}
+// Trae los leads REALES que llegaron desde que activaste el demo.
+let liveSyncAt = 0;
+async function syncLiveLeads() {
+  if (Date.now() - liveSyncAt < 4000) return;
+  liveSyncAt = Date.now();
+  try {
+    const { leads } = await realApi({ action: 'leads', limit: 25, offset: 0, sort: 'created_at', order: 'desc' });
+    const since = CRM_DEMO.since();
+    const added = CRM_DEMO.addLive((leads || []).filter(l => new Date(l.created_at).getTime() >= since));
+    added.forEach(l => announceLead(l));
+  } catch (e) { /* sin conexión: seguimos solo con el demo */ }
+}
+function announceLead(l) {
+  const en = LANG === 'en';
+  const el = document.createElement('div');
+  el.className = 'live-lead-toast';
+  el.innerHTML = `<span class="ll-dot"></span><div><b>${en ? 'New lead' : 'Nuevo lead'}</b> · ${flag(l.country)} ${esc(l.name)}<div class="ll-sub">${esc(l.service || l.company || '')}</div></div>`;
+  el.onclick = () => location.href = '/crm/lead.html?id=' + l.id;
+  document.body.appendChild(el);
+  setTimeout(() => el.classList.add('out'), 6000);
+  setTimeout(() => el.remove(), 6800);
+}
+// En demo, revisa cada 8 s si entró un lead real y refresca.
+setInterval(async () => {
+  if (!(window.CRM_DEMO && CRM_DEMO.isOn()) || document.hidden) return;
+  liveSyncAt = 0;
+  const before = (await CRM_DEMO.respond({ action: 'leads' })).total;
+  await syncLiveLeads();
+  const after = (await CRM_DEMO.respond({ action: 'leads' })).total;
+  if (after !== before) await Promise.all([loadMetrics(), loadLeads(), loadPipeline(), loadFinance(), loadAutopilotSystem()]);
+}, 8000);
+
+async function realApi(params, method = 'GET', body = null) {
   const url = API_BASE + '?' + new URLSearchParams(params);
   const opts = {
     method,

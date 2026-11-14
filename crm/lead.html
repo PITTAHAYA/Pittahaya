@@ -392,7 +392,7 @@ async function logout() {
 }
 
 async function api(params, method = 'GET', body = null) {
-  if (window.CRM_DEMO && CRM_DEMO.isOn()) return CRM_DEMO.respond(params, method, body);
+  if (window.CRM_DEMO && CRM_DEMO.isOn() && (CRM_DEMO.isDemoId(leadId) && (!params.id || CRM_DEMO.isDemoId(params.id)))) return CRM_DEMO.respond(params, method, body);
   const url = API_BASE + '?' + new URLSearchParams(params);
   const opts = { method, headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' } };
   if (body) opts.body = JSON.stringify(body);
@@ -406,7 +406,7 @@ async function loadLead() {
     const data = await api({ action: 'lead', id: leadId });
     leadData = data;
     renderPage(data.lead, data.notes, data.tasks);
-    if (window.CRM_DEMO && CRM_DEMO.isOn()) document.getElementById('main').insertAdjacentHTML('afterbegin', `<div class="demo-banner">🎬 <b>${LANG === 'en' ? 'DEMO MODE' : 'MODO DEMO'}</b> · ${LANG === 'en' ? 'Fictional data' : 'Datos ficticios'}</div>`);
+    if (window.CRM_DEMO && CRM_DEMO.isOn() && CRM_DEMO.isDemoId(leadId)) document.getElementById('main').insertAdjacentHTML('afterbegin', `<div class="demo-banner">🎬 <b>${LANG === 'en' ? 'DEMO MODE' : 'MODO DEMO'}</b> · ${LANG === 'en' ? 'Fictional data' : 'Datos ficticios'}</div>`);
     loadLeadInvoices();
     wireDropzone();
     loadLeadFiles();
