@@ -698,6 +698,75 @@
   .money { transition: filter .12s ease; }
   body.hide-money .money { filter: blur(9px); -webkit-filter: blur(9px); user-select: none; }
   #privacyBtn.on { color: var(--gold-light); border-color: rgba(201,148,58,.45); }
+
+/* ═════════ PITTAHAYA LUXURY SKIN ═════════ */
+:root{--magenta:#e83487;--glass:rgba(18,16,20,.62);--glass-b:rgba(232,201,122,.12);--glow-gold:0 0 0 1px rgba(232,201,122,.10),0 18px 50px -20px rgba(201,148,58,.35)}
+body{background:#070608;font-size:13.5px;letter-spacing:.005em}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:radial-gradient(60vw 50vh at 85% -10%,rgba(232,52,135,.16),transparent 60%),
+ radial-gradient(55vw 55vh at 10% 110%,rgba(201,148,58,.14),transparent 60%),
+ radial-gradient(40vw 40vh at 50% 50%,rgba(120,40,90,.06),transparent 70%),#070608}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.sidebar{background:linear-gradient(180deg,rgba(16,13,16,.92),rgba(10,9,11,.96));backdrop-filter:blur(18px);border-right:1px solid var(--glass-b);width:236px}
+.main{margin-left:236px!important}
+.sidebar-brand{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:26px 22px 22px!important;border-bottom:1px solid var(--glass-b)}
+.sidebar-brand .lux-mark{width:46px;height:46px;margin-bottom:10px;filter:drop-shadow(0 6px 18px rgba(232,52,135,.45));animation:luxFloat 6s ease-in-out infinite}
+.sidebar-logo{font-family:'Cormorant Garamond',serif!important;font-size:27px!important;font-weight:600;letter-spacing:.02em;
+ background:linear-gradient(100deg,#f6e3b4,#e8c97a 40%,#e83487);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.sidebar-crm-label{letter-spacing:.32em!important;font-size:8.5px!important;color:#9b8a6a!important}
+.nav-item{border-radius:10px!important;margin:2px 12px!important;padding:10px 12px!important;transition:all .25s!important;position:relative}
+.nav-item:hover{background:rgba(232,201,122,.06)!important;color:#f3e6c6!important}
+.nav-item.active{background:linear-gradient(90deg,rgba(201,148,58,.20),rgba(232,52,135,.08))!important;color:#f6e3b4!important;box-shadow:inset 0 0 0 1px rgba(232,201,122,.18)}
+.nav-item.active::before{content:"";position:absolute;left:-12px;top:22%;bottom:22%;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--gold-light),var(--magenta))}
+.page-title{font-family:'Cormorant Garamond',serif!important;font-size:40px!important;font-weight:400!important;letter-spacing:.01em;
+ background:linear-gradient(100deg,#fbf1d8,#e8c97a 55%,#d9a35a);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.btn{border-radius:999px!important;border:1px solid var(--glass-b)!important;background:rgba(255,255,255,.03)!important;transition:all .2s!important}
+.btn:hover{border-color:rgba(232,201,122,.45)!important;color:#f6e3b4!important;transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(120deg,#e8c97a,#c9943a 55%,#b87a2a)!important;color:#1a1004!important;border:none!important;font-weight:600!important;box-shadow:0 8px 24px -10px rgba(201,148,58,.7)}
+.btn-primary:hover{box-shadow:0 12px 30px -10px rgba(232,52,135,.55)!important;color:#1a1004!important}
+.metric-card,.chart-card,.finance-section,.fiscal-section,.rem-col,.table-wrap,.ap-kpi,.ap-mini,.ap-step{
+ background:linear-gradient(160deg,rgba(28,24,30,.72),rgba(14,12,15,.72))!important;backdrop-filter:blur(14px);
+ border:1px solid var(--glass-b)!important;border-radius:18px!important;box-shadow:var(--glow-gold)}
+.finance-section,.fiscal-section{padding:24px!important}
+.metric-card{position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;padding:20px!important}
+.metric-card::after{content:"";position:absolute;inset:-1px;border-radius:18px;pointer-events:none;
+ background:linear-gradient(120deg,transparent 30%,rgba(232,201,122,.10) 50%,transparent 70%);transform:translateX(-100%);transition:transform .9s}
+.metric-card:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(232,201,122,.25),0 24px 60px -24px rgba(232,52,135,.45)}
+.metric-card:hover::after{transform:translateX(100%)}
+.metric-value{font-family:'Cormorant Garamond',serif!important;font-size:38px!important;color:#f6e3b4!important}
+.metric-money .metric-value{background:linear-gradient(100deg,#fbf1d8,#e8c97a);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.metric-label{letter-spacing:.18em!important;font-size:9.5px!important;color:#a8977a!important}
+.finance-title{font-family:'Cormorant Garamond',serif!important;font-size:22px!important;font-weight:500!important;color:#f3e6c6!important}
+table th{color:#a8977a!important;letter-spacing:.14em!important}
+tbody tr{transition:background .2s}tbody tr:hover{background:rgba(232,201,122,.04)!important}
+.ap-kpi-val{font-size:36px!important;background:linear-gradient(100deg,#fbf1d8,#e8c97a);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.ap-cbar .bar,.mc-bar{box-shadow:0 0 14px rgba(232,201,122,.25)}
+.ap-cbar .bar{background:linear-gradient(180deg,#f3d9a0,#c9943a 60%,#e83487)!important}
+/* Hero */
+.lux-hero{position:relative;overflow:hidden;border-radius:22px;padding:30px 32px;margin:6px 0 22px;
+ background:linear-gradient(120deg,rgba(201,148,58,.16),rgba(232,52,135,.10) 60%,rgba(20,16,22,.6)),rgba(16,13,17,.7);
+ border:1px solid rgba(232,201,122,.18);box-shadow:0 30px 80px -40px rgba(232,52,135,.5);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.lux-hero::before{content:"";position:absolute;width:420px;height:420px;right:-120px;top:-180px;border-radius:50%;
+ background:radial-gradient(circle,rgba(232,52,135,.35),transparent 65%);filter:blur(10px);animation:luxPulse 8s ease-in-out infinite}
+.lux-hero .eyebrow{font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:#d8b77a}
+.lux-hero h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:44px;line-height:1.05;margin:8px 0 6px;color:#fbf1d8}
+.lux-hero h2 em{font-style:italic;background:linear-gradient(100deg,#e8c97a,#e83487);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lux-hero p{color:#b9a98c;font-size:13px;max-width:520px;line-height:1.6}
+.lux-hero .hero-fruit{width:120px;height:120px;position:relative;z-index:1;filter:drop-shadow(0 20px 40px rgba(232,52,135,.55));animation:luxFloat 7s ease-in-out infinite}
+.lux-hero .hero-stats{display:flex;gap:26px;margin-top:16px;position:relative;z-index:1}
+.lux-hero .hs b{display:block;font-family:'Cormorant Garamond',serif;font-size:30px;color:#f6e3b4;font-weight:500}
+.lux-hero .hs span{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#9b8a6a}
+.lux-live{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8ee6bf}
+.lux-live i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:luxBlink 1.8s infinite}
+[data-view]:not([hidden]){animation:luxIn .55s cubic-bezier(.2,.7,.2,1) both}
+@keyframes luxIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes luxFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes luxPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes luxBlink{50%{opacity:.35}}
+::-webkit-scrollbar{width:9px}::-webkit-scrollbar-thumb{background:linear-gradient(#c9943a,#e83487);border-radius:9px}::-webkit-scrollbar-track{background:#0b0a0c}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:900px){.main{margin-left:0!important}.lux-hero h2{font-size:32px}.lux-hero .hero-fruit{width:80px;height:80px}}
 </style>
 </head>
 <body>
@@ -705,6 +774,7 @@
 <!-- ── Sidebar ── -->
 <nav class="sidebar">
   <div class="sidebar-brand">
+    <img class="lux-mark" src="/assets/pitahaya-logo.png" alt="">
     <div class="sidebar-logo">Pittahaya</div>
     <div class="sidebar-crm-label" data-i18n="crm_label">CRM · Panel Admin</div>
   </div>
@@ -769,6 +839,20 @@
   </div>
 
   <!-- Metrics -->
+  <div data-view="resumen" class="lux-hero">
+    <div style="position:relative;z-index:1">
+      <span class="lux-live"><i></i><span id="heroLive">En vivo</span></span>
+      <h2 id="heroGreet">Buenas noches, <em>Juan</em></h2>
+      <p id="heroSub">Tu estudio de lujo digital, en un solo lugar.</p>
+      <div class="hero-stats">
+        <div class="hs"><b id="hs-leads">—</b><span id="hs-l1">Leads</span></div>
+        <div class="hs"><b id="hs-hot">—</b><span id="hs-l2">Calientes</span></div>
+        <div class="hs"><b id="hs-conv">—</b><span id="hs-l3">Conversión</span></div>
+      </div>
+    </div>
+    <img class="hero-fruit" src="/assets/pitahaya-logo.png" alt="Pittahaya">
+  </div>
+
   <div data-view="resumen" class="metrics-grid" id="metricsGrid">
     <div class="metric-card"><div class="metric-label" data-i18n="m_total">Total Leads</div><div class="metric-value" id="m-total">—</div></div>
     <div class="metric-card"><div class="metric-label" data-i18n="m_week">Nuevos esta semana</div><div class="metric-value" id="m-week">—</div></div>
@@ -2174,6 +2258,28 @@ async function loadFinance() {
 }
 
 // ── Metrics ───────────────────────────────────────────────────
+
+// ── Luxury: saludo, fecha y contadores animados ──
+function paintHero(){
+  const en=LANG==='en', h=new Date().getHours();
+  const g=en?(h<12?'Good morning':h<19?'Good afternoon':'Good evening'):(h<12?'Buenos días':h<19?'Buenas tardes':'Buenas noches');
+  const el=document.getElementById('heroGreet'); if(el) el.innerHTML=`${g}, <em>Juan</em>`;
+  const d=new Date().toLocaleDateString(en?'en-CA':'es-EC',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const sub=document.getElementById('heroSub'); if(sub) sub.textContent=(en?'Your luxury digital studio, in one place · ':'Tu estudio de lujo digital, en un solo lugar · ')+d;
+  const L={heroLive:en?'Live':'En vivo','hs-l1':'Leads','hs-l2':en?'Hot':'Calientes','hs-l3':en?'Conversion':'Conversión'};
+  Object.entries(L).forEach(([id,v])=>{const e=document.getElementById(id); if(e) e.textContent=v;});
+}
+function countUp(el,to,suffix=''){
+  if(!el) return; to=Number(to)||0; const t0=performance.now(), dur=1100;
+  const step=t=>{const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(to*e)+suffix; if(p<1) requestAnimationFrame(step);};
+  requestAnimationFrame(step);
+}
+function heroStats(d){
+  countUp(document.getElementById('hs-leads'), d.total);
+  countUp(document.getElementById('hs-hot'), d.hot);
+  countUp(document.getElementById('hs-conv'), d.conversionRate, '%');
+  ['m-total','m-week','m-hot'].forEach((id,i)=>countUp(document.getElementById(id), [d.total,d.newThisWeek,d.hot][i]));
+}
 async function loadMetrics() {
   try {
     const d = await api({ action: 'metrics' });
@@ -2181,6 +2287,7 @@ async function loadMetrics() {
     document.getElementById('m-week').textContent  = d.newThisWeek || 0;
     document.getElementById('m-hot').textContent   = d.hot || 0;
     document.getElementById('m-conv').textContent  = (d.conversionRate || 0) + '%';
+    paintHero(); heroStats(d);
     document.getElementById('m-service').textContent = d.topService ? `${LANG==='en'?'Most requested':'Más pedido'}: ${d.topService}` : '';
 
     // Las tarjetas de dinero y el P&L se llenan por país desde loadFiscal
