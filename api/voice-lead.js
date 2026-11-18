@@ -33,7 +33,11 @@ const secretOk = (req) => {
   const h = req.headers || {};
   // Acepta "Authorization: Bearer <clave>", "Authorization: <clave>",
   // "X-API-Key: <clave>" o "X-Voice-Secret: <clave>".
+  // Los espacios "raros" (espacio fino, invisible, no separable) llegan como
+  // bytes no ASCII: se convierten en separador y se toma la última palabra.
+  const lastToken = (v) => String(v || "").replace(/[^\x21-\x7E]+/g, " ").trim().split(" ").pop();
   const candidates = [
+    lastToken(h.authorization),
     clean(h.authorization).replace(/^Bearer\s+/i, ""),
     clean(h["x-api-key"]),
     clean(h["x-voice-secret"])
@@ -58,18 +62,6 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 429, { ok: false, error: "rate_limited" });
   }
   if (!secretOk(req)) {
-    // Diagnóstico sin exponer la clave: solo nombres de cabeceras y largos.
-    const h = req.headers || {};
-    const authRaw = String(h.authorization || "");
-    console.warn("voice-lead 401", {
-      headerNames: Object.keys(h).filter((k) => !/cookie/i.test(k)),
-      authLen: authRaw.length,
-      authHasBearer: /^Bearer\s/i.test(authRaw),
-      tokenLen: authRaw.replace(/^Bearer\s+/i, "").trim().length,
-      expectedLen: clean(process.env.VOICE_AGENT_SECRET).length,
-      xApiKeyLen: String(h["x-api-key"] || "").length,
-      ua: String(h["user-agent"] || "").slice(0, 60)
-    });
     if (tooMany(fails, ip, MAX_FAILS)) return sendJson(res, 429, { ok: false, error: "rate_limited" });
     return sendJson(res, 401, { ok: false, error: "unauthorized" });
   }
