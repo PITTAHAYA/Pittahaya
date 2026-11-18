@@ -73,10 +73,15 @@ async function requireAuth(req) {
   const token = authHeader.replace('Bearer ', '');
   const { data: { user }, error } = await supabase.auth.getUser(token);
   if (error || !user) return null;
-  const adminEmails = (process.env.CRM_ADMIN_EMAILS || 'jfmcorp@jfmcorporation.com').split(',').map(e => e.trim());
-  if (adminEmails.includes(user.email)) return { user, role: 'admin', country: null };
+  // Solo cuentas con correo confirmado: evita que alguien registre por su
+  // cuenta (si el registro público de Supabase estuviera abierto) un correo
+  // de la lista de admin/contador que aún no exista.
+  if (!user.email || !(user.email_confirmed_at || user.confirmed_at)) return null;
+  const email = String(user.email).trim().toLowerCase();
+  const adminEmails = (process.env.CRM_ADMIN_EMAILS || 'jfmcorp@jfmcorporation.com').split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+  if (adminEmails.includes(email)) return { user, role: 'admin', country: null };
   const accountants = accountantMap();
-  const scope = accountants[String(user.email || '').toLowerCase()];
+  const scope = accountants[email];
   if (scope) return { user, role: 'accountant', country: scope };
   return null;
 }
@@ -185,6 +190,8 @@ async function getLeads(req, res) {
 
   const safeSort = ALLOWED_SORT_COLS.has(sort) ? sort : 'created_at';
   const safeOrder = order === 'asc' ? 'asc' : 'desc';
+  const safeLimit  = Math.min(Math.max(parseInt(limit, 10) || 50, 1), 500);
+  const safeOffset = Math.max(parseInt(offset, 10) || 0, 0);
 
   let query = supabase.from('leads').select('*', { count: 'exact' });
 
@@ -200,7 +207,7 @@ async function getLeads(req, res) {
 
   query = query
     .order(safeSort, { ascending: safeOrder === 'asc' })
-    .range(Number(offset), Number(offset) + Number(limit) - 1);
+    .range(safeOffset, safeOffset + safeLimit - 1);
 
   const { data, error, count } = await query;
   if (error) return res.status(500).json({ error: error.message });
@@ -261,10 +268,20 @@ async function createLead(req, res) {
 }
 
 async function updateLead(req, res, id) {
-  const allowed = ['status','priority','assigned_to','company','phone','service','plan'];
+  const allowed = ['assigned_to','company','phone','service','plan'];
   const updates = {};
+  const body0 = req.body || {};
   for (const key of allowed) {
-    if (req.body[key] !== undefined) updates[key] = sanitize(req.body[key], 200);
+    if (body0[key] !== undefined) updates[key] = sanitize(body0[key], 200);
+  }
+  // Estado y prioridad se pintan como clases CSS en el panel: solo valores conocidos.
+  if (body0.status !== undefined) {
+    if (!['new','contacted','qualified','proposal_sent','won','lost'].includes(body0.status)) return res.status(400).json({ error: 'Estado inválido' });
+    updates.status = body0.status;
+  }
+  if (body0.priority !== undefined) {
+    if (!['cold','warm','hot'].includes(body0.priority)) return res.status(400).json({ error: 'Prioridad inválida' });
+    updates.priority = body0.priority;
   }
   // Finance / progress fields (typed + validated)
   const b = req.body || {};
@@ -834,7 +851,9 @@ async function getReminders(req, res) {
 
   let { data, error } = await q;
   if (error && isSchemaError(error)) {
-    // Sin las columnas nuevas: usa lo básico y no filtra por país.
+    // Sin las columnas nuevas no se puede filtrar por país: el contador
+    // (limitado a un país) no recibe nada en vez de ver todos los países.
+    if (req.crmScope) return res.status(200).json({ receivables: [], followups: [] });
     ({ data } = await supabase.from('leads').select('id,name,email,company,phone,service,deal_value,amount_paid,payment_status,status,next_followup,updated_at'));
   } else if (error) { return res.status(500).json({ error: error.message }); }
 
@@ -1362,7 +1381,11 @@ async function exportCSV(req, res) {
   const headers = ['id','created_at','country','name','email','phone','company','service','plan','message','source_page','source_demo','status','priority','social','deal_value','amount_paid','tax_amount','withholding','currency','payment_status','project_stage','next_followup','utm_source','utm_medium','utm_campaign'];
   const escape = (v) => {
     if (v == null) return '';
-    const s = String(v).replace(/"/g, '""');
+    let s = String(v);
+    // Un nombre como "=HYPERLINK(...)" enviado desde el formulario público se
+    // ejecutaría como fórmula al abrir el CSV: se antepone un apóstrofo.
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+    s = s.replace(/"/g, '""');
     return /[",\n\r]/.test(s) ? `"${s}"` : s;
   };
   const csv = [
@@ -1382,8 +1405,13 @@ async function exportCSV(req, res) {
 const RL_WINDOW = 60 * 1000, RL_MAX = 240, RL_MAX_WRITE = 60;
 const rlHits = new Map();
 function clientIp(req) {
+  // En Vercel, x-real-ip / x-vercel-forwarded-for los pone la plataforma; el
+  // primer valor de x-forwarded-for lo puede inventar el cliente para saltarse
+  // el límite de peticiones.
+  const v = req.headers['x-real-ip'] || req.headers['x-vercel-forwarded-for'];
+  if (v) return String(v).split(',')[0].trim();
   const f = req.headers['x-forwarded-for'];
-  return f ? String(f).split(',')[0].trim() : (req.headers['x-real-ip'] || 'unknown');
+  return f ? String(f).split(',').pop().trim() : 'unknown';
 }
 function rateLimited(req) {
   const now = Date.now(), write = req.method !== 'GET';
@@ -1404,10 +1432,12 @@ module.exports = async function handler(req, res) {
 
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (INIT_ERROR) {
-    return res.status(500).json({ error: 'Init del CRM falló: ' + String(INIT_ERROR && INIT_ERROR.message || INIT_ERROR).slice(0, 300) });
+    console.error('CRM init error:', String(INIT_ERROR && INIT_ERROR.message || INIT_ERROR).slice(0, 300));
+    return res.status(500).json({ error: 'El CRM no pudo iniciar. Revisa los logs de Vercel.' });
   }
   if (!supabase) {
-    return res.status(500).json({ error: 'CRM no configurado. Revisa SUPABASE_URL y SUPABASE_SERVICE_KEY en Vercel.' });
+    console.error('CRM sin configurar: faltan SUPABASE_URL / SUPABASE_SERVICE_KEY');
+    return res.status(500).json({ error: 'CRM no configurado.' });
   }
 
   if (rateLimited(req)) return res.status(429).json({ error: 'Demasiadas solicitudes. Espera un minuto.' });

@@ -670,7 +670,7 @@ function renderFollowup(plan) {
         <span>${en?'Day':'Día'} ${s.day} · ${CHANNEL[s.channel]||s.channel}</span><span style="color:var(--ash)">${esc(s.goal)}</span>
       </div>
       <div style="font-size:12.5px;color:#ddd;line-height:1.5">${esc(s.message)}</div>
-      <button class="btn" style="margin-top:8px;font-size:11px;padding:5px 9px" onclick='copyMsg(${JSON.stringify(s.message)})'>📋 ${en?'Copy':'Copiar'}</button>
+      <button class="btn" style="margin-top:8px;font-size:11px;padding:5px 9px" onclick='copyMsg(${esc(JSON.stringify(s.message))})'>📋 ${en?'Copy':'Copiar'}</button>
     </div>`).join('');
   document.getElementById('aiBody').innerHTML = `
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -1236,7 +1236,7 @@ function toast(msg, isError = false) {
 // ── Helpers ───────────────────────────────────────────────────
 function esc(s) {
   if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 function statusLabel(s) {
   const es = { new:'Nuevo', contacted:'Contactado', qualified:'Calificado', proposal_sent:'Propuesta', won:'Ganado', lost:'Perdido' };

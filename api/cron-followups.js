@@ -55,6 +55,6 @@ module.exports = async function handler(req, res) {
     return res.status(200).json(result);
   } catch (err) {
     console.error("cron-followups error", String(err && err.message || err));
-    return res.status(500).json({ ok: false, error: String(err && err.message || err).slice(0, 300) });
+    return res.status(500).json({ ok: false, error: "Error interno. Revisa los logs de Vercel." });
   }
 };

@@ -58,9 +58,13 @@ const sendJson = (res, status, body) => {
 };
 
 const getClientIp = (req) => {
+  // x-real-ip / x-vercel-forwarded-for los fija Vercel; el primer valor de
+  // x-forwarded-for lo puede inventar el visitante para evadir el límite.
+  const platform = req.headers["x-real-ip"] || req.headers["x-vercel-forwarded-for"];
+  if (platform) return String(platform).split(",")[0].trim();
   const forwarded = req.headers["x-forwarded-for"];
-  if (forwarded) return String(forwarded).split(",")[0].trim();
-  return req.headers["x-real-ip"] || req.socket?.remoteAddress || "unknown";
+  if (forwarded) return String(forwarded).split(",").pop().trim();
+  return req.socket?.remoteAddress || "unknown";
 };
 
 const isSameOrigin = (req) => {
@@ -85,6 +89,7 @@ const isRateLimited = (ip) => {
   const requests = (recentRequests.get(ip) || []).filter((time) => now - time < WINDOW_MS);
   requests.push(now);
   recentRequests.set(ip, requests);
+  if (recentRequests.size > 5000) recentRequests.clear(); // evita crecer sin límite
   return requests.length > MAX_REQUESTS_PER_WINDOW;
 };
 
@@ -123,7 +128,6 @@ const mapLead = (body, req) => {
   let priority = "cold";
   if (message.length > 120 || /premium|rediseño|landing|empresa|web/i.test(service)) priority = "warm";
   if (/urgente|cotizar|precio|premium|alta gama|empresa/i.test(message)) priority = "hot";
-  if (["cold", "warm", "hot"].includes(body.priority)) priority = body.priority;
 
   return {
     name: cleanText(body.name || body.nombre, 100),
@@ -146,7 +150,7 @@ const mapLead = (body, req) => {
     // strips these and retries if the DB hasn't been migrated yet.
     privacy_consent: body.privacy_consent === "yes" || body.privacy_consent === true || body.privacy_consent === "true",
     consent_at: (body.privacy_consent === "yes" || body.privacy_consent === true || body.privacy_consent === "true")
-      ? (cleanText(body.consent_at, 40) || new Date().toISOString())
+      ? new Date().toISOString() // hora del servidor: prueba de consentimiento fiable
       : null
   };
 };
