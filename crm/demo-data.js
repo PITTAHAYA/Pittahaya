@@ -134,6 +134,18 @@
         return { leads: r, total: r.length };
       }
       case 'lead': return leadDetail(params.id);
+      case 'agenda': {
+        var d = function (n) { var x = new Date(); x.setDate(x.getDate() + n); return x.toISOString().slice(0, 10); };
+        var L = function (i) { var l = leads[i % leads.length]; return { id: l.id, name: l.name, company: l.company, phone: l.phone, country: l.country, service: l.service }; };
+        return {
+          upcoming: [
+            { id: 'dm1', lead_id: L(0).id, title: '📅 Reunión: hoy · 15:00', due_date: d(0), lead: L(0) },
+            { id: 'dm2', lead_id: L(1).id, title: '📅 Reunión: mañana · 10:00', due_date: d(1), lead: L(1) },
+            { id: 'dm3', lead_id: L(2).id, title: '📅 Reunión: viernes · 09:30', due_date: d(3), lead: L(2) }
+          ],
+          cancelled: [{ id: 'dm4', lead_id: L(3).id, title: '❌ Cancelada — Reunión: jueves · 16:00', due_date: d(2), completed_at: new Date().toISOString(), lead: L(3) }]
+        };
+      }
       case 'reminders':
         return {
           receivables: leads.filter(function (l) { return l.status === 'won' && l.deal_value > l.amount_paid; }).map(function (l, i) { return { id: l.id, name: l.name, company: l.company, service: l.service, country: l.country, currency: l.currency, pending: l.deal_value - l.amount_paid, deal_value: l.deal_value, payment_due: i ? l.payment_due : null, overdueDays: i ? 0 : 4, agingDays: 12 }; }),

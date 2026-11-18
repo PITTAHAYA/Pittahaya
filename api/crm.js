@@ -842,6 +842,29 @@ function daysDiff(fromISO, toISO) {
   const a = new Date(fromISO + 'T00:00:00Z'), b = new Date(toISO + 'T00:00:00Z');
   return Math.round((b - a) / 86400000);
 }
+async function getAgenda(req, res) {
+  // Reuniones agendadas (📅 pendientes) y canceladas/reprogramadas recientes (❌).
+  const since = new Date(Date.now() - 21 * 86400000).toISOString();
+  const [up, gone] = await Promise.all([
+    supabase.from('lead_tasks').select('id,lead_id,title,due_date,completed,created_at').like('title', '📅%').eq('completed', false).order('due_date', { ascending: true, nullsFirst: false }).limit(200),
+    supabase.from('lead_tasks').select('id,lead_id,title,due_date,completed_at').like('title', '❌%').gte('completed_at', since).order('completed_at', { ascending: false }).limit(30)
+  ]);
+  if (up.error) return res.status(500).json({ error: up.error.message });
+  const ids = [...new Set([...(up.data || []), ...(gone.data || [])].map(t => t.lead_id))];
+  let leads = [];
+  if (ids.length) {
+    let q = supabase.from('leads').select('id,name,company,phone,email,country,service').in('id', ids);
+    let r = await q;
+    if (r.error && isSchemaError(r.error)) r = await supabase.from('leads').select('id,name,company,phone,email,service').in('id', ids);
+    leads = r.data || [];
+  }
+  const byId = Object.fromEntries(leads.map(l => [l.id, l]));
+  const scope = req.crmScope || null;
+  const pack = t => ({ ...t, lead: byId[t.lead_id] || null });
+  const keep = t => t.lead && (!scope || normCountry(t.lead.country) === scope);
+  return res.status(200).json({ upcoming: (up.data || []).map(pack).filter(keep), cancelled: (gone.data || []).map(pack).filter(keep) });
+}
+
 async function getReminders(req, res) {
   const today = new Date().toISOString().slice(0, 10);
   const cols = 'id,name,email,company,phone,service,country,currency,deal_value,amount_paid,payment_status,status,next_followup,payment_due,updated_at';
@@ -1476,6 +1499,7 @@ module.exports = async function handler(req, res) {
     if (req.method === 'GET' && action === 'fiscal') return await getFiscal(req, res);
     if (req.method === 'GET' && action === 'fiscal-period') return await getFiscalPeriod(req, res);
     if (req.method === 'GET' && action === 'reminders') return await getReminders(req, res);
+    if (req.method === 'GET' && action === 'agenda') return await getAgenda(req, res);
     if (req.method === 'GET' && action === 'ai-followup' && id) return await getAiFollowup(req, res, id);
     if (req.method === 'GET'   && action === 'autopilot') return await getAutopilot(req, res);
     if (req.method === 'GET'   && action === 'autopilot-stats') return await getAutopilotStats(req, res);
