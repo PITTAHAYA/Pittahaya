@@ -24,14 +24,25 @@ const tooMany = (map, key, max) => {
   return list.length > max;
 };
 
+// Limpia la clave: espacios, saltos de línea y comillas que se cuelan al pegarla.
+const clean = (v) => String(v || "").trim().replace(/^["']|["']$/g, "").trim();
+
 const secretOk = (req) => {
-  const secret = process.env.VOICE_AGENT_SECRET || "";
+  const secret = clean(process.env.VOICE_AGENT_SECRET);
   if (secret.length < 24) return false; // sin clave fuerte configurada, se rechaza todo
-  const auth = String(req.headers.authorization || "");
-  const given = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
-  const a = Buffer.from(given);
+  const h = req.headers || {};
+  // Acepta "Authorization: Bearer <clave>", "Authorization: <clave>",
+  // "X-API-Key: <clave>" o "X-Voice-Secret: <clave>".
+  const candidates = [
+    clean(h.authorization).replace(/^Bearer\s+/i, ""),
+    clean(h["x-api-key"]),
+    clean(h["x-voice-secret"])
+  ];
   const b = Buffer.from(secret);
-  return a.length === b.length && timingSafeEqual(a, b);
+  return candidates.some((given) => {
+    const a = Buffer.from(clean(given));
+    return a.length === b.length && timingSafeEqual(a, b);
+  });
 };
 
 const PRIORITIES = ["hot", "warm", "cold"];
@@ -51,14 +62,22 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 401, { ok: false, error: "unauthorized" });
   }
 
-  let body;
+  let raw;
   try {
-    body = await parseBody(req);
+    raw = await parseBody(req);
   } catch {
     return sendJson(res, 400, { ok: false, error: "invalid_body" });
   }
+  // Retell envía { name, args: {...}, call: {...} }; también aceptamos campos sueltos.
+  const call = raw && typeof raw.call === "object" && raw.call ? raw.call : {};
+  const body = raw && typeof raw.args === "object" && raw.args ? { ...raw.args } : { ...raw };
+  if (!body.call_id) body.call_id = call.call_id;
+  if (!body.phone) body.phone = call.from_number;
+  if (!body.transcript && typeof call.transcript === "string") body.transcript = call.transcript;
+  if (typeof body.privacy_consent === "string") body.privacy_consent = /^(true|yes|s[ií])$/i.test(body.privacy_consent);
+  if (typeof body.send_confirmation === "string") body.send_confirmation = !/^(false|no)$/i.test(body.send_confirmation);
 
-  const name = cleanText(body.name, 100);
+  const name = cleanText(body.name || body.caller_name, 100);
   const phone = cleanText(body.phone, 40);
   const email = cleanText(body.email, 200);
   if (!name || (!phone && !isEmail(email))) {
@@ -66,11 +85,12 @@ module.exports = async function handler(req, res) {
   }
 
   const lang = String(body.language || "es").toLowerCase().startsWith("en") ? "en" : "es";
-  const summary = cleanMessage(body.summary || body.message);
+  const extra = [body.preferred_time && `Horario preferido: ${body.preferred_time}`, body.next_action && `Siguiente paso: ${body.next_action}`].filter(Boolean).join("\n");
+  const summary = cleanMessage([body.summary || body.message, extra].filter(Boolean).join("\n"));
   const transcript = cleanMessage(body.transcript);
   const message = [summary, transcript && `— Transcripción —\n${transcript}`].filter(Boolean).join("\n\n").slice(0, 2000)
     || (lang === "en" ? "Lead from AI phone call" : "Lead de llamada con IA");
-  const service = cleanText(body.service, 120) || (lang === "en" ? "AI phone call" : "Llamada IA");
+  const service = cleanText(body.service || body.project_type, 120) || (lang === "en" ? "AI phone call" : "Llamada IA");
   const priority = PRIORITIES.includes(body.priority) ? body.priority : "warm";
 
   const lead = {
