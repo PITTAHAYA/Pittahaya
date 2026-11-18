@@ -143,6 +143,12 @@
   .task-check { width: 16px; height: 16px; accent-color: var(--gold); flex-shrink: 0; margin-top: 2px; cursor: pointer; }
   .task-body { flex: 1; }
   .task-title { font-size: 13px; color: #e5e5e5; }
+.mtg-banner{display:flex;gap:14px;align-items:center;margin:0 0 18px;padding:14px 18px;border-radius:14px;border:1px solid}
+.mtg-banner b{display:block;font-size:14px;margin-bottom:2px}
+.mtg-banner span{font-size:13px;opacity:.85}
+.mtg-ic{font-size:22px;line-height:1}
+.mtg-ok{background:rgba(159,206,58,.08);border-color:rgba(159,206,58,.35);color:#d8efa6}
+.mtg-cancel{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.45);color:#fecaca}
   .task-title.done { text-decoration: line-through; color: var(--ash); }
   .task-due { font-size: 11px; color: var(--ash); margin-top: 2px; }
   .task-due.overdue { color: #f87171; }
@@ -803,6 +809,22 @@ document.addEventListener('pointermove', e => {
   el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
 }, { passive: true });
 
+function renderMeetingBanner(notes, tasks) {
+  const en = LANG === 'en';
+  const open = (tasks || []).filter(x => !x.completed && /^📅/.test(x.title || ''));
+  if (open.length) {
+    const when = open.map(x => esc(x.title.replace(/^📅\s*(Reunión|Meeting):?\s*/i, ''))).join(' · ');
+    return `<div class="mtg-banner mtg-ok"><span class="mtg-ic">📅</span><div><b>${en ? 'Meeting scheduled' : 'Reunión agendada'}</b><span>${when}</span></div></div>`;
+  }
+  const cancelled = (tasks || []).find(x => /^❌/.test(x.title || ''));
+  if (!cancelled) return '';
+  const note = (notes || []).find(n => /^❌ Reunión cancelada/.test(n.content || ''));
+  const reason = note && (note.content.match(/Motivo: (.*)/) || [])[1];
+  const when = note ? formatDateTime(note.created_at) : '';
+  return `<div class="mtg-banner mtg-cancel"><span class="mtg-ic">❌</span><div><b>${en ? 'Meeting cancelled by phone' : 'Reunión cancelada por llamada'}</b>
+    <span>${esc(cancelled.title.replace(/^❌\s*(Cancelada|Cancelled)\s*—\s*/i, ''))}${reason ? ' · ' + (en ? 'Reason: ' : 'Motivo: ') + esc(reason) : ''}${when ? ' · ' + when : ''}</span></div></div>`;
+}
+
 function renderPage(lead, notes, tasks) {
   const main = document.getElementById('main');
   const priorityDot = `<span class="dot dot-${lead.priority}" style="margin-right:4px"></span>`;
@@ -810,6 +832,7 @@ function renderPage(lead, notes, tasks) {
 
   main.innerHTML = `
     ${renderProfileHero(lead, since)}
+    ${renderMeetingBanner(notes, tasks)}
 
     <div class="lead-grid">
       <!-- LEFT: Info + Message + Notes -->
