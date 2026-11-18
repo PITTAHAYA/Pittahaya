@@ -513,3 +513,10 @@ module.exports = async function handler(req, res) {
     });
   }
 };
+
+// Shared with api/voice-lead.js (AI phone agent) so both paths save leads and
+// send emails exactly the same way.
+module.exports._shared = {
+  cleanText, cleanMessage, isEmail, sendJson, getClientIp, parseBody,
+  insertLead, sendAdminNotification, sendLeadConfirmation, responseHeaders
+};
