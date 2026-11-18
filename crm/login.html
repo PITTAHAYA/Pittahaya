@@ -243,22 +243,8 @@ body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
       Ingresar al CRM
     </button>
     <div class="error-msg" id="errorMsg"></div>
-    <a href="#" id="forgotLink" style="display:block;text-align:center;margin-top:14px;font-size:11px;color:#9b8a6a;text-decoration:none;letter-spacing:.05em">¿Olvidaste tu contraseña?</a>
   </form>
 
-  <form id="resetForm" style="display:none">
-    <p style="font-size:12px;color:#bbb;margin-bottom:16px;line-height:1.5">Crea tu nueva contraseña: mínimo 12 caracteres, con mayúscula, minúscula, número y símbolo.</p>
-    <div class="form-group">
-      <label for="newPass">Nueva contraseña</label>
-      <input type="password" id="newPass" required minlength="12" autocomplete="new-password">
-    </div>
-    <div class="form-group">
-      <label for="newPass2">Repite la contraseña</label>
-      <input type="password" id="newPass2" required minlength="12" autocomplete="new-password">
-    </div>
-    <button type="submit" class="btn-login" id="resetBtn">Guardar contraseña</button>
-    <div class="error-msg" id="resetMsg"></div>
-  </form>
 
   <div class="security-note">Acceso restringido · Solo administradores</div>
 </div>
@@ -286,20 +272,9 @@ body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
   }
 
   async function bootLogin() {
-    const isRecovery = /type=recovery/.test(location.hash) || /type=recovery/.test(location.search);
     const config = await loadCrmConfig();
     const { createClient } = supabase;
     sb = createClient(config.supabaseUrl, config.supabaseAnonKey);
-
-    // Enlace de recuperación: mostrar el formulario de nueva contraseña.
-    if (isRecovery) {
-      await new Promise(r => setTimeout(r, 400)); // deja que supabase lea el token del enlace
-      document.getElementById('loginForm').style.display = 'none';
-      document.getElementById('resetForm').style.display = 'block';
-      document.getElementById('resetForm').addEventListener('submit', handleReset);
-      return;
-    }
-    document.getElementById('forgotLink').addEventListener('click', handleForgot);
 
     // If already logged in, redirect to the right panel for the role
     const { data: { session } } = await sb.auth.getSession();
@@ -318,43 +293,6 @@ body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
       }
     } catch (e) { /* ignora → panel por defecto */ }
     return '/crm/index.html';
-  }
-
-  async function handleForgot(e) {
-    e.preventDefault();
-    const errEl = document.getElementById('errorMsg');
-    const email = document.getElementById('email').value.trim();
-    if (!email) { errEl.textContent = 'Escribe primero tu correo arriba.'; errEl.classList.add('show'); return; }
-    await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + '/crm/login.html' });
-    errEl.textContent = 'Si el correo está registrado, te llegó un enlace para crear una nueva contraseña.';
-    errEl.style.color = '#8ee6bf'; errEl.classList.add('show');
-  }
-
-  async function handleReset(e) {
-    e.preventDefault();
-    const msg = document.getElementById('resetMsg');
-    const btn = document.getElementById('resetBtn');
-    const p1 = document.getElementById('newPass').value, p2 = document.getElementById('newPass2').value;
-    msg.classList.remove('show');
-    if (p1 !== p2) { msg.textContent = 'Las contraseñas no coinciden.'; msg.classList.add('show'); return; }
-    if (!(p1.length >= 12 && /[a-z]/.test(p1) && /[A-Z]/.test(p1) && /\d/.test(p1) && /[^A-Za-z0-9]/.test(p1))) {
-      msg.textContent = 'Debe tener 12+ caracteres, mayúscula, minúscula, número y símbolo.'; msg.classList.add('show'); return;
-    }
-    btn.disabled = true; btn.textContent = 'Guardando...';
-    const { error } = await sb.auth.updateUser({ password: p1 });
-    if (error) {
-      msg.textContent = 'No se pudo cambiar: ' + error.message; msg.classList.add('show');
-      btn.disabled = false; btn.textContent = 'Guardar contraseña'; return;
-    }
-    await sb.auth.signOut();
-    history.replaceState(null, '', '/crm/login.html');
-    document.getElementById('resetForm').style.display = 'none';
-    document.getElementById('loginForm').style.display = 'block';
-    const errEl = document.getElementById('errorMsg');
-    errEl.textContent = '✓ Contraseña actualizada. Ya puedes entrar con la nueva.';
-    errEl.style.color = '#8ee6bf'; errEl.classList.add('show');
-    document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    document.getElementById('forgotLink').addEventListener('click', handleForgot);
   }
 
   async function handleLogin(e) {
